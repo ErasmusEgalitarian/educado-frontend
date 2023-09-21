@@ -8,7 +8,7 @@
         @apply rounded flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base
     }
     .small-form-field {
-        @apply rounded flex-1 appearance-none border border-gray-300 w-40 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base
+        @apply rounded  flex-1 appearance-none border border-gray-300 w-40 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base
     }
     .extra-small-form-field {
         @apply rounded flex-1 appearance-none border border-gray-300 w-24 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base

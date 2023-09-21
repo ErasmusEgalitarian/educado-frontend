@@ -16,6 +16,8 @@
     "@dnd-kit/sortable": "^7.0.1",
     "@heroicons/react": "^2.0.11",
     "@hookform/resolvers": "^2.9.8",
+    "@mdi/js": "^7.2.96",
+    "@mdi/react": "^1.6.1",
     "@tippyjs/react": "^4.2.6",
     "aws-sdk": "^2.1443.0",
     "axios": "^0.27.2",
