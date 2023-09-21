@@ -6,15 +6,19 @@ const backend_route = import.meta.env.VITE_BACKEND_URL;
 // Interface for posting course content
 export interface CourseInterface {
   title: string;
+  category: string;
+  level: string;
   description: string;
 }
 
 // Create a new course
-const createCourse = async ({ title, description }: CourseInterface, token: string) => {
+const createCourse = async ({ title, category, level, description }: CourseInterface, token: string) => {
   return await axios.post(
     `${backend_route}/api/courses`,
     {
       title: title,
+      category: category,
+      level: level,
       description: description,
     },
     { headers: { Authorization: `Bearer ${token}` } }

@@ -18,6 +18,8 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 type Inputs = {
     title: string,
+    category: string,
+    level: string,
     description: string,
 };
 
@@ -35,6 +37,8 @@ export const CreateCourseModal = () => {
         setIsLoading(true);
         CourseServices.createCourse({
             title: data.title,
+            category: data.category,
+            level: data.level,
             description: data.description,
         }, token)
             .then(res => console.log(res))
@@ -64,6 +68,41 @@ export const CreateCourseModal = () => {
                                 {...register("title", { required: true })}
                             />
                             {errors.title && <span>This field is required</span>}
+                        </div>
+
+                        <div className="flex flex-col space-y-2 text-left">
+                            <label htmlFor='category'>Category</label>
+                            <select defaultValue={"Escolher categoria"} /*Choose category*/
+                                className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                                {...register("category", { required: true })}
+                            >
+                                <option>Finanças pessoais </option> {/*Personal Finance*/}
+                                <option>Saúde e Segurança no Trabalho </option> {/*Health and Workplace Safety*/}
+                                <option>Costura </option> {/*Sewing*/}
+                                <option>Eletrônica </option> {/*Electronics*/}
+                            </select>
+                            {errors.description && <span>This field is required</span>}
+                        </div>
+
+                        <div className="flex flex-col space-y-2 text-left">
+                            <label htmlFor='level'>Level</label>
+                            <select defaultValue={"Escolher categoria"} /*Choose category*/
+                                className="small-form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                                {...register("level", { required: true })}
+                            >
+                                <option>Iniciante </option> {/*...*/}
+                                <option>Intermediário</option> {/*...*/}
+                                <option>Avançado </option> {/*...*/}
+                               
+                            </select>
+                            {errors.description && <span>This field is required</span>}
+                 
+                            <label htmlFor='cover-image'>Cover Image</label>
+                            <input type="file" defaultValue={""}
+                                className="extra-small-form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                                {...register("title", { required: true })}
+                            />
+                            {errors.description && <span>This field is required</span>}
                         </div>
 
                         <div className="flex flex-col space-y-2 text-left">
