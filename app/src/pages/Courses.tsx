@@ -22,13 +22,13 @@ const Courses = () => {
 
   // Fetch all courses
   const { data, error } = useSWR(
-    token ? ["http://127.0.0.1:8888/api/courses/", token] : null,
+    token ? ["http://127.0.0.1:8888/api/course/eml/getall", token] : null,
     CourseServices.getAllCourses
   );
 
   // useSWR built in loaders
-  //if (error) return navigate("/login");
-  //if (!data) return <Loading/>;
+  if (error) return navigate("/login");
+  if (!data) return <Loading/>;
 
   return (
     <Layout meta="Course overview">
@@ -49,10 +49,10 @@ const Courses = () => {
 
       {/** Page content real data from backend */}
       
-      {/*data.data.length ? DEN HER SKAL COMMENTERES UD DA DER IKKE ER DATA
+      {data.length ? //DEN HER SKAL COMMENTERES UD DA DER IKKE ER DATA
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 p-6">
-          {data.data.map((course: any, key: number) => <CourseListCard course={course} key={key} />)}
-        </div> :*/
+          {data.map((course: any, key: number) => <CourseListCard course={course} key={key} />)}
+        </div> :
         <div className='flex flex-col space-y-8 justify-center items-center p-6'>
           <CubeTransparentIcon width={44} className="lg:mt-24 text-primary"/>
           <div className='flex flex-col text-center space-y-4'>

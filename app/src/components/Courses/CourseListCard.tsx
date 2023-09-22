@@ -32,7 +32,7 @@ export const CourseListCard = ({ course }: { course: Course }) => {
             </div>
           </div>
 
-          <div className="flex items-center border-t border-gray-100 p-2">
+          {/*<div className="flex items-center border-t border-gray-100 p-2">
             <span className="block relative">
               <div className="avatar placeholder">
                 <div className="bg-blue-500 text-white rounded w-8">
@@ -47,7 +47,7 @@ export const CourseListCard = ({ course }: { course: Course }) => {
               <p className="text-gray-800">{`${course.author.firstName} ${course.author.lastName && course.author.lastName}`}</p>
               <p className="text-gray-400">{"AAU"}</p>
             </div>
-          </div>
+            </div>*/}
         </div>
       </Link>
     </div>
