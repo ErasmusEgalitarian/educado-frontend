@@ -17,6 +17,7 @@ import { PencilSquareIcon } from '@heroicons/react/24/outline'
 import { Navigate, useNavigate } from 'react-router-dom';
 import Icon from '@mdi/react';
 import { mdiInformationSlabCircleOutline } from '@mdi/js';
+import { eventType } from 'aws-sdk/clients/health';
 
 <Icon path={mdiInformationSlabCircleOutline} size={1} />
 
@@ -27,8 +28,12 @@ type Inputs = {
     description: string,
 };
 
+
+
+
 export const CreateCourseModal = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const [shownInfo, setShownInfo] = useState("");
     const token = useToken();
     const navigate = useNavigate();
     const { mutate } = useSWRConfig();
@@ -110,8 +115,20 @@ export const CreateCourseModal = () => {
                             <div className="flex flex-col space-y-2 text-left">
                                  <div className='flex items-center gap-1 w-full mt-8'>
                                     <label htmlFor='cover-image'>Cover-image</label>
-                                    <Icon path={mdiInformationSlabCircleOutline} size={0.70} />
+                                    <div onMouseEnter ={()=>setShownInfo("cover-image-info")} onMouseLeave={()=>setShownInfo('')}>
+                                        <Icon  className='Info icon' path={mdiInformationSlabCircleOutline} size={0.70} />
+                            
+                                    </div>
+                                    {shownInfo === "cover-image-info" &&(
+
+                                        <aside className='fixed bottom-2 bg-white'> choose cover image JIROHOILHROEGOILRHIOREHVR</aside> 
+                                    )}
+                                                                            
+
+                                
+                                    
                                 </div>
+                             
                                 <input type="file" defaultValue={""}
                                     className="extra-small-form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                     {...register("title", { required: true })}
