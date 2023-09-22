@@ -121,7 +121,7 @@ export const CreateCourseModal = () => {
                                     </div>
                                     {shownInfo === "cover-image-info" &&(
 
-                                        <aside className='fixed bottom-2 bg-white'> choose cover image JIROHOILHROEGOILRHIOREHVR</aside> 
+                                        <aside className='absolute bottom-20 bg-slate-100 p-1 rounded-md'> choose cover image</aside> 
                                     )}
                                                                             
 
