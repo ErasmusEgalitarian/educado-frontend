@@ -85,6 +85,7 @@ export const CreateCourseModal = () => {
                                 className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                 {...register("category", { required: true })}
                             >
+                                {/*hard coded options by PO, should be changed to get from db*/}
                                 <option>Finanças pessoais </option> {/*Personal Finance*/}
                                 <option>Saúde e Segurança no Trabalho </option> {/*Health and Workplace Safety*/}
                                 <option>Costura </option> {/*Sewing*/}
@@ -103,6 +104,7 @@ export const CreateCourseModal = () => {
                                     className="small-form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                     {...register("level", { required: true })}
                                 >
+                                    {/*hard coded options by PO, should be changed to get from db*/}
                                     <option>Iniciante </option> {/*...*/}
                                     <option>Intermediário</option> {/*...*/}
                                     <option>Avançado </option> {/*...*/}
@@ -111,7 +113,7 @@ export const CreateCourseModal = () => {
                                 {errors.description && <span>This field is required</span>}
                             </div>
                         
-
+                            {/*cover image feild is made but does not interact with the db*/}
                             <div className="flex flex-col space-y-2 text-left">
                                  <div className='flex items-center gap-1 w-full mt-8'>
                                     <label htmlFor='cover-image'>Cover-image</label>
@@ -123,10 +125,7 @@ export const CreateCourseModal = () => {
 
                                         <aside className='absolute bottom-20 bg-slate-100 p-1 rounded-md'> choose cover image</aside> 
                                     )}
-                                                                            
-
-                                
-                                    
+                                                                                   
                                 </div>
                              
                                 <input type="file" defaultValue={""}
