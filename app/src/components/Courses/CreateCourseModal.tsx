@@ -131,7 +131,7 @@ export const CreateCourseModal = () => {
                              
                                 <input type="file" defaultValue={""}
                                     className="extra-small-form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                    {...register("title", { required: true })}
+                                    /*{...register("cover-image", { required: true})}*/
                                 />
                                 {errors.description && <span>This field is required</span>}
                             </div>
