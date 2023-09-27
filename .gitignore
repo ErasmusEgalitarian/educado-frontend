@@ -21,4 +21,4 @@ sketch
 
 NOTES.md
 app/.env
-app/config/gcp_service.json
+app/config/*.json
