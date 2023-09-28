@@ -18,6 +18,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import Icon from '@mdi/react';
 import { mdiInformationSlabCircleOutline } from '@mdi/js';
 import { eventType } from 'aws-sdk/clients/health';
+import { integer } from 'aws-sdk/clients/lightsail';
 
 <Icon path={mdiInformationSlabCircleOutline} size={1} />
 
@@ -25,6 +26,7 @@ type Inputs = {
     title: string,
     category: string,
     level: string,
+    coverImageId: number,
     description: string,
 };
 
@@ -33,7 +35,6 @@ type Inputs = {
 
 export const CreateCourseModal = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const [shownInfo, setShownInfo] = useState("");
     const token = useToken();
     const navigate = useNavigate();
     const { mutate } = useSWRConfig();
@@ -48,6 +49,7 @@ export const CreateCourseModal = () => {
             title: data.title,
             category: data.category,
             level: data.level,
+            coverImageId: data.coverImageId,
             description: data.description,
         }, token)
             .then(res => console.log(res))
@@ -96,10 +98,7 @@ export const CreateCourseModal = () => {
 
                         <div className="flex items-center gap-10 w-full mt-8">
                             <div  className="flex flex-col space-y-2 text-left">
-                                <div className='flex items-center gap-1 w-full mt-8'>
-                                    <label htmlFor='level'>Level</label>
-                                    <Icon path={mdiInformationSlabCircleOutline} size={0.70} />
-                                </div>
+                                <label htmlFor='level'>Level</label>
                                 <select defaultValue={"Escolher categoria"} /*Choose category*/
                                     className="small-form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                     {...register("level", { required: true })}
@@ -115,22 +114,14 @@ export const CreateCourseModal = () => {
                         
                             {/*cover image feild is made but does not interact with the db*/}
                             <div className="flex flex-col space-y-2 text-left">
-                                 <div className='flex items-center gap-1 w-full mt-8'>
-                                    <label htmlFor='cover-image'>Cover-image</label>
-                                    <div onMouseEnter ={()=>setShownInfo("cover-image-info")} onMouseLeave={()=>setShownInfo('')}>
-                                        <Icon  className='Info icon' path={mdiInformationSlabCircleOutline} size={0.70} />
-                            
-                                    </div>
-                                    {shownInfo === "cover-image-info" &&(
-
-                                        <aside className='absolute bottom-20 bg-slate-100 p-1 rounded-md'> choose cover image</aside> 
-                                    )}
-                                                                                   
-                                </div>
-                             
+                                
+                                <label htmlFor='cover-image'>Cover-image</label>
                                 <input type="file" defaultValue={""}
                                     className="extra-small-form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                    /*{...register("cover-image", { required: true})}*/
+                                    {
+                                        ...register("coverImageId", { required: true})
+                                
+                                    }
                                 />
                                 {errors.description && <span>This field is required</span>}
                             </div>

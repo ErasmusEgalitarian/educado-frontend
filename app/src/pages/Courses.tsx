@@ -22,13 +22,13 @@ const Courses = () => {
 
   // Fetch all courses
   const { data, error } = useSWR(
-    token ? ["http://127.0.0.1:8888/api//course/eml/getall", token] : null,
+    token ? ["http://127.0.0.1:8888/api/course/eml/getall", token] : null,
     CourseServices.getAllCourses
   );
 
   // useSWR built in loaders
-  if (error) return navigate("/login");
-  if (!data) return <Loading/>;
+if (error) return navigate("/login");
+if (!data) return <Loading/>;
 
   return (
     <Layout meta="Course overview">
