@@ -111,6 +111,15 @@ export const CreateCourseModal = () => {
                                 </select>
                                 {errors.description && <span>This field is required</span>}
                             </div>
+
+                            <div  className="flex flex-col space-y-2 text-left">
+                                <label htmlFor='title'>Tempo estimado</label>
+                                <input type="number" defaultValue={""} min={0} step={0.01}
+                                    className="extra-small-form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                                    {...register("title", { required: true })}
+                                />
+                                {errors.title && <span>This field is required</span>}
+                            </div>
                         
                             {/*cover image feild is made but does not interact with the db*/}
                             <div className="flex flex-col space-y-2 text-left">
@@ -119,7 +128,10 @@ export const CreateCourseModal = () => {
                                 <input type="file" defaultValue={""}
                                     className="extra-small-form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                     {
-                                        ...register("coverImageId", { required: true})
+                                        ...register("coverImageId", { required: true, setValueAs: (value) => {
+
+                                           
+                                        }})
                                 
                                     }
                                 />
