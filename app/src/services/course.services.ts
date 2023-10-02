@@ -13,14 +13,13 @@ export interface CourseInterface {
 }
 
 // Create a new course
-const createCourse = async ({ title, category, level, coverImageId, description }: CourseInterface, token: string) => {
+const createCourse = async ({ title, category, level, description }: CourseInterface, token: string) => {
   return await axios.post(
     `${backend_route}/api/courses`,
     {
       title: title,
       category: category,
       level: level,
-      coverImageId: coverImageId,
       description: description,
     },
     { headers: { Authorization: `Bearer ${token}` } }

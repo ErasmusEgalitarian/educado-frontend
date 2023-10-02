@@ -1,6 +1,8 @@
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import StorageService from '../../services/storage.services';
+
+// Services
+// 
 
 function DropZoneComponent({ update: updateFile, storageKey }) {
     const [File, SetFile] = useState(null);

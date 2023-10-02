@@ -1,43 +1,11 @@
-import AWS from "aws-sdk";
 
-// AWS configuration update
-AWS.config.update({
-    accessKeyId: import.meta.env.VITE_S3_ACCESS,
-    secretAccessKey: import.meta.env.VITE_S3_SECRET
-});
-
-
-const myBucket = new AWS.S3({
-    params: { Bucket: import.meta.env.VITE_S3_BUCKET },
-    region: import.meta.env.VITE_S3_REGION
-});
-
-// Props interface
-// Delete later
-type FileUploadProps1 = {
-    file: any,
-    key: string // The key should be a the content plus the exercise id
+export interface StorageInterface {
+    uploadFile: (bucketName: string, filePath: any, id: string) => void;
+    downloadFile: (bucketName: string, id: string, filePath: any) => void; 
 }
 
-//id/coverImg
-
-// Upload image file to storage bucket
-// Delete later
-const uploadFile1 = async ({ file, key }: FileUploadProps) => {
-    await myBucket.putObject({
-        Body: file,
-        Bucket: import.meta.env.VITE_S3_BUCKET,
-        Key: key, 
-        ContentType: file.type
-    }).send();
-
-    return key;
-};
-
-const StorageService = Object.freeze({ uploadFile });
-
 // Props interface for uploadFile function
-type FileUploadProps = {
+type FileProps = {
     bucketName: string,
     filePath: any,
     id: string,
@@ -49,10 +17,9 @@ type FileUploadProps = {
  * @param {string} id - The id the file will be saved as in the bucket. Format: courseId/sectionsId/componentId/index or courseId/index
  * @returns {void}	
  */
-async function uploadFile({bucketName, filePath, id}: FileUploadProps) {
-    // Imports the Google Cloud client library
-    const {Storage} = require('@google-cloud/storage');
-    const storage = new Storage();
+async function uploadFile({bucketName, filePath, id}: FileProps) {
+    const {bucketStorage} = require('@google-cloud/storage');
+    const storage = new bucketStorage();
     
     // Uploads a local file to the bucket with the id as the name of the file in the bucket 
     async function uploadFile(){
@@ -67,4 +34,39 @@ async function uploadFile({bucketName, filePath, id}: FileUploadProps) {
     //catch errors and log them
     uploadFile().catch(console.error);
 }
-export default StorageService;
+
+/**
+ * 
+ * @param {string} bucketName - The name of the bucket to download the file from
+ * @param {string} id - The id of the file to download
+ * @param {string} filePath - The local path to save the file to
+ * @returns {void} 
+ */
+
+function downloadFile({bucketName, id, filePath}: FileProps) {
+    const {bucketStorage} = require('@google-cloud/storage');
+    const storage = new bucketStorage();
+
+    async function downloadByteRange() {
+        const options = {
+            destination: filePath,
+        };
+  
+        // Downloads the file from the starting byte to the ending byte specified in options
+        await storage.bucket(bucketName).file(id).download(options);
+    }
+    downloadByteRange();
+    // [END storage_download_byte_range]
+}
+/* Fix this later
+process.on('unhandledRejection', (err:any) => {
+console.error(err.message);
+process.exitCode = 1;
+});
+*/
+const StorageServices = Object.freeze({
+    uploadFile,
+    downloadFile
+});
+
+export default StorageServices;

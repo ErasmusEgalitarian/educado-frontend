@@ -10,6 +10,7 @@ import useToken from '../../hooks/useToken';
 
 // Services
 import CourseServices from '../../services/course.services';
+//import StorageService from '../../services/storage.services';
 
 
 // Icons
@@ -19,6 +20,7 @@ import Icon from '@mdi/react';
 import { mdiInformationSlabCircleOutline } from '@mdi/js';
 import { eventType } from 'aws-sdk/clients/health';
 import { integer } from 'aws-sdk/clients/lightsail';
+
 
 <Icon path={mdiInformationSlabCircleOutline} size={1} />
 
@@ -38,6 +40,8 @@ export const CreateCourseModal = () => {
     const token = useToken();
     const navigate = useNavigate();
     const { mutate } = useSWRConfig();
+
+    //StorageService.downloadFile({bucketName: "educado-bucket", id: "gorilla", filePath: "../download/gorilla.jpg"}) 
 
     // use-form setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
