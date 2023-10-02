@@ -32,8 +32,7 @@ export const CourseListCard = ({ course }: { course: Course }) => {
             </div>
           </div>
 
-          {/* The showing of author on each course, but since author is not working, it's commented out.
-          <div className="flex items-center border-t border-gray-100 p-2">
+          {/*<div className="flex items-center border-t border-gray-100 p-2">
             <span className="block relative">
               <div className="avatar placeholder">
                 <div className="bg-blue-500 text-white rounded w-8">
