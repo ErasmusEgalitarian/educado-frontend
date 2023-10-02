@@ -5,7 +5,7 @@ export interface CourseDetail {
 }
 
 export interface Data {
-    id:          ID;
+    _id:         ID;
     sections:    Section[];
     title:       string;
     category:    string;

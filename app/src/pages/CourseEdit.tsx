@@ -49,7 +49,9 @@ const CourseEdit = () => {
 
     const [coverImg, setCoverImg] = useState<File | null>();
     const [coverImgPreview, setCoverImgPreview] = useState<string>("");
-
+    
+    console.log(token);
+    
     // Fetch Course Data
     const { data, error } = useSWR(
         token ? [`http://127.0.0.1:8888/api/courses/${id}`, token] : null,

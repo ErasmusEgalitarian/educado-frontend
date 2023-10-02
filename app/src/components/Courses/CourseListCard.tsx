@@ -6,7 +6,7 @@ import { Course } from "../../interfaces/Course"
 export const CourseListCard = ({ course }: { course: Course }) => {
   return (
     <div className="overflow-hidden shadow rounded h-90 w-full cursor-pointer m-auto">
-      <Link to={`/courses/edit/${course.id}`} className="w-full block h-full">
+      <Link to={`/courses/edit/${course._id}`} className="w-full block h-full">
         {course.coverImg == "" ?
           <div className='h-40 max-h-40 w-full oceanic-gradient'></div> :
           <img src={course.coverImg} alt="blog photo" className=" h-40 max-h-40 w-full object-cover bg-white border-b" />
