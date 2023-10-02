@@ -25,6 +25,8 @@ const Courses = () => {
     token ? ["http://127.0.0.1:8888/api/course/eml/getall", token] : null,
     CourseServices.getAllCourses
   );
+  
+  console.log(token);
 
   // useSWR built in loaders
 if (error) return navigate("/login");
