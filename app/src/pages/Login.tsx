@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useForm, SubmitHandler } from "react-hook-form";
-
+import logo from "../assets/ecs-logo.png"
 
 // Interfaces
 import { LoginReponseError } from "../interfaces/LoginReponseError"
@@ -12,11 +12,14 @@ import useAuthStore from '../contexts/useAuthStore';
 
 // Interface
 type Inputs = {
-    email: string,
-    password: string,
+    email: String,
+    password: String,
 };
 
+
+
 const Login = () => {
+    
     // Location
     const [error, setError] = useState<LoginReponseError.RootObject | null>(null); // store http error objects TODO: get the error text from server instead of reponse code
     
@@ -28,66 +31,100 @@ const Login = () => {
     // use-form setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
+    
     // success on submit handler
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
-        AuthServices.postUserLogin(data)
+        AuthServices.postUserLogin({
+            email: data.email,
+            password: data.password,})
             .then((res) => {
-                setToken(res.data.data.accessToken);
-                setRefresh(res.data.data.refreshToken);
-                navigate("/");
+                if(res.status == 200){
+                    localStorage.setItem("token", res.data.token);
+                    navigate("/profile");
+                    
+                    //setRefresh(res.data.data.refreshToken);
+                }
+                
             })
-            .catch(err => { setError(err); console.log(err) });
+            .catch(err => { setError(err); console.log(err)});
     };
 
     // failure on submit handler FIXME: find out what this does
     const onError: SubmitHandler<Inputs> = error => console.log(error);
 
+
     return (
-        <main className="flex flex-col items-center justify-center w-screen h-screen bg-gradient-to-tl from-sky-600 to-blue-600 text-gray-200">
-            <h1 className="font-bold text-3xl">Welcome Back 👋</h1>
-            <div className="bg-white rounded p-12 shadow-lg mt-12">
+        <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-[#c8e5ec] to-[white]">
+            <nav className="navbar bg-base-100 border-b shadow fixed top-0 z-10">
+                <div className="navbar-start">
+                    <Link to="/" className="flex flex-shrink-0 items-center space-x-1 normal-case text-xl" >
+                        <img src={logo} alt="ecs-logo" className='h-6' /><p className='font-semibold font-sans'>Educado Studio</p>
+                    </Link>
+                </div>
+             </nav>
+            
+         <h1 className="w-[400px] text-neutral-700 text-[28px] text-center font-bold font-['Lato']">Bem-vindo de volta ao Educado!</h1>
+            <div className= "flex-col justify-start items-center gap-10 inline-flex">
                 <div className='flex flex-col divide text-gray-700'>
                     <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
 
-                        {error &&
-                            <div className="bg-red-200 border-red-600 text-red-600 border-t-4 p-4 w-64 mb-4 rounded" role="alert">
-                                <p className="font-bold text-sm">{error.response.statusText}</p>
-                                <p className='text-xs'>{error.response.data.msg}.</p>
-                            </div>
-                        }
+                 {error &&
+                    <div className="bg-red-200 border-red-600 text-red-600 border-t-4 p-4 w-64 mb-4 rounded" role="alert">
+                         <p className="font-bold text-sm">{error.response.statusText}</p>
+                         <p className='text-xs'>{error.response.data.msg}.</p>
+                    </div>
+                }
 
-                        {/* Username field */}
-                        <label className="font-semibold text-xs" htmlFor="usernameField">Email</label>
-                        <input {...register("email", { required: true })} className="auth-form-field" type="email" />
+                {/* Username field */}
+                    <label className="font-semibold text-xs mt-3" htmlFor="emailField">
+                        Email <span className="ml-1 text-red-500 text-xs font-normal font-montserrat">*</span>
+                    </label>
+                <input
+                    {...register("email", { required: true })}
+                    className="auth-form-field  outline-none rounded border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="user@email.com"
+                    type="email" id="emailField"
+                        
+                />
 
-                        {/* Password field */}
-                        <label className="font-semibold text-xs mt-3" htmlFor="passwordField">Password</label>
-                        <input {...register("password", { required: true })} className="auth-form-field" type="password" />
+                 {/* Password field */}
+                     <label className="font-semibold text-xs mt-3" htmlFor="passwordField">
+                        Senha <span className="text-red-500 text-xs font-normal font-montserrat">*</span>
+                    </label>
 
+                    <input {...register("password", { required: true })} 
+                    className="auth-form-field  outline-none rounded border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="**********" 
+                    type="password" id="passwordField"
+                />
 
-                        <button type="submit" className="flex items-center justify-center h-12 px-6 w-64 bg-blue-600 mt-8 rounded font-semibold text-sm text-blue-100 hover:bg-blue-700">
-                            Login
-                        </button>
-                    </form>
-
-                    <Link to="/">
-                        <button className="flex items-center justify-center h-12 px-6 w-64 mt-4 rounded font-semibold text-sm bg-white border border-blue-500 shadow-md hover:border-blue-700">
-                            <img alt="google icon" src="https://developers.google.com/identity/sign-in/g-normal.png" className='mr-2 h-8 w-8' />
-                            Sign in with Google
-                        </button>
-                    </Link>
-                </div>
-
-                <div className="flex mt-6 justify-center text-xs">
-                    <a className="text-blue-400 hover:text-blue-500" href="#">Forgot Password</a>
-                    <span className="mx-2 text-gray-300">/</span>
-                    <Link to="/signup" className="text-blue-400 hover:text-blue-500">Apply for Account</Link>
-                </div>
+                {/* "forgot password?" text */}
+                <div className="w-[522px] text-right text-neutral-700 text-base font-normal font-['Montserrat'] underline">Esqueceu a senha?
             </div>
 
-        </main>
+
+            <span className="h-5" /> {/* spacing */}
+                <button type="submit" className= "w-[522px] h-[52px] px-10 py-4 opacity-30 bg-cyan-300 text-black rounded-lg justify-center items-start gap-2.5 inline-flex">
+                    Entrar
+                    </button>
+                    <span className="h-5" /> {/* spacing */}
+                </form>
+
+            </div>
+                <div className="text-center">
+                <div className="w-[522px] text-center text-neutral-700 text-base font-normal font-['Montserrat']">
+                    Ainda não tem conta?
+                <span className="underline">
+                    <Link to="/signup" className="text-blue-400 hover:text-blue-500"> Cadastre-se agora</Link>
+                 </span>
+
+                 </div>
+            </div>
+
+        </div>
+    
+     </main>
     )
 }
 
 export default Login
-
