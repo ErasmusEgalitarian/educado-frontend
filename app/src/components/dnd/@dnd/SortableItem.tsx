@@ -1,4 +1,8 @@
 import { Link, useLocation} from 'react-router-dom';
+import useSWR from 'swr';
+
+// Hooks
+import useToken from '../../../hooks/useToken';
 
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -6,7 +10,22 @@ import { CSS } from '@dnd-kit/utilities';
 // icons
 import { ChevronUpDownIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
 
+import SectionServices from '../../../services/section.services';
+
+
 export function SortableItem(props: any) {
+  const token = "dummyToken";
+  //const token = useToken();
+  
+  
+  const { data, error } = useSWR(
+    token ? [`http://127.0.0.1:8888/api/section/${props.item}`, token] : null,
+    SectionServices.getSectionDetail
+  )
+
+  console.log("Error: ", error);
+  console.log("Section: ", data);
+  
   const location = useLocation();
 
   const {
@@ -16,7 +35,7 @@ export function SortableItem(props: any) {
     transform,
     transition,
   } = useSortable({ id: props.item.sectionNumber });
-
+  
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
@@ -31,8 +50,8 @@ export function SortableItem(props: any) {
       </div>
 
       <div className='flex justify-between items-center w-full space-x-2'>
-        <p className='font-semibold'>{props.item.title}</p>
-        <Link to={`${location.pathname}/sections/${props.item.id}`} className='btn btn-ghost'>
+        <p className='font-semibold'>{props.item}</p>
+        <Link to={`${location.pathname}/sections/${props.item}`} className='btn btn-ghost'>
           <PencilSquareIcon width={20} className="text-blue-500 hover:text-blue-700" />
           </Link>
       </div>

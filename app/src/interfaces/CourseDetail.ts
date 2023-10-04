@@ -5,7 +5,7 @@ export interface CourseDetail {
 }
 
 export interface Data {
-    _id:         ID;
+    _id:         string;
     sections:    Section[];
     title:       string;
     category:    string;
@@ -19,35 +19,25 @@ export interface Data {
 }
 
 export interface Author {
-    id:       string;
+    id:        string;
     firstName: string;
     lastName:  string;
 }
 
-export enum ID {
-    The635Fb5B9B2Fb6C4F49084682 = "635fb5b9b2fb6c4f49084682",
-}
-
 export interface Section {
     exercises:     Exercise[];
-    id:           string;
-    parentCourse:  ID;
+    _id:           string;
+    parentCourse:  string;
     title:         string;
     sectionNumber: number;
-    description:   Description;
+    description:   string;
     createdAt:     Date;
     modifiedAt:    Date;
     __v:           number;
 }
 
-export enum Description {
-    Fe = "fe",
-    MotherLocker = "mother locker",
-    VeryInterreseting = "Very interreseting",
-}
-
 export interface Exercise {
-    id:              string;
+    id:               string;
     modifiedAt:       Date;
     answers:          Answer[];
     __v:              number;
@@ -56,7 +46,7 @@ export interface Exercise {
 }
 
 export interface Answer {
-    id:        string;
+    id:         string;
     text:       string;
     correct:    boolean;
     modifiedAt: Date;

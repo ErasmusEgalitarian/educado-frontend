@@ -1,3 +1,9 @@
+/**
+ * TODO: 
+ * 
+ * KNOWN ISSUES:
+ */
+
 import { useState } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -44,20 +50,23 @@ type CoursePartial = {
 const OTHER_CATEGORY_ID = '639208a0f467689fde25b5fa'
 
 const CourseEdit = () => {
-    const token = useToken();
+    const token = "dummy token";
+    //const token = useToken();
     const { id } = useParams(); // Get path params
 
-    const [coverImg, setCoverImg] = useState<File | null>();
-    const [coverImgPreview, setCoverImgPreview] = useState<string>("");
+    /**
+     * FIX LATER: removed cover image since it has not been implemented to work yet
+     */
+    //const [coverImg, setCoverImg] = useState<File | null>();
+    //const [coverImgPreview, setCoverImgPreview] = useState<string>("");
     
-    console.log(token);
     
-    // Fetch Course Data
     const { data, error } = useSWR(
-        token ? [`http://127.0.0.1:8888/api/courses/${id}`, token] : null,
+        token ? [`http://127.0.0.1:8888/api/course/${id}`, token] : null,
         CourseServices.getCourseDetail
-    )
+    );
 
+    
     // Fetch Categories
     const { data: categories, error: categoriesError } = useSWR(
         token ? [`http://127.0.0.1:8888/api/categories`, token] : null,
@@ -74,14 +83,14 @@ const CourseEdit = () => {
             category: data.category
         }
 
-        if (coverImg) {
+        /*if (coverImg) {
             changes.coverImg = {
                 path: `${id}/coverImg`,
                 filename: coverImg.name,
                 size: coverImg.size,
                 type: coverImg.type
             }
-        }
+        }*/
 
         console.log(changes);
 
@@ -91,7 +100,10 @@ const CourseEdit = () => {
     }
 
     // update cover image function
-    const onCoverImgChange = async (e: any) => {
+    /**
+     * 
+     */
+    /*const onCoverImgChange = async (e: any) => {
         const image = e.target.files[0];
 
         // Enables us to preview the image file before storing it
@@ -99,15 +111,15 @@ const CourseEdit = () => {
         setCoverImg(image);
 
         try {
-            await StorageService.uploadFile({ file: image, key: `${data.data.id}/coverImg` })
+            await StorageService.uploadFile({ file: image, key: `${data.id}/coverImg` })
             toast.success('Image uploaded successfully');
         } catch (error) {
             toast.error('Image could not be uploaded, try again.');
         }
-    }
+    }*/
 
-    if (error || categoriesError) return <NotFound />;
-    if (!data || !categories || (!data && !categories)) return <Loading/>;
+    if (error /*|| categoriesError*/) return <NotFound />;
+    if (!data /*|| !categories || (!data && !categories)*/) return <Loading/>;
 
     return (
         <Layout meta={`Course: ${123}`}>
@@ -135,7 +147,7 @@ const CourseEdit = () => {
                                 {/** Course Title Field */}
                                 <div className="flex flex-col space-y-2">
                                     <label htmlFor='title'>Title</label>
-                                    <input type="text" defaultValue={data.data.title}
+                                    <input type="text" defaultValue={data.title}
                                         className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                         {...register("title", { required: true })}
                                     />
@@ -145,7 +157,7 @@ const CourseEdit = () => {
                                 {/** Course Description Field */}
                                 <div className="flex flex-col space-y-2">
                                     <label htmlFor='description'>Description</label>
-                                    <textarea rows={4} defaultValue={data.data.description} placeholder={data.data.description}
+                                    <textarea rows={4} defaultValue={data.description} placeholder={data.description}
                                         className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                         {...register("description", { required: true })}
                                     />
@@ -153,41 +165,42 @@ const CourseEdit = () => {
                                 </div>
 
                                 {/** Cover Image Field */}
-                                <div className="flex flex-col">
+                                {/*<div className="flex flex-col">
                                     <div className='relative'>
                                         <div className='p-0 rounded-b-none rounded-t border-gray-300 border-x border-t h-[240px] overflow-hidden'>
-                                            {data.data.coverImg ?
-                                                <img src={coverImgPreview || data.data.coverImg} alt={data.data.title} className="w-full h-max rounded object-cover" /> :
+                                            {data.coverImg ?
+                                                <img src={coverImgPreview || data.coverImg} alt={data.title} className="w-full h-max rounded object-cover" /> :
                                                 <div className='h-full w-full oceanic-gradient flex justify-center items-center text-2xl text-white'>No Cover Image</div>
                                             }
 
-                                        </div>
+                                        </div>*/}
                                         {/* Cover image upload */}
-                                        <input type="file" accept='.jpg,.jpeg,.png'
+                                        {/*<input type="file" accept='.jpg,.jpeg,.png'
                                             {...register("coverImg")}
                                             onChange={onCoverImgChange}
                                             className='file-input w-full input-bordered rounded-b rounded-t-none focus:outline-none'
                                         >
                                         </input>
                                     </div>
-                                </div>
+                                </div>*/}
 
+                                
                                 {/** Category Pills */}
-                                <div className="flex flex-col space-y-2">
+                                {/*<div className="flex flex-col space-y-2">
                                     <label htmlFor='categories'>Categories</label>
-                                    <div className='flex flex-row space-x-2'>
-                                        {/** TODO: Register to Form */}
+                                    <div className='flex flex-row space-x-2'>*/}
+                                        {/** TODO: Register to Form */}{/*
                                         <select
-                                            defaultValue={data.data.category.id}
+                                            defaultValue={data.category.id}
                                             className="select select-bordered rounded focus:outline-none w-full"
                                             {...register("category", { required: true })}
                                         >
                                             <option disabled>Pick a category for the course</option>
-                                            {categories.data
+                                            {data.category
                                                 .filter((category: any) => category.name !== 'Other')
                                                 .map((category: any, key: number) =>
                                                 <option 
-                                                    selected={data.data.category.id === category.id} 
+                                                    selected={data.category.id === category.id} 
                                                     value={category.id} 
                                                     key={key}
                                                 >
@@ -197,7 +210,7 @@ const CourseEdit = () => {
                                             <option value={OTHER_CATEGORY_ID} key={"other_category"}>Other</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div>*/}
                             </div>
                         </div>
                     </div>
@@ -210,7 +223,7 @@ const CourseEdit = () => {
                     <div className='flex flex-col space-y-2 divide'>
                         <h1 className='text-xl font-medium mb-4'>Course Sections</h1>
                         <SectionForm />
-                        <SectionList sections={data.data.sections} />
+                        <SectionList sections={data.sections} />
                     </div>
                 </div>
             </div>

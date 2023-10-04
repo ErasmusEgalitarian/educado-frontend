@@ -18,6 +18,9 @@ import EducadoAdmin from "./pages/EducadoAdmin";
 import SingleApplicantView from "./pages/SingleApplicantView";
 
 function App() {
+  const token = "dummy token"
+  localStorage.setItem("token", token)
+
   // router
   const router = createBrowserRouter([
     { // Homepage is left unused
