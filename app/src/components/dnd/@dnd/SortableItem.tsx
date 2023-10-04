@@ -21,10 +21,7 @@ export function SortableItem(props: any) {
   const { data, error } = useSWR(
     token ? [`http://127.0.0.1:8888/api/section/${props.item}`, token] : null,
     SectionServices.getSectionDetail
-  )
-
-  console.log("Error: ", error);
-  console.log("Section: ", data);
+  );
   
   const location = useLocation();
 
@@ -41,6 +38,10 @@ export function SortableItem(props: any) {
     transition,
   };
 
+  //If data is not found yet, show a loading message.
+  if(data === undefined) return (<div>Loading...</div>);
+
+  //Else show the sections.
   return (
     <div className="flex justify-between items-center border rounded p-1">
       <div ref={setNodeRef} style={style} {...attributes} {...listeners} >
@@ -50,7 +51,7 @@ export function SortableItem(props: any) {
       </div>
 
       <div className='flex justify-between items-center w-full space-x-2'>
-        <p className='font-semibold'>{props.item}</p>
+        <p className='font-semibold'>{data.title}</p>
         <Link to={`${location.pathname}/sections/${props.item}`} className='btn btn-ghost'>
           <PencilSquareIcon width={20} className="text-blue-500 hover:text-blue-700" />
           </Link>
