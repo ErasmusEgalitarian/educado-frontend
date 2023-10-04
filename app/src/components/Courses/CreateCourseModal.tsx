@@ -74,13 +74,13 @@ export const CreateCourseModal = () => {
             {/* Put this part before </body> tag */}
             <input type="checkbox" id="course-create" className="modal-toggle" />
             {
-                onclick = function () {StorageServices.downloadFile({bucketName: "educado-bucket", id: "gorilla", filePath: "/images/gorilla.jpg"});}
+                onclick = function () {StorageServices.uploadFile({bucketName: "educado-bucket", id: "settings_icon", filePath: "C:/Users/perni/Downloads/settings_icon.png"});}
             }
             <div className="modal" id="course-create-modal">
                 <div className="modal-box rounded w-11/12 max-w-xl">
                     <h3 className="font-bold text-lg">Create your brand new course!</h3>
                     <p className="py-4">Fill out the form and get started with your brand new course!</p>
-                    <img src='/images/gorilla.jpg'></img>
+                   
 
                     <form className="flex h-full flex-col justify-between space-y-4" onSubmit={handleSubmit(onSubmit)}>
                         <div className="flex flex-col space-y-2 text-left">
