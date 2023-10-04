@@ -33,7 +33,7 @@ if (error) return navigate("/login");
 if (!data) return <Loading/>;
 
   return (
-    <Layout meta="Course overview">
+    <Layout meta="Course overview" >
 
       {/** Page Descriptor */}
       <PageDescriptor
