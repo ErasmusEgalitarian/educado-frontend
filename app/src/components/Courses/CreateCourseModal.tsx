@@ -10,7 +10,7 @@ import useToken from '../../hooks/useToken';
 
 // Services
 import CourseServices from '../../services/course.services';
-//import StorageService from '../../services/storage.services';
+import StorageService from '../../services/storage.services';
 
 
 // Icons
@@ -20,6 +20,7 @@ import Icon from '@mdi/react';
 import { mdiInformationSlabCircleOutline } from '@mdi/js';
 import { eventType } from 'aws-sdk/clients/health';
 import { integer } from 'aws-sdk/clients/lightsail';
+import StorageServices from '../../services/storage.services';
 
 
 <Icon path={mdiInformationSlabCircleOutline} size={1} />
@@ -41,13 +42,15 @@ export const CreateCourseModal = () => {
     const navigate = useNavigate();
     const { mutate } = useSWRConfig();
 
-    //StorageService.downloadFile({bucketName: "educado-bucket", id: "gorilla", filePath: "../download/gorilla.jpg"}) 
+    
 
     // use-form setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
     // success on submit handler
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
+        
+
         setIsLoading(true);
         CourseServices.createCourse({
             title: data.title,
@@ -67,13 +70,17 @@ export const CreateCourseModal = () => {
                 <PencilSquareIcon className='w-5 h-5' />
                 <p className='font-normal'>Create new course</p>
             </label>
-
+            
             {/* Put this part before </body> tag */}
             <input type="checkbox" id="course-create" className="modal-toggle" />
+            {
+                onclick = function () {StorageServices.downloadFile({bucketName: "educado-bucket", id: "gorilla", filePath: "/images/gorilla.jpg"});}
+            }
             <div className="modal" id="course-create-modal">
                 <div className="modal-box rounded w-11/12 max-w-xl">
                     <h3 className="font-bold text-lg">Create your brand new course!</h3>
                     <p className="py-4">Fill out the form and get started with your brand new course!</p>
+                    <img src='/images/gorilla.jpg'></img>
 
                     <form className="flex h-full flex-col justify-between space-y-4" onSubmit={handleSubmit(onSubmit)}>
                         <div className="flex flex-col space-y-2 text-left">
