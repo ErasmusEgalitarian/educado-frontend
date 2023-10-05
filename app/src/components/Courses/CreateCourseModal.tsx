@@ -69,7 +69,7 @@ export const CreateCourseModal = () => {
     return (
         <>
             {/* The button to open modal */}
-            <label htmlFor="course-create" className="btn btn-primary modal-button flex space-x-2">
+            <label htmlFor="course-create" className="btn flex modal-button  space-x-2">
                 <PencilSquareIcon className='w-5 h-5' />
                 <p className='font-normal'>Criar novo curso</p>
             </label>

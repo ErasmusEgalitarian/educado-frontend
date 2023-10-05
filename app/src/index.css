@@ -23,7 +23,7 @@
     }
 
     .btn {
-        @apply rounded-lg
+        @apply rounded-lg bg-primary border-none hover:bg-primaryHover
     }
 
     .educardo-gradient {
