@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSWRConfig } from 'swr';
-import {Dropzone} from '../Dropzone/Dropzone';   
+import {Dropzone} from '../Dropzone/Dropzone'; // Used for the cover image upload  
 
 
 
@@ -79,6 +79,7 @@ export const CreateCourseModal = () => {
             {
                 onclick = function () {StorageServices.uploadFile({bucketName: "educado-bucket", id: "testFoto", filePath: "c:/Users/perni/Downloads/settings_icon.png"});}
             }
+            {/*Text shown in the top of create course*/}
             <div className="modal" id="course-create-modal">
                 <div className="modal-box bg-gradient-to-b from-primaryLight rounded w-11/12 max-w-xl">
                     <h3 className="font-bold text-lg">Crie seu novo curso!</h3>
@@ -87,7 +88,7 @@ export const CreateCourseModal = () => {
 
                     <form className="flex h-full flex-col justify-between space-y-4" onSubmit={handleSubmit(onSubmit)}>
                         <div className="flex flex-col space-y-2 text-left">
-                            <label htmlFor='title'>Título</label>
+                            <label htmlFor='title'>Título</label> {/*Title*/}
                             <input type="text" defaultValue={""}
                                 className="form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                                 {...register("title", { required: true })}
@@ -101,7 +102,7 @@ export const CreateCourseModal = () => {
                                 className="form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                                 {...register("category", { required: true })}
                             >
-                                {/*hard coded options by PO, should be changed to get from db*/}
+                                {/*Hard coded options by PO, should be changed to get from db*/}
                                 <option>Finanças pessoais </option> {/*Personal Finance*/}
                                 <option>Saúde e Segurança no Trabalho </option> {/*Health and Workplace Safety*/}
                                 <option>Costura </option> {/*Sewing*/}
@@ -112,7 +113,7 @@ export const CreateCourseModal = () => {
 
                         <div className="flex items-center gap-8 w-full mt-8">
                             
-                            {/*cover image feild is made but does not interact with the db*/}
+                            {/*Cover image feild is made but does not interact with the db*/}
                             <div className="flex flex-col space-y-2 text-left">    
                             <label htmlFor='cover-image'>Imagem de capa</label>
                                     <Dropzone></Dropzone>
@@ -120,12 +121,12 @@ export const CreateCourseModal = () => {
                             </div>
 
                             <div  className="flex flex-col space-y-2 text-left">
-                                <label htmlFor='level'>Nível</label>
+                                <label htmlFor='level'>Nível</label> {/*Level*/}
                                 <select defaultValue={"Escolher categoria"} /*Choose category*/
                                     className="small-form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                                     {...register("level", { required: true })}
                                 >
-                                    {/*hard coded options by PO, should be changed to get from db*/}
+                                    {/*Hard coded options by PO, should be changed to get from db*/}
                                     <option>Iniciante </option> {/*...*/}
                                     <option>Intermediário</option> {/*...*/}
                                     <option>Avançado </option> {/*...*/}
@@ -135,7 +136,7 @@ export const CreateCourseModal = () => {
                             </div>
 
                             <div  className="flex flex-col space-y-2 text-left">
-                                <label htmlFor='title'>Tempo estimado</label>
+                                <label htmlFor='title'>Tempo estimado</label> {/*Estimated time*/}
                                 <input type="number" defaultValue={""} min={0} step={1}
                                     className="extra-small-form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                                     {...register("time", { required: true })}
@@ -147,7 +148,7 @@ export const CreateCourseModal = () => {
                         </div>
 
                         <div className="flex flex-col space-y-2 text-left">
-                            <label htmlFor='description'>Descrição</label>
+                            <label htmlFor='description'>Descrição</label> {/*Description*/}
                             <textarea rows={4} defaultValue={""}
                                 className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                                 {...register("description", { required: true })}
@@ -155,6 +156,7 @@ export const CreateCourseModal = () => {
                             {errors.description && <span className='text-warning'>Este campo é obrigatório</span>}
                         </div>
 
+                        {/*Create and cancel button*/}
                         <div className='modal-action'>
                             <div className="flex items-center justify-between gap-4 w-full mt-8">
                                 <label htmlFor='course-create' className="py-2 px-4  bg-primary hover:bg-primaryHover focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded">
