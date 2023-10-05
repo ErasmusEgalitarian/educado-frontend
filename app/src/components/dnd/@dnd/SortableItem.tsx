@@ -51,7 +51,7 @@ export function SortableItem(props: any) {
       </div>
 
       <div className='flex justify-between items-center w-full space-x-2'>
-        <p className='font-semibold'>{data.title}</p>
+        <p className='font-semibold indent-8'>{data.title}</p>
         <Link to={`${location.pathname}/sections/${data._id}`} className='btn btn-ghost'>
           <PencilSquareIcon width={20} className="text-blue-500 hover:text-blue-700" />
           </Link>

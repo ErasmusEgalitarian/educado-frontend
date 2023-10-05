@@ -104,6 +104,8 @@ const SectionEdit = () => {
 
     return (
         <Layout meta='Section edit page'>
+            
+            <main className="bg-gradient-to-br from-[#c8e5ec] to-[white]">
             <div className="w-full">
                 {/** Course navigation */}
                 <div className="navbar bg-base-100">
@@ -138,6 +140,21 @@ const SectionEdit = () => {
                                 {...registerSection("description", { required: false })}
                             />
                             {sectionErrors.description && <span>Este campo é obrigatório!</span>}
+                        </div>
+
+                        {/** Section Description Field */}
+                        <div className="flex flex-col space-y-2">
+                            <label htmlFor='LorE'>Lecture or exercise</label>
+                            <select defaultValue={"Escolher categoria"} /*Choose category*/
+                                    className="form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    //{...register("level", { required: true })}
+                                >
+                                    {/*hard coded options by PO, should be changed to get from db*/}
+                                    <option>Lecture </option> {/*...*/}
+                                    <option>Exercise</option> {/*...*/}
+                                
+                                </select>
+                            
                         </div>
 
                         <button type="submit" className='std-button ml-auto'>Seção de atualização</button>
@@ -193,6 +210,7 @@ const SectionEdit = () => {
                     */}
                 </div>
             </div>
+            </main>
         </Layout>
     )
 }

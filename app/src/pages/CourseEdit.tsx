@@ -121,6 +121,7 @@ const CourseEdit = () => {
 
     return (
         <Layout meta={`Course: ${id}`}>
+            <main className="bg-gradient-to-br from-[#c8e5ec] to-[white]">
 
             {/** Course navigation */}
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -131,7 +132,7 @@ const CourseEdit = () => {
                     </div>
                     <div className="flex-none space-x-2">
                         {/* <button onClick={() => toast.success("Course published")} className='btn btn-sm bg-blue-500 text-white border-0'>Unpublish</button> */}
-                        <button type="submit" className='btn btn-sm bg-blue-700 text-white border-0'>Curso de Atualização</button>
+                        <button type="submit" className='btn btn-sm bg-blue-700 text-white border-0'>Curso de atualização</button>
                     </div>
                 </div>
 
@@ -219,12 +220,13 @@ const CourseEdit = () => {
                 <div className='w-full max-w-5xl mx-auto bg-white rounded p-6'>
                     {/** Course Sections area  */}
                     <div className='flex flex-col space-y-2 divide'>
-                        <h1 className='text-xl font-medium mb-4'>Seções do cursos</h1>
+                        <h1 className='text-xl font-medium mb-4'>Seções do curso</h1>
                         <SectionForm />
                         <SectionList sections={data.sections} />
                     </div>
                 </div>
             </div>
+            </main>
         </Layout>
     )
 }
