@@ -109,7 +109,7 @@ const SectionEdit = () => {
                 <div className="navbar bg-base-100">
                     <div className='flex-1'>
                         <Link to={`/courses/edit/${cid}`} className="btn btn-square btn-ghost normal-case text-xl"><ArrowLeftIcon width={24} /></Link>
-                        <a className="normal-case text-xl ml-4">{section?.parentCourse || "back to course edit"}</a>
+                        <a className="normal-case text-xl ml-4">{section?.parentCourse || "Voltar para a edição do curso"}</a>
                     </div>
                 </div>
 
@@ -122,25 +122,25 @@ const SectionEdit = () => {
                     >
                         {/** Section Title Field */}
                         <div className="flex flex-col space-y-2">
-                            <label htmlFor='title'>Title</label>
+                            <label htmlFor='title'>Título</label>
                             <input type="text" defaultValue={section?.title || data?.title} placeholder={data?.title}
                                 className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                 {...registerSection("title", { required: true })}
                             />
-                            {sectionErrors.title && <span>This field is required</span>}
+                            {sectionErrors.title && <span>Este campo é obrigatório!</span>}
                         </div>
 
                         {/** Section Description Field */}
                         <div className="flex flex-col space-y-2">
-                            <label htmlFor='description'>Description</label>
+                            <label htmlFor='description'>Descrição</label>
                             <textarea rows={4} defaultValue={section?.description || data?.description} placeholder={data?.description}
                                 className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                 {...registerSection("description", { required: false })}
                             />
-                            {sectionErrors.description && <span>This field is required</span>}
+                            {sectionErrors.description && <span>Este campo é obrigatório!</span>}
                         </div>
 
-                        <button type="submit" className='std-button ml-auto'>Update Section</button>
+                        <button type="submit" className='std-button ml-auto'>Seção de atualização</button>
                     </form>
 
                     <div className="divider"></div>

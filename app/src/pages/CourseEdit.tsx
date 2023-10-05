@@ -131,7 +131,7 @@ const CourseEdit = () => {
                     </div>
                     <div className="flex-none space-x-2">
                         {/* <button onClick={() => toast.success("Course published")} className='btn btn-sm bg-blue-500 text-white border-0'>Unpublish</button> */}
-                        <button type="submit" className='btn btn-sm bg-blue-700 text-white border-0'>Update Course</button>
+                        <button type="submit" className='btn btn-sm bg-blue-700 text-white border-0'>Curso de Atualização</button>
                     </div>
                 </div>
 
@@ -140,26 +140,26 @@ const CourseEdit = () => {
                     <div className='w-full max-w-5xl mx-auto bg-white rounded p-6'>
                         <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
                             <div className='flex flex-col space-y-6 divide'>
-                                <h1 className='text-xl font-medium'>Course Details</h1>
+                                <h1 className='text-xl font-medium'>Detalhes do curso</h1>
 
                                 {/** Course Title Field */}
                                 <div className="flex flex-col space-y-2">
-                                    <label htmlFor='title'>Title</label>
+                                    <label htmlFor='title'>Título</label>
                                     <input type="text" defaultValue={data.title}
                                         className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                         {...register("title", { required: true })}
                                     />
-                                    {errors.title && <span>This field is required</span>}
+                                    {errors.title && <span>Este campo é obrigatório!</span>}
                                 </div>
 
                                 {/** Course Description Field */}
                                 <div className="flex flex-col space-y-2">
-                                    <label htmlFor='description'>Description</label>
+                                    <label htmlFor='description'>Descrição</label>
                                     <textarea rows={4} defaultValue={data.description} placeholder={data.description}
                                         className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                         {...register("description", { required: true })}
                                     />
-                                    {errors.description && <span>This field is required</span>}
+                                    {errors.description && <span>Este campo é obrigatório!</span>}
                                 </div>
 
                                 {/** Cover Image Field */}
@@ -219,7 +219,7 @@ const CourseEdit = () => {
                 <div className='w-full max-w-5xl mx-auto bg-white rounded p-6'>
                     {/** Course Sections area  */}
                     <div className='flex flex-col space-y-2 divide'>
-                        <h1 className='text-xl font-medium mb-4'>Course Sections</h1>
+                        <h1 className='text-xl font-medium mb-4'>Seções do cursos</h1>
                         <SectionForm />
                         <SectionList sections={data.sections} />
                     </div>

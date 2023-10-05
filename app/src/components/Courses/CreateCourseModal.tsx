@@ -64,7 +64,7 @@ export const CreateCourseModal = () => {
         }, token)
             .then(res => console.log(res))
             .catch(err => console.log(err))
-            .finally(() => { mutate("http://127.0.0.1:8888/api/courses/"); navigate("/courses") });
+            .finally(() => { mutate("http://127.0.0.1:8888/api/course/"); navigate("/courses") });
     };
     return (
         <>
