@@ -68,32 +68,32 @@ export const CreateCourseModal = () => {
             {/* The button to open modal */}
             <label htmlFor="course-create" className="btn btn-primary modal-button flex space-x-2">
                 <PencilSquareIcon className='w-5 h-5' />
-                <p className='font-normal'>Create new course</p>
+                <p className='font-normal'>Criar novo curso</p>
             </label>
             
             {/* Put this part before </body> tag */}
             <input type="checkbox" id="course-create" className="modal-toggle" />
             {
-                onclick = function () {StorageServices.downloadFile({bucketName: "educado-bucket", id: "gorilla", filePath: "/images/gorilla.jpg"});}
+                onclick = function () {StorageServices.uploadFile({bucketName: "educado-bucket", id: "gorilla", filePath: "/images/gorilla.jpg"});}
             }
             <div className="modal" id="course-create-modal">
                 <div className="modal-box rounded w-11/12 max-w-xl">
-                    <h3 className="font-bold text-lg">Create your brand new course!</h3>
-                    <p className="py-4">Fill out the form and get started with your brand new course!</p>
-                    <img src='/images/gorilla.jpg'></img>
+                    <h3 className="font-bold text-lg">Crie seu novo curso!</h3>
+                    <p className="py-4">Preencha o formulário e comece seu novo curso!</p>
+                    <img src='https://storage.googleapis.com/educado-bucket/gorilla'></img>
 
                     <form className="flex h-full flex-col justify-between space-y-4" onSubmit={handleSubmit(onSubmit)}>
                         <div className="flex flex-col space-y-2 text-left">
-                            <label htmlFor='title'>Title</label>
+                            <label htmlFor='title'>Título</label>
                             <input type="text" defaultValue={""}
                                 className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                 {...register("title", { required: true })}
                             />
-                            {errors.title && <span>This field is required</span>}
+                            {errors.title && <span>Este campo é obrigatório</span>}
                         </div>
 
                         <div className="flex flex-col space-y-2 text-left">
-                            <label htmlFor='category'>Category</label>
+                            <label htmlFor='category'>Categoria</label>
                             <select defaultValue={"Escolher categoria"} /*Choose category*/
                                 className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                 {...register("category", { required: true })}
@@ -104,12 +104,12 @@ export const CreateCourseModal = () => {
                                 <option>Costura </option> {/*Sewing*/}
                                 <option>Eletrônica </option> {/*Electronics*/}
                             </select>
-                            {errors.description && <span>This field is required</span>}
+                            {errors.description && <span>Este campo é obrigatório</span>}
                         </div>
 
                         <div className="flex items-center gap-10 w-full mt-8">
                             <div  className="flex flex-col space-y-2 text-left">
-                                <label htmlFor='level'>Level</label>
+                                <label htmlFor='level'>Nível</label>
                                 <select defaultValue={"Escolher categoria"} /*Choose category*/
                                     className="small-form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                     {...register("level", { required: true })}
@@ -120,7 +120,7 @@ export const CreateCourseModal = () => {
                                     <option>Avançado </option> {/*...*/}
                                 
                                 </select>
-                                {errors.description && <span>This field is required</span>}
+                                {errors.description && <span>Este campo é obrigatório</span>}
                             </div>
 
                             <div  className="flex flex-col space-y-2 text-left">
@@ -129,13 +129,13 @@ export const CreateCourseModal = () => {
                                     className="extra-small-form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                     {...register("title", { required: true })}
                                 />
-                                {errors.title && <span>This field is required</span>}
+                                {errors.title && <span>Este campo é obrigatório</span>}
                             </div>
                         
                             {/*cover image feild is made but does not interact with the db*/}
                             <div className="flex flex-col space-y-2 text-left">
                                 
-                                <label htmlFor='cover-image'>Cover-image</label>
+                                <label htmlFor='cover-image'>Imagem de capa</label>
                                 <input type="file" defaultValue={""}
                                     className="extra-small-form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                     {
@@ -146,28 +146,28 @@ export const CreateCourseModal = () => {
                                 
                                     }
                                 />
-                                {errors.description && <span>This field is required</span>}
+                                {errors.description && <span>Este campo é obrigatório</span>}
                             </div>
                         </div>
 
                         <div className="flex flex-col space-y-2 text-left">
-                            <label htmlFor='description'>Description</label>
+                            <label htmlFor='description'>Descrição</label>
                             <textarea rows={4} defaultValue={""}
                                 className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                 {...register("description", { required: true })}
                             />
-                            {errors.description && <span>This field is required</span>}
+                            {errors.description && <span>Este campo é obrigatório</span>}
                         </div>
 
                         <div className='modal-action'>
                             <div className="flex items-center justify-between gap-4 w-full mt-8">
                                 <label htmlFor='course-create' className="py-2 px-4  bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded">
                                     <button type="submit">
-                                        Create
+                                        Criar
                                     </button>
                                 </label>
                                 <label htmlFor='course-create' className="py-2 px-4 bg-white hover:bg-gray-100 border border-blue-500 focus:ring-blue-500 focus:ring-offset-blue-200 text-blue-500 w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded">
-                                    Cancel
+                                    Cancelar
                                 </label>
                             </div>
                         </div>
