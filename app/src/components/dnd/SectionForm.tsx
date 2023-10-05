@@ -17,7 +17,8 @@ type Inputs = {
 
 export const SectionForm = () => {
     // Query Params
-    const token = useToken();
+    const token = "dummyToken";
+    //const token = useToken();
     const { id } = useParams();
     // const token = useAuthStore(state => state.token);
 

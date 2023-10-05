@@ -50,7 +50,7 @@ type CoursePartial = {
 const OTHER_CATEGORY_ID = '639208a0f467689fde25b5fa'
 
 const CourseEdit = () => {
-    const token = "dummy token";
+    const token = "dummyToken";
     //const token = useToken();
     const { id } = useParams(); // Get path params
 

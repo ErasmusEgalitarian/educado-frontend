@@ -27,24 +27,37 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL + "api";
 
 const SectionEdit = () => {
     const { cid, sid } = useParams();
-    const token = useToken();
+    
+    const token = "dummyToken";
+    //const token = useToken()
 
     // Component state
     const [section, setSection] = useState<Section>();
     const [exercises, setExercises] = useState<Exercise[]>([]);
 
     // Fetch section details
-    const { data: sectionData, error: sectionError } = useSWR(
+   /* const { data: sectionData, error: sectionError } = useSWR(
         token ? [`${BACKEND_URL}/sections/${sid}`, token] : null,
         SectionServices.getSectionDetail
-    );
+    );*/
 
+        // Fetch the section data from the server.
+    const { data: sectionData, error: sectionError} = useSWR(
+         token ? [`http://127.0.0.1:8888/api/section/${sid}`, token] : null,
+        SectionServices.getSectionDetail
+  );
+
+    console.log("Section title is" + sectionData.title);
+    
+    console.log("Section secription is" + sectionData.description);
+    
+    
     // Create Form Hooks
     const { register: registerSection, handleSubmit: handleSectionUpdate, formState: { errors: sectionErrors } } = useForm();
-    const { register: registerExercise, handleSubmit: handleExerciseAdd, formState: { errors: exerciseErrors } } = useForm();
+ //   const { register: registerExercise, handleSubmit: handleExerciseAdd, formState: { errors: exerciseErrors } } = useForm();
 
     // Submit Handlers for function
-    const onExerciseAdd: SubmitHandler<Exercise> = data => addExercise(data);
+   //const onExerciseAdd: SubmitHandler<Exercise> = data => addExercise(data);
     const onSectionSave: SubmitHandler<Section> = data => saveSection(data);
 
     // SubmitHandler: Add new exercise to section
@@ -117,16 +130,19 @@ const SectionEdit = () => {
                     <div className="divider"></div>
 
                     {/** Exercise area */}
+                    {/*
                     <div className='flex flex-col space-y-4 mb-4' id='exercises'>
                         <h1 className='text-xl font-medium'>Exercises</h1>
                         <ExerciseArea exercises={exercises.length > 0 ? exercises : sectionData.exercises} />
                     </div>
 
                     {/** New exercise area */}
+                    {/*
                     <div className="flex flex-col w-full mb-4">
                         <span className="text-xl font-medium">Add new exercise</span>
                     </div>
-
+    
+                    {/*}
                     <form
                         onSubmit={handleExerciseAdd(onExerciseAdd)}
                         className="flex flex-col justify-content align-items space-evenly w-full space-y-2"
@@ -143,7 +159,7 @@ const SectionEdit = () => {
                             />
                             {exerciseErrors.title && <span>This field is required</span>}
                         </div>
-
+                    
                         <div className="form-control w-full">
                             <label className="label">
                                 <span className="label-text">Description</span>
@@ -158,6 +174,7 @@ const SectionEdit = () => {
                         <button type='submit' className="std-button ml-auto">Add Exercise</button>
 
                     </form>
+                    */}
                 </div>
             </div>
         </Layout>
