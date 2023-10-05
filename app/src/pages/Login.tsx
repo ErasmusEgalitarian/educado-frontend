@@ -119,9 +119,9 @@ const Login = () => {
                 )}
             </div>
 
-            <div className="w-120rem self-stretch flex flex-col items-start justify-center flex-1 py-[4rem] px-[5rem]">
+            <div className="w-120rem self-stretch flex flex-col items-start justify-center flex-1 py-[4rem] px-[4rem]">
                 <h1 className=" text-neutral-700 text-[2rem] font-bold font-['Lato'] leading-normal">
-                    Bem-vindo de volta ao Educado
+                    Bem-vindo de volta ao Educado!
                 </h1>
 
             <form onSubmit={handleSubmit(onSubmit)} className="stretch flex flex-col space-y-2">
