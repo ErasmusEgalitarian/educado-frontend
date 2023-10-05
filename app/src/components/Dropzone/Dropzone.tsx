@@ -1,11 +1,11 @@
 export const Dropzone = () => {
     return (
         <div>
-            <label className="block text-sm font-medium text-gray-700">Cover photo</label>
-            <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
+          
+            <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-10 pt-5 pb-6">
                 <div className="space-y-1 text-center">
                     <svg
-                        className="mx-auto h-12 w-12 text-gray-400"
+                        className="mx-auto h-6 w-6 text-gray-400"
                         stroke="currentColor"
                         fill="none"
                         viewBox="0 0 48 48"
@@ -21,14 +21,15 @@ export const Dropzone = () => {
                     <div className="flex text-sm text-gray-600">
                         <label
                             htmlFor="file-upload"
-                            className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
+                            className="relative cursor-pointer rounded-md  font-medium text-primary focus-within:outline-none focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 hover:text-primaryHover"
                         >
-                            <span>Upload a file</span>
+                            <span>Upload a file </span>
+                            
                             <input id="file-upload" name="file-upload" type="file" className="sr-only" />
                         </label>
-                        <p className="pl-1">or drag and drop</p>
+                     
                     </div>
-                    <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                   
                 </div>
             </div>
         </div>
