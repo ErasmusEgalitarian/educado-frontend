@@ -29,12 +29,17 @@ import { Item } from './@dnd/Item';
 // Intefaces
 import { Section } from '../../interfaces/CourseDetail';
 
+/**
+ * 
+ * 
+ * @param {Array<Section>} sections  
+ * @returns HTML Element
+ */
 export const SectionList = ({ sections }: { sections: Array<Section> }) => {
   // States
   console.log("Sections: ", sections);
   const [activeId, setActiveId] = useState(null);
   const [items, setItems] = useState(sections);
-  console.log("Active ID: ", activeId);
   console.log("Items: ", items);
   // Setup of pointer and keyboard sensor
   const sensors = useSensors(

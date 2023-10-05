@@ -17,7 +17,7 @@ export function SortableItem(props: any) {
   const token = "dummyToken";
   //const token = useToken();
   
-  
+  // Fetch the section data from the server.
   const { data, error } = useSWR(
     token ? [`http://127.0.0.1:8888/api/section/${props.item}`, token] : null,
     SectionServices.getSectionDetail
@@ -52,7 +52,7 @@ export function SortableItem(props: any) {
 
       <div className='flex justify-between items-center w-full space-x-2'>
         <p className='font-semibold'>{data.title}</p>
-        <Link to={`${location.pathname}/sections/${props.item}`} className='btn btn-ghost'>
+        <Link to={`${location.pathname}/sections/${data._id}`} className='btn btn-ghost'>
           <PencilSquareIcon width={20} className="text-blue-500 hover:text-blue-700" />
           </Link>
       </div>
