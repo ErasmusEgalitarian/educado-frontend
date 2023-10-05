@@ -121,7 +121,7 @@ const CourseEdit = () => {
 
     return (
         <Layout meta={`Course: ${id}`}>
-            <main className="bg-gradient-to-br from-[#c8e5ec] to-[white]">
+            <main className="h-full bg-gradient-to-br from-[#c8e5ec] to-[white]">
 
             {/** Course navigation */}
             <form onSubmit={handleSubmit(onSubmit)}>

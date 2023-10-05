@@ -34,7 +34,7 @@ if (!data) return <Loading/>;
 
   return (
     <Layout meta="Course overview" >
-      <main className="bg-gradient-to-br from-[#c8e5ec] to-[white]">
+      <main className="h-full bg-gradient-to-br from-[#c8e5ec] to-[white]">
 
       {/** Page Descriptor */}
       <PageDescriptor
