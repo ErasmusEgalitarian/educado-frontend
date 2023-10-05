@@ -7,13 +7,13 @@ const backend_url = import.meta.env.VITE_BACKEND_URL + 'api';
 
 export const getSectionDetail = (url: string, token: string) => {
     return axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
-        .then(res => res.data.data)
+        .then(res => res.data)
 }
 
 // boilerplate FIXME: should this be en Exercise.services ??
 export const getExerciseDetail = (url: string, token: string) => {
     return axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
-        .then(res => res.data.data)
+        .then(res => res.data)
 }
 
 export const saveSection = async (props: Section, sid: string | null | undefined, token: string) => {
