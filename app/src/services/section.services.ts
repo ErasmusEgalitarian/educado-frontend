@@ -3,7 +3,7 @@ import axios from "axios";
 // Intefaces
 import { Section } from "../interfaces/CourseDetail";
 
-const backend_url = import.meta.env.VITE_BACKEND_URL + 'api';
+const backend_url = import.meta.env.VITE_BACKEND_URL;
 
 export const getSectionDetail = (url: string, token: string) => {
     return axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
@@ -16,12 +16,13 @@ export const getExerciseDetail = (url: string, token: string) => {
         .then(res => res.data)
 }
 
-export const saveSection = async (props: Section, sid: string | null | undefined, token: string) => {
+export const saveSection = async (data: any, id: any/*, token: string*/) => {
     // Send the info to caller
-    return axios.put(
-        `${backend_url}/sections/${sid}`,
-        props,
-        { headers: { Authorization: `Bearer ${token}` } }
+    console.log(`${backend_url}/api/section/update/${id}`);
+    return axios.post(
+        `${backend_url}/api/section/update/${id}`,
+        data/*,
+    { headers: { Authorization: `Bearer ${token}` } }*/
     );
 };
 

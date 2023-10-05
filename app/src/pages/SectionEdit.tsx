@@ -23,7 +23,16 @@ import { Exercise } from '../interfaces/Exercise'
 // Icons
 import ArrowLeftIcon from '@heroicons/react/24/outline/ArrowLeftIcon';
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL + "api";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+type Inputs = {
+    title: string,
+    description: string
+};
+
+type SectionPartial = {
+    title: string,
+    description: string
+}
 
 const SectionEdit = () => {
     const { cid, sid } = useParams();
@@ -35,44 +44,40 @@ const SectionEdit = () => {
     const [section, setSection] = useState<Section>();
     const [exercises, setExercises] = useState<Exercise[]>([]);
 
-    // Fetch section details
-   /* const { data: sectionData, error: sectionError } = useSWR(
-        token ? [`${BACKEND_URL}/sections/${sid}`, token] : null,
+    // Fetch the section data from the server.
+    const { data, error: sectionError} = useSWR(
+        token ? [`${BACKEND_URL}/api/section/${sid}`, token] : null,
         SectionServices.getSectionDetail
-    );*/
+    );
 
-        // Fetch the section data from the server.
-    const { data: sectionData, error: sectionError} = useSWR(
-         token ? [`http://127.0.0.1:8888/api/section/${sid}`, token] : null,
-        SectionServices.getSectionDetail
-  );
-
-    console.log("Section title is" + sectionData.title);
-    
-    console.log("Section secription is" + sectionData.description);
-    
+    console.log(data?.parentCourse);
+    if(data != undefined && data.parentCourse != cid){
+        toast.error("Parent course doesn't match section.");
+    }
     
     // Create Form Hooks
-    const { register: registerSection, handleSubmit: handleSectionUpdate, formState: { errors: sectionErrors } } = useForm();
- //   const { register: registerExercise, handleSubmit: handleExerciseAdd, formState: { errors: exerciseErrors } } = useForm();
+    
+    const { register: registerSection, handleSubmit: handleSectionUpdate, formState: { errors: sectionErrors } } = useForm<Inputs>();
+    //const { register: registerExercise, handleSubmit: handleExerciseAdd, formState: { errors: exerciseErrors } } = useForm();
 
     // Submit Handlers for function
-   //const onExerciseAdd: SubmitHandler<Exercise> = data => addExercise(data);
-    const onSectionSave: SubmitHandler<Section> = data => saveSection(data);
+    //const onExerciseAdd: SubmitHandler<Exercise> = data => addExercise(data);
+    //const onSectionSave: SubmitHandler<Section> = data => onSubmit(data);
 
     // SubmitHandler: Add new exercise to section
+    /*
     const addExercise = async (data: Exercise) => {
         const response = await ExerciseServices.addExercise(data, token, sid)
         const addedExercise = response.data
         sectionData.exercises.push(addedExercise)
         setExercises(sectionData.exercises)
-    }
+    }*/
 
     // SubmitHandler: Save section update
-    const saveSection = async (data: Section) => {
-        const toSave = { ...sectionData, ...data };
-        const response = await SectionServices.saveSection(toSave, sid, token);
-        const status = response.status
+    /*const saveSection = async (data: Section) => {
+        const toSave = { ...data, ...data };
+        const response = await SectionServices.saveSection(toSave, sid/*, token);*/
+        /*const status = response.status
 
         if (status >= 200 && status <= 299) {
             toast.success("Section saved")
@@ -80,11 +85,22 @@ const SectionEdit = () => {
         } else if (status >= 400 && status <= 599) {
             toast.error(`(${status}, ${response.statusText}) while attempting to save section`)
         }
+    }*/
+
+    const onSubmit: SubmitHandler<Inputs> = (data) => {
+        const changes: SectionPartial = {
+            title: data.title,
+            description: data.description
+        }
+
+        SectionServices.saveSection(changes, sid/*, token*/)
+            .then(res => toast.success('Updated section'))
+            .catch(err => toast.error(err));
     }
 
     // Render onError and onLoading
     if (sectionError) return <p>"An error has occurred."</p>;
-    if (!sectionData) return <Loading/>;
+    if (!data) return <Loading/>;
 
     return (
         <Layout meta='Section edit page'>
@@ -101,13 +117,13 @@ const SectionEdit = () => {
                 <div className='max-w-3xl mx-auto bg-white p-4 rounded my-6'>
                     {/** Section update area */}
                     <form
-                        onSubmit={handleSectionUpdate(onSectionSave)}
+                        onSubmit={handleSectionUpdate(onSubmit)}
                         className="flex flex-col space-y-6 divide"
                     >
                         {/** Section Title Field */}
                         <div className="flex flex-col space-y-2">
                             <label htmlFor='title'>Title</label>
-                            <input type="text" defaultValue={section?.title || sectionData?.title} placeholder={sectionData?.title}
+                            <input type="text" defaultValue={section?.title || data?.title} placeholder={data?.title}
                                 className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                 {...registerSection("title", { required: true })}
                             />
@@ -117,9 +133,9 @@ const SectionEdit = () => {
                         {/** Section Description Field */}
                         <div className="flex flex-col space-y-2">
                             <label htmlFor='description'>Description</label>
-                            <textarea rows={4} defaultValue={section?.description || sectionData?.description} placeholder={sectionData?.description}
+                            <textarea rows={4} defaultValue={section?.description || data?.description} placeholder={data?.description}
                                 className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                {...registerSection("description", { required: true })}
+                                {...registerSection("description", { required: false })}
                             />
                             {sectionErrors.description && <span>This field is required</span>}
                         </div>

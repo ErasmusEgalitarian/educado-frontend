@@ -50,9 +50,9 @@ const getCourseCategories = (url: string/*, token: string*/) => {
 };
 
 // Updating a specific course
-const updateCourseDetail = (data: any, id: any, token: string) => {
-  return axios.put(
-    `${backend_route}api/courses/${id}`, // TODO: change backend url to not include final /
+const updateCourseDetail = (data: any, id: any/*, token: string*/) => {
+  return axios.post(
+    `${backend_route}/api/course/update/${id}`, // TODO: change backend url to not include final /
     data/*,
   { headers: { Authorization: `Bearer ${token}` }}*/
   ).then(res => res.data);

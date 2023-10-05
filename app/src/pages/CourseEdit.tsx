@@ -92,9 +92,7 @@ const CourseEdit = () => {
             }
         }*/
 
-        console.log(changes);
-
-        CourseServices.updateCourseDetail(changes, id, token)
+        CourseServices.updateCourseDetail(changes, id/*, token*/)
             .then(res => toast.success('Updated course'))
             .catch(err => toast.error(err));
     }
@@ -122,7 +120,7 @@ const CourseEdit = () => {
     if (!data /*|| !categories || (!data && !categories)*/) return <Loading/>;
 
     return (
-        <Layout meta={`Course: ${123}`}>
+        <Layout meta={`Course: ${id}`}>
 
             {/** Course navigation */}
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -137,7 +135,7 @@ const CourseEdit = () => {
                     </div>
                 </div>
 
-                {/** Course details edit */}
+                {/** Course details edit */} 
                 <div className="container mx-auto flex flex-row space-x-4 my-6">
                     <div className='w-full max-w-5xl mx-auto bg-white rounded p-6'>
                         <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
