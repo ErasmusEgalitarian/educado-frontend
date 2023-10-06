@@ -121,7 +121,6 @@ const CourseEdit = () => {
 
     return (
         <Layout meta={`Course: ${id}`}>
-            <main className="h-full bg-gradient-to-br from-[#c8e5ec] to-[white]">
 
             {/** Course navigation */}
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -164,7 +163,7 @@ const CourseEdit = () => {
                                 </div>
 
                                 {/** Cover Image Field */}
-                                {/*<div className="flex flex-col">
+                                <div className="flex flex-col">
                                     <div className='relative'>
                                         <div className='p-0 rounded-b-none rounded-t border-gray-300 border-x border-t h-[240px] overflow-hidden'>
                                             {data.coverImg ?
@@ -172,16 +171,16 @@ const CourseEdit = () => {
                                                 <div className='h-full w-full oceanic-gradient flex justify-center items-center text-2xl text-white'>No Cover Image</div>
                                             }
 
-                                        </div>*/}
+                                        </div>
                                         {/* Cover image upload */}
-                                        {/*<input type="file" accept='.jpg,.jpeg,.png'
+                                        <input type="file" accept='.jpg,.jpeg,.png'
                                             {...register("coverImg")}
-                                            onChange={onCoverImgChange}
+                                            //onChange={onCoverImgChange}
                                             className='file-input w-full input-bordered rounded-b rounded-t-none focus:outline-none'
                                         >
                                         </input>
                                     </div>
-                                </div>*/}
+                                </div>
 
                                 
                                 {/** Category Pills */}
@@ -226,7 +225,6 @@ const CourseEdit = () => {
                     </div>
                 </div>
             </div>
-            </main>
         </Layout>
     )
 }

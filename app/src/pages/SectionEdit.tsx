@@ -105,7 +105,6 @@ const SectionEdit = () => {
     return (
         <Layout meta='Section edit page'>
             
-            <main className="h-full bg-gradient-to-br from-[#c8e5ec] to-[white]">
             <div className="w-full">
                 {/** Course navigation */}
                 <div className="navbar bg-base-100">
@@ -170,14 +169,14 @@ const SectionEdit = () => {
                     </div>
 
                     {/** New exercise area */}
-                    {/*
+                    
                     <div className="flex flex-col w-full mb-4">
                         <span className="text-xl font-medium">Add new exercise</span>
                     </div>
     
-                    {/*}
+                    
                     <form
-                        onSubmit={handleExerciseAdd(onExerciseAdd)}
+                        //onSubmit={handleExerciseAdd(onExerciseAdd)}
                         className="flex flex-col justify-content align-items space-evenly w-full space-y-2"
                     >
                         <div className="form-control w-full">
@@ -188,9 +187,9 @@ const SectionEdit = () => {
                                 type="text"
                                 placeholder="Some awesome title"
                                 className="input input-bordered w-full"
-                                {...registerExercise("title", { required: true })}
+                                //{...registerExercise("title", { required: true })}
                             />
-                            {exerciseErrors.title && <span>This field is required</span>}
+                            {/*exerciseErrors.title && <span>This field is required</span>*/}
                         </div>
                     
                         <div className="form-control w-full">
@@ -200,17 +199,15 @@ const SectionEdit = () => {
                             <textarea
                                 className="textarea textarea-bordered h-24"
                                 placeholder="Add a description to your exercise"
-                                {...registerExercise("description", { required: true })}
+                               // {...registerExercise("description", { required: true })}
                             />
                         </div>
 
                         <button type='submit' className="std-button ml-auto">Add Exercise</button>
 
                     </form>
-                    */}
                 </div>
             </div>
-            </main>
         </Layout>
     )
 }
