@@ -25,11 +25,28 @@ export const saveSection = async (data: any, id: any/*, token: string*/) => {
     { headers: { Authorization: `Bearer ${token}` } }*/
     );
 };
+/**
+ * Create a new section for a course
+ * 
+ * @param data Input data, should be a Section interface
+ * @param id id of the section
+ * @param token token of the user, currently ignored
+ * @returns respons from the backend post request
+ */
+const createSection = async (data: any, id: any, token: string) => {
+    return await axios.post(
+      `${backend_url}/api/section/create/${id}`,
+      data,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+  }
 
 const SectionServices = Object.freeze({
     getSectionDetail,
     getExerciseDetail,
-    saveSection
+    saveSection,
+    createSection
+    
 });
 
 export default SectionServices;
