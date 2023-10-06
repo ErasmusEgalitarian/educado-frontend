@@ -163,7 +163,7 @@ const SectionEdit = () => {
                             
                         </div>
 
-                        <button type="submit" className='std-button ml-auto'>Seção de atualização</button>
+                        <button type="submit" className='std-button ml-auto'>Atualizar</button>
                     </form>
 
                     <div className="divider"></div>
