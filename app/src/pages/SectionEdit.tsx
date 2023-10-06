@@ -111,7 +111,7 @@ const SectionEdit = () => {
     return (
         <Layout meta='Section edit page'>
             
-            <main className="bg-gradient-to-br from-[#c8e5ec] to-[white]">
+            <main className="h-full bg-gradient-to-br from-[#c8e5ec] to-[white]">
             <div className="w-full">
                 {/** Course navigation */}
                 <div className="navbar bg-base-100">
