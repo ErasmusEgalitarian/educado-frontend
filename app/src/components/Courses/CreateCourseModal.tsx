@@ -62,9 +62,9 @@ export const CreateCourseModal = () => {
             time: data.time,
             description: data.description,
         }, token)
-            .then(res => console.log(res))
+            .then(res =>{ console.log(res); navigate(`/Courses/edit/${res.data._id}`)}) 
             .catch(err => console.log(err))
-            .finally(() => { mutate("http://127.0.0.1:8888/api/courses/"); navigate("/courses") });
+            .finally(() => { mutate("http://127.0.0.1:8888/api/course/");  });
     };
     return (
         <>
@@ -163,7 +163,7 @@ export const CreateCourseModal = () => {
                         <div className='modal-action'>
                             <div className="flex items-center justify-between gap-4 w-full mt-8">
                                 <label htmlFor='course-create' className="py-2 px-4  bg-primary hover:bg-primaryHover focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded">
-                                    <button type="submit">
+                                    <button type="submit" className='h-full w-full'>
                                         Criar
                                     </button>
                                 </label>

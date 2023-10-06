@@ -20,7 +20,7 @@ export interface CourseInterface {
 // Create a new course
 const createCourse = async ({ title, category, level, time, description }: CourseInterface, token: string) => {
   return await axios.post(
-    `${backend_route}/api/courses`,
+    `${backend_route}/api/course`,
     {
       title: title,
       category: category,
@@ -53,7 +53,7 @@ const getCourseCategories = (url: string/*, token: string*/) => {
 // Updating a specific course
 const updateCourseDetail = (data: any, id: any, token: string) => {
   return axios.put(
-    `${import.meta.env.VITE_BACKEND_URL}api/courses/${id}`, // TODO: change backend url to not include final /
+    `${import.meta.env.VITE_BACKEND_URL}api/course/${id}`, // TODO: change backend url to not include final /
     data,
     { headers: { Authorization: `Bearer ${token}` } }
   ).then(res => res.data);
