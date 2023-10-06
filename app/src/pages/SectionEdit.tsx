@@ -87,6 +87,12 @@ const SectionEdit = () => {
         }
     }*/
 
+/**
+ * SubmitHandler: update section
+ * 
+ * @param data  The data to be updated
+ * @returns     void
+ */
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         const changes: SectionPartial = {
             title: data.title,
@@ -142,7 +148,7 @@ const SectionEdit = () => {
                             {sectionErrors.description && <span>Este campo é obrigatório!</span>}
                         </div>
 
-                        {/** Section Description Field */}
+                        {/** Section choose to add Lecture/Exercise WIP */}
                         <div className="flex flex-col space-y-2">
                             <label htmlFor='LorE'>Lecture or exercise</label>
                             <select defaultValue={"Escolher categoria"} /*Choose category*/
