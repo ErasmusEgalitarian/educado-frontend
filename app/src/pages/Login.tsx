@@ -7,6 +7,7 @@ import background from "../assets/background.jpg"
 import Icon from '@mdi/react';
 import { mdiChevronLeft } from '@mdi/js';
 import { mdiEyeOffOutline, mdiEyeOutline } from '@mdi/js';
+import Carousel from '../components/archive/Carousel';
 
 
 // Interfaces
@@ -80,17 +81,38 @@ const Login = () => {
     
 
 
-    return (
-        <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-[#c8e5ec] to-[white]">
-          <nav className="navbar bg-base-100 border-b shadow fixed top-0 z-10">
-            <div className="w-[165.25px] h-6 justify-start items-center gap-[7.52px] flex py-6 px-12">
-              <div className="navbar-start">
-                <Link to="/" className="w-[165.25px] h-6 justify-start items-center gap-[6px] inline-flex space-x-1 normal-case text-xl">
-                  <img src={logo} alt="logo" className="w-[24.43px] h-6" /> <img src={educado} alt="educado" className="h-6" />
+  return (
+  <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-[#c8e5ec] to-[white]">
+    <nav className="navbar bg-base-100 border-b shadow fixed top-0 z-10">
+
+        <div className="navbar-start">
+          <Link to="/" className="w-[165.25px] h-6 justify-start items-center  inline-flex space-x-1 normal-case text-xl">
+            <img src={logo} alt="logo" className="w-[24.43px] h-6" /> <img src={educado} alt="educado" className="h-6" />
+          </Link>
+        </div>
+    </nav>
+      
+      <div className="w-screen h-screen overflow-hidden">
+        <div className="grid grid-cols-2 md:grid-cols-2 m-auto h-screen sm:max-w-956">
+            <div className='relative w-full h-screen overflow-hidden'>
+                <img src={background} alt="w-[42.375rem]" className='object-cover w-full h-full' />
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <Carousel/>
+                </div>
+            </div>
+  
+          <div className="self-stretch flex-col py-5 px-0">
+            <div className="self-stretch flex flex-col justify-center flex-1 mt-[4rem]">
+              <div className="flex text-center text-base text-gray-500 font-normal font-Montserrat underline m-6">
+                <Link to="/welcome">
+                  <Icon path={mdiChevronLeft} size={1} color="gray" />
+                </Link>
+                <Link to="/welcome" className="flex flex-col justify-between self-stretch text-base text-gray-500 font-normal font-Montserrat underline">
+                Voltar
                 </Link>
               </div>
             </div>
-          </nav>
+            </div>
       
           <div className="w-screen h-screen overflow-hidden">
             <div className="grid grid-cols-2 md:grid-cols-2 m-auto h-screen sm:max-w-956">
@@ -189,6 +211,8 @@ const Login = () => {
           </div>
         </div>
       </div>
+</div>
+</div>
 </div>
 </main> )
 }
