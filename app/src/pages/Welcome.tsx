@@ -41,9 +41,9 @@ return (
             </div>
          <body>
           
-      <div className=" w-[full/2] h-screen right-0">
-          <img className="w-[2] h-[2]" src={FrontLogo} alt="Front Logo" />
-        <div className="w-[762px] h-[952px] px-20 rounded-sm flex-col justify-center items-center gap-20 inline-flex">
+      <div className="relative w-[full/2] h-screen right-0">
+          <img className="absolute top-[10rem] item-size" src={FrontLogo} alt="Front Logo" />
+        <div className="w-[50rem] h-[60rem] px-20 rounded-sm flex-col justify-center items-center gap-20 inline-flex">
     
           <div className="flex justify-between items-center mb-6 space-x-16"></div>
           <div className="w-[6]"></div> {/* Add a 24px space between the buttons */}
@@ -51,7 +51,7 @@ return (
     <Link to="/login">
       <button
         type="submit"
-        className="w-208px h-52px px-28 py-3 rounded-lg  bg-cyan-300 text-white transform translate-x-[-140px] translate-y-[-29px] transition duration-100 ease-in hover:bg-cyan-500 hover:text-gray-50 "
+        className="w-[16rem] h-[3rem] px-28 py-3 rounded-lg  bg-cyan-300 text-white transform translate-x-[-140px] translate-y-[-29px] transition duration-100 ease-in hover:bg-cyan-500 hover:text-gray-50 "
       >Entrar
       </button>
       </Link>

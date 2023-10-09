@@ -83,9 +83,9 @@ return (
             </div>
 
 
- <div className=" flex flex-col items-start py-16 px-0 ">
-  <div className=" flex flex-col  mt-[1.5rem]">
-      <div className="flex text-center text-base text-gray-500 font-normal font-Montserrat underline m-6">
+ <div className=" relative flex flex-col items-start py-16 px-0 ">
+  <div className=" flex flex-col">
+      <div className=" absolute flex text-center text-base text-gray-500 font-normal font-Montserrat underline m-6">
         <Link to="/welcome">
           <Icon path={mdiChevronLeft} size={1} color="gray" />
         </Link>
@@ -104,12 +104,12 @@ return (
   
 
 
-  <div className=' self-stretch flex flex-col item-end'>
+  <div className='flex flex-col item-end'>
   <label className="stretch flex flex-start text-neutral-700 text-x font-normal gap-[4] font-['Montserrat'] mt-6"htmlFor="usernameField"> 
        Nome 
       <span className=" text-red-500 text-xs font-normal font-montserrat">*</span>
     </label>
-    <form onSubmit={handleSubmit(onSubmit)} className="stretch flex flex-col space-y-2">  
+    <form onSubmit={handleSubmit(onSubmit)} className="stretch flex flex-col">  
       <input
       type="text" id="usernameField"
       className="w-[38rem] h-[2.6rem] rounded border flex border-gray-300 gap-2.5 py-3 px-4 bg-white placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-cyan-300   focus:border-transparent"
@@ -188,18 +188,18 @@ return (
         <button type="submit" className="py-4 rounded-lg bg-cyan-300 text-white opacity-100 transition duration-100 ease-in hover:bg-cyan-500 hover:text-gray-50">
             Entrar
         </button>
-        </form>
-      </div>
+
+        <div className="flex justify-center self-stretch mt-[1rem]"> 
+            <span className= "text-gray-400 text-base font-normal font-Montserrat">Já possui conta? </span> 
+        <Link to="/login" className="text-neutral-700 text-base font-normal font-Montserrat underline hover:text-blue-500 gap-6">Entre agora</Link>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
-
-    <div className="flex justify-center self-stretch"> 
-        <span className= "text-gray-400 text-base font-normal font-Montserrat">Já possui conta? </span> 
-        <Link to="/login" className="text-neutral-700 text-base font-normal font-Montserrat underline hover:text-blue-500 gap-6">Entre agora</Link>
-      </div>
-  </div>
-  </div>
-  </div>
+</div>
+</div>
+</div>
 </main>
 )
 }
