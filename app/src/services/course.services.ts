@@ -48,18 +48,25 @@ const getCourseDetail = (url: string/*, token: string*/) => {
 const getCourseCategories = (url: string/*, token: string*/) => {
   return axios.get(url/*, { headers: { Authorization: `Bearer ${token}` } }*/)
     .then(res => res.data);
-};
+}
 
 // Updating a specific course
-const updateCourseDetail = (data: any, id: any/*, token: string*/) => {
-  return axios.post(
-    `${backend_route}/api/course/update/${id}`, // TODO: change backend url to not include final /
-    data/*,
-  { headers: { Authorization: `Bearer ${token}` }}*/
+const updateCourseDetail = (data: any, id: any, token: string) => {
+  return axios.put(
+    `${import.meta.env.VITE_BACKEND_URL}api/course/${id}`, // TODO: change backend url to not include final /
+    data,
+    { headers: { Authorization: `Bearer ${token}` } }
   ).then(res => res.data);
-};
+}
 
-
+// Create a new section for a course FIXME: should this be in section.services ??
+const createSection = async (data: any, id: any, token: string) => {
+  return await axios.post(
+    `${backend_route}/api/section/create/${id}`,
+    data,
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+}
 
 const CourseServices = Object.freeze({
   createCourse,
@@ -67,6 +74,7 @@ const CourseServices = Object.freeze({
   getCourseDetail,
   getCourseCategories,
   updateCourseDetail,
+  createSection
 });
 
 export default CourseServices;
