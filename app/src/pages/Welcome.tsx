@@ -6,7 +6,6 @@ import FrontLogo from "../assets/WelEdnew.png"
 import logo from "../assets/logo.png"
 import educado from "../assets/educado.png"
 import background from "../assets/background.jpg"
-import Carousel from "../components/archive/Carousel";
 
 
 
@@ -33,11 +32,8 @@ return (
     
         <div className='w-full h-screen'>
             <div className='grid grid-cols-1 md:grid-cols-2 m-auto h-screen sm:max-w-956'> 
-                <div className='relative w-full h-screen overflow-hidden'>
+                <div className='w-full h-screen overflow-hidden'>
                 <img src={background} alt="w-[42.375rem]" className='object-cover w-full h-full' />
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <Carousel/>
-                </div>
             </div>
          <body>
           
@@ -46,7 +42,7 @@ return (
         <div className="w-[50rem] h-[60rem] px-20 rounded-sm flex-col justify-center items-center gap-20 inline-flex">
     
           <div className="flex justify-between items-center mb-6 space-x-16"></div>
-          <div className="w-[6]"></div> {/* Add a 24px space between the buttons */}
+          <div className="w-[6"></div> {/* Add a 24px space between the buttons */}
       
     <Link to="/login">
       <button
