@@ -63,8 +63,8 @@ const updateCourseDetail = (data: any, id: any, token: string) => {
 const createSection = async (data: any, id: any, token: string) => {
   return await axios.post(
     `${backend_route}/api/section/create/${id}`,
-    data,
-    { headers: { Authorization: `Bearer ${token}` } }
+    data/*,
+    { headers: { Authorization: `Bearer ${token}` }}*/
   );
 }
 
