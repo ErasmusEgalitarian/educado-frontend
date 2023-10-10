@@ -2,7 +2,7 @@ import { useState, } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 // Components
-import DropZoneComponent from "../components/Exercise/dropZone";
+//import DropZoneComponent from "../components/Exercise/dropZone";
 import AnswerCards from "../components/Exercise/AnswerCards";
 
 // Interfaces
@@ -30,7 +30,7 @@ export interface ExercisePartial {
     answers: Answer[]
 }
 
-
+/*
 export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: string }) => {
 
     const [onWrongFeedbackFile, setonWrongFeedbackFile] = useState<any>();
@@ -45,7 +45,7 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
 
     const saveExercise = (data: any) => {
 
-        {/** (3.12.22) Current version of mobile app requires exactly 4 answers */ }
+        {/** (3.12.22) Current version of mobile app requires exactly 4 answers *//* }
         if (answers.length < 4 || answers.length > 4) {
             toast.error("Please set 4 answers before saving exercise")
             return
@@ -102,7 +102,7 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
                 </div>
             </div>
 
-            {/* Content video */}
+            {/* Content video *//*}
             <div className="rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border ">
                 {exercise.content ?
                     <div>
@@ -115,12 +115,12 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
                 <DropZoneComponent update={setMainContentFile} storageKey={`${exercise.id}/mainContent`} />
             </div>
 
-            {/* divider */}
+            {/* divider *//*}
             <div className="flex flex-col w-full">
                 <div className="divider"></div>
             </div>
 
-            {/* feedback Video */}
+            {/* feedback Video *//*}
             <div className="rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border ">
                 {exercise.onWrongFeedback ?
                     <div>
@@ -132,7 +132,7 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
                 <DropZoneComponent update={setonWrongFeedbackFile} storageKey={`${exercise.id}/feedbackContent`} />
             </div>
 
-            {/* Answers. Answers sometimes doesn't get loaded hence the conditional rendering ... */}
+            {/* Answers. Answers sometimes doesn't get loaded hence the conditional rendering ... *//*}
             {answers ?
                 <div className="rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border ">
                     <h1 className='text-md font-medium'>Answers</h1>
@@ -149,3 +149,4 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
 };
 
 export default ExerciseDetail;
+*/
