@@ -141,7 +141,7 @@ export const CreateCourseModal = () => {
                             <div  className="flex flex-col space-y-2 text-left">
                                 <label htmlFor='title'>Tempo estimado</label> {/*Estimated time*/}
                                 <input type="number" defaultValue={""} min={0} step={1}
-                                    className="extra-small-form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    className="form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                                     {...register("time", { required: true })}
                                 />
                                 {errors.title && <span className='text-warning'>Este campo é obrigatório</span>}
