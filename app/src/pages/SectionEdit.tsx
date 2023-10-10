@@ -23,6 +23,7 @@ import { Exercise } from '../interfaces/Exercise'
 // Icons
 import ArrowLeftIcon from '@heroicons/react/24/outline/ArrowLeftIcon';
 
+// Backend URL from .env file (automatically injected) 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 type Inputs = {
     title: string,
@@ -34,6 +35,11 @@ type SectionPartial = {
     description: string
 }
 
+/**
+ * SectionEdit component 
+ * 
+ * @returns JSX.Element 
+ */
 const SectionEdit = () => {
     const { cid, sid } = useParams();
     
@@ -91,7 +97,6 @@ const SectionEdit = () => {
  * SubmitHandler: update section
  * 
  * @param data  The data to be updated
- * @returns     void
  */
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         const changes: SectionPartial = {

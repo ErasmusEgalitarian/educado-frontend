@@ -2,7 +2,7 @@ import axios from "axios";
 
 //import { Storage } from '@google-cloud/storage';
 
-
+// Creates a client from a Google service account key.
 export interface StorageInterface {
     uploadFile: (bucketName: string, filePath: any, id: string) => void;
     downloadFile: (bucketName: string, id: string, filePath: any) => void; 
@@ -82,6 +82,8 @@ console.error(err.message);
 process.exitCode = 1;
 });
 */
+
+//export default StorageServices;
 const StorageServices = Object.freeze({
     uploadFile
 });

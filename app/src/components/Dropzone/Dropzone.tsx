@@ -1,3 +1,8 @@
+/**
+ * Dropzone component
+ * 
+ * @returns HTML Element
+ */
 export const Dropzone = () => {
     return (
         <div>

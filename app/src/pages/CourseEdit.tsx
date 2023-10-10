@@ -49,6 +49,11 @@ type CoursePartial = {
 // Hardcoded based on database id
 const OTHER_CATEGORY_ID = '639208a0f467689fde25b5fa'
 
+/**
+ * This page is responsible for showing and editing courses to the creator.
+ * 
+ * @returns HTML Element
+ */
 const CourseEdit = () => {
     const token = "dummyToken";
     //const token = useToken();
@@ -60,7 +65,7 @@ const CourseEdit = () => {
     //const [coverImg, setCoverImg] = useState<File | null>();
     //const [coverImgPreview, setCoverImgPreview] = useState<string>("");
     
-    
+    // Fetch Course Details
     const { data, error } = useSWR(
         token ? [`http://127.0.0.1:8888/api/courses/${id}`, token] : null,
         CourseServices.getCourseDetail
@@ -76,6 +81,7 @@ const CourseEdit = () => {
     // React useForm setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
+    // React Router Navigate
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         const changes: CoursePartial = {
             title: data.title,

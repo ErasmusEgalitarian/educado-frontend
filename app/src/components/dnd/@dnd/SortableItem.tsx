@@ -12,10 +12,9 @@ import { ChevronUpDownIcon, PencilSquareIcon } from '@heroicons/react/24/outline
 
 import SectionServices from '../../../services/section.services';
 
-
 export function SortableItem(props: any) {
   const token = "dummyToken";
-  //const token = useToken();
+  // const token = useToken();
   
   // Fetch the section data from the server.
   const { data, error } = useSWR(

@@ -30,7 +30,7 @@ import { Item } from './@dnd/Item';
 import { Section } from '../../interfaces/CourseDetail';
 
 /**
- * 
+ * SectionList Component - List of Sections
  * 
  * @param {Array<Section>} sections  
  * @returns HTML Element

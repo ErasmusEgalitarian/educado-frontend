@@ -38,7 +38,12 @@ type Inputs = {
 
 
 
-
+/**
+ * This component is a modal that opens when the user clicks on the button to create a new course.
+ * It has a form to input the data of the new course.
+ *
+ * @returns HTML Element
+ */
 export const CreateCourseModal = () => {
     const [isLoading, setIsLoading] = useState(false);
     const token = useToken();
@@ -50,7 +55,11 @@ export const CreateCourseModal = () => {
     // use-form setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
-    // success on submit handler
+    /**
+     * Function to handle the submit of the form
+     * 
+     * @param {Inputs} data The data from each field in the form put into an object
+     */
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         
 

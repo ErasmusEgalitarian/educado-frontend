@@ -6,6 +6,12 @@ import { ToastContainer } from 'react-toastify';
 import RequireAuth from './RequireAuth'
 import { Navbar } from './Navbar';
 
+/**
+ * Layout component
+ * 
+ * @param {ReactNode} children The children components
+ * @returns HTML Element
+ */
 const Layout = ({ children }: { children: Array<ReactNode> | ReactNode, meta: string | undefined }) => {
     return (
         <RequireAuth>

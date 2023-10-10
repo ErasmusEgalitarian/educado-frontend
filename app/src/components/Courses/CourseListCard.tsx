@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 // interfaces
 import { Course } from "../../interfaces/Course"
 
+/**
+ * Displays a course in a card format
+ * 
+ * @param {Course} course The course to be displayed
+ * @returns HTML Element
+ */
 export const CourseListCard = ({ course }: { course: Course }) => {
   return (
     <div className="overflow-hidden shadow rounded h-90 w-full cursor-pointer m-auto">

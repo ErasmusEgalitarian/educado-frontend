@@ -15,6 +15,12 @@ type Inputs = {
     title: string
 }
 
+/**
+ * SectionForm component
+ * 
+ * @param {string} id - The id of the board
+ * @returns {React.FC} - React component
+ */
 export const SectionForm = () => {
     // Query Params
     const token = "dummyToken";
