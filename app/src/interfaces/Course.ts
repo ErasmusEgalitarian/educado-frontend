@@ -6,7 +6,7 @@ export interface Main {
 }
 
 export interface Course {
-  id:         string;
+  _id:          string;
   title:       string;
   category:    Category;
   coverImg?:   string;

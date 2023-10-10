@@ -9,13 +9,13 @@ import { Navbar } from './Navbar';
 const Layout = ({ children }: { children: Array<ReactNode> | ReactNode, meta: string | undefined }) => {
     return (
         <RequireAuth>
-            <div className="flex w-screen h-screen text-gray-700">
+            <div className="flex w-screen h-screen text-gray-700 ">
                 <div className="flex flex-col flex-grow">
                     {/** Top Nav bar */}
                     <Navbar />
 
                     {/** Content */}
-                    <main className="flex-grow overflow-x-hidden bg-gray-100">
+                    <main className="flex-grow overflow-x-hidden bg-gradient-to-br from-[#c8e5ec] to-[white]">
                         {children}
                     </main>
 
