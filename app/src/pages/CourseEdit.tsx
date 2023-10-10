@@ -62,8 +62,8 @@ const CourseEdit = () => {
     /**
      * FIX LATER: removed cover image since it has not been implemented to work yet
      */
-    //const [coverImg, setCoverImg] = useState<File | null>();
-    //const [coverImgPreview, setCoverImgPreview] = useState<string>("");
+    const [coverImg, setCoverImg] = useState<File | null>();
+    const [coverImgPreview, setCoverImgPreview] = useState<string>("");
     
     // Fetch Course Details
     const { data, error } = useSWR(
@@ -105,22 +105,25 @@ const CourseEdit = () => {
 
     // update cover image function
     /**
-     * 
+     * Sets the cover image preview and the cover image file
+     * Though bucket is not implemented yet, so most of this is commented out
      */
-    /*const onCoverImgChange = async (e: any) => {
-        const image = e.target.files[0];
+    const onCoverImgChange = async (e: any) => {
+        const image = "https://www.shutterstock.com/image-illustration/red-stamp-on-white-background-260nw-1165179109.jpg"
+        //const image = e.target.files[0];
 
         // Enables us to preview the image file before storing it
-        setCoverImgPreview(URL.createObjectURL(image));
-        setCoverImg(image);
+        setCoverImgPreview(image);
+        //setCoverImgPreview(URL.createObjectURL(image));
+        /*setCoverImg(image);
 
         try {
             await StorageService.uploadFile({ file: image, key: `${data.id}/coverImg` })
             toast.success('Image uploaded successfully');
         } catch (error) {
             toast.error('Image could not be uploaded, try again.');
-        }
-    }*/
+        }*/
+    }
 
     if (error /*|| categoriesError*/) return <NotFound />;
     if (!data /*|| !categories || (!data && !categories)*/) return <Loading/>;
@@ -137,7 +140,7 @@ const CourseEdit = () => {
                     </div>
                     <div className="flex-none space-x-2">
                         {/* <button onClick={() => toast.success("Course published")} className='btn btn-sm bg-blue-500 text-white border-0'>Unpublish</button> */}
-                        <button type="submit" className='btn btn-sm bg-blue-700 text-white border-0'>Curso de atualização</button>
+                        <button type="submit" className='btn btn-sm bg-blue-700 text-white border-0'>Atualizar</button>
                     </div>
                 </div>
 
@@ -235,4 +238,4 @@ const CourseEdit = () => {
     )
 }
 
-export default CourseEdit
+export default CourseEdit 

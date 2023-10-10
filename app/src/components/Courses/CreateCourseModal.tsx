@@ -19,14 +19,10 @@ import StorageService from '../../services/storage.services';
 // Icons
 import { PencilSquareIcon } from '@heroicons/react/24/outline'
 import { Navigate, useNavigate } from 'react-router-dom';
-import Icon from '@mdi/react';
-import { mdiInformationSlabCircleOutline } from '@mdi/js';
 import { eventType } from 'aws-sdk/clients/health';
 import { integer } from 'aws-sdk/clients/lightsail';
 import StorageServices from '../../services/storage.services';
 
-
-<Icon path={mdiInformationSlabCircleOutline} size={1} />
 
 type Inputs = {
     title: string,

@@ -4,7 +4,7 @@ import { useDropzone } from 'react-dropzone';
 // Services
 // 
 
-function DropZoneComponent({ update: updateFile, storageKey }) {
+/*function DropZoneComponent({ update: updateFile, storageKey }) {
     const [File, SetFile] = useState(null);
 
     const onDrop = useCallback((acceptedFiles: any) => {
@@ -83,9 +83,9 @@ function DropZoneComponent({ update: updateFile, storageKey }) {
             </div>
         </div>
         //     {/* <button onClick={() => handleFileUpload(File)}> Upload</button>
-        //  */}
+                    //  *//*}
 
     );
 };
 
-export default DropZoneComponent;
+export default DropZoneComponent;*/

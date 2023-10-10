@@ -2,6 +2,7 @@
  * Generates a random RGB values in hex
  * @returns
  */
+/*
 const useGenerateRandomColor = () => {
   const getRgb = () => Math.floor(Math.random() * 256);
 
@@ -22,3 +23,4 @@ const useGenerateRandomColor = () => {
 };
 
 export { useGenerateRandomColor };
+*/
