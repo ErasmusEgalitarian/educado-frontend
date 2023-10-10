@@ -1,7 +1,7 @@
 import { Exercise } from "../interfaces/Exercise";
-import ExerciseDetail from "../pages/ExerciseDetail";
+//import ExerciseDetail from "../pages/ExerciseDetail";
 
-export const ExerciseArea = ({ exercises }: { exercises: Array<Exercise> }) => {
+/*export const ExerciseArea = ({ exercises }: { exercises: Array<Exercise> }) => {
   
   return (
     <div className="flex-start flex-col space-y-4">
@@ -21,4 +21,4 @@ export const ExerciseArea = ({ exercises }: { exercises: Array<Exercise> }) => {
       })}
     </div>
   );
-};
+};*/

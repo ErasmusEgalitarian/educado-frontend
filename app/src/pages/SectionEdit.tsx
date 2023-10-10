@@ -14,7 +14,7 @@ import ExerciseServices from '../services/exercise.services';
 // Components
 import Loading from './Loading';
 import Layout from '../components/Layout';
-import { ExerciseArea } from '../components/ExerciseArea'
+//import { ExerciseArea } from '../components/ExerciseArea'
 
 // Interface
 import { Section } from '../interfaces/CourseDetail';
