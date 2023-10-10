@@ -29,7 +29,10 @@ const Courses = () => {
   console.log(token);
 
   // useSWR built in loaders
-if (error) return navigate("/login");
+if (error) {
+  navigate("/login");
+  return null
+}
 if (!data) return <Loading/>;
 
   return (
