@@ -35,4 +35,4 @@ jobs:
       - name: Linting
         run: |
           cd app
-          npm run lint --if-present
+          npm run linting --if-present

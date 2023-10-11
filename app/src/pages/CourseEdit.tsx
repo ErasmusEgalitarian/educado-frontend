@@ -81,7 +81,10 @@ const CourseEdit = () => {
     // React useForm setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
-    // React Router Navigate
+    /**
+     * Handles the form submission for updating a course's details.
+     * @param {Inputs} data - The form data containing the updated course details.
+     */
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         const changes: CoursePartial = {
             title: data.title,
