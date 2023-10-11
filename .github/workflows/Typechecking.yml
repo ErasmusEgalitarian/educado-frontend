@@ -34,4 +34,5 @@ jobs:
 
       - name: Typechecking
         run: |
+          cd app
           npm run typechecking --if-present
