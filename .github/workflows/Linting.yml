@@ -35,7 +35,4 @@ jobs:
       - name: Linting
         run: |
           cd app
-        ueses: wearerequired/lint-action@v2
-          with:
-            eslint: true
-            prettier: true
+          npm run lint --if-present
