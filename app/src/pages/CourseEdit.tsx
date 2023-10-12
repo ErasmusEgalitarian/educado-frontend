@@ -156,7 +156,7 @@ const CourseEdit = () => {
                                 {/** Course Title Field */}
                                 <div className="flex flex-col space-y-2">
                                     <label htmlFor='title'>Título</label>
-                                    <input type="text" defaultValue={data.title}
+                                    <input type="text" defaultValue={data.title} placeholder={data.title}
                                         className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                         {...register('title', { required: true })}
                                     />
@@ -169,6 +169,16 @@ const CourseEdit = () => {
                                     <textarea rows={4} defaultValue={data.description} placeholder={data.description}
                                         className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                         {...register('description', { required: true })}
+                                    />
+                                    {errors.description && <span>Este campo é obrigatório!</span>}
+                                </div>
+
+                                {/** Course Description Field */}
+                                <div className="flex flex-col space-y-2">
+                                    <label htmlFor='description'>category</label>
+                                    <textarea rows={4} defaultValue={data.categories} placeholder={data.categories}
+                                        className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                                        {...register('category', { required: true })}
                                     />
                                     {errors.description && <span>Este campo é obrigatório!</span>}
                                 </div>
