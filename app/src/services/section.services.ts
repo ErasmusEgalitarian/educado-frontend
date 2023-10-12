@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // Intefaces
-// import { Section } from '../interfaces/CourseDetail'
+//import { Section } from '../interfaces/CourseDetail'
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL
 
@@ -12,7 +12,7 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL
  * @param token token of the user, currently ignored
  * @returns respons from the backend get request
  */
-const getSectionDetail = async (url: string, token: string) => {
+export const getSectionDetail = async (url: string, token: string) => {
   return await axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
     .then(res => res.data)
 }
