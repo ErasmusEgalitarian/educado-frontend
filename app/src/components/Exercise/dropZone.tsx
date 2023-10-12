@@ -1,10 +1,10 @@
-import { useCallback, useState } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { useCallback, useState } from 'react'
+import { useDropzone } from 'react-dropzone'
 
 // Services
-// 
+//
 
-/*function DropZoneComponent({ update: updateFile, storageKey }) {
+/* function DropZoneComponent({ update: updateFile, storageKey }) {
     const [File, SetFile] = useState(null);
 
     const onDrop = useCallback((acceptedFiles: any) => {
@@ -37,7 +37,6 @@ import { useDropzone } from 'react-dropzone';
         }
     }
 
-
     const {
         getRootProps,
         getInputProps,
@@ -58,7 +57,6 @@ import { useDropzone } from 'react-dropzone';
                 {...getRootProps()}
                 className="rounded-md cursor-pointer focus:outline-none bg-base-100 hover:shadow-xl " >
                 <input {...getInputProps()} />
-
 
                 <div
                     className={
@@ -83,9 +81,9 @@ import { useDropzone } from 'react-dropzone';
             </div>
         </div>
         //     {/* <button onClick={() => handleFileUpload(File)}> Upload</button>
-                    //  *//*}
+                    //  *//* }
 
     );
 };
 
-export default DropZoneComponent;*/
+export default DropZoneComponent; */

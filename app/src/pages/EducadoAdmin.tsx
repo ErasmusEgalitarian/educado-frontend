@@ -1,36 +1,34 @@
-import { useState } from "react";
-import useSWR from "swr";
-import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { useState } from 'react'
+import useSWR from 'swr'
+import { useNavigate, Link, useLocation } from 'react-router-dom'
 
 // Services
-import AuthServices from "../services/auth.services";
+import AuthServices from '../services/auth.services'
 
 // Interfaces
-import { CCApp } from '../interfaces/CCApp'
+import { type CCApp } from '../interfaces/CCApp'
 
 // Components
-import Loading from "./Loading";
-import Layout from "../components/Layout";
-import { PageDescriptor } from "../components/PageDescriptor";
-
-
+import Loading from './Loading'
+import Layout from '../components/Layout'
+import { PageDescriptor } from '../components/PageDescriptor'
 
 const EducadoAdmin = () => {
-    const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
 
-    // Used to navigate to the detailed view for the single applicant
-    let navigate = useNavigate();
-    let location = useLocation();
+  // Used to navigate to the detailed view for the single applicant
+  const navigate = useNavigate()
+  const location = useLocation()
 
-    const { data, error } = useSWR(
-        "http://127.0.0.1:8888/api/applications?approved=false",
-        AuthServices.GetCCApplications
-    );
+  const { data, error } = useSWR(
+    'http://127.0.0.1:8888/api/applications?approved=false',
+    AuthServices.GetCCApplications
+  )
 
-    if (error) { <>Error...</>; }
-    if (!data) return <Loading/>
+  if (error) { <>Error...</> }
+  if (!data) return <Loading/>
 
-    return (
+  return (
         <Layout meta="Educado Admin">
             <PageDescriptor
                 title="Educado Admin"
@@ -48,7 +46,7 @@ const EducadoAdmin = () => {
                                     className=" rounded border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                     placeholder="Looking for an Application?"
                                     onChange={(event) => {
-                                        setSearchTerm(event.target.value);
+                                      setSearchTerm(event.target.value)
                                     }}
                                 />
                             </div>
@@ -82,24 +80,22 @@ const EducadoAdmin = () => {
                             {/** Table Body */}
                             <tbody>
                                 {data?.data.data.filter((application) => {
-                                    if (searchTerm == "") {
-                                        return application;
-                                    } else if (
-                                        application.firstName.toLowerCase().includes(searchTerm.toLowerCase())) {
-                                        return application;
-                                    }
-                                    else if (
-                                        application.lastName.toLowerCase().includes(searchTerm.toLowerCase())) {
-                                        return application;
-                                    }
-                                    else if (
-                                        application.email.toLowerCase().includes(searchTerm.toLowerCase())) {
-                                        return application;
-                                    }
+                                  if (searchTerm == '') {
+                                    return application
+                                  } else if (
+                                    application.firstName.toLowerCase().includes(searchTerm.toLowerCase())) {
+                                    return application
+                                  } else if (
+                                    application.lastName.toLowerCase().includes(searchTerm.toLowerCase())) {
+                                    return application
+                                  } else if (
+                                    application.email.toLowerCase().includes(searchTerm.toLowerCase())) {
+                                    return application
+                                  }
                                 }).map((application: CCApp.Datum, key: number) => {
-                                    let date = new Date(application.createdAt); // TODO: Format Time
-                                    // let dateString = new Intl.DateTimeFormat('en-US').format(date);
-                                    return (
+                                  const date = new Date(application.createdAt) // TODO: Format Time
+                                  // let dateString = new Intl.DateTimeFormat('en-US').format(date);
+                                  return (
                                         <tr key={key} className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                             <td>
                                                 <div className="flex items-center">
@@ -126,7 +122,7 @@ const EducadoAdmin = () => {
                                                 </Link>
                                             </td>
                                         </tr>
-                                    );
+                                  )
                                 })}
                             </tbody>
                         </table>
@@ -194,6 +190,6 @@ const EducadoAdmin = () => {
                 </div>
             </div>
         </Layout>
-    );
+  )
 }
-export default EducadoAdmin;
+export default EducadoAdmin

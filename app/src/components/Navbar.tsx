@@ -2,24 +2,24 @@ import { Link, useNavigate } from 'react-router-dom'
 import useAuthStore from '../contexts/useAuthStore'
 
 // static
-import Logo from "../assets/ecs-logo.png"
+import Logo from '../assets/ecs-logo.png'
 
 // icons
 import {
-    BookOpenIcon,
-    ShieldCheckIcon
-} from "@heroicons/react/24/outline";
+  BookOpenIcon,
+  ShieldCheckIcon
+} from '@heroicons/react/24/outline'
 
 export const Navbar = () => {
-    const clearToken = useAuthStore(state => state.clearToken);
-    const navigate = useNavigate();
+  const clearToken = useAuthStore(state => state.clearToken)
+  const navigate = useNavigate()
 
-    // List to generete dropdown li's 
-    const links = [
-        { path: "/profile", desc: "Settings" },
-    ]
+  // List to generete dropdown li's
+  const links = [
+    { path: '/profile', desc: 'Settings' }
+  ]
 
-    return (
+  return (
         <div className="navbar bg-base-100 border-b">
             <div className="navbar-start">
                 <div className="dropdown">
@@ -28,12 +28,12 @@ export const Navbar = () => {
                     </label>
                     <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                         <li>
-                            <Link to={"/courses"} className="flex">
+                            <Link to={'/courses'} className="flex">
                                 <BookOpenIcon width={20} /><span>Courses</span>
                             </Link>
                         </li>
                         <li>
-                            <Link to={"/educado_admin/applications"} className="flex">
+                            <Link to={'/educado_admin/applications'} className="flex">
                                 <ShieldCheckIcon width={20} /><span>Admin</span>
                             </Link>
                         </li>
@@ -48,12 +48,12 @@ export const Navbar = () => {
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
                     <li>
-                        <Link to={"/courses"} className="flex tooltip tooltip-hover tooltip-bottom" data-tip="see your courses">
+                        <Link to={'/courses'} className="flex tooltip tooltip-hover tooltip-bottom" data-tip="see your courses">
                             <BookOpenIcon width={20} /><span>Courses</span>
                         </Link>
                     </li>
                     <li>
-                        <Link to={"/educado_admin/applications"} className="flex tooltip tooltip-hover tooltip-bottom" data-tip="Check Applications">
+                        <Link to={'/educado_admin/applications'} className="flex tooltip tooltip-hover tooltip-bottom" data-tip="Check Applications">
                             <ShieldCheckIcon width={20} /><span>Admin</span>
                         </Link>
                     </li>
@@ -77,11 +77,11 @@ export const Navbar = () => {
                         </label>
                         <ul tabIndex={0} className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4">
                             {links.map((route, key) => <li key={key}><Link to={route.path}>{route.desc}</Link></li>)}
-                            <li><a onClick={() => { clearToken; navigate("/login") }} className="w-full px-4 py-2 text-left hover:bg-blue-500 hover:text-white">Sign out</a></li>
+                            <li><a onClick={() => { clearToken; navigate('/login') }} className="w-full px-4 py-2 text-left hover:bg-blue-500 hover:text-white">Sign out</a></li>
                         </ul>
                     </div>
                 </button>
             </div>
         </div>
-    )
+  )
 }

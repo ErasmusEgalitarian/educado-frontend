@@ -1,48 +1,48 @@
-import axios from "axios";
+import axios from 'axios'
 
 // Interfaces
-import { CCApp } from "../interfaces/CCApp";
+import { type CCApp } from '../interfaces/CCApp'
 
 export interface ContentCreatorApplication {
-  firstName: String;
-  lastName: String;
-  email: String;
-  motivation: String;
+  firstName: string
+  lastName: string
+  email: string
+  motivation: string
 }
 
 // Authenticate with JWT login
 const postUserLogin = async (credentials: any) => {
-  return await axios.post("http://127.0.0.1:8888/auth/jwt", credentials);
-};
+  return await axios.post('http://127.0.0.1:8888/auth/jwt', credentials)
+}
 
 const postUserApplication = async (formData: ContentCreatorApplication) => {
-  return await axios.post("http://127.0.0.1:8888/api/applications", formData);
-};
+  return await axios.post('http://127.0.0.1:8888/api/applications', formData)
+}
 
 const GetCCApplications = async (): Promise<CCApp.RootObject> => {
   return await axios.get(
-    "http://127.0.0.1:8888/api/applications?approved=false&isRejected=false"
-  );
-};
+    'http://127.0.0.1:8888/api/applications?approved=false&isRejected=false'
+  )
+}
 
 const GetSingleUserApplication = async (url: string): Promise<CCApp.Datum> => {
-  const response = await axios.get(url);
-  return response.data.data;
-};
+  const response = await axios.get(url)
+  return response.data.data
+}
 
 const PostDelcineContentCreator = async (id: string): Promise<unknown> => {
   return await axios.put(
     `http://127.0.0.1:8888/api/applications/${id}?action=reject`,
-    { data: { reason: "No" } }
-  );
-};
+    { data: { reason: 'No' } }
+  )
+}
 
 const PostAcceptContentCreator = async (id: string): Promise<unknown> => {
   return await axios.put(
     `http://127.0.0.1:8888/api/applications/${id}?action=approve`,
-    { data: { reason: "Yes" } }
-  );
-};
+    { data: { reason: 'Yes' } }
+  )
+}
 
 const AuthServices = Object.freeze({
   postUserLogin,
@@ -50,7 +50,7 @@ const AuthServices = Object.freeze({
   GetCCApplications,
   GetSingleUserApplication,
   PostDelcineContentCreator,
-  PostAcceptContentCreator,
-});
+  PostAcceptContentCreator
+})
 
-export default AuthServices;
+export default AuthServices

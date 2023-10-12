@@ -3,15 +3,14 @@ import { Link } from 'react-router-dom'
 import useAuthStore from '../../contexts/useAuthStore'
 
 export const TopNavBar = () => {
+  const clearToken = useAuthStore(state => state.clearToken)
 
-    const clearToken = useAuthStore(state => state.clearToken);
+  const links = [
+    { path: '/profile', desc: 'Profile' },
+    { path: '/courses', desc: 'Courses' }
+  ]
 
-    const links = [
-        { path: "/profile", desc: "Profile" },
-        { path: "/courses", desc: "Courses" },
-    ]
-
-    return (
+  return (
         <div className="flex items-center flex-shrink-0 h-16 px-8 border-b border-gray-300">
             <div className="text-sm breadcrumbs ">
                 <ul>
@@ -41,5 +40,5 @@ export const TopNavBar = () => {
                 </div>
             </button>
         </div>
-    )
+  )
 }

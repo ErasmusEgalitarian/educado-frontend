@@ -1,33 +1,33 @@
-import { useState, } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useState } from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
 
 // Components
-//import DropZoneComponent from "../components/Exercise/dropZone";
-import AnswerCards from "../components/Exercise/AnswerCards";
+// import DropZoneComponent from "../components/Exercise/dropZone";
+import AnswerCards from '../components/Exercise/AnswerCards'
 
 // Interfaces
-import { Answer } from "../interfaces/Answer";
-import { Exercise } from "../interfaces/Exercise"
+import { type Answer } from '../interfaces/Answer'
+import { Exercise } from '../interfaces/Exercise'
 
 // Helpers
-import ExerciseServices from "../services/exercise.services";
+import ExerciseServices from '../services/exercise.services'
 
 // Video Player
-import ReactPlayer from "react-player";
-import { toast } from "react-toastify";
+import ReactPlayer from 'react-player'
+import { toast } from 'react-toastify'
 
 // Hooks
-import useToken from "../hooks/useToken";
+import useToken from '../hooks/useToken'
 
 export interface ExercisePartial {
-    id: string,
-    sectionId: string,
-    title: string,
-    description: string,
-    exerciseNumber: number,
-    content?: any,
-    onWrongFeedback?: any,
-    answers: Answer[]
+  id: string
+  sectionId: string
+  title: string
+  description: string
+  exerciseNumber: number
+  content?: any
+  onWrongFeedback?: any
+  answers: Answer[]
 }
 
 /*
@@ -102,7 +102,7 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
                 </div>
             </div>
 
-            {/* Content video *//*}
+            {/* Content video *//* }
             <div className="rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border ">
                 {exercise.content ?
                     <div>
@@ -115,12 +115,12 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
                 <DropZoneComponent update={setMainContentFile} storageKey={`${exercise.id}/mainContent`} />
             </div>
 
-            {/* divider *//*}
+            {/* divider *//* }
             <div className="flex flex-col w-full">
                 <div className="divider"></div>
             </div>
 
-            {/* feedback Video *//*}
+            {/* feedback Video *//* }
             <div className="rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border ">
                 {exercise.onWrongFeedback ?
                     <div>
@@ -132,7 +132,7 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
                 <DropZoneComponent update={setonWrongFeedbackFile} storageKey={`${exercise.id}/feedbackContent`} />
             </div>
 
-            {/* Answers. Answers sometimes doesn't get loaded hence the conditional rendering ... *//*}
+            {/* Answers. Answers sometimes doesn't get loaded hence the conditional rendering ... *//* }
             {answers ?
                 <div className="rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border ">
                     <h1 className='text-md font-medium'>Answers</h1>

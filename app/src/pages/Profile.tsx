@@ -1,91 +1,86 @@
 import { useState, useEffect } from 'react'
-import { useForm, SubmitHandler } from "react-hook-form";
-import { toast } from 'react-toastify';
+import { useForm, type SubmitHandler } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 // Contexts
-import useAuthStore from '../contexts/useAuthStore';
+import useAuthStore from '../contexts/useAuthStore'
 
 // Interfaces
-import { LoginReponseError as ResponseError } from "../interfaces/LoginReponseError"
+import { type LoginReponseError as ResponseError } from '../interfaces/LoginReponseError'
 
 // Components
-import Layout from "../components/Layout";
-import { PageDescriptor } from '../components/PageDescriptor';
-import AccountServices from '../services/account.services';
+import Layout from '../components/Layout'
+import { PageDescriptor } from '../components/PageDescriptor'
+import AccountServices from '../services/account.services'
 
 // Icons
 import {
-    InformationCircleIcon,
-    EyeIcon,
-    EyeSlashIcon,
-} from "@heroicons/react/24/outline";
-import useToken from '../hooks/useToken';
+  InformationCircleIcon,
+  EyeIcon,
+  EyeSlashIcon
+} from '@heroicons/react/24/outline'
+import useToken from '../hooks/useToken'
 
-type ChangePasswordInputs = {
-    oldPassword: string,
-    newPassword: string
+interface ChangePasswordInputs {
+  oldPassword: string
+  newPassword: string
 }
 
-type ProfileInfoInputs = {
-    firstName: string,
-    lastName: string
+interface ProfileInfoInputs {
+  firstName: string
+  lastName: string
 }
-
 
 const Profile = () => {
-    //const token = useAuthStore(state => state.token);
-    const token = useToken();
+  // const token = useAuthStore(state => state.token);
+  const token = useToken()
 
-    // response errors
-    const [changePasswordResponseError, setChangePasswordResponseError] = useState<ResponseError.RootObject | null>(null);
+  // response errors
+  const [changePasswordResponseError, setChangePasswordResponseError] = useState<ResponseError.RootObject | null>(null)
 
-    // password show toggles
-    const [showOldPassword, setShowOldPassword] = useState(false)
-    const [showNewPassword, setShowNewPassword] = useState(false)
-    
-    // use-form setup
-    const { 
-        register: profileInfoRegister, 
-        handleSubmit: profileInfoHandleSubmit, 
-        formState: { errors: profileInfoErrors }, 
-        setValue 
-    } = useForm<ProfileInfoInputs>();
+  // password show toggles
+  const [showOldPassword, setShowOldPassword] = useState(false)
+  const [showNewPassword, setShowNewPassword] = useState(false)
 
-    const { 
-        register: changePasswordRegister, 
-        handleSubmit: changePasswordHandleSubmit, 
-        formState: { errors: changePasswordErrors, isSubmitSuccessful: changePasswordSubmitSuccessful },
-        reset: resetChangePasswordForm
-    } = useForm<ChangePasswordInputs>();
-    
-    // submit handlers
-    const onProfileInfoSubmit: SubmitHandler<ProfileInfoInputs> = async (data) => {
-        AccountServices.updateProfileInfo(data, token)
-        .then(() => toast.success('Profile updated successfully'))
-        .catch((err) => toast.error('Failed to update profile info. Try again or refresh page'))
-    };
-        
-    const onChangePasswordSubmit: SubmitHandler<ChangePasswordInputs> = async (data) => {
-        AccountServices.changePassword(data, token)
-        .then(() => toast.success('Password has been changed'))
-        .catch((err) => setChangePasswordResponseError(err.response.data))
-    };
-    
-    
-    useEffect(() => {
-        if (changePasswordSubmitSuccessful)     resetChangePasswordForm()
-        token && AccountServices.getProfileInfo(token)
-            .then(response => {
-                setValue('firstName', response.data.firstName)
-                setValue('lastName', response.data.lastName)
-            })
-            .catch(error => console.log(error))
-        
-    }, [changePasswordSubmitSuccessful, token])
-    
-    
-    
-    return (
+  // use-form setup
+  const {
+    register: profileInfoRegister,
+    handleSubmit: profileInfoHandleSubmit,
+    formState: { errors: profileInfoErrors },
+    setValue
+  } = useForm<ProfileInfoInputs>()
+
+  const {
+    register: changePasswordRegister,
+    handleSubmit: changePasswordHandleSubmit,
+    formState: { errors: changePasswordErrors, isSubmitSuccessful: changePasswordSubmitSuccessful },
+    reset: resetChangePasswordForm
+  } = useForm<ChangePasswordInputs>()
+
+  // submit handlers
+  const onProfileInfoSubmit: SubmitHandler<ProfileInfoInputs> = async (data) => {
+    AccountServices.updateProfileInfo(data, token)
+      .then(() => toast.success('Profile updated successfully'))
+      .catch((err) => toast.error('Failed to update profile info. Try again or refresh page'))
+  }
+
+  const onChangePasswordSubmit: SubmitHandler<ChangePasswordInputs> = async (data) => {
+    AccountServices.changePassword(data, token)
+      .then(() => toast.success('Password has been changed'))
+      .catch((err) => { setChangePasswordResponseError(err.response.data) })
+  }
+
+  useEffect(() => {
+    if (changePasswordSubmitSuccessful) resetChangePasswordForm()
+    token && AccountServices.getProfileInfo(token)
+      .then(response => {
+        setValue('firstName', response.data.firstName)
+        setValue('lastName', response.data.lastName)
+      })
+      .catch(error => { console.log(error) })
+  }, [changePasswordSubmitSuccessful, token])
+
+  return (
         <Layout meta='Profile'>
 
             {/** Page Descriptor */}
@@ -117,7 +112,7 @@ const Profile = () => {
                                                     id="first-name"
                                                     autoComplete="given-name"
                                                     className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                                    {...profileInfoRegister("firstName", { required: true })}
+                                                    {...profileInfoRegister('firstName', { required: true })}
                                                 />
                                                 {profileInfoErrors.firstName && <span>This field is required</span>}
                                             </div>
@@ -131,7 +126,7 @@ const Profile = () => {
                                                     id="last-name"
                                                     autoComplete="family-name"
                                                     className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                                    {...profileInfoRegister("lastName", { required: true })}
+                                                    {...profileInfoRegister('lastName', { required: true })}
                                                 />
                                                 {profileInfoErrors.lastName && <span>This field is required</span>}
                                             </div>
@@ -151,13 +146,11 @@ const Profile = () => {
                     </div>
                 </div>
 
-
                 <div className="hidden sm:block" aria-hidden="true">
                     <div className="py-5">
                         <div className="border-t border-gray-200" />
                     </div>
                 </div>
-
 
                 {/** Account settings */}
                 <div>
@@ -194,16 +187,16 @@ const Profile = () => {
                                                         id="old-password"
                                                         autoComplete="old-password"
                                                         className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                                        {...changePasswordRegister("oldPassword", { required: true })}
+                                                        {...changePasswordRegister('oldPassword', { required: true })}
                                                     />
                                                     <button
                                                         type='button'
                                                         className='btn text-xs'
-                                                        onClick={() => setShowOldPassword(!showOldPassword)}
+                                                        onClick={() => { setShowOldPassword(!showOldPassword) }}
                                                     >
-                                                        {showOldPassword ?
-                                                            <EyeIcon width={20} /> :
-                                                            <EyeSlashIcon width={20} />
+                                                        {showOldPassword
+                                                          ? <EyeIcon width={20} />
+                                                          : <EyeSlashIcon width={20} />
                                                         }
                                                     </button>
                                                 </div>
@@ -221,16 +214,16 @@ const Profile = () => {
                                                         id="new-password"
                                                         autoComplete="new-password"
                                                         className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                                        {...changePasswordRegister("newPassword", { required: true })}
+                                                        {...changePasswordRegister('newPassword', { required: true })}
                                                     />
                                                     <button
                                                         type='button'
                                                         className='btn text-xs'
-                                                        onClick={() => setShowNewPassword(!showNewPassword)}
+                                                        onClick={() => { setShowNewPassword(!showNewPassword) }}
                                                     >
-                                                        {showNewPassword ?
-                                                            <EyeIcon width={20} /> :
-                                                            <EyeSlashIcon width={20} />
+                                                        {showNewPassword
+                                                          ? <EyeIcon width={20} />
+                                                          : <EyeSlashIcon width={20} />
                                                         }
                                                     </button>
                                                 </div>
@@ -238,7 +231,6 @@ const Profile = () => {
                                             </div>
                                         </div>
                                     </div>
-
 
                                     <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
                                         <button
@@ -255,8 +247,7 @@ const Profile = () => {
                 </div>
             </div>
         </Layout>
-    )
+  )
 }
 
-export default Profile;
-
+export default Profile

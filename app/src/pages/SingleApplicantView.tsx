@@ -1,45 +1,45 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import useSWR from 'swr';
+import { useParams, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import useSWR from 'swr'
 
 // Services
-import AuthServices from '../services/auth.services';
+import AuthServices from '../services/auth.services'
 
 // Components
-import Loading from './Loading';
-import Layout from '../components/Layout';
+import Loading from './Loading'
+import Layout from '../components/Layout'
 
-function SingleApplicantView() {
-    const { id } = useParams();
-    const navigate = useNavigate();
+function SingleApplicantView () {
+  const { id } = useParams()
+  const navigate = useNavigate()
 
-    // Fetch Application Details
-    const { data, error } = useSWR(
-        [`http://127.0.0.1:8888/api/applications/${id}`],
-        AuthServices.GetSingleUserApplication
-    );
+  // Fetch Application Details
+  const { data, error } = useSWR(
+    [`http://127.0.0.1:8888/api/applications/${id}`],
+    AuthServices.GetSingleUserApplication
+  )
 
-    // TODO: Not finished
-    const handleAccept = () => {
-        AuthServices.PostAcceptContentCreator(id!)
-            .then(res => { console.log(res) })
-            .catch(_ => toast.error(`Failed to Approve: ${id}`));
-    }
+  // TODO: Not finished
+  const handleAccept = () => {
+    AuthServices.PostAcceptContentCreator(id!)
+      .then(res => { console.log(res) })
+      .catch(_ => toast.error(`Failed to Approve: ${id}`))
+  }
 
-    // TODO: Not finished
-    const handleReject = () => {
-        AuthServices.PostDelcineContentCreator(id!)
-            .then(_ => {
-                toast.success(`Rejected: ${id}`);
-                navigate("/educado_admin");
-            })
-            .catch(_ => toast.error(`Failed to Reject: ${id}`));
-    }
+  // TODO: Not finished
+  const handleReject = () => {
+    AuthServices.PostDelcineContentCreator(id!)
+      .then(_ => {
+        toast.success(`Rejected: ${id}`)
+        navigate('/educado_admin')
+      })
+      .catch(_ => toast.error(`Failed to Reject: ${id}`))
+  }
 
-    if (error) { <>Error...</>; }
-    if (!data) return <Loading />
+  if (error) { <>Error...</> }
+  if (!data) return <Loading />
 
-    return (
+  return (
         <Layout meta={`Applicant: ${id?.slice(0, 10)}...`}>
             <div className="grid place-items-center h-screen">
                 <div className="bg-white max-w-2xl shadow overflow-hidden sm:rounded">
@@ -103,10 +103,7 @@ function SingleApplicantView() {
                 </div >
             </div>
         </Layout>
-    );
+  )
 }
 
-export default SingleApplicantView;
-
-
-
+export default SingleApplicantView

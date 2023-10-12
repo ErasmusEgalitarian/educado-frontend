@@ -1,19 +1,19 @@
-import 'react-toastify/dist/ReactToastify.css';
-import { ReactNode } from 'react'
-import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+import { type ReactNode } from 'react'
+import { ToastContainer } from 'react-toastify'
 
 // Components
 import RequireAuth from './RequireAuth'
-import { Navbar } from './Navbar';
+import { Navbar } from './Navbar'
 
 /**
  * Layout component
- * 
+ *
  * @param {ReactNode} children The children components
  * @returns HTML Element
  */
-const Layout = ({ children }: { children: Array<ReactNode> | ReactNode, meta: string | undefined }) => {
-    return (
+const Layout = ({ children }: { children: ReactNode[] | ReactNode, meta: string | undefined }) => {
+  return (
         <RequireAuth>
             <div className="flex w-screen h-screen text-gray-700 ">
                 <div className="flex flex-col flex-grow">
@@ -45,7 +45,7 @@ const Layout = ({ children }: { children: Array<ReactNode> | ReactNode, meta: st
                 theme="light"
             />
         </RequireAuth>
-    )
+  )
 }
 
 export default Layout

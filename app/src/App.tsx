@@ -1,75 +1,74 @@
-import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 
 // Non-auth pages
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import NotFound from "./pages/NotFound";
+import Login from './pages/Login'
+import Signup from './pages/Signup'
+import NotFound from './pages/NotFound'
 
 // Auth Pages
-import Courses from "./pages/Courses";
-import CourseEdit from "./pages/CourseEdit";
-import SectionEdit from "./pages/SectionEdit";
-import Profile from "./pages/Profile";
+import Courses from './pages/Courses'
+import CourseEdit from './pages/CourseEdit'
+import SectionEdit from './pages/SectionEdit'
+import Profile from './pages/Profile'
 
 // Educado Admin
-import EducadoAdmin from "./pages/EducadoAdmin";
-import SingleApplicantView from "./pages/SingleApplicantView";
+import EducadoAdmin from './pages/EducadoAdmin'
+import SingleApplicantView from './pages/SingleApplicantView'
 
-function App() {
-
+function App () {
   // router
   const router = createBrowserRouter([
     { // Homepage is left unused
-      path: "/",
-      element: <Navigate to={"/courses"} />,
+      path: '/',
+      element: <Navigate to={'/courses'} />,
       errorElement: <NotFound />
     },
     {
-      path: "/courses",
+      path: '/courses',
       element: <Courses />,
-      errorElement: <NotFound />,
+      errorElement: <NotFound />
     },
     {
-      path: "/courses/edit/:id",
+      path: '/courses/edit/:id',
       element: <CourseEdit />
     },
     {
-      path: "/courses/edit/:cid/sections/:sid",
+      path: '/courses/edit/:cid/sections/:sid',
       element: <SectionEdit />
     },
     {
-      path: "/settings",
+      path: '/settings',
       element: <p>settings</p>
     },
     {
-      path: "/profile",
+      path: '/profile',
       element: <Profile />
     },
     {
-      path: "/login",
+      path: '/login',
       element: <Login />,
       errorElement: <NotFound />
     },
     {
-      path: "/signup",
+      path: '/signup',
       element: <Signup />,
       errorElement: <NotFound />
     },
     {
-      path: "/educado_admin",
-      element: <EducadoAdmin />,
-    },
-    {
-      path: "/educado_admin/applications",
+      path: '/educado_admin',
       element: <EducadoAdmin />
     },
     {
-      path: "/educado_admin/applications/:id",
-      element: <SingleApplicantView />,
+      path: '/educado_admin/applications',
+      element: <EducadoAdmin />
+    },
+    {
+      path: '/educado_admin/applications/:id',
+      element: <SingleApplicantView />
     }
   ])
 
-  return <RouterProvider router={router} />;
+  return <RouterProvider router={router} />
 }
 
 export default App

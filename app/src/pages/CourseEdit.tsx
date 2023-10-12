@@ -1,49 +1,49 @@
 /**
- * TODO: 
- * 
+ * TODO:
+ *
  * KNOWN ISSUES:
  */
 
 import { useState } from 'react'
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import { useForm, SubmitHandler } from "react-hook-form";
-import { toast } from 'react-toastify';
-import useSWR from 'swr';
+import { Link, useParams, useNavigate } from 'react-router-dom'
+import { useForm, type SubmitHandler } from 'react-hook-form'
+import { toast } from 'react-toastify'
+import useSWR from 'swr'
 
 // Hooks
-import useToken from '../hooks/useToken';
+import useToken from '../hooks/useToken'
 
 // Interfaces
-import { StorageFile } from '../interfaces/File';
+import { type StorageFile } from '../interfaces/File'
 
 // Services
-import CourseServices from '../services/course.services';
-import StorageService from '../services/storage.services';
+import CourseServices from '../services/course.services'
+import StorageService from '../services/storage.services'
 
 // Pages
-import NotFound from './NotFound';
+import NotFound from './NotFound'
 
 // components
-import Loading from './Loading';
+import Loading from './Loading'
 import Layout from '../components/Layout'
-import { SectionList } from '../components/dnd/SectionList';
-import { SectionForm } from '../components/dnd/SectionForm';
+import { SectionList } from '../components/dnd/SectionList'
+import { SectionForm } from '../components/dnd/SectionForm'
 
 // Icons
-import { ArrowLeftIcon } from "@heroicons/react/24/outline"
+import { ArrowLeftIcon } from '@heroicons/react/24/outline'
 
-type Inputs = {
-    coverImg: FileList
-    title: string,
-    description: string,
-    category: string
-};
+interface Inputs {
+  coverImg: FileList
+  title: string
+  description: string
+  category: string
+}
 
-type CoursePartial = {
-    coverImg?: StorageFile | {}
-    title: string,
-    description: string,
-    category: string
+interface CoursePartial {
+  coverImg?: StorageFile | {}
+  title: string
+  description: string
+  category: string
 }
 
 // Hardcoded based on database id
@@ -51,87 +51,86 @@ const OTHER_CATEGORY_ID = '639208a0f467689fde25b5fa'
 
 /**
  * This page is responsible for showing and editing courses to the creator.
- * 
+ *
  * @returns HTML Element
  */
 const CourseEdit = () => {
-    const token = "dummyToken";
-    //const token = useToken();
-    const { id } = useParams(); // Get path params
+  const token = 'dummyToken'
+  // const token = useToken();
+  const { id } = useParams() // Get path params
 
-    /**
+  /**
      * FIX LATER: removed cover image since it has not been implemented to work yet
      */
-    const [coverImg, setCoverImg] = useState<File | null>();
-    const [coverImgPreview, setCoverImgPreview] = useState<string>("");
-    
-    // Fetch Course Details
-    const { data, error } = useSWR(
-        token ? [`http://127.0.0.1:8888/api/courses/${id}`, token] : null,
-        CourseServices.getCourseDetail
-    );
+  const [coverImg, setCoverImg] = useState<File | null>()
+  const [coverImgPreview, setCoverImgPreview] = useState<string>('')
 
-    
-    // Fetch Categories
-    const { data: categories, error: categoriesError } = useSWR(
-        token ? [`http://127.0.0.1:8888/api/categories`, token] : null,
-        CourseServices.getCourseCategories
-    );
+  // Fetch Course Details
+  const { data, error } = useSWR(
+    token ? [`http://127.0.0.1:8888/api/courses/${id}`, token] : null,
+    CourseServices.getCourseDetail
+  )
 
-    // React useForm setup
-    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+  // Fetch Categories
+  const { data: categories, error: categoriesError } = useSWR(
+    token ? ['http://127.0.0.1:8888/api/categories', token] : null,
+    CourseServices.getCourseCategories
+  )
 
-    /**
+  // React useForm setup
+  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
+
+  /**
      * Handles the form submission for updating a course's details.
      * @param {Inputs} data - The form data containing the updated course details.
      */
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        const changes: CoursePartial = {
-            title: data.title,
-            description: data.description,
-            category: data.category
-        }
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const changes: CoursePartial = {
+      title: data.title,
+      description: data.description,
+      category: data.category
+    }
 
-        /*if (coverImg) {
+    /* if (coverImg) {
             changes.coverImg = {
                 path: `${id}/coverImg`,
                 filename: coverImg.name,
                 size: coverImg.size,
                 type: coverImg.type
             }
-        }*/
+        } */
 
-        CourseServices.updateCourseDetail(changes, id/*, token*/)
-            .then(res => toast.success('Updated course'))
-            .catch(err => toast.error(err));
-    }
+    CourseServices.updateCourseDetail(changes, id/*, token */)
+      .then(res => toast.success('Updated course'))
+      .catch(err => toast.error(err))
+  }
 
-    // update cover image function
-    /**
+  // update cover image function
+  /**
      * Sets the cover image preview and the cover image file
      * Though bucket is not implemented yet, so most of this is commented out
      */
-    const onCoverImgChange = async (e: any) => {
-        const image = "https://www.shutterstock.com/image-illustration/red-stamp-on-white-background-260nw-1165179109.jpg"
-        //const image = e.target.files[0];
+  const onCoverImgChange = async (e: any) => {
+    const image = 'https://www.shutterstock.com/image-illustration/red-stamp-on-white-background-260nw-1165179109.jpg'
+    // const image = e.target.files[0];
 
-        // Enables us to preview the image file before storing it
-        setCoverImgPreview(image);
-        //setCoverImgPreview(URL.createObjectURL(image));
-        /*setCoverImg(image);
+    // Enables us to preview the image file before storing it
+    setCoverImgPreview(image)
+    // setCoverImgPreview(URL.createObjectURL(image));
+    /* setCoverImg(image);
 
         try {
             await StorageService.uploadFile({ file: image, key: `${data.id}/coverImg` })
             toast.success('Image uploaded successfully');
         } catch (error) {
             toast.error('Image could not be uploaded, try again.');
-        }*/
-    }
+        } */
+  }
 
-    if (error /*|| categoriesError*/) return <NotFound />;
-    if (!data /*|| !categories || (!data && !categories)*/) return <Loading/>;
+  if (error /* || categoriesError */) return <NotFound />
+  if (!data /* || !categories || (!data && !categories) */) return <Loading/>
 
-    return (
+  return (
         <Layout meta={`Course: ${id}`}>
 
             {/** Course navigation */}
@@ -147,7 +146,7 @@ const CourseEdit = () => {
                     </div>
                 </div>
 
-                {/** Course details edit */} 
+                {/** Course details edit */}
                 <div className="container mx-auto flex flex-row space-x-4 my-6">
                     <div className='w-full max-w-5xl mx-auto bg-white rounded p-6'>
                         <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
@@ -159,7 +158,7 @@ const CourseEdit = () => {
                                     <label htmlFor='title'>Título</label>
                                     <input type="text" defaultValue={data.title}
                                         className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                        {...register("title", { required: true })}
+                                        {...register('title', { required: true })}
                                     />
                                     {errors.title && <span>Este campo é obrigatório!</span>}
                                 </div>
@@ -169,7 +168,7 @@ const CourseEdit = () => {
                                     <label htmlFor='description'>Descrição</label>
                                     <textarea rows={4} defaultValue={data.description} placeholder={data.description}
                                         className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                        {...register("description", { required: true })}
+                                        {...register('description', { required: true })}
                                     />
                                     {errors.description && <span>Este campo é obrigatório!</span>}
                                 </div>
@@ -178,27 +177,26 @@ const CourseEdit = () => {
                                 <div className="flex flex-col">
                                     <div className='relative'>
                                         <div className='p-0 rounded-b-none rounded-t border-gray-300 border-x border-t h-[240px] overflow-hidden'>
-                                            {data.coverImg ?
-                                                <img src={coverImgPreview || data.coverImg} alt={data.title} className="w-full h-max rounded object-cover" /> :
-                                                <div className='h-full w-full oceanic-gradient flex justify-center items-center text-2xl text-white'>No Cover Image</div>
+                                            {data.coverImg
+                                              ? <img src={coverImgPreview || data.coverImg} alt={data.title} className="w-full h-max rounded object-cover" />
+                                              : <div className='h-full w-full oceanic-gradient flex justify-center items-center text-2xl text-white'>No Cover Image</div>
                                             }
 
                                         </div>
                                         {/* Cover image upload */}
                                         <input type="file" accept='.jpg,.jpeg,.png'
-                                            {...register("coverImg")}
-                                            //onChange={onCoverImgChange}
+                                            {...register('coverImg')}
+                                            // onChange={onCoverImgChange}
                                             className='file-input w-full input-bordered rounded-b rounded-t-none focus:outline-none'
                                         >
                                         </input>
                                     </div>
                                 </div>
 
-                                
                                 {/** Category Pills */}
-                                {/*<div className="flex flex-col space-y-2">
+                                {/* <div className="flex flex-col space-y-2">
                                     <label htmlFor='categories'>Categories</label>
-                                    <div className='flex flex-row space-x-2'>*/}
+                                    <div className='flex flex-row space-x-2'> */}
                                         {/** TODO: Register to Form */}{/*
                                         <select
                                             defaultValue={data.category.id}
@@ -209,9 +207,9 @@ const CourseEdit = () => {
                                             {data.category
                                                 .filter((category: any) => category.name !== 'Other')
                                                 .map((category: any, key: number) =>
-                                                <option 
-                                                    selected={data.category.id === category.id} 
-                                                    value={category.id} 
+                                                <option
+                                                    selected={data.category.id === category.id}
+                                                    value={category.id}
                                                     key={key}
                                                 >
                                                     {category.name}
@@ -220,7 +218,7 @@ const CourseEdit = () => {
                                             <option value={OTHER_CATEGORY_ID} key={"other_category"}>Other</option>
                                         </select>
                                     </div>
-                                </div>*/}
+                                </div> */}
                             </div>
                         </div>
                     </div>
@@ -238,7 +236,7 @@ const CourseEdit = () => {
                 </div>
             </div>
         </Layout>
-    )
+  )
 }
 
-export default CourseEdit 
+export default CourseEdit
