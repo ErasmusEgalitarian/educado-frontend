@@ -27,7 +27,7 @@ import { SectionForm } from '../components/dnd/SectionForm'
 import { ArrowLeftIcon } from '@heroicons/react/24/outline'
 import { boolean } from 'yup';
 
-const backend_url = import.meta.env.VITE_BACKEND_URL;
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 interface Inputs {
   coverImg?: FileList
@@ -69,13 +69,13 @@ const CourseEdit = () => {
 
   // Fetch Course Details
   const { data, error } = useSWR(
-    token ? [`${backend_url}/api/courses/${id}`, token] : null,
+    token ? [`${backendUrl}/api/courses/${id}`, token] : null,
     CourseServices.getCourseDetail
   )
 
   // Fetch Categories
   const { data: categories, error: categoriesError } = useSWR(
-    token ? [`${backend_url}/api/categories`, token] : null,
+    token ? [`${backendUrl}/api/categories`, token] : null,
     CourseServices.getCourseCategories
   )
 

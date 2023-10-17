@@ -1,5 +1,5 @@
 import { Exercise } from '../interfaces/Exercise'
-// import ExerciseDetail from "../pages/ExerciseDetail";
+import ExerciseDetail from "../pages/ExerciseDetail";
 
 export const ExerciseArea = ({ exercises }: { exercises: Array<Exercise> }) => {
   console.log(exercises);

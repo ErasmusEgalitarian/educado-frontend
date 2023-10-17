@@ -68,7 +68,7 @@ const SectionEdit = () => {
 
   // Fetch the section data from the server.
   const { data: sectionData, error: sectionError } = useSWR(
-    token ? [`${backendUrl}/api/section/${sid}`, token] : null,
+    token ? [`${backendUrl}/api/sections/${sid}`, token] : null,
     SectionServices.getSectionDetail
   );
 
