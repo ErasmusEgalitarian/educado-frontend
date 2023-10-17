@@ -41,13 +41,13 @@ interface Inputs {
   estimatedHours: number
 }
 
-interface CoursePartial {
+/*interface CoursePartial {
   coverImg?: StorageFile | {}
   title: string
   description: string
   category: string
   time: number
-}
+}*/
 
 // Hardcoded based on database id
 const OTHER_CATEGORY_ID = '639208a0f467689fde25b5fa'
