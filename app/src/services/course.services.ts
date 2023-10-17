@@ -68,12 +68,26 @@ const createSection = async (data: any, id: any, token: string) => {
   )
 }
 
+// Create a new section for a course FIXME: should this be in section.services ??
+const updateCoverImage = async ( id: any, token: string) => {
+ 
+  return await axios.post(
+    `${backend_route}/api/course/update/coverImage/${id}`,
+      
+    { 
+      headers: { Authorization: `Bearer ${token}` }
+      
+    }
+  ).then(res => res.data);
+}
+
 const CourseServices = Object.freeze({
   createCourse,
   getAllCourses,
   getCourseDetail,
   getCourseCategories,
   updateCourseDetail,
+  updateCoverImage,
   createSection
 })
 
