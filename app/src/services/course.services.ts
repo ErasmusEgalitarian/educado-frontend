@@ -72,7 +72,7 @@ const createSection = async (data: any, id: any, token: string) => {
 const updateCoverImage = async ( id: any, token: string) => {
  
   return await axios.post(
-    `${backend_route}/api/course/update/coverImage/${id}`,
+    `${backendUrl}/api/course/update/coverImage/${id}`,
       
     { 
       headers: { Authorization: `Bearer ${token}` }

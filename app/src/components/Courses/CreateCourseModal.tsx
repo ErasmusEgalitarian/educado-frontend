@@ -33,7 +33,7 @@ type Inputs = {
     title: string,
     category: string,
     level: string,
-    time: number,
+    estimatedHours: number,
     description: string,
 };
 
@@ -63,7 +63,7 @@ export const CreateCourseModal = () => {
             title: data.title,
             category: data.category,
             level: data.level,
-            time: data.time,
+            estimatedHours: data.estimatedHours,
             description: data.description,
         }, token)
             .then(res =>{ console.log(res); 
@@ -158,12 +158,12 @@ export const CreateCourseModal = () => {
                                 {errors.description && <span className='text-warning'>Este campo é obrigatório</span>}
                             </div>
 
-                            {/*Field to input the estimated time*/}
+                            {/*Field to input the estimated estimatedHours*/}
                             <div  className="flex flex-col space-y-2 text-left">
                                 <label htmlFor='title'>Tempo estimado</label> {/*Estimated time*/}
                                 <input type="number" defaultValue={""} min={0} step={1}
                                     className="extra-small-form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                                    {...register("time", { required: true })}
+                                    {...register("estimatedHours", { required: true })}
                                 />
                                 {errors.title && <span className='text-warning'>Este campo é obrigatório</span>}
                             </div>
