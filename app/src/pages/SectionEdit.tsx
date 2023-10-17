@@ -2,14 +2,16 @@ import useSWR from 'swr'
 import { useState } from 'react'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { Link, useParams } from 'react-router-dom'
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
+import {Alert, Button, StyleSheet, View} from 'react-native';
 
 // Contexts
 import useToken from '../hooks/useToken'
 
 // Services
-import SectionServices from '../services/section.services'
-import ExerciseServices from '../services/exercise.services'
+import SectionServices from '../services/section.services';
+import ExerciseServices from '../services/exercise.services';
+import { CreateLecture } from '../components/LecturePage';
 
 // Components
 import Loading from './Loading'
@@ -23,12 +25,13 @@ import { type Exercise } from '../interfaces/Exercise'
 // Icons
 import ArrowLeftIcon from '@heroicons/react/24/outline/ArrowLeftIcon'
 
-// Backend URL from .env file (automatically injected)
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
-interface Inputs {
-  title: string
-  description: string
-}
+// Backend URL from .env file (automatically injected) 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+type Inputs = {
+    title: string,
+    description: string
+};
 
 interface SectionPartial {
   title: string
@@ -52,7 +55,7 @@ const SectionEdit = () => {
 
   // Fetch the section data from the server.
   const { data, error: sectionError } = useSWR(
-    token ? [`${BACKEND_URL}/api/sections/${sid}`, token] : null,
+    token ? [`${backendUrl}/api/sections/${sid}`, token] : null,
     SectionServices.getSectionDetail
   )
 
@@ -93,21 +96,41 @@ const SectionEdit = () => {
         }
     } */
 
-  /**
- * SubmitHandler: update section
- *
- * @param data  The data to be updated
- */
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    const changes: SectionPartial = {
-      title: data.title,
-      description: data.description
+    /**
+     * Delete section and redirect to course edit page
+     * Uses window.location.href to redirect instead of navigate, as navigate doesn't update the page
+     * 
+     * @param sid The section id
+     * @param token The user token
+     */
+    const deleteSection = async () => {
+        const response = await SectionServices.deleteSection(sid, token);
+        const status = response.status
+
+        if (status >= 200 && status <= 299) {
+            window.location.href = `/courses/edit/${cid}`;
+            toast.success("Section deleted")
+        } else if (status >= 400 && status <= 599) {
+            toast.error(`(${status}, ${response.statusText}) while attempting to delete section`)
+        }
     }
 
-    SectionServices.saveSection(changes, sid/*, token */)
-      .then(res => toast.success('Updated section'))
-      .catch(err => toast.error(err))
-  }
+
+    /**
+     * SubmitHandler: update section
+     * 
+     * @param data  The data to be updated
+     */
+    const onSubmit: SubmitHandler<Inputs> = (data) => {
+        const changes: SectionPartial = {
+            title: data.title,
+            description: data.description
+        }
+
+        SectionServices.saveSection(changes, sid/*, token*/)
+            .then(res => toast.success('Updated section'))
+            .catch(err => toast.error(err));
+    }
 
   // Render onError and onLoading
   if (sectionError) return <p>"An error has occurred."</p>
@@ -166,9 +189,14 @@ const SectionEdit = () => {
                                 </select>
 
                         </div>
-
-                        <button type="submit" className='std-button ml-auto'>Atualizar</button>
+                        <div className="flex items-left w-full mt-8">
+                            {/** Section save and delete button */}
+                            <button type="button" onClick={deleteSection} className='left-0 std-button bg-red-700 hover:bg-red-800' >Excluir</button> {/*Delete*/}
+                            <button type="submit" className='std-button ml-auto'>Atualizar</button>
+                        </div>
+                        
                     </form>
+                       
 
                     <div className="divider"></div>
 
@@ -176,9 +204,61 @@ const SectionEdit = () => {
                     {/*
                     <div className='flex flex-col space-y-4 mb-4' id='exercises'>
                         <h1 className='text-xl font-medium'>Exercises</h1>
-                        <ExerciseArea exercises={exercises.length > 0 ? exercises : sectionData.exercises} />
-                    </div>
+                        <ExerciseArea exercises={exercises.length > 0 ? exercises : data.exercises} />
+                     </div> */}
 
+                     {/** New Lecture area */}
+                     {/** Page Navbar */}
+                    
+                    <div className="navbar bg-none p-6">
+                        <div className="flex-1">
+                            
+                        {/** Create new lecture */}
+                        <CreateLecture /*sid={sid}*/ />
+                        </div>
+                    </div>
+                    {/** New lecture area
+                    
+                    <div className="flex flex-col w-full mb-4">
+                        <span className="text-xl font-medium">Add new Lecture</span>
+                    </div>
+                    
+                    <form
+                        //onSubmit={handleExerciseAdd(onExerciseAdd)}
+                        className="flex flex-col justify-content align-items space-evenly w-full space-y-2"
+                    >
+                        <div className="form-control w-full">
+                            <label className="label">
+                                <span className="label-text">Title</span>
+                            </label>
+                            <input
+                                type="text"
+                                placeholder="Some awesome title"
+                                className="input input-bordered w-full"
+                                //{...registerExercise("title", { required: true })}
+                            />
+                            {/*exerciseErrors.title && <span>This field is required</span>
+                            
+                        </div>
+                    
+                        <div className="form-control w-full">
+                            <label className="label">
+                                <span className="label-text">Description</span>
+                            </label>
+                            <textarea
+                                className="textarea textarea-bordered h-24"
+                                placeholder="Add a description to your exercise"
+                               // {...registerExercise("description", { required: true })}
+                            />
+                        </div>
+
+                        <button type='submit' className="std-button ml-auto">Add Lecture</button>
+
+                    </form>
+
+                    */}
+
+                    
                     {/** New exercise area */}
 
                     <div className="flex flex-col w-full mb-4">

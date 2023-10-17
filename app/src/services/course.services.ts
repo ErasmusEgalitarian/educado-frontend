@@ -1,15 +1,23 @@
 import axios from 'axios'
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 // Backend URL from enviroment
-const backendUrl = import.meta.env.VITE_BACKEND_URL
+export const client = axios.create({
+  baseURL: import.meta.env.VITE_BACKEND_URL,
+  withCredentials: false,
+  responseType: 'json',
+  timeout: 30000,
+});
 
 // Interface for posting course content
 export interface CourseInterface {
-  title: string
-  category: string
-  level: string
-  estimatedHours: number
-  description: string
+  title: string;
+  category: string;
+  level: string;
+  estimatedHours: number;
+  description: string;
+  published: boolean;
 }
 
 /**
@@ -17,15 +25,17 @@ export interface CourseInterface {
  */
 
 // Create a new course
-const createCourse = async ({ title, category, level, estimatedHours, description }: CourseInterface, token: string) => {
+const createCourse = async ({ title, category, level, estimatedHours, description, published }: CourseInterface, token: string) => {
   return await axios.post(
     `${backendUrl}/api/courses`,
     {
-      title,
-      category,
-      level,
-      estimatedHours,
-      description
+      title: title,
+      category: category,
+      level: level,
+      estimatedHours: estimatedHours,
+      description: description,
+      published: published
+      
     }/*,
     { headers: { Authorization: `Bearer ${token}` } } */
   )
@@ -51,9 +61,8 @@ const getCourseCategories = async (url: string/*, token: string */) => {
 
 // Updating a specific course
 const updateCourseDetail = async (data: any, id: any/*, token: string */) => {
-  console.log(`${backendUrl}api/courses/update/${id}`)
   return await axios.post(
-    `${backendUrl}/api/courses/update/${id}`, // TODO: change backend url to not include final /
+    `${backendUrl}/api/courses/update/${id}`,
     data/*,
     { headers: { Authorization: `Bearer ${token}` } } */
   ).then(res => res.data)
@@ -81,6 +90,16 @@ const updateCoverImage = async ( id: any, token: string) => {
   ).then(res => res.data);
 }
 
+const deleteCourse = async (id: any, token: string) => {
+  console.log("Deleted course with id: " + id)
+  return await axios.delete(
+      `${backendUrl}/api/courses/delete/${id}`,
+      { headers: { Authorization: `Bearer ${token}` } }
+  );
+  
+}
+
+
 const CourseServices = Object.freeze({
   createCourse,
   getAllCourses,
@@ -88,7 +107,8 @@ const CourseServices = Object.freeze({
   getCourseCategories,
   updateCourseDetail,
   updateCoverImage,
-  createSection
+  createSection,
+  deleteCourse
 })
 
 export default CourseServices

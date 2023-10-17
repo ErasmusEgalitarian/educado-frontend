@@ -31,6 +31,9 @@ import { SectionForm } from '../components/dnd/SectionForm'
 
 // Icons
 import { ArrowLeftIcon } from '@heroicons/react/24/outline'
+import { boolean } from 'yup';
+
+const backend_url = import.meta.env.VITE_BACKEND_URL;
 
 interface Inputs {
   coverImg?: FileList
@@ -39,6 +42,7 @@ interface Inputs {
   category: string
   level: string
   estimatedHours: number
+  published: boolean
 }
 
 /*interface CoursePartial {
@@ -50,7 +54,8 @@ interface Inputs {
 }*/
 
 // Hardcoded based on database id
-const OTHER_CATEGORY_ID = '639208a0f467689fde25b5fa'
+const OTHER_CATEGORY_ID = '639208a0f467689fde25b5fa';
+
 
 /**
  * This page is responsible for showing and editing courses to the creator.
@@ -70,13 +75,13 @@ const CourseEdit = () => {
 
   // Fetch Course Details
   const { data, error } = useSWR(
-    token ? [`http://127.0.0.1:8888/api/courses/${id}`, token] : null,
+    token ? [`${backend_url}/api/courses/${id}`, token] : null,
     CourseServices.getCourseDetail
   )
 
   // Fetch Categories
   const { data: categories, error: categoriesError } = useSWR(
-    token ? ['http://127.0.0.1:8888/api/categories', token] : null,
+    token ? [`${backend_url}/api/categories`, token] : null,
     CourseServices.getCourseCategories
   )
 
@@ -94,6 +99,7 @@ const CourseEdit = () => {
       description: data.description,
       category: data.category,
       level: data.level,
+      published: data.published,
       estimatedHours: data.estimatedHours
     }
 
@@ -111,11 +117,35 @@ const CourseEdit = () => {
       .catch(err => toast.error(err))
   }
 
+     /**
+     * Delete courses and redirect to courses page
+     * Uses window.location.href to redirect instead of navigate, as navigate doesn't update the page
+     * 
+     * @param id The course id
+     * @param token The user token
+     */
+     const deleteCourse = async () => {
+        const response = await CourseServices.deleteCourse(id, token);
+        const status = response.status
+
+        if (status >= 200 && status <= 299) {
+            window.location.href = `/courses`;
+            toast.success("Course deleted")
+        } else if (status >= 400 && status <= 599) {
+            toast.error(`(${status}, ${response.statusText}) while attempting to delete course`)
+        }
+    }
+
+    
+
+
+
+    
   // update cover image function
   /**
-     * Sets the cover image preview and the cover image file
-     * Though bucket is not implemented yet, so most of this is commented out
-     */
+   * Sets the cover image preview and the cover image file
+   * Though bucket is not implemented yet, so most of this is commented out
+   */
   const onCoverImgChange = async (e: any) => {
     const image = 'https://www.shutterstock.com/image-illustration/red-stamp-on-white-background-260nw-1165179109.jpg'
     // const image = e.target.files[0];
@@ -141,15 +171,18 @@ const CourseEdit = () => {
 
             {/** Course navigation */}
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="navbar bg-base-100">
+                <div className="navbar bg-base-100 ">
                     <div className='flex-1'>
                         <Link to="/courses" className="btn btn-square btn-ghost normal-case text-xl"><ArrowLeftIcon width={24} /></Link>
                         <a className="normal-case text-xl ml-4">{data.title}</a>
-                    </div>
+                    </div>                    
                     <div className="flex-none space-x-2">
+                    <button type="button" onClick={deleteCourse} className='left-0 std-button bg-red-700 hover:bg-red-800 ml-4' >Excluir</button> {/*Delete button*/}
                         {/* <button onClick={() => toast.success("Course published")} className='btn btn-sm bg-blue-500 text-white border-0'>Unpublish</button> */}
-                        <button type="submit" className='btn btn-sm bg-blue-700 text-white border-0'>Atualizar</button>
+                        <button type="submit" className='std-button bg-blue-700 hover:bg-blue-800 text-white border-0'>Atualizar</button>
+                       
                     </div>
+                    
                 </div>
 
                 {/** Course details edit */}
@@ -158,6 +191,21 @@ const CourseEdit = () => {
                         <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
                             <div className='flex flex-col space-y-6 divide'>
                                 <h1 className='text-xl font-medium'>Detalhes do curso</h1>
+
+                                {/** Course published checkbox */}
+                                <div className="mb-4">
+                                <label className="flex items-center space-x-2">
+                                    <input type="checkbox" className="form-checkbox text-blue-500" defaultChecked={data.published}
+                                     
+                                    {
+                                        ...register("published", { required: false })
+                                       
+                                    }
+                                    />
+                                    <span>Publicado</span>{/*Published checkbox*/}
+                                </label>
+        
+                                </div>
 
                                 {/** Course Title Field */}
                                 <div className="flex flex-col space-y-2">
@@ -283,6 +331,7 @@ const CourseEdit = () => {
                     </div>
                 </div>
             </div>
+
         </Layout>
   )
 }

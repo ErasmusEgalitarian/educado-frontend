@@ -65,6 +65,7 @@ export const CreateCourseModal = () => {
             level: data.level,
             estimatedHours: data.estimatedHours,
             description: data.description,
+            published: false
         }, token)
             .then(res =>{ console.log(res); 
                 StorageServices.uploadFile({id: res.data._id+"/0", filePath: coverImage});
@@ -72,7 +73,7 @@ export const CreateCourseModal = () => {
                 navigate(`/Courses/edit/${res.data._id}`)
             }) 
             .catch(err => console.log(err))
-            .finally(() => { mutate("http://127.0.0.1:8888/api/course/");  });
+            .finally(() => { mutate("http://127.0.0.1:8888/api/courses/"); });
     };
 
     function returnFunction(coverImage: any){
