@@ -33,10 +33,12 @@ import { SectionForm } from '../components/dnd/SectionForm'
 import { ArrowLeftIcon } from '@heroicons/react/24/outline'
 
 interface Inputs {
-  coverImg: FileList
+  coverImg?: FileList
   title: string
   description: string
   category: string
+  level: string
+  estimatedHours: number
 }
 
 interface CoursePartial {
@@ -44,6 +46,7 @@ interface CoursePartial {
   title: string
   description: string
   category: string
+  time: number
 }
 
 // Hardcoded based on database id
@@ -85,10 +88,13 @@ const CourseEdit = () => {
      * @param {Inputs} data - The form data containing the updated course details.
      */
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    const changes: CoursePartial = {
+    const changes: Inputs = {
+      coverImg: data.coverImg,
       title: data.title,
       description: data.description,
-      category: data.category
+      category: data.category,
+      level: data.level,
+      estimatedHours: data.estimatedHours
     }
 
     /* if (coverImg) {
@@ -173,14 +179,46 @@ const CourseEdit = () => {
                                     {errors.description && <span>Este campo é obrigatório!</span>}
                                 </div>
 
-                                {/** Course Description Field */}
-                                <div className="flex flex-col space-y-2">
-                                    <label htmlFor='description'>category</label>
-                                    <textarea rows={4} defaultValue={data.categories} placeholder={data.categories}
-                                        className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                                    {/* Field to choose a category from a list of options */}
+                                <div className="flex flex-col space-y-2 text-left">
+                                    <label htmlFor='category'>Categoria</label>
+                                    <select defaultValue={data.category}
+                                        className="form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                                         {...register('category', { required: true })}
+                                    >
+                                        {/* Hard coded options by PO, should be changed to get from db */}
+                                        <option>Finanças pessoais </option> {/* Personal Finance */}
+                                        <option>Saúde e Segurança no Trabalho </option> {/* Health and Workplace Safety */}
+                                        <option>Costura </option> {/* Sewing */}
+                                        <option>Eletrônica </option> {/* Electronics */}
+                                    </select>
+                                    {errors.description && <span className='text-warning'>Este campo é obrigatório</span>}
+                                </div>
+
+                                {/* Field to select a level from a list of options */}
+                                <div className="flex flex-col space-y-2 text-left">
+                                    <label htmlFor='level'>Nível</label> {/* Level */}
+                                    <select defaultValue={data.level}
+                                        className="small-form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        {...register('level', { required: true })}
+                                    >
+                                        {/* Hard coded options by PO, should be changed to get from db */}
+                                        <option>Iniciante </option> {/* Beginner */}
+                                        <option>Intermediário</option> {/* Intermediate */}
+                                        <option>Avançado </option> {/* Advanced */}
+
+                                    </select>
+                                    {errors.description && <span className='text-warning'>Este campo é obrigatório</span>}
+                                </div>
+
+                                {/* Field to input the estimated estimatedHours */}
+                                <div className="flex flex-col space-y-2 text-left">
+                                    <label htmlFor='title'>Tempo estimado</label> {/* Estimated time */}
+                                    <input type="number" defaultValue={data.estimatedHours} min={0} step={1}
+                                        className="form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        {...register('estimatedHours', { required: true })}
                                     />
-                                    {errors.description && <span>Este campo é obrigatório!</span>}
+                                    {errors.title && <span className='text-warning'>Este campo é obrigatório</span>}
                                 </div>
 
                                 {/** Cover Image Field */}
