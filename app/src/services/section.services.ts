@@ -18,18 +18,6 @@ export const getSectionDetail = async (url: string, token: string) => {
 }
 
 /**
- * Get exercise detail
- *
- * @param url url of the exercise
- * @param token token of the user, currently ignored
- * @returns respons from the backend get request
- */
-export const getExerciseDetail = async (url: string, token: string) => {
-  return await axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
-    .then(res => res.data)
-}
-
-/**
  * Save a section
  *
  * @param data Input data, should be a Section interface
@@ -37,11 +25,11 @@ export const getExerciseDetail = async (url: string, token: string) => {
  * @param token token of the user, currently ignored
  * @returns respons from the backend post request
  */
-export const saveSection = async (data: any, id: any/*, token: string */) => {
-  // Send the info to caller
-  console.log(`${backendUrl}/api/sections/update/${id}`)
-  return await axios.post(
-        `${backendUrl}/api/sections/update/${id}`,
+export const saveSection = async (data: any, id: any/*, token: string*/) => {
+    // Send the info to caller
+    console.log(`${backendUrl}/api/section/update/${id}`);
+    return axios.post(
+        `${backendUrl}/api/section/update/${id}`,
         data/*,
     { headers: { Authorization: `Bearer ${token}` } } */
   )
@@ -73,7 +61,6 @@ const deleteSection = async (id: any, token: string) => {
 
 const SectionServices = Object.freeze({
     getSectionDetail,
-    getExerciseDetail,
     saveSection,
     createSection,
     deleteSection

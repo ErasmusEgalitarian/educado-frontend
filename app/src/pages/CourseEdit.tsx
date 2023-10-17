@@ -1,9 +1,3 @@
-/**
- * TODO:
- *
- * KNOWN ISSUES:
- */
-
 import { useState } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { useForm, type SubmitHandler } from 'react-hook-form'
@@ -115,7 +109,7 @@ const CourseEdit = () => {
     CourseServices.updateCourseDetail(changes, id/*, token */)
       .then(res => toast.success('Updated course'))
       .catch(err => toast.error(err))
-  }
+    }
 
      /**
      * Delete courses and redirect to courses page
@@ -135,10 +129,6 @@ const CourseEdit = () => {
             toast.error(`(${status}, ${response.statusText}) while attempting to delete course`)
         }
     }
-
-    
-
-
 
     
   // update cover image function
@@ -273,9 +263,9 @@ const CourseEdit = () => {
                                 <div className="flex flex-col">
                                     <div className='relative'>
                                         <div className='p-0 rounded-b-none rounded-t border-gray-300 border-x border-t h-[240px] overflow-hidden'>
-                                            {data.coverImg
-                                              ? <img src={coverImgPreview || data.coverImg} alt={data.title} className="w-full h-max rounded object-cover" />
-                                              : <div className='h-full w-full oceanic-gradient flex justify-center items-center text-2xl text-white'>No Cover Image</div>
+                                            {data.coverImg ?
+                                                <img src={data.coverImg} alt={data.title} className="w-full h-max rounded object-cover" /> :
+                                                <div className='h-full w-full oceanic-gradient flex justify-center items-center text-2xl text-white'>No Cover Image</div>
                                             }
 
                                         </div>

@@ -4,13 +4,14 @@ import { type Answer } from '../../interfaces/Answer'
 function AnswerCards ({ update: updateAnswers, initialAnswers }: { update: any, initialAnswers: Answer[] }) {
   const [answers, setAnswers] = useState(initialAnswers)
 
-  const toggler = (index: number) => {
-    const updatedAnswerCards = answers.map((answer, idx) => {
-      if (idx === index) {
-        answer.correct = !answer.correct
-      }
-      return answer
-    })
+    const toggler = (index: number) => {
+        const updatedAnswerCards = answers.map((answer, idx) => {
+            if (idx === index) {
+            
+                answer.isCorrect = !answer.isCorrect
+            }
+            return answer
+        });
 
     setAnswers(updatedAnswerCards)
     updateAnswers(updatedAnswerCards)
@@ -41,8 +42,7 @@ function AnswerCards ({ update: updateAnswers, initialAnswers }: { update: any, 
   const handleAnswerCardChange = (e: any, index: number) => {
     const { value } = e.target
 
-    const list = [...answers]
-    list[index].text = value
+        const withAddedAnswer = [...answers, { text: "", isCorrect: false }];
 
     setAnswers(list)
 
@@ -69,16 +69,15 @@ function AnswerCards ({ update: updateAnswers, initialAnswers }: { update: any, 
                                     placeholder="Some answer text"
                                     required={true}
                                     name="answer"
-                                    id="answer"
-                                    defaultValue={answer.text || ''}
-                                    onChange={(e) => { handleAnswerCardChange(e, index) }}
+                                    defaultValue={answer.text || ""}
+                                    onChange={(e) => handleAnswerCardChange(e, index)}
                                 >
                                 </textarea>
 
                                 <div className="grid justify-items-center">
-                                    {/* Toggle True or False  */}
-                                    <input type="checkbox" className="toggle" checked={answer.correct} onChange={() => { toggler(index) }} />
-                                    {answer.correct ? <span>Correct</span> : <span>Incorrect</span>}
+                                    {/*Toggle True or False  */}
+                                    <input type="checkbox" className="toggle" checked={answer.isCorrect} onChange={() => toggler(index)} />
+                                    {answer.isCorrect ? <span>Correct</span> : <span>Incorrect</span>}
                                 </div>
 
                             </div>
