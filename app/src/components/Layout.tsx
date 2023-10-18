@@ -1,89 +1,53 @@
-import { Link, useNavigate } from 'react-router-dom'
-import useAuthStore from '../contexts/useAuthStore'
+import 'react-toastify/dist/ReactToastify.css';
+import { ReactNode } from 'react'
+import { ToastContainer } from 'react-toastify';
 
-// static
-import LogoBlack from "../assets/educado-logo-black.svg"
-import LogoWhite from "../assets/educado-logo-white.svg"
+// Components
+import RequireAuth from './RequireAuth'
+import { Navbar } from './Navbar';
 
-// icons
-import {
-    BookOpenIcon,
-    ShieldCheckIcon
-} from "@heroicons/react/24/outline";
+/**
+ * Layout component
+ * 
+ * @param {ReactNode} children The children components
+ * @returns HTML Element
+ */
+const Layout = ({ children }: { children: Array<ReactNode> | ReactNode, meta: string | undefined }) => {
+	return (
+		<RequireAuth>
+			<div className="flex w-screen h-screen text-gray-700">
+				<div className="flex flex-col flex-grow">
+					{/** Top Nav bar */}
+					<Navbar />
 
-export const Navbar = () => {
-    const clearToken = useAuthStore(state => state.clearToken);
-    const navigate = useNavigate();
-
-    // List to generete dropdown li's 
-    const links = [
-        { path: "/profile", desc: "Settings" },
-    ]
-
-    return (
-        <div className="navbar bg-base-100 border-b dark:text-white">
-            <div className="navbar-start">
-                <div className="dropdown">
-                    <label tabIndex={0} className="btn btn-ghost lg:hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
-                    </label>
-                    <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                        <li>
-                            <Link to={"/courses"} className="flex">
-                                <BookOpenIcon width={20} /><span>Courses</span>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to={"/educado_admin/applications"} className="flex">
-                                <ShieldCheckIcon width={20} /><span>Admin</span>
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
-
-                <Link to="/" className="flex flex-shrink-0 items-center space-x-3 normal-case text-xl" >
-                    <img src={LogoBlack} alt="ecs-logo" className='h-6 dark:hidden'/>
-                    <img src={LogoWhite} alt="ecs-logo" className='h-6 light:hidden'/>
-                </Link>
-            </div>
-
-            <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal p-0">
-                    <li>
-                        <Link to={"/courses"} className="flex tooltip tooltip-hover tooltip-bottom" data-tip="see your courses">
-                            <BookOpenIcon width={20} /><span>Courses</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to={"/educado_admin/applications"} className="flex tooltip tooltip-hover tooltip-bottom" data-tip="Check Applications">
-                            <ShieldCheckIcon width={20} /><span>Admin</span>
-                        </Link>
-                    </li>
-                </ul>
-            </div>
-            <div className="navbar-end">
-                <button className="relative ml-auto text-sm focus:outline-none group">
-                    <div className="dropdown dropdown-end">
-                        <label tabIndex={0} className="btn btn-ghost hover:bg-transparent">
-                            <div className="flex items-center justify-between w-10 h-10 rounded">
-                                <div className="block relative">
-                                    <div className="avatar placeholder">
-                                        <div className="bg-blue-500 text-white rounded-full hover:rounded w-10">
-                                            <span className="text-md">
-                                                JD
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </label>
-                        <ul tabIndex={0} className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4">
-                            {links.map((route, key) => <li key={key}><Link to={route.path}>{route.desc}</Link></li>)}
-                            <li><a onClick={() => { clearToken; navigate("/login") }} className="w-full px-4 py-2 text-left hover:bg-blue-500 hover:text-white">Sign out</a></li>
-                        </ul>
-                    </div>
-                </button>
-            </div>
-        </div>
-    )
+					{/** Content */}
+					<main className="flex-grow overflow-x-hidden bg-gradient-to-br from-[#c8e5ec] to-[white]">
+						{children}
+					</main>
+          
+          {/*
+					<footer className="footer footer-center p-4 bg-base-100 border-t text-base-content">
+						<div>
+							<p>Copyright © {new Date().getFullYear()} - All rights reserved by Educado</p>
+						</div>
+					</footer>
+          */}
+				</div>
+			</div>
+			<ToastContainer
+				position="top-right"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover={false}
+				theme="light"
+			/>
+		</RequireAuth>
+	)
 }
+
+export default Layout
