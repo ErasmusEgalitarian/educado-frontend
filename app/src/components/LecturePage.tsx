@@ -41,6 +41,7 @@ type Inputs = {
  */
 export const CreateLecture = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const [content, setContent] = useState<any>(null);
     const token = "dummyToken";
     //const token = useToken();
     const navigate = useNavigate();
@@ -68,6 +69,11 @@ export const CreateLecture = () => {
             .catch(err => console.log(err))
             .finally(() => { /*mutate(``); //Don't currently do anything*/  });
     };
+
+    function returnFunction(inputedContet: any){
+        setContent(inputedContet);
+    }
+
     return (
         <>
             {/* The button to open create lecture modal */}
@@ -79,7 +85,7 @@ export const CreateLecture = () => {
             {/* Put this part before </body> tag */}
             <input type="checkbox" id="lecture-create" className="modal-toggle" />
             {
-                onclick = function () {StorageServices.uploadFile({bucketName: "educado-bucket", id: "testFoto", filePath: "c:/Users/perni/Downloads/settings_icon.png"});}
+                onclick = function () {StorageServices.uploadFile({id: "testFoto", filePath: "c:/Users/perni/Downloads/settings_icon.png"});}
             }
             {/*Text shown in the top of create lecture*/}
             <div className="modal" id="lecture-create-modal">
@@ -115,7 +121,7 @@ export const CreateLecture = () => {
                         {/*One day this will be file*/}
                         <div className="flex flex-col space-y-2 text-left">    
                             <label htmlFor='cover-image'>Input file: video or image</label>
-                                    <Dropzone></Dropzone>
+                                    <Dropzone callBack={returnFunction}></Dropzone>
                                {/* {errors.description && <span className='text-warning'>Este campo é obrigatório</span>}*/}
                             </div>
 
