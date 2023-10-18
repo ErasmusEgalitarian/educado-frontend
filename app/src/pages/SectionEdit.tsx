@@ -3,15 +3,12 @@ import { useState } from 'react'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { Link, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify';
-import {Alert, Button, StyleSheet, View} from 'react-native';
 
-// Contexts
-import useToken from '../hooks/useToken'
+
 
 // Services
 import SectionServices from '../services/section.services';
 import ExerciseServices from '../services/exercise.services';
-import { CreateLecture } from '../components/LecturePage';
 
 // Components
 import Loading from './Loading'
@@ -27,7 +24,6 @@ import { Answer } from "../interfaces/Answer";
 import ArrowLeftIcon from '@heroicons/react/24/outline/ArrowLeftIcon'
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { AnswerField } from "../components/Exercise/AnswerField";
-import { array } from "yup";
 
 // Backend URL from .env file (automatically injected) 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
