@@ -84,9 +84,7 @@ export const CreateLecture = () => {
             
             {/* Put this part before </body> tag */}
             <input type="checkbox" id="lecture-create" className="modal-toggle" />
-            {
-                onclick = function () {StorageServices.uploadFile({id: "testFoto", filePath: "c:/Users/perni/Downloads/settings_icon.png"});}
-            }
+           
             {/*Text shown in the top of create lecture*/}
             <div className="modal" id="lecture-create-modal">
                 <div className="modal-box bg-gradient-to-b from-primaryLight rounded w-11/12 max-w-xl">
