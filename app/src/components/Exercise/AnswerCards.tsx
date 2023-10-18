@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { type Answer } from '../../interfaces/Answer'
+import { type Answer } from '../../interfaces/AnswerInterface'
 
 function AnswerCards ({ update: updateAnswers, initialAnswers }: { update: any, initialAnswers: Answer[] }) {
   const [answers, setAnswers] = useState(initialAnswers)
@@ -18,8 +18,9 @@ function AnswerCards ({ update: updateAnswers, initialAnswers }: { update: any, 
   }
 
   const handleAnswerCardAdd = () => {
-    const withAddedAnswer = [...answers, { text: '', correct: false }]
-
+    let withAddedAnswer = answers;
+    withAddedAnswer.push({ text: "", isCorrect: false })
+    
     setAnswers(withAddedAnswer)
     updateAnswers(withAddedAnswer)
   }
@@ -40,14 +41,15 @@ function AnswerCards ({ update: updateAnswers, initialAnswers }: { update: any, 
   }
 
   const handleAnswerCardChange = (e: any, index: number) => {
-    const { value } = e.target
+        const { value } = e.target;
 
-        const withAddedAnswer = [...answers, { text: "", isCorrect: false }];
+        const list = [...answers];
+        list[index].text = value;
 
-    setAnswers(list)
+        setAnswers(list);
 
-    updateAnswers(list)
-  }
+        updateAnswers(list);
+    }
   return (
         <div className="flex justify-center py-2">
             <div className="flex justify-space-around ">
