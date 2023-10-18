@@ -35,6 +35,8 @@ type Inputs = {
 export const CreateExercise = ({sid, cid}:Inputs) => {
     const [isLoading, setIsLoading] = useState(false);
     const [tempAnswers, setTempAnswer] = useState<Answer[]>([new Answer(), new Answer()]);
+
+
     const [answerFieldIndex, setAnswerFieldIndex] = useState(tempAnswers.length);
     const [answerField, setAnswerField] = useState<JSX.Element[]>([<AnswerField index={0} answerObject={tempAnswers[0]}  callback={updateAnswer}/>, <AnswerField index={1} answerObject={tempAnswers[1]}  callback={updateAnswer}/>]);
     const navigate = useNavigate();

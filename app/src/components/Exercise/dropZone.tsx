@@ -1,15 +1,39 @@
-import { useCallback, useState } from 'react'
-import { useDropzone } from 'react-dropzone'
+import { useCallback, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
+import StorageService from '../../services/storage.services';
 
-// Services
-//
+// TODO: Add file type to global interfaces?
+// (I assume there is a reason we aren't using a built-in interface?)
+/**
+ * Interface for file object
+ * @param name Name of the file
+ * @param path Path to the file in the storage bucket
+ * @param size Size of the file in bytes
+ * @param type Type of the file
+ */
+interface BucketFile {
+    name: string;
+    path: string;
+    size: number;
+    type: string;
+}
 
-/* function DropZoneComponent({ update: updateFile, storageKey }) {
-    const [File, SetFile] = useState(null);
+/**
+ * Interface for props
+ * @param updateFile Function to update the file in the parent component
+ * @param storageKey Key to store the file in the storage bucket
+ */
+interface Props {
+    updateFile: (file: BucketFile) => void;
+    storageKey: string;
+}
+
+function DropZoneComponent({ updateFile, storageKey }: Props) {
+    const [file, setFile] = useState<BucketFile | null>(null);
 
     const onDrop = useCallback((acceptedFiles: any) => {
         console.log(acceptedFiles);
-        SetFile(acceptedFiles[0]);
+        setFile(acceptedFiles[0]);
         setTimeout(() => handleFileUpload(acceptedFiles[0]), 300)
     }, []);
 
@@ -23,7 +47,7 @@ import { useDropzone } from 'react-dropzone'
             await StorageService.uploadFile({ file, key: storageKey })
             // Send file up to parent exercise component for saving
             updateFile({
-                filename: file.name,
+                name: file.name,
                 path: storageKey,
                 size: file.size,
                 type: file.type,
@@ -36,6 +60,7 @@ import { useDropzone } from 'react-dropzone'
             alert("File upload failed");
         }
     }
+
 
     const {
         getRootProps,
@@ -58,6 +83,7 @@ import { useDropzone } from 'react-dropzone'
                 className="rounded-md cursor-pointer focus:outline-none bg-base-100 hover:shadow-xl " >
                 <input {...getInputProps()} />
 
+
                 <div
                     className={
                         "flex flex-col items-center justify-center border-4 border-dashed p-4 rounded space-y-2" +
@@ -73,7 +99,7 @@ import { useDropzone } from 'react-dropzone'
                     ) : (
                         <div className='flex flex-col items-center space-y-2'>
                             <h2 className='text-lg text-blue-500'>Drag and drop Files Here to Upload</h2>
-                            <p className="text-base text-gray-500">{File ? File.name : "Please select a file"}</p>
+                            <p className="text-base text-gray-500">{file ? file.name : "Please select a file"}</p>
                             <p className="text-sm text-gray-300">Only video files supported</p>
                         </div>
                     )}
@@ -81,9 +107,9 @@ import { useDropzone } from 'react-dropzone'
             </div>
         </div>
         //     {/* <button onClick={() => handleFileUpload(File)}> Upload</button>
-                    //  *//* }
+        //  */}
 
     );
 };
 
-export default DropZoneComponent; */
+export default DropZoneComponent;

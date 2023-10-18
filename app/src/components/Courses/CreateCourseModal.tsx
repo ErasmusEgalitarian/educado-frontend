@@ -1,6 +1,5 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useRef } from 'react';
 import { useSWRConfig } from 'swr';
 import {Dropzone} from '../Dropzone/Dropzone'; // Used for the cover image upload  
 
@@ -91,9 +90,6 @@ export const CreateCourseModal = () => {
             
             {/* Put this part before </body> tag */}
             <input type="checkbox" id="course-create" className="modal-toggle" />
-            {
-            //    onclick = function () {StorageServices.uploadFile({bucketName: "educado-bucket", id: "testFoto", filePath: "c:/Users/perni/Downloads/settings_icon.png"});}
-            }
             {/*Text shown in the top of create course*/}
             <div className="modal" id="course-create-modal">
                 <div className="modal-box bg-gradient-to-b from-primaryLight rounded w-11/12 max-w-xl">
@@ -136,11 +132,7 @@ export const CreateCourseModal = () => {
                                 {errors.description && <span className='text-warning'>Este campo é obrigatório</span>}
                             </div>
 
-                            <div className="flex flex-col space-y-2 text-left">    
-                            <label htmlFor='cover-image'>test button</label>
-                                  <button type="button" onClick={()=>console.log("coverImg: "+coverImage)}> ting</button>
-                                {errors.description && <span className='text-warning'>Este campo é obrigatório</span>}
-                            </div>
+                           
 
 
                             {/*Field to select a level from a list of options*/}

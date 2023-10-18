@@ -66,8 +66,6 @@ export const SectionList = ({ sections }: { sections: Section[] }) => {
     }
   }
 
-  console.log('Active ID: ', activeId)
-
   return (
     <div className='flex flex-col space-y-2'>
       <DndContext

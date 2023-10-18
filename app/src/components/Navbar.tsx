@@ -2,25 +2,26 @@ import { Link, useNavigate } from 'react-router-dom'
 import useAuthStore from '../contexts/useAuthStore'
 
 // static
-import Logo from '../assets/ecs-logo.png'
+import LogoBlack from "../assets/educado-logo-black.svg"
+import LogoWhite from "../assets/educado-logo-white.svg"
 
 // icons
 import {
-  BookOpenIcon,
-  ShieldCheckIcon
-} from '@heroicons/react/24/outline'
+    BookOpenIcon,
+    ShieldCheckIcon
+} from "@heroicons/react/24/outline";
 
 export const Navbar = () => {
-  const clearToken = useAuthStore(state => state.clearToken)
-  const navigate = useNavigate()
+    const clearToken = useAuthStore(state => state.clearToken);
+    const navigate = useNavigate();
 
-  // List to generete dropdown li's
-  const links = [
-    { path: '/profile', desc: 'Settings' }
-  ]
+    // List to generete dropdown li's 
+    const links = [
+        { path: "/profile", desc: "Settings" },
+    ]
 
-  return (
-        <div className="navbar bg-base-100 border-b">
+    return (
+        <div className="navbar bg-base-100 border-b dark:text-white">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -28,12 +29,12 @@ export const Navbar = () => {
                     </label>
                     <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                         <li>
-                            <Link to={'/courses'} className="flex">
+                            <Link to={"/courses"} className="flex">
                                 <BookOpenIcon width={20} /><span>Courses</span>
                             </Link>
                         </li>
                         <li>
-                            <Link to={'/educado_admin/applications'} className="flex">
+                            <Link to={"/educado_admin/applications"} className="flex">
                                 <ShieldCheckIcon width={20} /><span>Admin</span>
                             </Link>
                         </li>
@@ -41,19 +42,20 @@ export const Navbar = () => {
                 </div>
 
                 <Link to="/" className="flex flex-shrink-0 items-center space-x-3 normal-case text-xl" >
-                    <img src={Logo} alt="ecs-logo" className='h-6' /><p className='font-semibold font-sans'>Educado Studio</p>
+                    <img src={LogoBlack} alt="ecs-logo" className='h-6 dark:hidden'/>
+                    <img src={LogoWhite} alt="ecs-logo" className='h-6 light:hidden'/>
                 </Link>
             </div>
 
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
                     <li>
-                        <Link to={'/courses'} className="flex tooltip tooltip-hover tooltip-bottom" data-tip="see your courses">
+                        <Link to={"/courses"} className="flex tooltip tooltip-hover tooltip-bottom" data-tip="see your courses">
                             <BookOpenIcon width={20} /><span>Courses</span>
                         </Link>
                     </li>
                     <li>
-                        <Link to={'/educado_admin/applications'} className="flex tooltip tooltip-hover tooltip-bottom" data-tip="Check Applications">
+                        <Link to={"/educado_admin/applications"} className="flex tooltip tooltip-hover tooltip-bottom" data-tip="Check Applications">
                             <ShieldCheckIcon width={20} /><span>Admin</span>
                         </Link>
                     </li>
@@ -77,11 +79,11 @@ export const Navbar = () => {
                         </label>
                         <ul tabIndex={0} className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4">
                             {links.map((route, key) => <li key={key}><Link to={route.path}>{route.desc}</Link></li>)}
-                            <li><a onClick={() => { clearToken; navigate('/login') }} className="w-full px-4 py-2 text-left hover:bg-blue-500 hover:text-white">Sign out</a></li>
+                            <li><a onClick={() => { clearToken; navigate("/login") }} className="w-full px-4 py-2 text-left hover:bg-blue-500 hover:text-white">Sign out</a></li>
                         </ul>
                     </div>
                 </button>
             </div>
         </div>
-  )
+    )
 }
