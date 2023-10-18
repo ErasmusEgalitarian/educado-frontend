@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 // Services
 import SectionServices from '../services/section.services';
 import ExerciseServices from '../services/exercise.services';
+import { CreateLecture } from '../components/LecturePage';
 
 // Components
 import Loading from './Loading'
@@ -224,12 +225,25 @@ const SectionEdit = () => {
               )}
             </div>
 
+            
+
             <button type="submit" className="std-button ml-auto">
               Atualizar
             </button>
+            
 
-          
           </form>
+              
+
+          <div className="divider"></div>
+          
+          <div className="navbar bg-none p-6">
+              <div className="flex-1">
+                  
+              {/** Create new lecture */}
+              <CreateLecture />
+              </div>
+          </div>
 
           <div className="divider"></div>
 
