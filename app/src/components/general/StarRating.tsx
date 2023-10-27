@@ -6,6 +6,7 @@ type StarRatingProps = {
   maxRating?: number;
   starCount?: number;
   className?: string;
+  testId?: string;
 }
 
 /**
