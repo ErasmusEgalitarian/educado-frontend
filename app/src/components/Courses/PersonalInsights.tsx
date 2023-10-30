@@ -7,6 +7,7 @@ import StarRating from "../general/StarRating";
 // Helper functions
 import { getUserInfo } from '../../helpers/userInfo';
 import statuses from "../../helpers/courseStatuses";
+import { getCourseCountWithStatus, getNumberOfCourses, getTotalSubscriberCount, getAverageRating } from '../../helpers/courses';
 
 type PersonalInsightsProps = {
   courses: Course[];
@@ -25,39 +26,7 @@ const userInfo = getUserInfo();
 const PersonalInsights = (props: PersonalInsightsProps) => {
   const courses = props.courses ?? [];
 
-  // Gets the total number of subscribers from all courses written by the content creator
-  function getAllSubscribers() {
-    let subscribers = 0;
-    courses.forEach(course => {
-      subscribers += course.numOfSubscriptions;
-    });
-    return subscribers;
-  }
-
-  // Gets the total number of courses written by the content creator
-  function getNumberOfCourses() {
-    return courses.length;
-  }
-
-  // Gets the average rating of all courses written by the content creator
-  function getAverageRating() {
-    let avgRating = 0;
-    courses.forEach(course => {
-      avgRating += course.rating;
-    });
-    return avgRating / courses.length;
-  }
-
-  // Gets the number of courses with a specific status
-  function getCourseCountWithStatus(status: string) {
-    let count = 0;
-    courses.forEach(course => {
-      if (course.status === status) {
-        count++;
-      }
-    });
-    return count;
-  }
+  
 
   // TODO: Implement functionality for user info fields
   return (
@@ -74,25 +43,25 @@ const PersonalInsights = (props: PersonalInsightsProps) => {
                 return <div key={key} className='flex flex-row gap-2'>
                   <div className={'w-3 h-3 rounded-full my-auto ' + (statuses[status].color ?? statuses.default.color)} />
                   <p>{statuses[status].br ?? statuses.default.br} cursos:</p>
-                  <p className='font-bold'>{getCourseCountWithStatus(status)}</p>
+                  <p className='font-bold'>{getCourseCountWithStatus(courses, status)}</p>
                 </div>
               })}
               {/* Total courses */}
               <div className='flex flex-row gap-2 ml-5'>
                 <p>Total cursos:</p>
-                <p className='font-bold' id='courseAmount'>{getNumberOfCourses()}</p>
+                <p className='font-bold' id='courseAmount'>{getNumberOfCourses(courses)}</p>
               </div>
             </div>
             <div>
               {/* Total students */}
               <p>Total alunos</p>
-              <p className='font-bold' id='subscribers'>{getAllSubscribers()}</p>
+              <p className='font-bold' id='subscribers'>{getTotalSubscriberCount(courses)}</p>
             </div>
             <div>
               {/* Rating */}
               <p>Avaliação</p>
               <div className='w-[12rem] max-w-full'>
-                <StarRating testId={'averageRating'} rating={getAverageRating()} className='text-2xl font-bold' />
+                <StarRating testId={'averageRating'} rating={getAverageRating(courses)} className='text-2xl font-bold' />
               </div>
             </div>
             {/* If the user has 0 courses */}
