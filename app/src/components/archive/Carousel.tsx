@@ -68,6 +68,7 @@ const Carousel: React.FC = () => {
           <div className="flex right-0 left-0 items-center justify-center space-x-2">
           {texts.map((_, i) => (
             <div
+              key={i}
               className={`
               transition-all w-3 h-3 bg-white rounded-full
               ${currentIndex === i ? "p-2" : "bg-opacity-50"}

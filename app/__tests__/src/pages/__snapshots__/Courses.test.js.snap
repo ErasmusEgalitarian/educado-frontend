@@ -546,29 +546,77 @@ exports[`courses page does not show empty state when at least one course is foun
               <h2
                 className="text-xl font-bold"
               >
-                Olá User Name
+                Olá 
+                Test User
               </h2>
               <div
-                className="border-y-[1px] border-grayMedium my-4 py-8 "
+                className="border-y-[1px] border-grayMedium my-4 py-4"
               >
-                <p
-                  className="font-bold"
-                >
-                  Progresso
-                </p>
                 <div
                   className="grid grid-cols-4 lg:grid-cols-1 gap-y-4"
                 >
                   <div>
-                    <p>
-                      Total cursos
-                    </p>
-                    <p
-                      className="font-bold"
-                      id="courseAmount"
+                    <div
+                      className="flex flex-row gap-2"
                     >
-                      1
-                    </p>
+                      <div
+                        className="w-3 h-3 rounded-full my-auto bg-success"
+                      />
+                      <p>
+                        Publicado
+                         cursos:
+                      </p>
+                      <p
+                        className="font-bold"
+                      >
+                        0
+                      </p>
+                    </div>
+                    <div
+                      className="flex flex-row gap-2"
+                    >
+                      <div
+                        className="w-3 h-3 rounded-full my-auto bg-[#ffc500]"
+                      />
+                      <p>
+                        Rascunho
+                         cursos:
+                      </p>
+                      <p
+                        className="font-bold"
+                      >
+                        1
+                      </p>
+                    </div>
+                    <div
+                      className="flex flex-row gap-2"
+                    >
+                      <div
+                        className="w-3 h-3 rounded-full my-auto bg-grayMedium"
+                      />
+                      <p>
+                        Oculto
+                         cursos:
+                      </p>
+                      <p
+                        className="font-bold"
+                      >
+                        0
+                      </p>
+                    </div>
+                    <div
+                      className="flex flex-row gap-2 ml-5"
+                    >
+                      <p>
+                        Total cursos:
+                      </p>
+                      <p
+                        className="font-bold"
+                        id="courseAmount"
+                      >
+                        1
+                      </p>
+                    </div>
                   </div>
                   <div>
                     <p>
@@ -579,16 +627,6 @@ exports[`courses page does not show empty state when at least one course is foun
                       id="subscribers"
                     >
                       157
-                    </p>
-                  </div>
-                  <div>
-                    <p>
-                      Total certificados emitidos
-                    </p>
-                    <p
-                      className="font-bold"
-                    >
-                      0
                     </p>
                   </div>
                   <div>
@@ -686,9 +724,7 @@ exports[`courses page does not show empty state when at least one course is foun
                   </div>
                 </div>
               </div>
-              <div
-                className="py-8"
-              >
+              <div>
                 <p
                   className="font-bold"
                 >
@@ -1254,16 +1290,12 @@ exports[`courses page shows empty state when no courses are found 1`] = `
               <h2
                 className="text-xl font-bold"
               >
-                Olá User Name
+                Olá 
+                Test User
               </h2>
               <div
-                className="border-y-[1px] border-grayMedium my-4 py-8 "
+                className="border-y-[1px] border-grayMedium my-4 py-4"
               >
-                <p
-                  className="font-bold"
-                >
-                  Progresso
-                </p>
                 <div
                   className="grid grid-cols-4 lg:grid-cols-1 gap-y-4"
                 >
@@ -1275,9 +1307,7 @@ exports[`courses page shows empty state when no courses are found 1`] = `
                   </p>
                 </div>
               </div>
-              <div
-                className="py-8"
-              >
+              <div>
                 <p
                   className="font-bold"
                 >

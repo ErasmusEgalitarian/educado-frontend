@@ -15,6 +15,16 @@ jest.mock('../../../src/services/course.services', () => ({
   }),
 }));
 
+jest.mock('../../../src/helpers/userInfo', () => ({
+  getUserInfo: jest.fn(() => {
+    return {
+      id: 1,
+      name: 'Test User',
+      email: '',
+    }
+  })
+}));
+
 jest.mock('../../../src/helpers/environment', () => ({
   BACKEND_URL: 'http://localhost:8888',
   REFRESH_TOKEN_URL: 'http://localhost:8888/auth/refresh/jwt'
