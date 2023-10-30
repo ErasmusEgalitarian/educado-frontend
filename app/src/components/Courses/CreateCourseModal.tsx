@@ -109,6 +109,7 @@ export const CreateCourseModal = () => {
                         <div className="flex flex-col space-y-2 text-left">
                             <label htmlFor='category'>Categoria</label> {/** Category */}
                             <select 
+                                defaultValue={"personal finance"}
                                 className="form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                                 {...register("category", { required: true })}
                             >

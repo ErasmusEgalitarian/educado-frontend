@@ -6,8 +6,14 @@ import { Exercise } from "../interfaces/Exercise";
 import { BACKEND_URL } from '../helpers/environment';
 
 /* Bearer is not implemnted in backend, due to content creators not existing yet */
-
-// Send the info to exercise service 
+ 
+/**
+ * Create a new exercise
+ * @param props The exercise object
+ * @param token The token of the user
+ * @param sid The section ID
+ * @returns A completion message 
+ * */
 const addExercise = async (props: any, token: string, sid: string | undefined) => {
   if (sid == undefined){
     throw("Error: addExercise input id is undefined")
@@ -19,8 +25,15 @@ const addExercise = async (props: any, token: string, sid: string | undefined) =
   );
 }
 
-// Send the info to exercise service
-const updateExercise = async (props: any, token: string, eid: string | undefined) => {
+/**
+ * Update a exercise
+ * 
+ * @param props The exercise object
+ * @param token The token of the user
+ * @param eid The exercise ID
+ * @returns A completion message 
+ */
+const updateExercise = async (props: any, token: string, eid: string ) => {
   if (eid == undefined){
     throw("Error: updateExercise input id is undefined")
   }
@@ -32,18 +45,44 @@ const updateExercise = async (props: any, token: string, eid: string | undefined
   return response.data
 };
 
-// Get exercise detail
+
+/**
+ * Get all exercise details
+ * 
+ * @param url The route to get the exercise details
+ * @param token The token of the user
+ * @returns A list of exercises 
+ */
 const getExerciseDetail = (url: string, token: string) => {
   return axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
       .then(res => res.data)
 }
 
+/**
+ * Delete a exercise
+ * 
+ * @param id Exercise ID
+ * @param token The token of the user
+ * @returns A completion message
+ */
+const deleteExercise = async (id: string | undefined, token: string) => {
+  if (id == undefined){
+      throw("Error: deleteExercise input id is undefined")
+  }
+  return await axios.delete(
+      `${BACKEND_URL}/api/exercises/${id}`,
+      { headers: { Authorization: `Bearer ${token}` } }
+  );
+}
 
-
+/** 
+ * The exercise services
+ */
 const ExerciseServices = Object.freeze({
   getExerciseDetail,
   addExercise,
-  updateExercise
+  updateExercise,
+  deleteExercise
 });
 
 

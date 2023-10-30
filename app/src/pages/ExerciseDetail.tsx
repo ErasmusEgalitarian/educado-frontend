@@ -11,64 +11,65 @@ import { Exercise } from "../interfaces/Exercise"
 // Helpers
 import ExerciseServices from "../services/exercise.services";
 
-// Video Player
-import ReactPlayer from "react-player";
+// Pop-up messages
 import { toast } from "react-toastify";
 
 // Hooks
 import useToken from "../hooks/useToken";
 
 export interface ExercisePartial {
-    id: string,
-    sectionId: string,
     title: string,
-    description: string,
-    exerciseNumber: number,
-    content?: any,
-    onWrongFeedback?: any,
+    question: string,
     answers: Answer[]
 }
 
 
 export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: string }) => {
 
-    const [onWrongFeedbackFile, setonWrongFeedbackFile] = useState<any>();
-    const [mainContentFile, setMainContentFile] = useState<any>();
     const [answers, setAnswers] = useState<Answer[]>(exercise.answers);
 
     const { register, handleSubmit: handleExerciseSave, formState: { errors } } = useForm();
-    const onExerciseSave: SubmitHandler<any> = data => saveExercise(data);
+    const onExerciseSave: SubmitHandler<any> = data => updateExercise(data);
 
+/** Token doesnt work, reimplement when it token is implemented */
     //const token = useAuthStore(state => state.token);
-    const token = useToken();
+    //const token = useToken();
+    const token = "dummyToken";
 
-    const saveExercise = (data: any) => {
-
-        {/** (3.12.22) Current version of mobile app requires exactly 4 answers */ }
-        if (answers.length < 4 || answers.length > 4) {
-            toast.error("Please set 4 answers before saving exercise")
-            return
-        }
+    const updateExercise = (data: any) => {
 
         const exerciseToSave: ExercisePartial = {
-            id: exercise.id,
-            sectionId: exercise.sectionId || "",
             title: data.title,
-            description: data.description,
-            exerciseNumber: exercise.exerciseNumber,
+            question: data.question,
             answers: answers
         }
 
-        if (mainContentFile) exerciseToSave.content = mainContentFile;
-        if (onWrongFeedbackFile) exerciseToSave.onWrongFeedback = onWrongFeedbackFile;
-
-/*
-        ExerciseServices.addExercise(exerciseToSave, token)
-            .then(() => toast.success(`Successfully saved exercise`))
-            .catch((e:any) => toast.error("Failed to save exercise due to error: " + e));
-            */
+        ExerciseServices.updateExercise(exerciseToSave, token, eid)
+            .then(() => toast.success(`Exercício salvo com sucesso`)) /** Successfully saved exercise */
+            .catch((e) => toast.error("Falha ao salvar o exercício devido a um erro: " + e));  /** Failed to save exercise due to an error: */
 
     }
+
+/**
+ * Delete exercise and reload page
+ * Uses window.location.reload to refresh
+ * 
+ * @param eid The exercise id
+ * @param token The user token
+ */
+const deleteExercise = async () => {
+    if (confirm("Você tem certeza?") == true) {
+        const response = await ExerciseServices.deleteExercise(eid, token);
+        const status = response.status
+
+        if (status >= 200 && status <= 299) {
+            window.location.reload();
+            toast.success("Exercício excluído") /** Exercise deleted */
+        } else if (status >= 400 && status <= 599) {
+            toast.error(`(${status}, ${response.statusText}) while attempting to delete exercise`)
+        }
+    }
+}
 
     return (
 
@@ -78,38 +79,28 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
             <div className=" rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border ">
                 <div className="flex flex-col form-control align-items justify-content w-full">
                     <label className="label">
-                        <span className="label-text">Exercise title</span>
+                        <span className="label-text">Título</span>
                     </label>
                     <input
                         type="text"
                         defaultValue={exercise.title}
+                        onClick={()=>console.log("answers",answers)}
                         placeholder="Exercise title goes here"
                         className="input input-bordered w-full max-w-xs"
                         {...register("title", { required: true })}
                     />
 
                     <label className="label">
-                        <span className="label-text">Exercise description</span>
+                        <span className="label-text">Pergunta</span>
                     </label>
                     <textarea
                         className="textarea textarea-bordered h-24"
-                        defaultValue={exercise.description}
-                        placeholder="Here you can describe the exercise"
-                        {...register("description", { required: true })}
+                        defaultValue={exercise.question}
+                        placeholder="Write the question for the exercise here"
+                        {...register("question", { required: true })}
                     ></textarea>
 
                 </div>
-            </div>
-
-            {/* Content video */}
-            <div className="rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border ">
-                {exercise.content ?
-                    <div>
-                        <h1 className='text-md font-medium'>Content video</h1>
-                        <ReactPlayer url={exercise.content} controls={true} light={true} />
-                    </div> :
-                    <h1 className='text-md font-medium'>Content video not uploaded</h1>
-                }
             </div>
 
             {/* divider */}
@@ -117,29 +108,20 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
                 <div className="divider"></div>
             </div>
 
-            {/* feedback Video */}
-            <div className="rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border ">
-                {exercise.onWrongFeedback ?
-                    <div>
-                        <h1 className='text-md font-medium'>Feedback video (on wrong answer)</h1>
-                        <ReactPlayer url={exercise.onWrongFeedback} controls={true} light={true} />
-                    </div> :
-                    <h1 className='text-md font-medium'>Feedback video (on wrong answer) not uploaded</h1>
-                }
-               
-            </div>
-
             {/* Answers. Answers sometimes doesn't get loaded hence the conditional rendering ... */}
-            {answers ?
+            {exercise.answers ?
                 <div className="rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border ">
-                    <h1 className='text-md font-medium'>Answers</h1>
-                    <AnswerCards update={setAnswers} initialAnswers={answers} />
+                    <h1 className='text-md font-medium'>Respostas</h1>
+                {   <AnswerCards update={setAnswers} initialAnswers={exercise.answers} />}
                 </div>
                 :
                 <p>Loading ...</p>
             }
-
-            <button type='submit' className="std-button ml-auto py-2 px-4">Save Exercise</button>
+            <div className="flex items-left w-full mt-8">
+                {/** Exercise save and delete button */}
+                <button type="button" onClick={deleteExercise} className='left-0 std-button bg-warning hover:bg-red-800' >Excluir exercício</button> {/** Delete exercise*/}
+                <button type='submit' className="std-button ml-auto py-2 px-4">Salvar exercícios</button> {/** Save exercise */}
+            </div>
         </form>
 
     );

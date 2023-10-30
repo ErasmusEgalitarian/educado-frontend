@@ -54,14 +54,14 @@ const updateCoverImage = async ( id: any, token: string) => {
   ).then(res => res.data);
 }*/
 
-// Get all courses
+/**
+ * Get all courses
+ * @param token The token of the user
+ * @returns A list of all courses
+ */
 const getAllCourses = async ( token: string) => {
-  // Get token from local storage
-  const tokens = (String) (localStorage.getItem('token'));
-  // Decode token to get user id
-  const userId = JSON.parse(atob(tokens!.split('.')[1])).id;
-  
-  return await client.get(`/creator/` + userId, { headers: { token: tokens } })
+  return await axios.get(`${BACKEND_URL}/api/courses/`, { headers: { Authorization: `Bearer ${token}` } })
+
     .then(res => {
       // Convert dates in course data to Date objects
       res.data.forEach((course: any) => {
@@ -72,19 +72,28 @@ const getAllCourses = async ( token: string) => {
     });
 };
 
-// Get course detail
+/**
+ * Get course detail
+ * @param url The route to get the course detail
+ * @returns The course detail
+ */
 const getCourseDetail = async (url: string/*, token: string*/) => {
   return await axios.get(url/*, { headers: { Authorization: `Bearer ${token}` } }*/)
     .then((res) => res.data);
 };
 
-// Get course categories
+// Get course categories - FROM LAST YEAR, NOT IMPLEMENTED, CATEGORIES ARE HARDCODED RN
 const getCourseCategories = (url: string/*, token: string*/) => {
   return axios.get(url/*, { headers: { Authorization: `Bearer ${token}` } }*/)
     .then(res => res.data);
 }
 
-// Updating a specific course
+/**
+ * Update a specific course
+ * @param data the data of the course to be updated 
+ * @param id The id of the course
+ * @returns Confirmation of the update
+ */
 const updateCourseDetail = async (data: any, id: any/*, token: string*/) => {
   return await axios.patch(
     `${BACKEND_URL}/api/courses/${id}`,
@@ -98,7 +107,7 @@ const updateCourseDetail = async (data: any, id: any/*, token: string*/) => {
  * Delete a specific course 
  * @param id the id of the course that will be deleted
  * @param token token of the user 
- * @param returns delete data
+ * @returns Delete data
  */
 const deleteCourse = async (id: any, token: string) => {
   return await axios.delete(

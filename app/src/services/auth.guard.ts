@@ -30,7 +30,7 @@ export function NonProtectedRoute ({ children }: { children: JSX.Element }) {
 
   } else {
   React.useEffect(() => {
-    navigate("/profile")
+    navigate("/courses")
   }, []);
   return null;
 }

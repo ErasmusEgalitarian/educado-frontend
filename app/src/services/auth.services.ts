@@ -2,7 +2,14 @@ import axios from "axios";
 
 // Interfaces
 import { CCApp } from "../interfaces/CCApp";
+
+import {BACKEND_URL} from "../helpers/environment"
+
+
+
+
 import { boolean } from "yup";
+
 
 export interface ContentCreatorApplication {
   name: String;
@@ -12,21 +19,31 @@ export interface ContentCreatorApplication {
 
 
 const postUserLogin = async (credentials: any) => {
-  return await axios.post("http://127.0.0.1:8888/api/credentials/login", credentials);
+
+  return await axios.post(`${BACKEND_URL}/api/credentials/login`, credentials);
+};
+
+const postUserApplication = async (formData: ContentCreatorApplication) => {
+  return await axios.post(`${BACKEND_URL}/api/applications`, formData);
+};
+
+const postUserCredentialsLogin = async (credentials: any) => {
+  return await axios.post(`${BACKEND_URL}/api/credentials/login`, credentials);
 };
 
 
 const postUserSignup = async(formData: ContentCreatorApplication) => {
-  return await axios.post("http://127.0.0.1:8888/api/credentials/signup", formData)
+  return await axios.post(`${BACKEND_URL}/api/credentials/signup`, formData)
 }
 
 /*  const postUserApplication = async (formData: ContentCreatorApplication) => {
   return await axios.post("http://127.0.0.1:8888/api/applications", formData);
 }; (OLD CODE)*/
 
+
 const GetCCApplications = async (): Promise<CCApp.RootObject> => {
   return await axios.get(
-    "http://127.0.0.1:8888/api/applications?approved=false&isRejected=false"
+    `${BACKEND_URL}/api/applications?approved=false&isRejected=false`
   );
 };
 
@@ -37,15 +54,15 @@ const GetSingleUserApplication = async (url: string): Promise<CCApp.Datum> => {
 
 const PostDelcineContentCreator = async (id: string): Promise<unknown> => {
   return await axios.put(
-    `http://127.0.0.1:8888/api/applications/${id}?action=reject`,
-    { data: { reason: "No" } }
+    `${BACKEND_URL}/api/applications/${id}?action=reject`,
+    { data: { reason: `No` } }
   );
 };
 
 const PostAcceptContentCreator = async (id: string): Promise<unknown> => {
   return await axios.put(
-    `http://127.0.0.1:8888/api/applications/${id}?action=approve`,
-    { data: { reason: "Yes" } }
+    `${BACKEND_URL}/api/applications/${id}?action=approve`,
+    { data: { reason: `Yes` } }
   );
 };
 

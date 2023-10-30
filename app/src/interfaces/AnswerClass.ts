@@ -1,11 +1,11 @@
 export class Answer {
     text: string = "";
     feedback: string = "";
-    isCorrect: boolean = false; 
+    correct: boolean = false; 
     
     constructor(){};
 
-   
+
     /**
      * 
      * @param text - The text to set the answer to
@@ -24,12 +24,17 @@ export class Answer {
 
     /**
      * 
-     * @param isCorrect - The boolean to set the answer to
+     * @param correct - The boolean to set the answer to
      */
-    public setIsCorrect(isCorrect: boolean) {
-        this.isCorrect = isCorrect;
+    public setcorrect(correct: boolean) {
+        this.correct = correct;
     }
 
+    public setAll(text: string, feedback: string, correct: boolean) {
+        this.text = text;
+        this.feedback = feedback;
+        this.correct = correct;
+    }
+    
 
 }
-

@@ -22,7 +22,7 @@ export const AnswerField = ({index, answerObject, callback}:Inputs) => {
                 <label className="label">
                     <span className="label-text">Resposta correta</span> {/**Right answer */}
                 </label>    
-                    <input type="checkbox" className="" defaultChecked={answerObject.isCorrect} onChange={()=>{answerObject.setIsCorrect(!answerObject.isCorrect); callback(index, answerObject)}}/> 
+                    <input type="checkbox" className="" defaultChecked={answerObject.correct} onChange={()=>{answerObject.setcorrect(!answerObject.correct); callback(index, answerObject)}}/> 
             </div>
 
             {/** Answer text field */}
@@ -31,7 +31,7 @@ export const AnswerField = ({index, answerObject, callback}:Inputs) => {
                     <span className="label-text">Resposta</span> {/**Resposta */}
                 </label>
                 <textarea
-                    className="input input-bordered w-full h-16"   
+                    className="input input-bordered w-full h-16"
                     placeholder="Adicione uma resposta possível ao seu exercício" 
                     onChange={(e) => {answerObject.setText(e.target.value); callback(index, answerObject)}}
                     

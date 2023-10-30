@@ -125,14 +125,16 @@ const CourseEdit = () => {
      * @param token The user token
      */
      const deleteCourse = async () => {
-        const response = await CourseServices.deleteCourse(id, token);
-        const status = response.status
+        if (confirm("Você tem certeza?") == true) {
+            const response = await CourseServices.deleteCourse(id, token);
+            const status = response.status
 
-        if (status >= 200 && status <= 299) {
-            toast.success("Curso excluído"); {/* Course deleted */}
-            window.location.href = "/courses";
-        } else if (status >= 400 && status <= 599) {
-            toast.error(`(${status}, ${response.statusText}) while attempting to delete course`)
+            if (status >= 200 && status <= 299) {
+                toast.success("Curso excluído"); {/* Course deleted */}
+                window.location.href = "/courses";
+            } else if (status >= 400 && status <= 599) {
+                toast.error(`(${status}, ${response.statusText}) while attempting to delete course`)
+            }
         }
     }
 
@@ -186,7 +188,7 @@ const CourseEdit = () => {
                     <div className='w-full max-w-5xl mx-auto bg-white rounded p-6'>
                         <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
                             <div className='flex flex-col space-y-6 divide'>
-                                <h1 className='text-xl font-medium'>Detalhes do curso</h1> {/* Course details */} 
+                                <h1 className='text-3xl text-center font-medium pb-6'>Curso</h1> {/* Course details */} 
 
                                
 

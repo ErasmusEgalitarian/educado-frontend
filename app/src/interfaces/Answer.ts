@@ -1,4 +1,5 @@
 export interface Answer {
     text: string,
-    correct: boolean
+    feedback: string,
+    correct: boolean,
 }

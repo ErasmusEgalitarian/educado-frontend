@@ -13,6 +13,8 @@ import Loading from "./Loading";
 import Layout from "../components/Layout";
 import { PageDescriptor } from "../components/PageDescriptor";
 
+import {BACKEND_URL} from "../helpers/environment"
+
 
 
 const EducadoAdmin = () => {
@@ -23,7 +25,7 @@ const EducadoAdmin = () => {
     let location = useLocation();
 
     const { data, error } = useSWR(
-        "http://127.0.0.1:8888/api/applications?approved=false",
+        `${BACKEND_URL}/api/applications?approved=false`,
         AuthServices.GetCCApplications
     );
 

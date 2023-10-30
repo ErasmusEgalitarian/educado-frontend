@@ -52,6 +52,12 @@ export const CreateLecture = () => {
     // use-form setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
+    const [charCount, setCharCount] = useState(0);
+
+    const onCharCountChange = (e: any) => {
+        setCharCount(e.target.value.length);
+    }
+
     /**
      * Function to handle the submit of the form
      * 
@@ -60,11 +66,12 @@ export const CreateLecture = () => {
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         
         setIsLoading(true);
-        LectureService.addLecture({
-            title: data.title,
-            description: data.description,
-        }, token, sid)
-            .then(res =>{ console.log(res); navigate(`/sections/${sid}`)}) 
+        LectureService.addLecture(
+            data.title,
+            data.description,
+            token, 
+            sid)
+            .then(res =>{ console.log(res); window.location.reload()}) 
             .catch(err => console.log(err))
     };
     return (
@@ -88,7 +95,7 @@ export const CreateLecture = () => {
                     <form className="flex h-full flex-col justify-between space-y-4" onSubmit={handleSubmit(onSubmit)}>
                         <div className="flex flex-col space-y-2 text-left">
                             <label htmlFor='title'>Título</label> {/*Title*/}
-                            <input type="text" defaultValue={""}
+                            <input type="text" placeholder={"Insira a alternativa"} defaultValue={""}
                                 className="form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                                 {...register("title", { required: true })}
                             />
@@ -98,11 +105,13 @@ export const CreateLecture = () => {
 
                         {/*Field to input the description of the lecture*/}
                         <div className="flex flex-col space-y-2 text-left">
-                            <label htmlFor='description'>Descrição</label> {/*Description*/}
-                            <textarea rows={4} defaultValue={""}
+                            <label htmlFor='description'>Descrição</label> {/*Description*/}{/*({charCount}/400)*/}
+                            <textarea /*maxLength={400}*/ rows={4}  placeholder={"Insira uma justificativa para a alternativa estar correta ou errada"} defaultValue={""}
                                 className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                                 {...register("description", { required: true })}
+                                onChange={(e) => onCharCountChange(e)}
                             />
+                            {/*defaultValue=Add a description to your lecture*/}
                             {errors.description && <span className='text-warning'>Este campo é obrigatório</span>}
                         </div>
 

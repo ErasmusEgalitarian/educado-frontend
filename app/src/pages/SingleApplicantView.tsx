@@ -4,6 +4,7 @@ import useSWR from 'swr';
 
 // Services
 import AuthServices from '../services/auth.services';
+import {BACKEND_URL} from '../helpers/environment';
 
 // Components
 import Loading from './Loading';
@@ -15,7 +16,7 @@ function SingleApplicantView() {
 
     // Fetch Application Details
     const { data, error } = useSWR(
-        [`http://127.0.0.1:8888/api/applications/${id}`],
+        [`${BACKEND_URL}/api/applications/${id}`],
         AuthServices.GetSingleUserApplication
     );
 

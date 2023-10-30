@@ -1,12 +1,9 @@
 import {Answer} from "./Answer";
 
 export interface Exercise {
-    id: string,
-    sectionId: string,
+    _id: string,
+    parentSection: string,
     title: string,
-    description: string,
-    exerciseNumber: number,
-    content: any,
-    onWrongFeedback: any,
+    question: string,
     answers: Answer[]
 }

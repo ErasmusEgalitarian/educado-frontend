@@ -50,6 +50,11 @@ const Signup = () => {
     resolver: yupResolver(SignupSchema)
   });
 
+  //Variable determining the error message
+  const [errorMessage, newErrorMessage] = useState('');
+  let setErrorMessage = (errMessage: string) => {
+    newErrorMessage(errMessage);
+  };
   
   /**
     * OnSubmit function for Signup.
@@ -66,8 +71,16 @@ const Signup = () => {
       name: data.name,
       email: data.email,
       password: data.password,
-    });
-    navigate('/login')
+    }).then(() => {
+      navigate('/login')
+    })
+    .catch(err => { setError(err); console.log(err)
+      switch (err.response.data.error.code){
+        case "E0201": //User with the provided email already exists
+            setErrorMessage("Já existe um usuário com o email fornecido") //User with the provided email already exists
+            break;
+        default: console.log(error);
+    }});
 
   };
 
@@ -145,11 +158,11 @@ return (
   <div className='relative right-0 h-screen flex flex-col justify-center items-center'>
     
   { /*Error message for when email or password is incorrect*/ }
-    <div className=" right-0 top-[4rem]">
+    <div className="fixed right-0 top-[4rem]">
       {error && (
           <div className="bg-white shadow border-t-4 p-4 w-52 rounded text-center animate-bounce-short" role="alert">
-            <p className="font-bold text-lg">Error:</p>
-            <p className='text-base'>{error.response.data.msg}</p>
+            <p className="font-bold text-lg">Error</p>
+            <p className='text-base'>{errorMessage}</p>
           </div>
       )}
     </div>

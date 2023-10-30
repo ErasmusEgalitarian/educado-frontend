@@ -40,6 +40,12 @@ const Login = () => {
     // Use-form setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
+    //Variable determining the error message
+    const [errorMessage, newErrorMessage] = useState('');
+    let setErrorMessage = (errMessage: string) => {
+      newErrorMessage(errMessage);
+    };
+
     /**
     * OnSubmit function for Login.
     * Takes the submitted data from the form and sends it to the backend through a service.
@@ -57,13 +63,23 @@ const Login = () => {
               if(res.status == 202){
                   localStorage.setItem("token", res.data.accessToken);
                   setUserInfo(res.data.userInfo);
-                  navigate("/profile");
+                  navigate("/courses");
                   
                   //setRefresh(res.data.data.refreshToken); (OLD CODE, MIGHT USE LATER)
               }
               
           })
-          .catch(err => { setError(err); console.log(err)});
+          .catch(err => { setError(err); console.log(err)
+            switch (err.response.data.error.code){
+              case "E0101": //Invalid Email 
+                  setErrorMessage("O email fornecido não está associado a uma conta") //The provided email is not associated with an account
+                  break;
+  
+              case "E0105": //Invalid Password
+                  setErrorMessage("Senha Incorreta") //Wrong Password
+                  break;
+              default: console.log(error);
+          }});
     };
     
     // Variable determining whether or not the password is visible
@@ -127,8 +143,8 @@ return (
       <div className="fixed right-0 top-[4rem]">
         {error && (
             <div className="bg-white shadow border-t-4 p-4 w-52 rounded text-center animate-bounce-short" role="alert">
-              <p className="font-bold text-lg">Error:</p>
-              <p className='text-base'>{error?.response?.data?.msg}</p>
+              <p className="font-bold text-lg">Error</p>
+              <p className='text-base'>{errorMessage}</p>
             </div>
         )}
       </div>
