@@ -1,0 +1,200 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`personal insights renders correctly 1`] = `
+<div
+  className="w-full h-full"
+>
+  <h2
+    className="text-xl font-bold"
+  >
+    Olá 
+    Test User
+  </h2>
+  <div
+    className="border-y-[1px] border-grayMedium my-4 py-4"
+  >
+    <div
+      className="grid grid-cols-4 lg:grid-cols-1 gap-y-4"
+    >
+      <div>
+        <div
+          className="flex flex-row gap-2"
+        >
+          <div
+            className="w-3 h-3 rounded-full my-auto bg-success"
+          />
+          <p>
+            Publicado
+             cursos:
+          </p>
+          <p
+            className="font-bold"
+          >
+            0
+          </p>
+        </div>
+        <div
+          className="flex flex-row gap-2"
+        >
+          <div
+            className="w-3 h-3 rounded-full my-auto bg-[#ffc500]"
+          />
+          <p>
+            Rascunho
+             cursos:
+          </p>
+          <p
+            className="font-bold"
+          >
+            2
+          </p>
+        </div>
+        <div
+          className="flex flex-row gap-2"
+        >
+          <div
+            className="w-3 h-3 rounded-full my-auto bg-grayMedium"
+          />
+          <p>
+            Oculto
+             cursos:
+          </p>
+          <p
+            className="font-bold"
+          >
+            0
+          </p>
+        </div>
+        <div
+          className="flex flex-row gap-2 ml-5"
+        >
+          <p>
+            Total cursos:
+          </p>
+          <p
+            className="font-bold"
+            id="courseAmount"
+          >
+            2
+          </p>
+        </div>
+      </div>
+      <div>
+        <p>
+          Total alunos
+        </p>
+        <p
+          className="font-bold"
+          id="subscribers"
+        >
+          300
+        </p>
+      </div>
+      <div>
+        <p>
+          Avaliação
+        </p>
+        <div
+          className="w-[12rem] max-w-full"
+        >
+          <div
+            className="flex flex-row"
+          >
+            <svg
+              className="text-star"
+              role="presentation"
+              style={{}}
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
+                style={
+                  {
+                    "fill": "currentColor",
+                  }
+                }
+              />
+            </svg>
+            <svg
+              className="text-star"
+              role="presentation"
+              style={{}}
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
+                style={
+                  {
+                    "fill": "currentColor",
+                  }
+                }
+              />
+            </svg>
+            <svg
+              className="text-star"
+              role="presentation"
+              style={{}}
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
+                style={
+                  {
+                    "fill": "currentColor",
+                  }
+                }
+              />
+            </svg>
+            <svg
+              className="text-star"
+              role="presentation"
+              style={{}}
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12,15.4V6.1L13.71,10.13L18.09,10.5L14.77,13.39L15.76,17.67M22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.45,13.97L5.82,21L12,17.27L18.18,21L16.54,13.97L22,9.24Z"
+                style={
+                  {
+                    "fill": "currentColor",
+                  }
+                }
+              />
+            </svg>
+            <svg
+              className="text-star"
+              role="presentation"
+              style={{}}
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12,15.39L8.24,17.66L9.23,13.38L5.91,10.5L10.29,10.13L12,6.09L13.71,10.13L18.09,10.5L14.77,13.38L15.76,17.66M22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.45,13.97L5.82,21L12,17.27L18.18,21L16.54,13.97L22,9.24Z"
+                style={
+                  {
+                    "fill": "currentColor",
+                  }
+                }
+              />
+            </svg>
+            <p
+              className="text-star ml-1 text-2xl font-bold"
+            >
+              3.5
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <p
+      className="font-bold"
+    >
+      Atividades
+    </p>
+     
+    <div
+      className="grid grid-cols-4 lg:grid-cols-1 gap-y-2"
+    />
+  </div>
+</div>
+`;
