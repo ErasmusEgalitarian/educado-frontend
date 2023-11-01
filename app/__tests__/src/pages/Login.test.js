@@ -14,7 +14,7 @@ jest.useFakeTimers();
 
 jest.mock('../../../src/helpers/environment', () => ({
     BACKEND_URL: 'http://localhost:8888',
-    REFRESH_TOKEN_URL: 'http://localhost:888/auth/refresh/jwt'
+    REFRESH_TOKEN_URL: 'http://localhost:8888/auth/refresh/jwt'
 }));
 
 describe("Login Component", () => {
