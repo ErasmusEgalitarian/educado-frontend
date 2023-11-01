@@ -82,7 +82,6 @@ const Signup = () => {
         setError(err); console.log(err)
         switch (err.response.data.error.code) {
           case "E0201": //User with the provided email already exists
-            setErrorMessage("Já existe um usuário com o email fornecido") //User with the provided email already exists
             break;
           default: console.log(error);
         }
