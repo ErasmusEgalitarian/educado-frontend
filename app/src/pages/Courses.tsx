@@ -18,6 +18,7 @@ import PersonalInsights from '../components/Courses/PersonalInsights';
 
 // Images
 import noCoursesImage from '../assets/no-courses.png';
+import { getUserToken } from '../helpers/userInfo';
 
 /**
  * @returns HTML Element
@@ -28,8 +29,7 @@ import noCoursesImage from '../assets/no-courses.png';
 const Courses = () => {
   // States and Hooks
   const navigate = useNavigate();
-  const token = localStorage.getItem('token') ?? '';
-
+  const token = getUserToken();
   // Fetch all courses
 
   // TODO: Implement proper backend call once backend is ready

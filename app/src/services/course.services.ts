@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Backend URL from enviroment
 import { BACKEND_URL } from '../helpers/environment';
-import { getUserInfo } from "../helpers/userInfo";
+import { getUserInfo, getUserToken } from "../helpers/userInfo";
 
 // Interface for posting course content
 export interface CourseInterface {
@@ -18,7 +18,7 @@ const client = axios.create({
   baseURL: 'http://localhost:8888/api/courses',
   headers: {
     "Content-Type": "application/json",
-    token: localStorage.getItem('token') || '',
+    token: getUserToken(),
   },
 });
 
