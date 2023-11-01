@@ -61,7 +61,7 @@ const Carousel: React.FC = () => {
 
       { /*Inclusion of the text itself*/ }
       <div className="flex items-center">
-      <label className="py-10 parent-container relative">{texts[currentIndex]}
+      <p className="py-10 parent-container relative">{texts[currentIndex]}
         <div className="child-container right-0 left-0 justify-center absolute bottom-0">
 
         { /*Dots indicating the text index*/ }
@@ -78,7 +78,7 @@ const Carousel: React.FC = () => {
       
           </div>
         </div>
-        </label>
+        </p>
       </div>
 
       { /*Button for changing the text to the next index*/ }
