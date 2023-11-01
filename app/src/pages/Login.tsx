@@ -195,7 +195,7 @@ return (
               placeholder="**********"
               {...register("password", { required: true })}/>
             {/* Hide and show password button */}
-            <button type="button" className="absolute right-3 bottom-3" onClick={() => togglePasswordVisibility()} id="hidePasswordIcon">
+            <button type="button" className="absolute right-3 bottom-3" onClick={togglePasswordVisibility} id="hidePasswordIcon">
                 <Icon path={passwordVisible ? mdiEyeOutline : mdiEyeOffOutline} size={1} color="#A1ACB2" />
             </button>
           </div>
