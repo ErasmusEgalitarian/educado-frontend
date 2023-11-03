@@ -12,8 +12,8 @@ interface PartialCourse {
   estimatedHours?:     number;
   rating?:             number;
   numOfSubscriptions?: number;
-  modifiedAt?:         Date;
-  createdAt?:          Date;
+  dateUpdated?:        Date;
+  dateCreated?:        Date;
   sections?:           Section[];
   __v?:                number;
 }
@@ -29,8 +29,8 @@ export const generateTestCourse = (options: PartialCourse = {}): Course => {
     _id: options._id ?? '1',
     title: options.title ?? 'Test course',
     description: options.description ?? 'A mock course for testing',
-    createdAt: options.createdAt ?? (new Date('2023-10-10T00:00:00.000Z')),
-    modifiedAt: options.modifiedAt ?? (new Date('2023-10-13T13:01:00.000Z')),
+    dateCreated: options.dateCreated ?? (new Date('2023-10-10T00:00:00.000Z')),
+    dateUpdated: options.dateUpdated ?? (new Date('2023-10-13T13:01:00.000Z')),
     coverImg: options.coverImg ?? '',
     category: options.category ?? 'health and workplace safety',
     sections: options.sections ?? [],

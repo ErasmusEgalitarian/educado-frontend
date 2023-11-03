@@ -19,8 +19,8 @@ export interface Course {
   estimatedHours:    number;
   rating:            number;
   numOfSubscriptions:   number;
-  modifiedAt:        Date;
-  createdAt:         Date;
+  dateUpdated:       Date;
+  dateCreated:       Date;
   sections:          Section[];
   __v:               number;
 }
@@ -32,8 +32,8 @@ export interface contentCreator {
   motivation: string,
   approved: boolean,
   rejectionReason: string,
-  createdAt: Date,
-  modifiedAt: Date,
+  dateCreated: Date,
+  dateUpdated: Date,
 }
 
 export interface Section {
@@ -50,7 +50,7 @@ export interface Lecture {
   description:    string;
   image:          string;
   video:          string;
-  createdAt:      Date;
+  dateCreated:      Date;
   updatedAt:      Date;
   parentSection:  string;
   __v:            number;

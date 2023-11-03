@@ -12,8 +12,8 @@ export interface Data {
     coverImg:    string;
     description: string;
     author:      Author;
-    modifiedAt:  Date;
-    createdAt:   Date;
+    dateUpdated:  Date;
+    dateCreated:   Date;
     __v:         number;
 }
 
@@ -30,14 +30,14 @@ export interface Section {
     title:         string;
     sectionNumber: number;
     description:   string;
-    createdAt:     Date;
-    modifiedAt:    Date;
+    dateCreated:     Date;
+    dateUpdated:    Date;
     __v:           number;
 }
 
 export interface Exercise {
     id:               string;
-    modifiedAt:       Date;
+    dateUpdated:       Date;
     answers:          Answer[];
     __v:              number;
     content?:         Content;
@@ -48,7 +48,7 @@ export interface Answer {
     id:         string;
     text:       string;
     correct:    boolean;
-    modifiedAt: Date;
+    dateUpdated: Date;
 }
 
 export interface Content {

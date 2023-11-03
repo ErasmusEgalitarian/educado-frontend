@@ -77,7 +77,7 @@ function SingleApplicantView() {
                                     Applied at:
                                 </dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    <>{data?.createdAt}</> {/** FIXME: Date object is not a valid child of HTML element */}
+                                    <>{data?.dateCreated}</> {/** FIXME: Date object is not a valid child of HTML element */}
                                 </dd>
                             </div>
                         </dl>

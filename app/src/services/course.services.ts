@@ -65,8 +65,8 @@ const getAllCourses = async ( token: string) => {
     .then(res => {
       // Convert dates in course data to Date objects
       res.data.forEach((course: any) => {
-        course.createdAt = new Date(course.createdAt);
-        course.modifiedAt = new Date(course.modifiedAt);
+        course.dateCreated = new Date(course.dateCreated);
+        course.dateUpdated = new Date(course.dateUpdated);
       });
       return res.data;
     });

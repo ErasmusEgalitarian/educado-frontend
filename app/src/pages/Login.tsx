@@ -13,6 +13,10 @@ import { LoginReponseError } from "../interfaces/LoginReponseError"
 
 // Services
 import AuthServices from '../services/auth.services';
+
+// Helper functions
+import { setUserInfo } from '../helpers/userInfo';
+
 //import useAuthStore from '../contexts/useAuthStore';
 
 // Interface
@@ -58,6 +62,8 @@ const Login = () => {
           .then((res) => {
               if(res.status == 202){
                   localStorage.setItem("token", res.data.accessToken);
+                  localStorage.setItem("id", res.data.userInfo.id);
+                  setUserInfo(res.data.userInfo);
                   navigate("/courses");
                   
                   //setRefresh(res.data.data.refreshToken); (OLD CODE, MIGHT USE LATER)

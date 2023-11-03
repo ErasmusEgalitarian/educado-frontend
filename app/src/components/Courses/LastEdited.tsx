@@ -53,7 +53,7 @@ export const LastEdited = ({ course }: { course: Course }) => {
     <div className='flex flex-row'>
       <Icon path={mdiPencil} className='w-4 mr-1 inline-block mr-1' />
       <p className='text-md italic'>
-        {getFormattedTimeDifference(course.modifiedAt, new Date())}
+        {getFormattedTimeDifference(new Date(course.dateUpdated), new Date())}
       </p>
     </div>
   </>

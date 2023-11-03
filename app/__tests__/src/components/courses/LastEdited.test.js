@@ -10,7 +10,7 @@ describe('last edited time', () => {
   it('shows minutes if difference is below 1 hour', () => {
     // Set lastModified to 59 minutes ago
     const course = generateTestCourse({
-      modifiedAt: (new Date(Date.now() - 60 * 60 * 1000 + 1000))
+      dateUpdated: (new Date(Date.now() - 60 * 60 * 1000 + 1000))
     });
     const component = renderer.create(
       <MemoryRouter>
@@ -24,7 +24,7 @@ describe('last edited time', () => {
   it('shows hours if difference is below 24 hours', () => {
     // Set lastModified to 23 hours and 59 minutes ago
     const course = generateTestCourse({
-      modifiedAt: (new Date(Date.now() - 24 * 60 * 60 * 1000 + 1000))
+      dateUpdated: (new Date(Date.now() - 24 * 60 * 60 * 1000 + 1000))
     });
     const component = renderer.create(
       <MemoryRouter>
@@ -38,7 +38,7 @@ describe('last edited time', () => {
   it('shows days if difference is below 1 week', () => {
     // Set lastModified to 6 days ago
     const course = generateTestCourse({
-      modifiedAt: (new Date(Date.now() - 7 * 24 * 60 * 60 * 1000 + 1000))
+      dateUpdated: (new Date(Date.now() - 7 * 24 * 60 * 60 * 1000 + 1000))
     });
     const component = renderer.create(
       <MemoryRouter>
@@ -52,7 +52,7 @@ describe('last edited time', () => {
   it('shows weeks if difference is below 30 days', () => {
     // Set lastModified to 29 days ago
     const course = generateTestCourse({
-      modifiedAt: (new Date(Date.now() - 30 * 24 * 60 * 60 * 1000 + 1000))
+      dateUpdated: (new Date(Date.now() - 30 * 24 * 60 * 60 * 1000 + 1000))
     });
     const component = renderer.create(
       <MemoryRouter>
@@ -66,7 +66,7 @@ describe('last edited time', () => {
   it('shows months if difference is below 1 year', () => {
     // Set lastModified to 364 days ago
     const course = generateTestCourse({
-      modifiedAt: (new Date(Date.now() - 365 * 24 * 60 * 60 * 1000 + 1000))
+      dateUpdated: (new Date(Date.now() - 365 * 24 * 60 * 60 * 1000 + 1000))
     });
     const component = renderer.create(
       <MemoryRouter>
@@ -82,7 +82,7 @@ describe('last edited time', () => {
 
     // Set lastModified to 365 days ago
     const course = generateTestCourse({
-      modifiedAt: testDate
+      dateUpdated: testDate
     });
     const component = renderer.create(
       <MemoryRouter>

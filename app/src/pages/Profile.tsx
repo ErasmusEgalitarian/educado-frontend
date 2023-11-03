@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from 'react-toastify';
+import PopUpDelete from '../components/profile/PopUpDelete';
 
 // Contexts
 import useAuthStore from '../contexts/useAuthStore';
@@ -42,6 +43,15 @@ const Profile = () => {
     // password show toggles
     const [showOldPassword, setShowOldPassword] = useState(false)
     const [showNewPassword, setShowNewPassword] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
     
     // use-form setup
     const { 
@@ -250,6 +260,17 @@ const Profile = () => {
                                     </div>
                                 </div>
                             </form>
+                            <div className="inline-flex justify-center md:grid md:grid-cols-3 md:gap-6">
+                                <a onClick={openModal} className='font-medium text-red-500 underline hover:text-red-600'
+                                    >
+                                    Deletar conta
+                                    </a>
+                                {isModalOpen && (
+                                <PopUpDelete
+                                    popupOpen={isModalOpen}
+                                    onTogglePopup={() => setIsModalOpen(!isModalOpen)}
+                                />)}
+                            </div>
                         </div>
                     </div>
                 </div>
