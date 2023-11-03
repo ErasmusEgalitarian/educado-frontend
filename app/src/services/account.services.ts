@@ -11,7 +11,7 @@ const deleteAccount = async () => {
 
     try {
       const res = await axios.delete(
-        `${BACKEND_URL}/profile/delete/${creatorId}`);
+          `${BACKEND_URL}/api/creators/${creatorId}`);
 
       return res.data;
 

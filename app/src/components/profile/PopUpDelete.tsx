@@ -19,6 +19,11 @@ const PopUpDelete: React.FC<PopUpDeleteProps> = ({ popupOpen, onTogglePopup }) =
 
   const handleDelete = () => {
     AccountServices.deleteAccount();
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("id");
+    localStorage.removeItem("userInfo");
+    
     navigate('/welcome');
   };
 
