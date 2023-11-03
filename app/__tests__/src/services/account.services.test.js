@@ -28,7 +28,7 @@ describe('deleteAccount', () => {
 
     expect(result).toEqual(responseData);
     expect(localStorageMock.getItem).toHaveBeenCalledWith('id');
-    expect(axios.delete).toHaveBeenCalledWith(`${BACKEND_URL}/profile/delete/${creatorId}`);
+    expect(axios.delete).toHaveBeenCalledWith(`${BACKEND_URL}/api/creators/${creatorId}`);
   });
 
   it('should throw an error when creatorId is not found in localStorage', async () => {
