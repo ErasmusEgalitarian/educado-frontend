@@ -99,7 +99,7 @@ const EducadoAdmin = () => {
                                         return application;
                                     }
                                 }).map((application: CCApp.Datum, key: number) => {
-                                    let date = new Date(application.createdAt); // TODO: Format Time
+                                    let date = new Date(application.dateCreated); // TODO: Format Time
                                     // let dateString = new Intl.DateTimeFormat('en-US').format(date);
                                     return (
                                         <tr key={key} className="px-5 py-5 border-b border-gray-200 bg-white text-sm">

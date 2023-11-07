@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from "react-router-dom"
 import { useForm, SubmitHandler } from "react-hook-form";
 import background from "../assets/background.jpg"
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiChevronLeft } from '@mdi/js';
 import { mdiEyeOffOutline, mdiEyeOutline } from '@mdi/js';
 import Carousel from '../components/archive/Carousel';
@@ -62,6 +62,7 @@ const Login = () => {
           .then((res) => {
               if(res.status == 202){
                   localStorage.setItem("token", res.data.accessToken);
+                  localStorage.setItem("id", res.data.userInfo.id);
                   setUserInfo(res.data.userInfo);
                   navigate("/courses");
                   
@@ -70,6 +71,7 @@ const Login = () => {
               
           })
           .catch(err => { setError(err); console.log(err)
+            if (!err.response.data){setErrorMessage("Database Connection Failed")}
             switch (err.response.data.error.code){
               case "E0101": //Invalid Email 
                   setErrorMessage("O email fornecido não está associado a uma conta") //The provided email is not associated with an account

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams} from 'react-router-dom'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler, set } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import useSWR from 'swr'
 
@@ -32,6 +32,8 @@ import { BACKEND_URL } from "../helpers/environment";
 
 // Helpers
 import categories from "../helpers/courseCategories";
+import statuses from "../helpers/courseStatuses";
+
 
 
 interface Inputs {
@@ -40,6 +42,7 @@ interface Inputs {
   description: string
   category: string
   difficulty: number
+  status: string
   estimatedHours: number
 }
 
@@ -61,82 +64,114 @@ const CourseEdit = () => {
   const [coverImg, setCoverImg] = useState<File | null>()
   const [coverImgPreview, setCoverImgPreview] = useState<string>('')
   const [categoriesOptions, setCategoriesOptions] = useState<JSX.Element[]>([]);
-
+  const [statusSTR, setStatusSTR] = useState<string>("");
+  const [statusChange, setStatusChange] = useState<boolean>(false);
+  
+  
   useEffect(() => {
-    // get categories from db
-    let inputArray = ["personal finance","health and workplace safety","sewing","electronics"];
-    setCategoriesOptions(inputArray.map((categoryENG: string, key: number) => (
-        <option value={categoryENG} key={key} >{categories[inputArray[key]]?.br}</option>
-    )));
-    
+      // get categories from db
+      let inputArray = ["personal finance","health and workplace safety","sewing","electronics"];
+      setCategoriesOptions(inputArray.map((categoryENG: string, key: number) => (
+          <option value={categoryENG} key={key} >{categories[inputArray[key]]?.br}</option>
+          )));
     }, []);
- 
-  // Fetch Course Details
-  const { data, error } = useSWR(
-    token ? [`${BACKEND_URL}/api/courses/${id}`, token] : null,
-    CourseServices.getCourseDetail
-  )
-
-  // Fetch Categories
-  const { data: categoriesData, error: categoriesError } = useSWR(
-    token ? [`${BACKEND_URL}/api/categories`, token] : null,
-    CourseServices.getCourseCategories
-  )
-
-  // React useForm setup
-  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
-
-  /**
-     * Handles the form submission for updating a course's details.
-     * @param {Inputs} data - The form data containing the updated course details.
+        
+    
+    /**
+     * Extra function to handle the response from the course service before it is passed to the useSWR hook
+     * 
+     * @param url The url to fetch the course details from backend
+     * @param token The user token
+     * @returns The course details
      */
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        const changes: Inputs = {
-        coverImg: data.coverImg,
-        title: data.title,
-        description: data.description,
-        category: data.category,
-        difficulty: data.difficulty,
-        estimatedHours: data.estimatedHours
+    const getData = async (url: string/*, token: string*/) => {
+        const res:any = await CourseServices.getCourseDetail(url/*, token*/)
+        
+        setStatusSTR(res.status);
+        return res;
     }
 
-   
+    // Fetch Course Details
+    const { data, error } = useSWR(
+        token ? [`${BACKEND_URL}/api/courses/${id}`, token] : null,
+        getData
+    )
+
+//  // Fetch Categories
+//   const { data: categoriesData, error: categoriesError } = useSWR(
+//     token ? [`${BACKEND_URL}/api/categories`, token] : null,
+//     CourseServices.getCourseCategories
+//   )
+
+// React useForm setup
+const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
+
+/**
+ * Handles the form submission for updating a course's details.
+ * @param {Inputs} data - The form data containing the updated course details.
+*/
+const onSubmit: SubmitHandler<Inputs> = (data) => {
+    
+    let newStatus = statusSTR;
+
+    if(statusChange){
+        if(statusSTR === "draft"){
+            newStatus = "published";
+        }else{
+            newStatus = "draft";
+        }
+        setStatusChange(false);
+    }
+
+    if (confirm("Você tem certeza?") == true) {
+        const changes: Inputs = {
+            coverImg: data.coverImg,
+            title: data.title,
+            description: data.description,
+            category: data.category,
+            difficulty: data.difficulty,
+            status: newStatus,
+            estimatedHours: data.estimatedHours
+        }
+
+        // Update course details
+        CourseServices.updateCourseDetail(changes, id/*, token */)
+        .then(res => {toast.success('Curso atualizado'); setStatusSTR(changes.status);}) // Course updated
+        .catch(err => toast.error(err)) // Error updating course
+    }
+}
+  
     /** TODO: Reimplement when buckets have been implemented */
     /* if (coverImg) {
-            changes.coverImg = {
-                path: `${id}/coverImg`,
-                filename: coverImg.name,
-                size: coverImg.size,
-                type: coverImg.type
-            }
+        changes.coverImg = {
+            path: `${id}/coverImg`,
+            filename: coverImg.name,
+            size: coverImg.size,
+            type: coverImg.type
+        }
         } */
 
-    // Update course details
-    CourseServices.updateCourseDetail(changes, id/*, token */)
-      .then(res => toast.success('Curso atualizado'))
-      .catch(err => toast.error(err))
-    }
-
-     /**
+    /**
      * Delete courses and redirect to courses page
      * Uses window.location.href to redirect instead of navigate, as navigate doesn't update the page
      * 
      * @param id The course id
      * @param token The user token
      */
-     const deleteCourse = async () => {
+    const deleteCourse = async () => {
         if (confirm("Você tem certeza?") == true) {
             const response = await CourseServices.deleteCourse(id, token);
-            const status = response.status
+            const statusDelete = response.status
 
-            if (status >= 200 && status <= 299) {
+            if (statusDelete >= 200 && statusDelete <= 299) {
                 toast.success("Curso excluído"); {/* Course deleted */}
                 window.location.href = "/courses";
-            } else if (status >= 400 && status <= 599) {
-                toast.error(`(${status}, ${response.statusText}) while attempting to delete course`)
+            } else if (statusDelete >= 400 && statusDelete <= 599) {
+                toast.error(`(${statusDelete}, ${response.statusText}) while attempting to delete course`)
             }
         }
     }
+
 
     
   // TODO: update cover image function
@@ -163,24 +198,24 @@ const CourseEdit = () => {
 
   if (error /* || categoriesError */) return <NotFound />
   if (!data /* || !categories || (!data && !categories) */) return <Loading/>
+  
+ 
 
   return (
         <Layout meta={`Course: ${id}`}>
 
             {/** Course navigation */}
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} >
                 <div className="navbar bg-base-100 ">
                     <div className='flex-1'>
                         <Link to="/courses" className="btn btn-square btn-ghost normal-case text-xl" reloadDocument><ArrowLeftIcon width={24} /></Link>
                         <a className="normal-case text-xl ml-4">{data.title}</a>
-                    </div>                    
-                    <div className="flex-none space-x-2">
-                    <button type="button" onClick={deleteCourse} className='left-0 std-button bg-warning hover:bg-red-800 ml-4' >Excluir</button> {/*Delete button*/}
-                        {/* <button onClick={() => toast.success("Course published")} className='btn btn-sm bg-blue-500 text-white border-0'>Unpublish</button> */}
-                        <button type="submit" className='std-button  text-white border-0'>Atualizar</button>
-                       
                     </div>
-                    
+                    <div className="flex-none space-x-2">
+                        <button type="button" onClick={deleteCourse} className='left-0 std-button bg-warning hover:bg-red-800 ml-4' >Excluir</button> {/*Delete button*/}
+                        <button type="submit" className='std-button text-white border-0'>Atualizar</button> {/* Update button */}
+                        <button type="submit" onClick={() => setStatusChange(true)} className='std-button bg-primary text-white border-0'>{statusSTR === "draft"? "Publicar":"Definir como rascunho" }</button>
+                    </div>
                 </div>
 
                 {/** Course details edit */}
@@ -188,16 +223,25 @@ const CourseEdit = () => {
                     <div className='w-full max-w-5xl mx-auto bg-white rounded p-6'>
                         <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
                             <div className='flex flex-col space-y-6 divide'>
-                                <h1 className='text-3xl text-center font-medium pb-6'>Curso</h1> {/* Course details */} 
 
-                               
+                                {/* Course status */}
+                                <div className='flex flex-col justify-center pb-6'>
+                                  <h1 className='text-3xl text-center font-medium'>Curso</h1> {/* Course details */}
+                                  <div className='flex flex-row justify-center'>
+                                    <div className={'w-3 h-3 mx-2 rounded-full m-auto '+(statuses[statusSTR].color ?? statuses.default.color)} />
+                                    <p className='italic'>
+                                      {statuses[statusSTR].br ?? statuses.default.br}
+                                    </p>
+                                    
+                                  </div>
+                                </div>
 
                                 {/** Course Title Field */}
                                 <div className="flex flex-col space-y-2">
                                     <label htmlFor='title'>Título</label>
                                     <input type="text" defaultValue={data.title} placeholder={data.title}
                                         className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                        {...register('title', { required: true })}
+                                        {...register('title', { required: true})}
                                     />
                                     {errors.title && <span>Este campo é obrigatório!</span>}
                                 </div>

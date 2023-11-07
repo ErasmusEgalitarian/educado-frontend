@@ -2,6 +2,28 @@ import axios from "axios";
 
 import { BACKEND_URL } from "../helpers/environment";
 
+const deleteAccount = async () => {
+    const creatorId = localStorage.getItem("id");
+
+    if(creatorId == null) {
+        throw new Error("No creatorId found in localStorage");
+    }
+
+    try {
+      const res = await axios.delete(
+          `${BACKEND_URL}/api/creators/${creatorId}`);
+
+      return res.data;
+
+    } catch (error: any) {
+        if (error.response?.data != null) {
+            throw error.response.data;
+        } else {
+            throw error;
+        }
+    }
+}
+
 const getPublicProfileInfo = (profileId: string, token: string | null | undefined) => {
     return axios.get(
         `${BACKEND_URL}/api/public/profiles/${profileId}`,
@@ -37,7 +59,8 @@ const AccountServices = {
     getPublicProfileInfo,
     getProfileInfo,
     updateProfileInfo,
-    changePassword
+    changePassword,
+    deleteAccount
 };
 
 

@@ -26,8 +26,6 @@ const userInfo = getUserInfo();
 const PersonalInsights = (props: PersonalInsightsProps) => {
   const courses = props.courses ?? [];
 
-  
-
   // TODO: Implement functionality for user info fields
   return (
     <div className='w-full h-full'>
