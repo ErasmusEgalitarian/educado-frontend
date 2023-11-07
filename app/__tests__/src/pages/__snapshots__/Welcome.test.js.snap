@@ -88,7 +88,7 @@ exports[`Welcome Component renders without errors 1`] = `
               <div
                 className="flex items-center"
               >
-                <label
+                <p
                   className="py-10 parent-container relative"
                 >
                   <div
@@ -127,7 +127,7 @@ exports[`Welcome Component renders without errors 1`] = `
                       />
                     </div>
                   </div>
-                </label>
+                </p>
               </div>
               <div
                 className="flex items-center p-1 sm:px-4"
