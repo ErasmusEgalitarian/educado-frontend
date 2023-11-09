@@ -21,7 +21,7 @@ import PasswordRecoveryModal from '../components/PasswordRecoveryModal';
 //import useAuthStore from '../contexts/useAuthStore';
 
 // Contexts
-export const ToggleModalContext = createContext(() => {});
+export const ToggleModalContext = createContext(() => { });
 
 // Interface
 type Inputs = {
@@ -160,7 +160,7 @@ const Login = () => {
             {error && (
               <div className="bg-white shadow border-t-4 p-4 w-52 rounded text-center animate-bounce-short" role="alert">
                 <p className="font-bold text-lg">Error</p>
-                <p className='text-base'>{errorMessage}</p>
+                <p id='error-message' className='text-base'>{errorMessage}</p>
               </div>
             )}
           </div>
@@ -219,7 +219,7 @@ const Login = () => {
               { /*Forgot password button*/}
               <div className=" flex flex-col items-end gap-3">
                 <span className="text-neutral-700 text-right text-base font-normal font-['Montserrat']"></span>{" "}
-                <label onClick={() => setShowModal(true)} className="text-[#383838] text-base font-normal font-['Montserrat'] underline hover:text-blue-500">Esqueceu sua senha? {/**/}</label>
+                <label id='modalToggle' onClick={() => setShowModal(true)} className="text-[#383838] text-base font-normal font-['Montserrat'] underline hover:text-blue-500">Esqueceu sua senha? {/**/}</label>
               </div>
 
 
@@ -240,12 +240,15 @@ const Login = () => {
                 <Link to="/signup" className="text-[#383838] text-base font-normal font-['Montserrat'] underline hover:text-blue-500 gap-6">Cadastre-se agora {/*Register now*/}</Link>
               </div>
             </form>
-            
-            
+
+
           </div>
         </div>
       </div>
-      {showModal && <ToggleModalContext.Provider value={() => setShowModal(!showModal)}><PasswordRecoveryModal setError={setError} setErrorMessage={setErrorMessage} /> </ToggleModalContext.Provider>}
+      {showModal &&
+        <ToggleModalContext.Provider value={() => setShowModal(!showModal)}>
+          <PasswordRecoveryModal setError={setError} setErrorMessage={setErrorMessage} />
+        </ToggleModalContext.Provider>}
     </main>
   )
 };

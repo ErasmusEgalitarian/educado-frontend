@@ -1,6 +1,7 @@
 import React from 'react';
 
 type propTypes = {
+  id?: string;
   placeholder?: string;
   label?: string;
   value: string;
@@ -18,7 +19,7 @@ export default function TextInput(props: propTypes) {
   return (
     <>
       <label htmlFor="" className="-mb-5 ml-3 text-sm text-grayDark">{props.label}</label>
-      <input type={props.hidePassword ? 'password' : 'email'} onChange={onChange}  value={props.value} className={"w-full rounded-md mt-0" + props.className} placeholder={props.placeholder} />
+      <input id={props.id} type={props.hidePassword ? 'password' : 'email'} onChange={onChange}  value={props.value} className={"w-full rounded-md mt-0" + props.className} placeholder={props.placeholder} />
     </>
 
   );

@@ -57,8 +57,16 @@ export default function NewPasswordScreen(props: propsType) {
     <div className="flex h-full flex-col justify-between space-y-4">
       <div className="-mb-1">
         <div className="relative">
-          <TextInput className='' hidePassword={!showPassword} placeholder="Insira sua senha" label="Senha" value={props.password} onChange={props.setPassword} />
-          <PasswordEye passwordVisible={showPassword} togglePasswordVisibility={() => { togglePasswordVisibility(false) }} />
+          <TextInput
+            id='password-field'
+            className=''
+            hidePassword={!showPassword}
+            placeholder="Insira sua senha"
+            label="Senha"
+            value={props.password}
+            onChange={props.setPassword}
+          />
+          <PasswordEye id='password-eye' passwordVisible={showPassword} togglePasswordVisibility={() => { togglePasswordVisibility(false) }} />
         </div>
         <p className="text-warning h-5">{props.passwordError}</p>
       </div>
@@ -86,7 +94,14 @@ export default function NewPasswordScreen(props: propsType) {
       </div>
       <div className="-mb-1">
         <div className="relative">
-          <TextInput className='' hidePassword={!showPasswordConfirmation} placeholder="Insira sua senha" label="Confirme nova senha" value={props.passwordConfirmation} onChange={props.setPasswordConfirmation} />
+          <TextInput
+            id="confirm-password-field"
+            className=''
+            hidePassword={!showPasswordConfirmation}
+            placeholder="Insira sua senha"
+            label="Confirme nova senha"
+            value={props.passwordConfirmation} onChange={props.setPasswordConfirmation}
+          />
           <PasswordEye passwordVisible={showPasswordConfirmation} togglePasswordVisibility={() => { togglePasswordVisibility(true) }} />
         </div>
         <p className="text-warning h-5">{props.passwordConfirmationError}</p>

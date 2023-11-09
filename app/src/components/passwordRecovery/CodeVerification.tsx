@@ -27,7 +27,7 @@ export default function CodeVerification(props: propsType) {
   return (
     <div className="flex h-full flex-col justify-between space-y-4">
       <div className="-mb-1">
-        <TextInput className='' placeholder="Insira sua Email" label="Email" value={props.email} onChange={props.setEmail} />
+        <TextInput id='email-field' className='' placeholder="Insira sua Email" label="Email" value={props.email} onChange={props.setEmail} />
         <p className="text-warning h-5">{props.emailError}</p>
       </div>
       {props.emailSent &&
@@ -36,6 +36,7 @@ export default function CodeVerification(props: propsType) {
           <div className="grid grid-cols-1 gap-2 place-items-center">
             <div>
               <PinField
+                id="pin-field"
                 length={4}
                 className="flex-4 flex-row mx-3 w-10 rounded-md text-center pin-field"
                 validate='0123456789'
