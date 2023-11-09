@@ -7,7 +7,7 @@ import PopUpDelete from '../components/profile/PopUpDelete';
 import useAuthStore from '../contexts/useAuthStore';
 
 // Interfaces
-import { LoginReponseError as ResponseError } from "../interfaces/LoginReponseError"
+import { LoginResponseError as ResponseError } from "../interfaces/LoginResponseError"
 
 // Components
 import Layout from "../components/Layout";

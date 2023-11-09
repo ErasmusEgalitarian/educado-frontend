@@ -12,7 +12,7 @@ import background from "../assets/background.jpg"
 
 
 // interfaces
-import { LoginReponseError } from "../interfaces/LoginReponseError"
+import { LoginReponseError } from "../interfaces/LoginResponseError"
 
 // services
 import AuthServices from '../services/auth.services'
@@ -79,7 +79,7 @@ const Signup = () => {
       navigate('/login')
     })
     .catch(err => { setError(err); console.log(err)
-      if (!err.response.data){setErrorMessage("Database Connection Failed")}
+      if (!err.response.data){setErrorMessage("Database Connection Failed"); console.log(err)}
       switch (err.response.data.error.code){
         case "E0201": //User with the provided email already exists
             setErrorMessage("Já existe um usuário com o email fornecido") //User with the provided email already exists
