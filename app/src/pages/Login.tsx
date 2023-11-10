@@ -16,7 +16,7 @@ import AuthServices from '../services/auth.services';
 
 // Helper functions
 import { setUserInfo } from '../helpers/userInfo';
-import PasswordRecoveryModal from '../components/PasswordRecoveryModal';
+import PasswordRecoveryModal from '../components/passwordRecovery/PasswordRecoveryModal';
 
 //import useAuthStore from '../contexts/useAuthStore';
 

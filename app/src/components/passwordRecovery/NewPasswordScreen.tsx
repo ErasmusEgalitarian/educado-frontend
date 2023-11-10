@@ -32,7 +32,7 @@ type propsType = {
  * - `setPasswordLengthValid`: the function that sets the password length valid hook
  * @returns {JSX.Element} the screen component
  */
-export default function NewPasswordScreen(props: propsType) {
+export default function NewPasswordScreen(props: propsType) : JSX.Element {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
 
@@ -61,14 +61,14 @@ export default function NewPasswordScreen(props: propsType) {
             id='password-field'
             className=''
             hidePassword={!showPassword}
-            placeholder="Insira sua senha"
-            label="Senha"
+            placeholder="Insira sua senha" // Enter your password
+            label="Senha" //Password
             value={props.password}
             onChange={props.setPassword}
           />
           <PasswordEye id='password-eye' passwordVisible={showPassword} togglePasswordVisibility={() => { togglePasswordVisibility(false) }} />
         </div>
-        <p className="text-warning h-5">{props.passwordError}</p>
+        <p id={'password-error'} className="text-warning h-5">{props.passwordError}</p>
       </div>
       <div className="flex justify-start h-3">
         <p className={'text-sm' + ((props.passwordLengthValid || !props.password) ? ' text-grayMedium' : ' text-error')}>
@@ -98,13 +98,13 @@ export default function NewPasswordScreen(props: propsType) {
             id="confirm-password-field"
             className=''
             hidePassword={!showPasswordConfirmation}
-            placeholder="Insira sua senha"
-            label="Confirme nova senha"
+            placeholder="Insira sua senha" // Enter your password
+            label="Confirme nova senha" // Confirm new password
             value={props.passwordConfirmation} onChange={props.setPasswordConfirmation}
           />
           <PasswordEye passwordVisible={showPasswordConfirmation} togglePasswordVisibility={() => { togglePasswordVisibility(true) }} />
         </div>
-        <p className="text-warning h-5">{props.passwordConfirmationError}</p>
+        <p id={'password-confirmation-error'} className="text-warning h-5">{props.passwordConfirmationError}</p>
       </div>
     </div>
 

@@ -1,9 +1,10 @@
 import { Dispatch, SetStateAction, createContext, useContext, useEffect, useState } from "react";
-import * as Services from '../services/passwordRecovery.services';
-import CodeVerification from "./passwordRecovery/CodeVerification";
-import NewPasswordScreen from "./passwordRecovery/NewPasswordScreen";
-import { ToggleModalContext } from "../pages/Login";
-import NavigationFooter from "./passwordRecovery/NavigationFooter";
+import * as Services from '../../services/passwordRecovery.services';
+import CodeVerification from "./CodeVerification";
+import NewPasswordScreen from "./NewPasswordScreen";
+import { ToggleModalContext } from "../../pages/Login";
+import NavigationFooter from "./NavigationFooter";
+import { validatePasswords, validateEmail } from "../../utilities/validation";
 
 type propTypes = {
   setError: Dispatch<SetStateAction<any>>;
@@ -19,7 +20,7 @@ export const HandleContinueContext = createContext<() => void>(() => { });
  * - `setErrorMessage`: function that sets the error message
  * @returns {JSX.Element} the modal component
  */
-const PasswordRecoveryModal = (props: propTypes) => {
+const PasswordRecoveryModal = (props: propTypes) : JSX.Element => {
 
   // States that control the flow of the modal
   const [emailSent, setEmailSent] = useState(false);
@@ -50,7 +51,13 @@ const PasswordRecoveryModal = (props: propTypes) => {
    * If the code has been verified, validates the passwords and updates the password.
    */
   function handleContinue() {
-    if (!emailSent && validateEmail(email)) {
+    if (!emailSent) {
+      try {
+        validateEmail(email);
+      } catch (err: any) {
+        setEmailError(err.message);
+        return;
+      }
       sendEmail(email);
       return;
     }
@@ -59,9 +66,19 @@ const PasswordRecoveryModal = (props: propTypes) => {
       return;
     }
     if (codeVerified) {
-      if (validatePasswords()) {
-        updatePassword();
+      try {
+        validatePasswords(password, passwordConfirmation)
+      } catch (err: any) {
+        // Password needs to contain at least one letter
+        if(err.message === 'Os campos de senha precisam ser iguais') {
+          setPasswordConfirmationError(err.message);
+          return;
+        }
+        setPasswordError(err.message);
+        return;
       }
+      
+      updatePassword();
       return;
     }
   }
@@ -108,11 +125,11 @@ const PasswordRecoveryModal = (props: propTypes) => {
       .catch((error) => {
         switch (error.error?.code) {
           case 'E0401':
-            setEmailError('Email não cadastrado');
+            setEmailError('Email não cadastrado'); // Email not registered
             break;
           case 'E0406':
             props.setError('Erro')
-            props.setErrorMessage('Muitas tentativas de reenvio! Espere 5 minutos...')
+            props.setErrorMessage('Muitas tentativas de reenvio! Espere 5 minutos...') // Too many attempts, wait 5 minutes
             break;
           default:
             props.setError('Erro inesperado')
@@ -137,15 +154,16 @@ const PasswordRecoveryModal = (props: propTypes) => {
         setCodeVerified(true);
       })
       .catch((error) => {
-        console.log(error.error?.code);
+        console.log(error)
         switch (error?.error?.code) {
           case 'E0404':
-            setCodeError('Código expirado');
+            setCodeError('Código expirado'); // Expired code
             break;
           case 'E0405':
-            setCodeError('Código inválido');
+            setCodeError('Código inválido'); // Invalid code
             break;
           default:
+            // Unexpected error
             props.setError('Erro inesperado')
             props.setErrorMessage('Erro inesperado: Tente novamente mais tarde.') // Unexpected error, try again later
             setTimeout(() => {
@@ -157,58 +175,16 @@ const PasswordRecoveryModal = (props: propTypes) => {
 
   }
 
-  /**
-   * Checks if the email is valid. If it is not, sets emailError to the appropriate error message.
-   * @param email the email to be validated
-   * @returns true if the email is valid, false otherwise
-   */
-  function validateEmail(email: string) {
-    if (email.length > 0) {
-      if (!(/^[a-z0-9!'#$%&*+\/=?^_`{|}~-]+(?:\.[a-z0-9!'#$%&*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-zA-Z]{2,}$/i).test(email)) {
-        setEmailError('Email inválido');
-        return false;
-      }
-
-      setEmailError('');
-      return true;
-    }
-    setEmailError('Email requerido');
-    return false;
-  }
-
-  /**
-   * Validates the passwords. If a password contains no letter, is shorter than 
-   * 8 characters or the password and password confirmation do not match, sets 
-   * the appropriate error message.
-   * @returns true if the passwords are valid, false otherwise
-   */
-  function validatePasswords() {
-    if (!passwordContainsLetter) {
-      setPasswordError('A senha precisa conter pelo menos uma letra')
-      return false;
-    }
-    if (!passwordLengthValid) {
-      setPasswordError('A senha precisa ter no mínimo 8 caracteres');
-      return false;
-    }
-    if (password !== passwordConfirmation) {
-      setPasswordConfirmationError('Os campos de senha precisam ser iguais');
-      return false;
-    }
-    return true;
-  }
-
-
   useEffect(() => { // Resets errors upon changes
     setEmailError('');
     setCodeError('');
   }, [email, code]);
 
   return (
-    <div className='absolute grid place-items-center bg-darkBG inset-0'>
+    <div id="password-reset-modal" className='absolute grid place-items-center bg-darkBG inset-0'>
       <HandleContinueContext.Provider value={handleContinue}>
         <div className="modal-box bg-gradient-to-b p-10 from-primaryLight rounded-xl w-11/12 xl:max-w-[35%] lg:max-w-[40%] md:max-w-[50%] sm:max-w-[60%] max-w-[80%] max-h-[70%] lg:max-h-[55%]">
-          <h3 className="font-bold text-xl mb-4">Redefinção de senha</h3> {/** Password reset */}
+          <h3 className="font-bold text-xl mb-4">Redefinção de senha</h3> {/** Reset password */}
 
           {!codeVerified ?
             <CodeVerification
@@ -233,7 +209,7 @@ const PasswordRecoveryModal = (props: propTypes) => {
               setPasswordLengthValid={setPasswordLengthValid}
             />
           }
-          <NavigationFooter codeVerified={true} />
+          <NavigationFooter codeVerified={codeVerified} />
         </div>
       </HandleContinueContext.Provider>
     </div>

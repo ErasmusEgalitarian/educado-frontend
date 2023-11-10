@@ -10,7 +10,19 @@ type propTypes = {
   hidePassword?: boolean;
 }
 
-export default function TextInput(props: propTypes) {
+/**
+ * 
+ * @param {propTypes} props properties of the component:
+ * - `id` the id of the input (optional)
+ * - `placeholder`: the placeholder of the input (optional)
+ * - `label`: the label of the input (optional)
+ * - `value`: the value of the input
+ * - `onChange`: the function that sets the value of the input
+ * - `className`: the class of the input (optional)
+ * - `hidePassword`: boolean that indicates if the input is a password (optional (false by default))
+ * @returns {JSX.Element} the text input component
+ */
+export default function TextInput(props: propTypes) : JSX.Element {
 
   function onChange(event: React.ChangeEvent<HTMLInputElement>) {
     props.onChange(event.target.value);

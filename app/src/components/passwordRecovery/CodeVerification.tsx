@@ -12,7 +12,7 @@ type propsType = {
 }
 
 /**
- * 
+ * Screen that allows the user to verify their email and insert the code sent to it.
  * @param {propsType} props properties of the component:
  * - `email`: the email hook
  * - `setEmail`: the function that sets the email hook
@@ -21,18 +21,25 @@ type propsType = {
  * - `codeError`: the code error hook
  * - `setCode`: the function that sets the code hook
  * - `setCodeEntered`: the function that sets the code entered hook
- * @returns 
+ * @returns {JSX.Element} the screen component
  */
-export default function CodeVerification(props: propsType) {
+export default function CodeVerification(props: propsType) : JSX.Element {
   return (
     <div className="flex h-full flex-col justify-between space-y-4">
       <div className="-mb-1">
-        <TextInput id='email-field' className='' placeholder="Insira sua Email" label="Email" value={props.email} onChange={props.setEmail} />
-        <p className="text-warning h-5">{props.emailError}</p>
+        <TextInput 
+          id='email-field' 
+          className='' 
+          placeholder="Insira sua Email" // Enter your email
+          label="Email"
+          value={props.email} 
+          onChange={props.setEmail} />
+        <p id="email-error" className="text-warning h-5">{props.emailError}</p>
       </div>
       {props.emailSent &&
         <div className="flex-row w-full justify-items-center">
-          <p className="py-4">Enviamos para o seu email um código de redefinição de senha. Insira o código abaixo.</p> {/** We sent a code to your email to reset your password, please insert it below */}
+          {/** We sent a code to your email to reset your password, please insert it below */}
+          <p className="py-4">Enviamos para o seu email um código de redefinição de senha. Insira o código abaixo.</p> 
           <div className="grid grid-cols-1 gap-2 place-items-center">
             <div>
               <PinField
@@ -46,7 +53,7 @@ export default function CodeVerification(props: propsType) {
                   props.setCodeEntered(true);
                 }}
               />
-              <p className="text-warning h-5">{props.codeError}</p>
+              <p id="pin-error" className="text-warning h-5">{props.codeError}</p>
             </div>
 
           </div>
