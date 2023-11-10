@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react'
 import { Link, useNavigate } from "react-router-dom"
-import { useForm, SubmitHandler, set } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import background from "../assets/background.jpg"
 import { Icon } from '@mdi/react';
 import { mdiChevronLeft } from '@mdi/js';
@@ -31,7 +31,7 @@ type Inputs = {
 
 const Login = () => {
   // Location (OLD CODE)
-  const [error, setError] = useState<LoginResponseError.RootObject | null>(null); // store http error objects TODO: get the error text from server instead of reponse code
+  const [error, setError] = useState<LoginResponseError.RootObject | string | null>(null); // store http error objects TODO: get the error text from server instead of reponse code
   const [showModal, setShowModal] = useState(false)
 
   // states  (OLD CODE, MIGHT USE LATER)
@@ -47,8 +47,12 @@ const Login = () => {
 
   //Variable determining the error message
   const [errorMessage, newErrorMessage] = useState('');
-  let setErrorMessage = (errMessage: string) => {
-    newErrorMessage(errMessage);
+  let setErrorMessage = (errMessage: string, error?: string) => {
+    setError(error ?? 'Erro');
+    newErrorMessage(errMessage)
+    setTimeout(() => {
+      setError('')
+    }, 5000);
   };
 
   /**
@@ -159,7 +163,7 @@ const Login = () => {
           <div className="fixed right-0 top-[4rem] z-10">
             {error && (
               <div className="bg-white shadow border-t-4 p-4 w-52 rounded text-center animate-bounce-short" role="alert">
-                <p className="font-bold text-lg">Error</p>
+                <p className="font-bold text-lg">{error.toString()}</p>
                 <p id='error-message' className='text-base'>{errorMessage}</p>
               </div>
             )}
@@ -247,7 +251,7 @@ const Login = () => {
       </div>
       {showModal &&
         <ToggleModalContext.Provider value={() => setShowModal(!showModal)}>
-          <PasswordRecoveryModal setError={setError} setErrorMessage={setErrorMessage} />
+          <PasswordRecoveryModal toggleModal={() => {setShowModal(!showModal)}} setErrorMessage={setErrorMessage} />
         </ToggleModalContext.Provider>}
     </main>
   )
