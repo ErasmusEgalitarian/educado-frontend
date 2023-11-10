@@ -13,8 +13,6 @@ jobs:
       matrix:
         containers: [1, 2] # Uses 2 parallel instances
     steps:
-      - name: npm i
-        run: npm i
       - name: Checkout
         uses: actions/checkout@v3
       - name: Cypress run
