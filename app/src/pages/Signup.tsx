@@ -12,7 +12,7 @@ import background from "../assets/background.jpg"
 
 
 // interfaces
-import { LoginReponseError } from "../interfaces/LoginResponseError"
+import { LoginResponseError } from "../interfaces/LoginResponseError"
 
 // services
 import AuthServices from '../services/auth.services'
@@ -43,7 +43,7 @@ const SignupSchema = Yup.object().shape({
 
 const Signup = () => {
 
-  const [error, setError] = useState<LoginReponseError.RootObject | null>(null);
+  const [error, setError] = useState<LoginResponseError.RootObject | null>(null);
 
   // Navigation hook
   let navigate = useNavigate();

@@ -133,3 +133,5 @@ describe('Password recovery modal', () => {
     cy.get('#password-confirmation-error').should('have.text', 'Os campos de senha precisam ser iguais')
   });
 })
+
+export {}
