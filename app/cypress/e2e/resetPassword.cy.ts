@@ -3,7 +3,7 @@ const BACKEND_URL = Cypress.env('BACKEND_URL')
 describe('Password recovery modal', () => {
 
   beforeEach(() => {
-    cy.visit('http://localhost:5173/login')
+    cy.visit('http://localhost:3000/login')
   });
 
   it('gives a success message upon correct information in all steps', () => {
