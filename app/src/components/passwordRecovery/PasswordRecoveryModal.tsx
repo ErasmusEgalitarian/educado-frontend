@@ -7,8 +7,8 @@ import NavigationFooter from "./NavigationFooter";
 import { validatePasswords, validateEmail } from "../../utilities/validation";
 
 type propTypes = {
-  setError: Dispatch<SetStateAction<any>>;
-  setErrorMessage: (message: string) => void;
+  toggleModal: () => void;
+  setErrorMessage: (message: string, error?: string) => void;
 }
 
 export const HandleContinueContext = createContext<() => void>(() => { });
@@ -89,23 +89,13 @@ const PasswordRecoveryModal = (props: propTypes) : JSX.Element => {
   async function updatePassword() {
     Services.updatePassword(email, password, code)
       .then(() => {
-        props.setError('Sucesso')
-        props.setErrorMessage('Senha alterada com sucesso!') // Password changed successfully!
-        setTimeout(() => {
-          props.setError('');
-          props.setErrorMessage('');
-        }, 5000);
-        toggleModal();
+        props.setErrorMessage('Senha alterada com sucesso!', 'Sucesso') // Password changed successfully!
+        props.toggleModal();
       })
       .catch((error) => {
         switch (error?.error?.code) {
           default:
-            props.setError('Erro inesperado')
             props.setErrorMessage('Erro inesperado: Tente novamente mais tarde.') // Unexpected error, try again later
-            setTimeout(() => {
-              props.setError('');
-              props.setErrorMessage('');
-            }, 5000);
         }
       });
   }
@@ -128,16 +118,10 @@ const PasswordRecoveryModal = (props: propTypes) : JSX.Element => {
             setEmailError('Email não cadastrado'); // Email not registered
             break;
           case 'E0406':
-            props.setError('Erro')
             props.setErrorMessage('Muitas tentativas de reenvio! Espere 5 minutos...') // Too many attempts, wait 5 minutes
             break;
           default:
-            props.setError('Erro inesperado')
             props.setErrorMessage('Erro inesperado: Tente novamente mais tarde.') // Unexpected error, try again later
-            setTimeout(() => {
-              props.setError('');
-              props.setErrorMessage('');
-            }, 5000);
         }
       });
   }
@@ -164,12 +148,7 @@ const PasswordRecoveryModal = (props: propTypes) : JSX.Element => {
             break;
           default:
             // Unexpected error
-            props.setError('Erro inesperado')
             props.setErrorMessage('Erro inesperado: Tente novamente mais tarde.') // Unexpected error, try again later
-            setTimeout(() => {
-              props.setError('');
-              props.setErrorMessage('');
-            }, 5000);
         }
       })
 
@@ -183,7 +162,7 @@ const PasswordRecoveryModal = (props: propTypes) : JSX.Element => {
   return (
     <div id="password-reset-modal" className='absolute grid place-items-center bg-darkBG inset-0'>
       <HandleContinueContext.Provider value={handleContinue}>
-        <div className="modal-box bg-gradient-to-b p-10 from-primaryLight rounded-xl w-11/12 xl:max-w-[35%] lg:max-w-[40%] md:max-w-[50%] sm:max-w-[60%] max-w-[80%] max-h-[70%] lg:max-h-[55%]">
+        <div className="bg-gradient-to-b p-10 rounded-xl w-11/12 xl:max-w-[35%] overflow-scroll lg:max-w-[40%] md:max-w-[50%] sm:max-w-[60%] max-w-[80%] max-h-[100%]">
           <h3 className="font-bold text-xl mb-4">Redefinção de senha</h3> {/** Reset password */}
 
           {!codeVerified ?
