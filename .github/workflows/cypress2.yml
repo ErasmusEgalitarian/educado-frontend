@@ -1,0 +1,18 @@
+name: Cypress test
+on: 
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs: 
+  cypress_run:
+    name: Cypress run
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: cd app && npm install
+      - name: Run Cypress tests
+        run: npm run cypress_local
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+      
