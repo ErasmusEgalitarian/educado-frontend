@@ -6,7 +6,7 @@ export default defineConfig({
   supportFolder: 'cypress/support',
   e2e: {
     supportFile: false,
-    baseUrl: 'http://localhost:8888',
+    baseUrl: 'http://localhost:3000',
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
@@ -16,5 +16,8 @@ export default defineConfig({
       framework: "react",
       bundler: "vite",
     },
+  },
+  env: {
+    BACKEND_URL: 'localhost:8888',
   },
 });
