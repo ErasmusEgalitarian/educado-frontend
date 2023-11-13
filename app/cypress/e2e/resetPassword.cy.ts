@@ -4,7 +4,6 @@ describe('Password recovery modal', () => {
 
   beforeEach(() => {
     cy.visit('http://localhost:3000/login')
-    console.log(BACKEND_URL)
   });
 
   it('gives a success message upon correct information in all steps', () => {
