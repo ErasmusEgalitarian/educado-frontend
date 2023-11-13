@@ -20,6 +20,7 @@ jobs:
           # Starts web server for E2E tests - replace with your own server invocation
           # https://docs.cypress.io/guides/continuous-integration/introduction#Boot-your-server
           start: npm run cypress-server
+          working-directory: ./app
           wait-on: 'http://localhost:3000' # Waits for above
           env: BACKEND_URL=http://localhost:8888 # Sets environment variables for tests
           # Records to Cypress Cloud 
