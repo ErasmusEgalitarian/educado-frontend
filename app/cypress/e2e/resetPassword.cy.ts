@@ -7,8 +7,8 @@ describe('Password recovery modal', () => {
   });
 
   it('gives a success message upon correct information in all steps', () => {
-    cy.intercept('POST', `http://${BACKEND_URL}/api/auth/reset-password*`, {})
-    cy.intercept('PATCH', `http://${BACKEND_URL}/api/auth/reset-password`, {})
+    cy.intercept('POST', `${BACKEND_URL}/api/auth/reset-password*`, {})
+    cy.intercept('PATCH', `${BACKEND_URL}/api/auth/reset-password`, {})
 
     cy.location('pathname').should('eq', '/login')
     cy.get('#modalToggle').click()
@@ -53,7 +53,7 @@ describe('Password recovery modal', () => {
   })
 
   it('shows an error message when email is not registered', () => {
-    cy.intercept('POST', `http://${BACKEND_URL}/api/auth/reset-password-request`, {
+    cy.intercept('POST', `${BACKEND_URL}/api/auth/reset-password-request`, {
       statusCode: 400,
       body: {
         error: {
@@ -68,9 +68,9 @@ describe('Password recovery modal', () => {
   });
 
   it('shows an error message when pin is invalid', () => {
-    cy.intercept('POST', `http://${BACKEND_URL}/api/auth/reset-password-request`, {})
+    cy.intercept('POST', `${BACKEND_URL}/api/auth/reset-password-request`, {})
     // Intercept POST request to /api/auth/reset-password-request and return a 400 error
-    cy.intercept('POST', `http://${BACKEND_URL}/api/auth/reset-password-code`, {
+    cy.intercept('POST', `${BACKEND_URL}/api/auth/reset-password-code`, {
       statusCode: 400,
       body: {
         error: {
@@ -88,9 +88,9 @@ describe('Password recovery modal', () => {
   })
 
   it('shows an error message when password is invalid', () => {
-    cy.intercept('POST', `http://${BACKEND_URL}/api/auth/reset-password-request`, {})
-    cy.intercept('POST', `http://${BACKEND_URL}/api/auth/reset-password-code`, {})
-    cy.intercept('PATCH', `http://${BACKEND_URL}/api/auth/reset-password`, {
+    cy.intercept('POST', `${BACKEND_URL}/api/auth/reset-password-request`, {})
+    cy.intercept('POST', `${BACKEND_URL}/api/auth/reset-password-code`, {})
+    cy.intercept('PATCH', `${BACKEND_URL}/api/auth/reset-password`, {
       statusCode: 400,
       body: {
         error: {
@@ -111,9 +111,9 @@ describe('Password recovery modal', () => {
   });
 
   it('shows an error message when password and confirm password do not match', () => {
-    cy.intercept('POST', `http://${BACKEND_URL}/api/auth/reset-password-request`, {})
-    cy.intercept('POST', `http://${BACKEND_URL}/api/auth/reset-password-code`, {})
-    cy.intercept('PATCH', `http://${BACKEND_URL}/api/auth/reset-password`, {
+    cy.intercept('POST', `${BACKEND_URL}/api/auth/reset-password-request`, {})
+    cy.intercept('POST', `${BACKEND_URL}/api/auth/reset-password-code`, {})
+    cy.intercept('PATCH', `${BACKEND_URL}/api/auth/reset-password`, {
       statusCode: 400,
       body: {
         error: {
