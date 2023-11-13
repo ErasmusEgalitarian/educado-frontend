@@ -12,8 +12,8 @@
         "linting": "eslint --ext .js,.jsx,.ts,.tsx .",
         "typechecking": "tsc --noEmit",
         "cypress-server": "vite --port 3000",
-        "cypress_local": "npx cypress run --browser chrome --env BACKEND_URL=localhost:8888",
-        "cypress_staging": "npx cypress run --browser chrome --env BACKEND_URL=https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/"
+        "cypress_local": "npx cypress run --browser chrome --env --key c50c2378-9a82-4498-a79c-44916dbfe1f3 BACKEND_URL=localhost:8888",
+        "cypress_staging": "npx cypress run --browser chrome  --env BACKEND_URL=https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/"
     },
     "dependencies": {
         "@aws-sdk/client-s3": "^3.398.0",
