@@ -8,7 +8,6 @@ export function ProtectedRoute ({ children }: { children: JSX.Element }) {
 
   //If the user has a token, they can access protected routes, such as /profile, /courses etc.
   if (localStorage.getItem("token")) { 
-    console.log("Token found")
     return children;
 
   } else {

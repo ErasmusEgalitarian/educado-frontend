@@ -13,11 +13,11 @@ export interface Course {
   category:          string;
   coverImg?:         string;
   description:       string;
-  difficulty:             number;
-  creators:          contentCreator[];
+  creator:           string;
   status:            string;
   estimatedHours:    number;
   rating:            number;
+  difficulty:        number;
   numOfSubscriptions:   number;
   dateUpdated:       Date;
   dateCreated:       Date;

@@ -3,9 +3,6 @@ import renderer from 'react-test-renderer';
 import { MemoryRouter } from "react-router-dom"; 
 import { describe, it, expect } from '@jest/globals';
 import Login from '../../../src/pages/Login';
-import axios from 'axios';
-import MockAdapter from'axios-mock-adapter';
-import AuthServices from '../../../src/services/auth.services'
 
 jest.useFakeTimers();
 

@@ -12,15 +12,15 @@ import { boolean } from "yup";
 
 
 export interface ContentCreatorApplication {
-  name: String;
+  firstName: String;
+  lastName: String;
   email: String;
   password: String;
 }
 
 
 const postUserLogin = async (credentials: any) => {
-
-  return await axios.post(`${BACKEND_URL}/api/credentials/login`, credentials);
+  return await axios.post(`${BACKEND_URL}/api/auth/login`, credentials);
 };
 
 const postUserApplication = async (formData: ContentCreatorApplication) => {
@@ -28,12 +28,12 @@ const postUserApplication = async (formData: ContentCreatorApplication) => {
 };
 
 const postUserCredentialsLogin = async (credentials: any) => {
-  return await axios.post(`${BACKEND_URL}/api/credentials/login`, credentials);
+  return await axios.post(`${BACKEND_URL}/api/auth/login`, credentials);
 };
 
 
 const postUserSignup = async(formData: ContentCreatorApplication) => {
-  return await axios.post(`${BACKEND_URL}/api/credentials/signup`, formData)
+  return await axios.post(`${BACKEND_URL}/api/auth/signup`, formData)
 }
 
 /*  const postUserApplication = async (formData: ContentCreatorApplication) => {

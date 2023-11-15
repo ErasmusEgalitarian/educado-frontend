@@ -6,7 +6,7 @@ interface PartialCourse {
   category?:           string;
   coverImg?:           string;
   description?:        string;
-  creators?:           number[];
+  creator?:            string;
   difficulty?:         number;
   status?:             string;
   estimatedHours?:     number;
@@ -34,7 +34,7 @@ export const generateTestCourse = (options: PartialCourse = {}): Course => {
     coverImg: options.coverImg ?? '',
     category: options.category ?? 'health and workplace safety',
     sections: options.sections ?? [],
-    creators: options.creators ?? [1],
+    creator: options.creator ?? '',
     difficulty: options.difficulty ?? 2,
     status: options.status ?? 'draft',
     estimatedHours: options.estimatedHours ?? 8.5,

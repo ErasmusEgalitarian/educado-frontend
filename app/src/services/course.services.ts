@@ -2,6 +2,7 @@ import axios from "axios";
 
 // Backend URL from enviroment
 import { BACKEND_URL } from '../helpers/environment';
+import { getUserInfo, getUserToken } from "../helpers/userInfo";
 
 // Interface for posting course content
 export interface CourseInterface {
@@ -10,13 +11,14 @@ export interface CourseInterface {
   difficulty: number;
   description: string;
   estimatedHours: number;
+  creator: string;
 }
 
 const client = axios.create({
   baseURL: 'http://localhost:8888/api/courses',
   headers: {
     "Content-Type": "application/json",
-    token: localStorage.getItem('token') || '',
+    token: getUserToken(),
   },
 });
 
@@ -25,7 +27,7 @@ const client = axios.create({
  */
 
 // Create a new course
-const createCourse = async ({ title, category, difficulty, estimatedHours, description }: CourseInterface, token: string) => {
+const createCourse = async ({ title, category, difficulty, estimatedHours, description, creator }: CourseInterface, token: string) => {
   return await axios.put(
     `${BACKEND_URL}/api/courses`,
     {
@@ -34,8 +36,9 @@ const createCourse = async ({ title, category, difficulty, estimatedHours, descr
       category: category,
       difficulty: difficulty,
       estimatedHours: estimatedHours,
+      creator: creator,
     },
-    { headers: { Authorization: `Bearer ${token}` } }
+    { headers: { Authorization: `Bearer ${token}`, token: localStorage.getItem('token') || '' } }
   );
 };
 
@@ -60,7 +63,9 @@ const updateCoverImage = async ( id: any, token: string) => {
  * @returns A list of all courses
  */
 const getAllCourses = async ( token: string) => {
-  return await axios.get(`${BACKEND_URL}/api/courses/`, { headers: { Authorization: `Bearer ${token}` } })
+  const { id } = getUserInfo();
+
+  return await axios.get(`${BACKEND_URL}/api/courses/creator/${id}`, { headers: { Authorization: `Bearer ${token}`, token: token } })
 
     .then(res => {
       // Convert dates in course data to Date objects
