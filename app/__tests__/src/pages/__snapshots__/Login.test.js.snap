@@ -158,16 +158,13 @@ exports[`Login Component can render login page without errors 1`] = `
       className="relative right-0 h-screen flex flex-col justify-center items-center"
     >
       <div
-        className="fixed right-0 top-[4rem] z-10"
-      />
-      <div
         className="relative py-8 px-10 w-full"
       >
         <div
           className=""
         >
           <h1
-            className="mb-10 flex text-base text-[#383838] font-normal font-['Montserrat'] underline"
+            className="mb-10 flex text-lg text-[#383838] font-normal font-['Montserrat'] underline"
           >
             <a
               href="/welcome"
@@ -194,7 +191,7 @@ exports[`Login Component can render login page without errors 1`] = `
               </svg>
             </a>
             <a
-              className="text-base text-[#383838] font-normal font-['Montserrat']"
+              className="text-lg text-[#383838] font-normal font-['Montserrat']"
               href="/welcome"
               onClick={[Function]}
             >
@@ -203,7 +200,7 @@ exports[`Login Component can render login page without errors 1`] = `
           </h1>
         </div>
         <h1
-          className="text-[#383838] text-3xl font-bold font-['Lato'] leading-normal self-stretch "
+          className="text-[#383838] text-3xl font-bold font-['Lato'] leading-normal self-stretch mb-10 "
         >
           Bem-vindo de volta ao Educado! 
         </h1>
@@ -211,92 +208,86 @@ exports[`Login Component can render login page without errors 1`] = `
           className="stretch flex flex-col space-y-2"
           onSubmit={[Function]}
         >
-          <div
-            className="relative"
-          >
-            <label
-              className=" text-[#383838] text-xs font-normal font-['Montserrat'] mt-6"
-              htmlFor="emailField"
+          <div>
+            <div
+              className="relative"
             >
-              Email
-              <span
-                className="text-[#FF4949] text-xs font-normal font-['Montserrat']"
+              <label
+                className="after:content-['*'] after:ml-0.5 after:text-red-500 text-[#383838] text-sm font-normal font-['Montserrat'] mt-6"
+                htmlFor="emailField"
               >
-                *
-              </span>
-            </label>
-            <input
-              className="flex border-gray-300 w-[100%] py-3 px-4 bg-white placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
-              id="emailField"
-              name="email"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onInput={[Function]}
-              placeholder="user@email.com"
-              type="email"
-            />
+                Email
+              </label>
+              <input
+                className="flex border-gray-300 w-[100%] py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+                id="emailField"
+                name="email"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onInput={[Function]}
+                placeholder="usuario@gmail.com"
+                type="email"
+              />
+            </div>
           </div>
-          <div
-            className="relative"
-          >
-            <label
-              className=" text-[#383838] text-xs font-normal font-['Montserrat'] mt-6"
-              htmlFor="passwordField"
+          <div>
+            <div
+              className="relative"
             >
-              Senha 
-              <span
-                className="text-[#FF4949] text-xs font-normal font-['Montserrat']"
+              <label
+                className="after:content-['*'] after:ml-0.5 after:text-red-500 text-[#383838] text-sm font-normal font-['Montserrat'] mt-6"
+                htmlFor="passwordField"
               >
-                *
-              </span>
-            </label>
-            <input
-              className="w-[100%] flex border-gray-300 gap-2.5 py-3 px-4 bg-white placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
-              id="passwordField"
-              name="password"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onInput={[Function]}
-              placeholder="**********"
-              type="password"
-            />
-            <button
-              className="absolute right-3 bottom-3"
-              id="hidePasswordIcon"
-              onClick={[Function]}
-              type="button"
-            >
-              <svg
-                role="presentation"
-                style={
-                  {
-                    "height": "1.5rem",
-                    "width": "1.5rem",
-                  }
-                }
-                viewBox="0 0 24 24"
+                Senha 
+              </label>
+              <input
+                className="w-[100%] flex border-gray-300 gap-2.5 py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+                id="passwordField"
+                name="password"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onInput={[Function]}
+                placeholder="**********"
+                type="password"
+              />
+              <button
+                className="absolute right-3 bottom-3"
+                id="hidePasswordIcon"
+                onClick={[Function]}
+                type="button"
               >
-                <path
-                  d="M2,5.27L3.28,4L20,20.72L18.73,22L15.65,18.92C14.5,19.3 13.28,19.5 12,19.5C7,19.5 2.73,16.39 1,12C1.69,10.24 2.79,8.69 4.19,7.46L2,5.27M12,9A3,3 0 0,1 15,12C15,12.35 14.94,12.69 14.83,13L11,9.17C11.31,9.06 11.65,9 12,9M12,4.5C17,4.5 21.27,7.61 23,12C22.18,14.08 20.79,15.88 19,17.19L17.58,15.76C18.94,14.82 20.06,13.54 20.82,12C19.17,8.64 15.76,6.5 12,6.5C10.91,6.5 9.84,6.68 8.84,7L7.3,5.47C8.74,4.85 10.33,4.5 12,4.5M3.18,12C4.83,15.36 8.24,17.5 12,17.5C12.69,17.5 13.37,17.43 14,17.29L11.72,15C10.29,14.85 9.15,13.71 9,12.28L5.6,8.87C4.61,9.72 3.78,10.78 3.18,12Z"
+                <svg
+                  role="presentation"
                   style={
                     {
-                      "fill": "#A1ACB2",
+                      "height": "1.5rem",
+                      "width": "1.5rem",
                     }
                   }
-                />
-              </svg>
-            </button>
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M2,5.27L3.28,4L20,20.72L18.73,22L15.65,18.92C14.5,19.3 13.28,19.5 12,19.5C7,19.5 2.73,16.39 1,12C1.69,10.24 2.79,8.69 4.19,7.46L2,5.27M12,9A3,3 0 0,1 15,12C15,12.35 14.94,12.69 14.83,13L11,9.17C11.31,9.06 11.65,9 12,9M12,4.5C17,4.5 21.27,7.61 23,12C22.18,14.08 20.79,15.88 19,17.19L17.58,15.76C18.94,14.82 20.06,13.54 20.82,12C19.17,8.64 15.76,6.5 12,6.5C10.91,6.5 9.84,6.68 8.84,7L7.3,5.47C8.74,4.85 10.33,4.5 12,4.5M3.18,12C4.83,15.36 8.24,17.5 12,17.5C12.69,17.5 13.37,17.43 14,17.29L11.72,15C10.29,14.85 9.15,13.71 9,12.28L5.6,8.87C4.61,9.72 3.78,10.78 3.18,12Z"
+                    style={
+                      {
+                        "fill": "#A1ACB2",
+                      }
+                    }
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
           <div
             className=" flex flex-col items-end gap-3"
           >
             <span
-              className="text-neutral-700 text-right text-base font-normal font-['Montserrat']"
+              className="text-neutral-700 text-lg font-normal font-['Montserrat']"
             />
              
-            <label
-              className="text-[#383838] text-base font-normal font-['Montserrat'] underline hover:text-blue-500"
-              id="modalToggle"
+            <a
+              className="text-[#383838] text-lg font-normal font-['Montserrat'] underline hover:text-blue-500"
+              href="/forgotpassword"
               onClick={[Function]}
             >
               Esqueceu sua senha? 
@@ -307,7 +298,7 @@ exports[`Login Component can render login page without errors 1`] = `
           />
            
           <button
-            className="disabled:opacity-20 disabled:bg-cyan-500 flex-auto w-[100%] h-[3.3rem] rounded-lg bg-[#5ECCE9] text-white transition duration-100 ease-in hover:bg-cyan-500 hover:text-gray-50 text-base font-bold font-['Montserrat']"
+            className="disabled:opacity-20 disabled:bg-slate-600 flex-auto w-[100%] h-[3.3rem] rounded-lg bg-[#166276] text-white transition duration-100 ease-in hover:bg-cyan-900 hover:text-gray-50 text-lg font-bold font-['Montserrat']"
             disabled={true}
             id="submitLoginButton"
             type="submit"
@@ -319,15 +310,15 @@ exports[`Login Component can render login page without errors 1`] = `
           />
            
           <div
-            className="flex justify-center"
+            className="flex justify-center space-x-1"
           >
             <span
-              className="text-[#A1ACB2] text-base font-normal font-['Montserrat']"
+              className="text-[#A1ACB2] text-lg font-normal font-['Montserrat']"
             >
               Ainda não tem conta? 
             </span>
             <a
-              className="text-[#383838] text-base font-normal font-['Montserrat'] underline hover:text-blue-500 gap-6"
+              className="text-[#383838] text-lg font-normal font-['Montserrat'] underline hover:text-blue-500 gap-6"
               href="/signup"
               onClick={[Function]}
             >

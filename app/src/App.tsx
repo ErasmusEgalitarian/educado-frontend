@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
 import Welcome from "./pages/Welcome";
+import Application from "./pages/Application";
 
 // Auth Pages
 import Courses from "./pages/Courses";
@@ -17,6 +18,7 @@ import Profile from "./pages/Profile";
 // Educado Admin
 import EducadoAdmin from "./pages/EducadoAdmin";
 import SingleApplicantView from "./pages/SingleApplicantView";
+
 
 function App() {
   // router
@@ -56,6 +58,11 @@ function App() {
     {
       path: "/signup",
       element: <NonProtectedRoute><Signup /></NonProtectedRoute>,
+      errorElement: <NotFound />
+    },
+    {
+      path: "/application/:id",
+      element: <NonProtectedRoute><Application /></NonProtectedRoute>,
       errorElement: <NotFound />
     },
     {
