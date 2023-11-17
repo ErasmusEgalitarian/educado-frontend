@@ -98,57 +98,57 @@ exports[`Signup Component can render signup page without errors 1`] = `
                     Junte-se a nós para transformar vidas. Oferecemos acesso a conteúdo personalizado para pessoas que precisam, melhorando condições de vida e oportunidades de emprego.
                   </div>
                 </div>
+              </p>
+              <div
+                className="child-container right-0 left-0 justify-center absolute bottom-0"
+              >
                 <div
-                  className="child-container right-0 left-0 justify-center absolute bottom-0"
+                  className="flex right-0 left-0 items-center justify-center space-x-2"
                 >
                   <div
-                    className="flex right-0 left-0 items-center justify-center space-x-2"
-                  >
-                    <div
-                      className="
+                    className="
               transition-all w-3 h-3 bg-white rounded-full
               p-2
             "
-                    />
-                    <div
-                      className="
-              transition-all w-3 h-3 bg-white rounded-full
-              bg-opacity-50
-            "
-                    />
-                    <div
-                      className="
-              transition-all w-3 h-3 bg-white rounded-full
-              bg-opacity-50
-            "
-                    />
-                  </div>
-                </div>
-              </p>
-            </div>
-            <div
-              className="flex items-center p-1 sm:px-4"
-            >
-              <button
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="items-center w-9 h-9 p-1 rounded-full bg-white/80 text-gray-800 hover:bg-white"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={1.5}
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
                   />
-                </svg>
-              </button>
+                  <div
+                    className="
+              transition-all w-3 h-3 bg-white rounded-full
+              bg-opacity-50
+            "
+                  />
+                  <div
+                    className="
+              transition-all w-3 h-3 bg-white rounded-full
+              bg-opacity-50
+            "
+                  />
+                </div>
+              </div>
             </div>
+          </div>
+          <div
+            className="flex items-center p-1 sm:px-4"
+          >
+            <button
+              onClick={[Function]}
+            >
+              <svg
+                aria-hidden="true"
+                className="items-center w-9 h-9 p-1 rounded-full bg-white/80 text-gray-800 hover:bg-white"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.5}
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </div>
         </div>
          
