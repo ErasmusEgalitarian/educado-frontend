@@ -159,6 +159,16 @@ const Login = () => {
         { /*Container for right side of the page - frame 2332*/}
         <div className='relative right-0 h-screen flex flex-col justify-center items-center'>
 
+          { /*Error message for when email or password is incorrect*/}
+          <div className="fixed right-0 top-[4rem] z-10">
+            {error && (
+              <div className="bg-white shadow border-t-4 p-4 w-52 rounded text-center animate-bounce-short" role="alert">
+                <p className="font-bold text-lg">{error.toString()}</p>
+                <p id='error-message' className='text-base'>{errorMessage}</p>
+              </div>
+            )}
+          </div>
+
           { /*Container for the page's contents, + Back button*/}
           <div className='relative py-8 px-10 w-full'>
             <div className=''>
