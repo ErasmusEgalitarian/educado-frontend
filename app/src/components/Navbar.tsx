@@ -13,13 +13,20 @@ const Navbar = () => {
     const logout = () => {
         clearToken();
     }
+    /*
     const token = useAuthStore(state => state.token);
     const decodedToken = token ? decode(token) : null;
     
     const firstName = token ? decodedToken?.firstName: "Firstname";
     const lastName = token ? decodedToken?.lastName: "Lastname";
     const email = token ? decodedToken?.email: "mail@mail.com";
-
+    */
+    const token = localStorage.getItem("token")
+    const decodedToken = token ? decode(token) : null;
+    
+    const firstName = token ? decodedToken?.firstName: "Firstname";
+    const lastName = token ? decodedToken?.lastName: "Lastname";
+    const email = token ? decodedToken?.email: "mail@mail.com";
     
     //navbar for home, profile 
     return (
