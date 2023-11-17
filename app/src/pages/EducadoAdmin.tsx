@@ -16,6 +16,9 @@ const EducadoAdmin = () => {
     //Variable to detect and determine the search term used to filter applications
     const [searchTerm, setSearchTerm] = useState('')
     
+    let navigate = useNavigate();
+    let location = useLocation();
+
     //Get data from the relevant route
     const { data, error } = useSWR(
         `${BACKEND_URL}/api/applications`,

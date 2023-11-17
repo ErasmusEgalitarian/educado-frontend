@@ -279,7 +279,7 @@ exports[`Login Component can render login page without errors 1`] = `
             </div>
           </div>
           <div
-            className=" flex flex-col items-end gap-3"
+            className=" flex flex-col items-end text-right gap-3"
           >
             <span
               className="text-neutral-700 text-lg font-normal font-['Montserrat']"
@@ -291,7 +291,7 @@ exports[`Login Component can render login page without errors 1`] = `
               onClick={[Function]}
             >
               Esqueceu sua senha? 
-            </label>
+            </a>
           </div>
           <span
             className="h-12"

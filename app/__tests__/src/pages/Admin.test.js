@@ -5,6 +5,7 @@ import { describe, it, expect } from '@jest/globals';
 import useSWR from 'swr';
 import EducadoAdmin from '../../../src/pages/EducadoAdmin'; 
 
+//Mockdata used to test page
 const mockData = {
   data: {
     data: [
@@ -15,9 +16,23 @@ const mockData = {
   },
 };
 
+//Mock swr and jwt, of which the ladder is used to avoid errors
 jest.mock('swr');
 jest.mock('jwt-decode', () => jest.fn());
 
+//Mock localStorage to avoid errors in the tests
+class LocalStorageMock {
+  constructor() {
+    this.store = {};
+  }
+
+  getItem(key) {
+    return this.store[key] || null;
+  }
+}
+global.localStorage = new LocalStorageMock;
+
+//Mock meta variables to avoid meta import errors
 jest.mock('../../../src/helpers/environment', () => ({
   BACKEND_URL: 'http://localhost:8888',
   REFRESH_TOKEN_URL: 'http://localhost:8888/auth/refresh/jwt'

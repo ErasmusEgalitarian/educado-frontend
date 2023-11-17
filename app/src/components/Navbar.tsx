@@ -2,6 +2,7 @@ import {Icon} from '@mdi/react';
 import { mdiBellOutline, mdiAccount, mdiLogoutVariant, mdiCertificate, mdiNotebookOutline, mdiAccountCog } from '@mdi/js';
 import { Link } from 'react-router-dom'
 import useAuthStore from '../contexts/useAuthStore'
+import { getUserToken } from '../helpers/userInfo';
 
 import decode from 'jwt-decode';
 
@@ -21,7 +22,7 @@ const Navbar = () => {
     const lastName = token ? decodedToken?.lastName: "Lastname";
     const email = token ? decodedToken?.email: "mail@mail.com";
     */
-    const token = localStorage.getItem("token")
+    const token = getUserToken();
     const decodedToken = token ? decode(token) : null;
     
     const firstName = token ? decodedToken?.firstName: "Firstname";
