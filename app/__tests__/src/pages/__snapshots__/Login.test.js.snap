@@ -158,6 +158,9 @@ exports[`Login Component can render login page without errors 1`] = `
       className="relative right-0 h-screen flex flex-col justify-center items-center"
     >
       <div
+        className="fixed right-0 top-[4rem] z-10"
+      />
+      <div
         className="relative py-8 px-10 w-full"
       >
         <div
