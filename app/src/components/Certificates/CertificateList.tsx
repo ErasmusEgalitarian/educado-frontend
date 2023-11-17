@@ -26,11 +26,14 @@ export default function CertificateList() {
 						<p className="text-grayMedium">You have {certificates.length} certificates</p>
 					</div>
 					{certificates.map((certificate: Certificate, key: number) => (
-						<CertificateCard certificate={certificate} key={key} />
-					))} 
+						<>
+							<CertificateCard certificate={certificate} key={key} />
+							<div className='w-full h-[2px] bg-grayLight opacity-50 my-2' />
+						</>
+					))}
 				</> :
 				<div className="text-xl">Empty</div>
-      }
+			}
 		</div>
 	)
 }

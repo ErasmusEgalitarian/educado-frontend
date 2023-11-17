@@ -13,7 +13,7 @@ export default function CertificateCard(props: { certificate: Certificate }) {
 	const maxTitleLength = 20;
 
 	return (
-		<div className="overflow-hidden shadow rounded w-full cursor-pointer m-auto hover:shadow-lg duration-200">
+		<div className="overflow-hidden w-full m-auto duration-200">
 			<div className="bg-white w-full">
 				<div className='px-5 py-3 grid grid-cols-[7fr,1fr]'>
 					{/* Card info */}
@@ -34,7 +34,7 @@ export default function CertificateCard(props: { certificate: Certificate }) {
 						</CertificateField>
 					</div>
 					<div>
-						<Icon path={mdiDownload} className='w-8 h-8 text-grayMedium float-right' />
+						<Icon path={mdiDownload} className='w-8 h-8 text-grayMedium hover:text-primary float-right cursor-pointer' />
 					</div>
 				</div>
 			</div>
