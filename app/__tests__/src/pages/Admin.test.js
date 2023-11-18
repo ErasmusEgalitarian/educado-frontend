@@ -79,7 +79,7 @@ describe('EducadoAdmin Component', () => {
     const MadsDate = component.root.findAllByProps({id: "date"})[1]
 
     //Make sure every aspect of the data is included, and in the correct way
-    expect(JoergenName.props.children).toContain("Joergen", "Skovl");
+    expect(JoergenName.props.children).toContain("Joergen", "Skovlag");
     expect(JoergenEmail.props.children).toContain("JoergenSkovlag@gmail.com");
     expect(JoergenDate.props.children).toContain("Fri Nov 11 2011 13:00:00 GMT+0100 (Central European Standard Time)");
 
