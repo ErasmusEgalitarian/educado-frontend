@@ -81,11 +81,11 @@ describe('EducadoAdmin Component', () => {
     //Make sure every aspect of the data is included, and in the correct way
     expect(JoergenName.props.children).toContain("Joergen", "Skovlag");
     expect(JoergenEmail.props.children).toContain("JoergenSkovlag@gmail.com");
-    expect(JoergenDate.props.children).toContain("Fri Nov 11 2011 12:00:00 GMT+0000 (Central European Standard Time)");
+    expect(JoergenDate.props.children).toContain("Fri Nov 11 2011 12:00:00 GMT+0000 (Coordinated Universal Time)");
 
     expect(MadsName.props.children).toContain("Mads", "Ingstrid");
     expect(MadsEmail.props.children).toContain("M_Ingstrid@hotmail.com");
-    expect(MadsDate.props.children).toContain("Thu Feb 20 2020 13:00:00 GMT+0000 (Central European Standard Time)");
+    expect(MadsDate.props.children).toContain("Thu Feb 20 2020 12:00:00 GMT+0000 (Coordinated Universal Time)");
  
   });
 });

@@ -23,7 +23,7 @@ const Navbar = () => {
     const email = token ? decodedToken?.email: "mail@mail.com";
     */
     const token = getUserToken();
-    const decodedToken = token ? decode(token) : null;
+    const decodedToken: any = token ? decode(token) : null;
     
     const firstName = token ? decodedToken?.firstName: "Firstname";
     const lastName = token ? decodedToken?.lastName: "Lastname";
