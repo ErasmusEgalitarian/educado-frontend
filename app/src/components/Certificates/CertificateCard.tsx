@@ -4,12 +4,12 @@ import StarRating from "../general/StarRating"
 import { mdiAccount, mdiBrushOutline, mdiChevronDown, mdiDownload, mdiEmail, mdiFileEye } from "@mdi/js";
 import categories from "../../helpers/courseCategories";
 import CertificateField from "./CertificateField";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ActionButton from "./ActionButton";
 
 
 
-export default function CertificateCard(props: { certificate: Certificate }) {
+export default function CertificateCard(props: { certificate: Certificate, num: number }) {
 	const { certificate } = props;
 	const { course, creator } = certificate;
 	const maxTitleLength = 20;
@@ -20,6 +20,8 @@ export default function CertificateCard(props: { certificate: Certificate }) {
 		setIsOpen(!isOpen);
 	}
 
+	
+
 	return (
 		<div className="overflow-hidden w-full m-auto duration-200 shadow-md rounded-xl hover:shadow-lg group">
 			<div className={"bg-white w-full"}>
@@ -27,7 +29,7 @@ export default function CertificateCard(props: { certificate: Certificate }) {
 					{/* Card info */}
 					<div className='px-5 py-6 grid grid-cols-4 justify-space-between -mr-20'>
 						{/* Course title */}
-						<h3 className='text-xl font-semibold'>{course.title.length <= maxTitleLength ? course.title : course.title.slice(0, maxTitleLength - 2) + '...'}</h3>
+						<h3 className='text-xl font-semibold' id={'card-' + props.num + '-title'}>{course.title?.length <= maxTitleLength ? course.title : course.title?.slice(0, maxTitleLength - 2) + '...'}</h3>
 						{/* Course category */}
 						<CertificateField className='hidden xl:inline-block' icon={categories[course.category]?.icon ?? categories.default.icon}>
 							<p>{categories[course.category]?.br ?? course.category}</p>

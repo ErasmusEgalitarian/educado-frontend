@@ -15,12 +15,12 @@ export default function CertificateList() {
 	useEffect(() => {
 		CertificateService.getAllCertificates().then((res) => {
 			setCertificates(res);
-		});
+		})
 	}, []);
 
 	if (!certificates) return <Loading />;
 	return (
-		<div className="overflow-scroll min-h-full pb-4">
+		<div className="overflow-scroll min-h-full pb-4" id="certificate-list">
 			{certificates.length ?
 				<>
 					<div className="w-full">
@@ -28,12 +28,10 @@ export default function CertificateList() {
 						<p className="text-grayMedium">You have {certificates.length} certificates</p>
 					</div>
 					{certificates.map((certificate: Certificate, key: number) => (
-						<>
-							<CertificateCard certificate={certificate} key={key} />
-						</>
+							<CertificateCard certificate={certificate} key={key} num={key} />
 					))}
 				</> :
-				<div className="text-xl">Empty</div>
+				<div id="no-certificates-message" className="text-xl">Empty</div>
 			}
 		</div>
 	)
