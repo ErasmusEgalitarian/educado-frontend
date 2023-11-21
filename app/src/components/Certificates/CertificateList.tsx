@@ -1,4 +1,4 @@
-import Loading from "../../pages/Loading";
+import Loading from "../general/Loading";
 import { getUserToken } from "../../helpers/userInfo";
 import { Certificate } from "../../interfaces/Certificate";
 import CertificateCard from "./CertificateCard";
@@ -9,6 +9,8 @@ export default function CertificateList() {
 	const token = getUserToken();
 
 	const [certificates, setCertificates] = useState<Certificate[]>();
+
+	let largestSubNum = 0;
 
 	useEffect(() => {
 		CertificateService.getAllCertificates().then((res) => {

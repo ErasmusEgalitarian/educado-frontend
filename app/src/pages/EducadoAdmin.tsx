@@ -9,7 +9,7 @@ import AuthServices from "../services/auth.services";
 import { CCApp } from '../interfaces/CCApp'
 
 // Components
-import Loading from "./Loading";
+import Loading from "../components/general/Loading";
 import Layout from "../components/Layout";
 import { PageDescriptor } from "../components/PageDescriptor";
 

@@ -16,7 +16,7 @@ import { CreateLecture } from '../components/CreateLecturePopUp';
 import { CreateExercise } from '../components/Exercise/CreateExercisePopUp';
 
 // Components
-import Loading from './Loading';
+import Loading from '../components/general/Loading';
 import Layout from '../components/Layout';
 import { ExerciseArea } from '../components/ExerciseArea'
 import { LectureArea } from '../components/LectureArea';

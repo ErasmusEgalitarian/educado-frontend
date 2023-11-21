@@ -19,7 +19,7 @@ import StorageService from '../services/storage.services'
 import NotFound from './NotFound'
 
 // components
-import Loading from './Loading'
+import Loading from '../components/general/Loading'
 import Layout from '../components/Layout'
 import { SectionList } from '../components/dnd/SectionList'
 import { SectionForm } from '../components/dnd/SectionForm'
