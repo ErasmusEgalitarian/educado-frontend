@@ -7,7 +7,7 @@ import AuthServices from '../services/auth.services';
 import {BACKEND_URL} from '../helpers/environment';
 
 // Components
-import Loading from './Loading';
+import Loading from '../components/general/Loading';
 import Layout from '../components/Layout';
 
 function SingleApplicantView() {

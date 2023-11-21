@@ -83,7 +83,7 @@ const Login = () => {
       .catch(err => {
         setError(err); console.log(err)
         if (!err.response.data) { setErrorMessage("Database Connection Failed"); }
-        switch (err.response.data.error.code) {
+        switch (err.response?.data?.error?.code) {
           case "E0004":
             setErrorMessage('Não existe nenhum usuário com este email!') // User not found
           case "E0101": //Invalid Email 
@@ -110,8 +110,8 @@ const Login = () => {
 
 
   function areFieldsFilled() {
-    const inputloginEmail = document.getElementById('emailField') as HTMLInputElement;
-    const inputloginPass = document.getElementById('passwordField') as HTMLInputElement;
+    const inputloginEmail = document.getElementById('email-field') as HTMLInputElement;
+    const inputloginPass = document.getElementById('password-field') as HTMLInputElement;
 
     const submitloginButton = document.getElementById('submitLoginButton') as HTMLButtonElement;
 
@@ -197,7 +197,7 @@ const Login = () => {
                   <span className="text-[#FF4949] text-xs font-normal font-['Montserrat']">*</span>
                 </label>
                 <input onInput={areFieldsFilled}
-                  type="email" id="emailField"
+                  type="email" id="email-field"
                   className="flex border-gray-300 w-[100%] py-3 px-4 bg-white placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
                   placeholder="user@email.com"
                   {...register("email", { required: true })} />
@@ -210,7 +210,7 @@ const Login = () => {
                   <span className="text-[#FF4949] text-xs font-normal font-['Montserrat']">*</span>
                 </label>
                 <input onInput={areFieldsFilled}
-                  type={passwordVisible ? "text" : "password"} id="passwordField"
+                  type={passwordVisible ? "text" : "password"} id="password-field"
                   className="w-[100%] flex border-gray-300 gap-2.5 py-3 px-4 bg-white placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
                   placeholder="**********"
                   {...register("password", { required: true })} />

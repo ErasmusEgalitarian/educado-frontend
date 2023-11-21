@@ -31,6 +31,7 @@
         "aws-sdk": "^2.1443.0",
         "axios": "^0.27.2",
         "axios-mock-adapter": "^1.22.0",
+        "cypress-localstorage-commands": "^2.2.5",
         "daisyui": "^2.38.1",
         "esbuild": "^0.19.5",
         "eslint": "^8.50.0",
