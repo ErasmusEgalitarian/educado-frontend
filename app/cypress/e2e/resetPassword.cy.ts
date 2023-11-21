@@ -13,7 +13,7 @@ describe('Password recovery modal', () => {
     cy.location('pathname').should('eq', '/login')
     cy.get('#modalToggle').click()
 
-    cy.get('#email-field').type('test@email.com')
+    cy.get('#reset-password-email-field').type('test@email.com')
 
     cy.get('#error-message').should('not.exist')
 
@@ -22,16 +22,16 @@ describe('Password recovery modal', () => {
 
     cy.get('#pin-field').type('1234')
     continueButton.click()
-    const passwordField = cy.get('#password-field')
+    const passwordField = cy.get('#reset-password-password-field')
     passwordField.type('password')
 
     // Clicking the eye icon should change the password field to text
-    cy.get('#password-eye').click()
-    cy.get('#password-field').should('have.attr', 'type', 'email')
+    cy.get('#reset-password-password-eye').click()
+    cy.get('#reset-password-password-field').should('have.attr', 'type', 'email')
 
     // Clicking the eye icon again should change the password field back to password
-    cy.get('#password-eye').click()
-    cy.get('#password-field').should('have.attr', 'type', 'password')
+    cy.get('#reset-password-password-eye').click()
+    cy.get('#reset-password-password-field').should('have.attr', 'type', 'password')
 
     cy.get('#confirm-password-field').type('password')
     continueButton.click()
@@ -47,7 +47,7 @@ describe('Password recovery modal', () => {
 
   it('shows an error message when email is invalid', () => {
     cy.get('#modalToggle').click()
-    cy.get('#email-field').type('invalid-email')
+    cy.get('#reset-password-email-field').type('invalid-email')
     cy.get('#continue').click()
     cy.get('#email-error').should('have.text', 'Email inválido')
   })
@@ -62,7 +62,7 @@ describe('Password recovery modal', () => {
       }
     })
     cy.get('#modalToggle').click()
-    cy.get('#email-field').type('test@test.com')
+    cy.get('#reset-password-email-field').type('test@test.com')
     cy.get('#continue').click()
     cy.get('#email-error').should('have.text', 'Email não cadastrado')
   });
@@ -80,7 +80,7 @@ describe('Password recovery modal', () => {
     })
 
     cy.get('#modalToggle').click()
-    cy.get('#email-field').type('test@test.com')
+    cy.get('#reset-password-email-field').type('test@test.com')
     cy.get('#continue').click()
     cy.get('#pin-field').type('4215')
     cy.get('#continue').click()
@@ -100,11 +100,11 @@ describe('Password recovery modal', () => {
     })
 
     cy.get('#modalToggle').click()
-    cy.get('#email-field').type('test@test.com')
+    cy.get('#reset-password-email-field').type('test@test.com')
     cy.get('#continue').click()
     cy.get('#pin-field').type('1234')
     cy.get('#continue').click()
-    cy.get('#password-field').type('passwod')
+    cy.get('#reset-password-password-field').type('passwod')
     cy.get('#confirm-password-field').type('passwod')
     cy.get('#continue').click()
     cy.get('#password-error').should('have.text', 'A senha precisa ter no mínimo 8 caracteres')
@@ -123,11 +123,11 @@ describe('Password recovery modal', () => {
     })
 
     cy.get('#modalToggle').click()
-    cy.get('#email-field').type('test@test.com')
+    cy.get('#reset-password-email-field').type('test@test.com')
     cy.get('#continue').click()
     cy.get('#pin-field').type('1234')
     cy.get('#continue').click()
-    cy.get('#password-field').type('password')
+    cy.get('#reset-password-password-field').type('password')
     cy.get('#confirm-password-field').type('password1')
     cy.get('#continue').click()
     cy.get('#password-confirmation-error').should('have.text', 'Os campos de senha precisam ser iguais')

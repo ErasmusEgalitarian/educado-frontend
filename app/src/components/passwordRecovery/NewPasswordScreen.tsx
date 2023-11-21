@@ -58,7 +58,7 @@ export default function NewPasswordScreen(props: propsType) : JSX.Element {
       <div className="-mb-1">
         <div className="relative">
           <TextInput
-            id='password-field'
+            id='reset-password-password-field'
             className=''
             hidePassword={!showPassword}
             placeholder="Insira sua senha" // Enter your password
@@ -66,7 +66,7 @@ export default function NewPasswordScreen(props: propsType) : JSX.Element {
             value={props.password}
             onChange={props.setPassword}
           />
-          <PasswordEye id='password-eye' passwordVisible={showPassword} togglePasswordVisibility={() => { togglePasswordVisibility(false) }} />
+          <PasswordEye id='reset-password-password-eye' passwordVisible={showPassword} togglePasswordVisibility={() => { togglePasswordVisibility(false) }} />
         </div>
         <p id={'password-error'} className="text-warning h-5">{props.passwordError}</p>
       </div>
