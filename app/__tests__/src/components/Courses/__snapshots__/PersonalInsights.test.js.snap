@@ -161,7 +161,7 @@ exports[`personal insights renders correctly 1`] = `
               />
             </svg>
             <svg
-              className="text-star"
+              className="text-star undefined"
               role="presentation"
               style={{}}
               viewBox="0 0 24 24"
