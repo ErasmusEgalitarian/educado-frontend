@@ -5,12 +5,9 @@ import Layout from "../components/Layout";
 export default function Certificates() {
   return (
     <Layout meta="Certificates">
-      <div className='grid lg:grid-cols-[3fr_1fr] h-full'>
-        <div className='m-8 p-8 pb-0 bg-white rounded-xl overflow-hidden flex flex-col'>
+      <div className='h-[93%] align-self-center lg:px-20 xl:px-40'>
+        <div className='m-8 p-8 pb-0 bg-white rounded-xl overflow-hidden min-h-full'>
           <CertificateList />
-        </div>
-        <div className='m-8 p-8 hidden lg:flex pb-0 bg-white rounded-xl overflow-hidden flex-col'>
-
         </div>
       </div>
     </Layout>

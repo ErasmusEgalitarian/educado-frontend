@@ -38,7 +38,7 @@ function App() {
     },
 		{
 			path: "/certificates",
-			element: <Certificates />,
+			element: <ProtectedRoute><Certificates /></ProtectedRoute>,
 		},
     {
       path: "/sections/:sid",

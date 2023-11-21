@@ -44,7 +44,7 @@ const Courses = () => {
     navigate("/login");
     return null
   }*/
-  if (!data) return <Loading />;
+  if (!data) return <Layout meta='course overview'><Loading /></Layout>;
   
   return (
     <Layout meta="Course overview" >

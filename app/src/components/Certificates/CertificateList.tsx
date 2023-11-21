@@ -20,7 +20,7 @@ export default function CertificateList() {
 
 	if (!certificates) return <Loading />;
 	return (
-		<div className="flex flex-col pb-4">
+		<div className="overflow-scroll min-h-full pb-4">
 			{certificates.length ?
 				<>
 					<div className="w-full">
@@ -30,7 +30,6 @@ export default function CertificateList() {
 					{certificates.map((certificate: Certificate, key: number) => (
 						<>
 							<CertificateCard certificate={certificate} key={key} />
-							<div className='w-full h-[2px] bg-grayLight opacity-50 my-2' />
 						</>
 					))}
 				</> :
