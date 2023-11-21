@@ -43,12 +43,6 @@ describe('Certificate overview page', () => {
 				certificates: [],
 			},
 		})
-		cy.intercept('GET', `${BACKEND_URL}/api/courses/creator/*`, {
-			statusCode: 200,
-			body: {
-				certificates: [],
-			},
-		})
 
 		cy.visit('http://localhost:3000/certificates')
 		cy.get('#no-certificates-message').should('exist')
