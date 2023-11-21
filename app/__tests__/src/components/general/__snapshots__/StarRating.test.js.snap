@@ -50,7 +50,7 @@ exports[`star rating rounds down to nearest half star 1`] = `
     />
   </svg>
   <svg
-    className="text-star"
+    className="text-star undefined"
     role="presentation"
     style={{}}
     viewBox="0 0 24 24"
@@ -65,7 +65,7 @@ exports[`star rating rounds down to nearest half star 1`] = `
     />
   </svg>
   <svg
-    className="text-star"
+    className="text-star undefined"
     role="presentation"
     style={{}}
     viewBox="0 0 24 24"
@@ -314,7 +314,7 @@ exports[`star rating works with more stars and other rating ratios 1`] = `
     />
   </svg>
   <svg
-    className="text-star"
+    className="text-star undefined"
     role="presentation"
     style={{}}
     viewBox="0 0 24 24"
@@ -329,7 +329,7 @@ exports[`star rating works with more stars and other rating ratios 1`] = `
     />
   </svg>
   <svg
-    className="text-star"
+    className="text-star undefined"
     role="presentation"
     style={{}}
     viewBox="0 0 24 24"
@@ -344,7 +344,7 @@ exports[`star rating works with more stars and other rating ratios 1`] = `
     />
   </svg>
   <svg
-    className="text-star"
+    className="text-star undefined"
     role="presentation"
     style={{}}
     viewBox="0 0 24 24"
@@ -359,7 +359,7 @@ exports[`star rating works with more stars and other rating ratios 1`] = `
     />
   </svg>
   <svg
-    className="text-star"
+    className="text-star undefined"
     role="presentation"
     style={{}}
     viewBox="0 0 24 24"
@@ -374,7 +374,7 @@ exports[`star rating works with more stars and other rating ratios 1`] = `
     />
   </svg>
   <svg
-    className="text-star"
+    className="text-star undefined"
     role="presentation"
     style={{}}
     viewBox="0 0 24 24"
@@ -389,7 +389,7 @@ exports[`star rating works with more stars and other rating ratios 1`] = `
     />
   </svg>
   <svg
-    className="text-star"
+    className="text-star undefined"
     role="presentation"
     style={{}}
     viewBox="0 0 24 24"
@@ -404,7 +404,7 @@ exports[`star rating works with more stars and other rating ratios 1`] = `
     />
   </svg>
   <svg
-    className="text-star"
+    className="text-star undefined"
     role="presentation"
     style={{}}
     viewBox="0 0 24 24"
@@ -419,7 +419,7 @@ exports[`star rating works with more stars and other rating ratios 1`] = `
     />
   </svg>
   <svg
-    className="text-star"
+    className="text-star undefined"
     role="presentation"
     style={{}}
     viewBox="0 0 24 24"
@@ -434,7 +434,7 @@ exports[`star rating works with more stars and other rating ratios 1`] = `
     />
   </svg>
   <svg
-    className="text-star"
+    className="text-star undefined"
     role="presentation"
     style={{}}
     viewBox="0 0 24 24"
@@ -449,7 +449,7 @@ exports[`star rating works with more stars and other rating ratios 1`] = `
     />
   </svg>
   <svg
-    className="text-star"
+    className="text-star undefined"
     role="presentation"
     style={{}}
     viewBox="0 0 24 24"
@@ -464,7 +464,7 @@ exports[`star rating works with more stars and other rating ratios 1`] = `
     />
   </svg>
   <svg
-    className="text-star"
+    className="text-star undefined"
     role="presentation"
     style={{}}
     viewBox="0 0 24 24"
