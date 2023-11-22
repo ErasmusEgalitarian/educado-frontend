@@ -28,6 +28,7 @@ describe('Certificate overview page', () => {
 		cy.get('#email-field').type('test@email.com')
 		cy.get('#password-field').type('password')
 		cy.get('#submitLoginButton').click()
+    cy.url().should('include', '/courses')
 		cy.saveLocalStorage();
 	});
 	
@@ -37,7 +38,7 @@ describe('Certificate overview page', () => {
 
 	it('shows a message when there are no certificates', () => {
 
-		cy.intercept('GET', `${CERT_URL}/api/creator-certificates*`, {
+		cy.intercept('GET', `${CERT_URL}/api/creator-certificates/creator/*`, {
 			statusCode: 200,
 			body: {
 				certificates: [],
@@ -50,47 +51,35 @@ describe('Certificate overview page', () => {
 
 	it('shows a list of certificates', () => {
 
-		cy.intercept('GET', `${CERT_URL}/api/creator-certificates*`, {
+		cy.intercept('GET', `${CERT_URL}/api/creator-certificates/creator/*`, {
 			statusCode: 200,
 			body:
 				[
 					{
-						course: '1',
-						creator: '1',
+						course: {
+              id: '1',
+              title: 'Test Course',
+              description: 'Test Description',
+              dateCreated: new Date(),
+              creator: 1,
+              sections: [],
+              thumbnail: '',
+              coverImage: '',
+              tags: [],
+              rating: 0,
+            },
+						creator: {
+              id: '1',
+              name: 'Test User',
+              email: '',
+            }
 					}
 				],
 		})
 
-		cy.intercept('GET', `${BACKEND_URL}/api/users/*`, {
-			statusCode: 200,
-			body: {
-				user: {
-					id: '1',
-					name: 'Test User',
-					email: '',
-				}
-			}
-		});
-
-		cy.intercept('GET', `${BACKEND_URL}/api/courses/*`, {
-			statusCode: 200,
-			body: {
-				id: '1',
-				title: 'Test Course',
-				description: 'Test Description',
-				dateCreated: new Date(),
-				creator: 1,
-				sections: [],
-				thumbnail: '',
-				coverImage: '',
-				tags: [],
-				rating: 0,
-			}
-		});
-
 		cy.visit('http://localhost:3000/certificates')
 		cy.get('#certificate-list').should('exist')
-		cy.get('#card-0-title').should('have.text', 'Test Course').debug()
+		cy.get('#card-0-title').should('have.text', 'Test Course')
 	});
 })
 
