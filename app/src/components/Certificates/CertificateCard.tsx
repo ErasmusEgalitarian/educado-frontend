@@ -25,7 +25,7 @@ export default function CertificateCard(props: { certificate: Certificate, num: 
 	return (
 		<div className="overflow-hidden w-full m-auto duration-200 shadow-md rounded-xl hover:shadow-lg group">
 			<div className={"bg-white w-full"}>
-				<div className={'mt-5 grid grid-cols-[50fr,1fr] rounded-xl border'} onClick={toggleDropdown}>
+				<div className={'mt-5 grid grid-cols-[50fr,1fr] rounded-xl border'}>
 					{/* Card info */}
 					<div className='px-5 py-6 grid grid-cols-4 justify-space-between -mr-20'>
 						{/* Course title */}
@@ -44,8 +44,8 @@ export default function CertificateCard(props: { certificate: Certificate, num: 
 							<p className="text-grayMedium hidden sm:inline-block ml-1">alunos</p>
 						</CertificateField>
 					</div>
-					<button>
-						<Icon path={mdiChevronDown} className='w-8 h-8 text-grayMedium group-hover:text-primary mr-5 float-right cursor-pointer' />
+					<button onClick={toggleDropdown}>
+						<Icon path={mdiChevronDown} className='w-8 h-8 text-grayMedium hover:text-primary mr-5 float-right cursor-pointer' />
 					</button>
 					{isOpen && <div className="col-span-2 bg-grayLight h-[1px]"></div>}
 					{isOpen &&

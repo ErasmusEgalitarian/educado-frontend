@@ -14,7 +14,7 @@ export default function CertificateList() {
 	let largestSubNum = 0;
 
 	useEffect(() => {
-		CertificateService.getAllCertificates().then((res) => {
+		CertificateService.getUserCertificates(localStorage.getItem('id') || '').then((res : Certificate[]) => {
 			setCertificates(res);
 		})
 	}, []);
