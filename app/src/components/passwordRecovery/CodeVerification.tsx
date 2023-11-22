@@ -28,7 +28,7 @@ export default function CodeVerification(props: propsType) : JSX.Element {
     <div className="flex h-full flex-col justify-between space-y-4">
       <div className="-mb-1">
         <TextInput 
-          id='email-field' 
+          id='reset-password-email-field' 
           className='' 
           placeholder="Insira sua Email" // Enter your email
           label="Email"

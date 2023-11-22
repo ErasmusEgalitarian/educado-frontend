@@ -27,6 +27,7 @@ export const Navbar = () => {
     // List to generete dropdown li's 
     const links = [
         { path: "/profile", desc: "Settings" },
+				{ path: "/certificates", desc: "Certificates", id: "certificates-button" },
     ]
 
     return (
@@ -70,7 +71,7 @@ export const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <button className="relative ml-auto text-sm focus:outline-none group">
+                <button className="relative ml-auto text-sm focus:outline-none group" id='profile-dropdown'>
                     <div className="dropdown dropdown-end">
                         <label tabIndex={0} className="btn btn-ghost hover:bg-transparent">
                             <div className="flex items-center justify-between w-10 h-10 rounded">
@@ -86,7 +87,7 @@ export const Navbar = () => {
                             </div>
                         </label>
                         <ul tabIndex={0} className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4">
-                            {links.map((route, key) => <li key={key}><Link to={route.path}>{route.desc}</Link></li>)}
+                            {links.map((route, key) => <li key={key}><Link id={route.id ?? ''} to={route.path}>{route.desc}</Link></li>)}
                             <li>
                                 <Link to={"/login"} onClick={logout} className="w-full px-4 py-2 text-left hover:bg-blue-500 hover:text-white">Sign out</Link>
                             </li>

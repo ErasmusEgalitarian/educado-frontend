@@ -11,7 +11,7 @@ import { Course } from '../interfaces/Course';
 
 // Components
 import Layout from '../components/Layout'
-import Loading from './Loading';
+import Loading from '../components/general/Loading';
 import { CourseListCard } from '../components/Courses/CourseListCard'
 import { CreateCourseModal } from '../components/Courses/CreateCourseModal';
 import PersonalInsights from '../components/Courses/PersonalInsights';
@@ -44,7 +44,7 @@ const Courses = () => {
     navigate("/login");
     return null
   }*/
-  if (!data) return <Loading />;
+  if (!data) return <Layout meta='course overview'><Loading /></Layout>;
   
   return (
     <Layout meta="Course overview" >
