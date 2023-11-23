@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import CertificateService from "../../services/certificate.services";
 import EmptyImg from "../../assets/no-courses.png";
 
+/**
+ * This component is responsible for listing the user's certificates
+ */
 export default function CertificateList() {
 	const token = getUserToken();
 

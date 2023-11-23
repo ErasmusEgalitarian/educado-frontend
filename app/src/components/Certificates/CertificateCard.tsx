@@ -8,7 +8,11 @@ import { useEffect, useState } from "react";
 import ActionButton from "./ActionButton";
 
 
-
+/**
+ * This component is responsible for displaying a card with the certificate info
+ * @param props.certificate The certificate to be displayed
+ * @param props.num The number of the certificate in the list
+ */
 export default function CertificateCard(props: { certificate: Certificate, num: number }) {
 	const { certificate } = props;
 	const { course, creator } = certificate;
