@@ -25,8 +25,8 @@ jobs:
           env: BACKEND_URL=http://localhost:8888 # Sets environment variables for tests
           # Records to Cypress Cloud 
           # https://docs.cypress.io/guides/cloud/projects#Set-up-a-project-to-record
-          record: true
-          parallel: true # Runs test in parallel using settings above
+          record: false
+          parallel: false # Runs test in parallel using settings above
         env:
           BACKEND_URL: http://localhost:8888
           # For recording and parallelization to work you must set your CYPRESS_RECORD_KEY
