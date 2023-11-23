@@ -14,6 +14,7 @@ import useToken from '../../hooks/useToken';
 // Services
 import CourseServices from '../../services/course.services';
 import StorageServices from '../../services/storage.services';
+import CertificateServices from '../../services/certificate.services';
 
 
 // Icons
@@ -66,9 +67,15 @@ export const CreateCourseModal = () => {
         }, token)
       .then(res => {
         console.log(res);
-        StorageServices.uploadFile({ id: res.data._id + "/0", filePath: coverImage });
+        StorageServices.uploadFile({ id: res._id + "/0", filePath: coverImage });
         //CourseServices.updateCoverImage(res.data._id, token); // pass the required arguments
-        navigate(`/courses/edit/${res.data._id}`);
+
+				CertificateServices.createCertificate({
+					creatorId: id,
+					courseId: res._id,
+				});
+
+        navigate(`/courses/edit/${res._id}`);
       })
       .catch(err => console.log(err))
       .finally();

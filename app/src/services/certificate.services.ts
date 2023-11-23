@@ -20,6 +20,22 @@ const client = axios.create({
 	},
 });
 
+const createCertificate = async (certificate: CertificateIds) => {
+	return await client.put(
+		`/api/creator-certificates`,
+		{
+			creatorId: certificate.creatorId,
+			courseId: certificate.courseId,
+		},
+		{
+			headers: {
+				Authorization: `Bearer ${getUserToken()}`,
+				token: getUserToken(),
+			},
+		}
+	);
+}
+
 const getUserCertificates = async (id : string) => {
 	const certificates = await client.get('/api/creator-certificates/creator/' + id, {
 		headers: {
@@ -49,6 +65,7 @@ const deleteCertificate = async (creatorId: string, courseId: string) => {
 
 // Export all methods
 const CourseServices = Object.freeze({
+	createCertificate,
 	getUserCertificates,
 	deleteCertificate,
 });

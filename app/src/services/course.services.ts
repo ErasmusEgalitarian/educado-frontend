@@ -28,7 +28,7 @@ const client = axios.create({
 
 // Create a new course
 const createCourse = async ({ title, category, difficulty, estimatedHours, description, creator }: CourseInterface, token: string) => {
-  return await axios.put(
+  const course = await axios.put(
     `${BACKEND_URL}/api/courses`,
     {
       title: title,
@@ -40,6 +40,8 @@ const createCourse = async ({ title, category, difficulty, estimatedHours, descr
     },
     { headers: { Authorization: `Bearer ${token}`, token: localStorage.getItem('token') || '' } }
   );
+
+	return course.data;
 };
 
 // TODO: Foundation for updating coverimage. Implement next PR. Possibly merge with updateCourseDetail
