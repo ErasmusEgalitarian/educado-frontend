@@ -61,7 +61,7 @@ export default function CertificateCard(props: { certificate: Certificate, num: 
 							<p className="text-grayMedium hidden sm:inline-block ml-1">alunos</p>
 						</CertificateField>
 					</div>
-					<button onClick={toggleDropdown}>
+					<button id={"dropdown-" + props.num} onClick={toggleDropdown}>
 						<Icon path={mdiChevronDown} className='w-8 h-8 text-grayMedium hover:text-primary mr-5 float-right cursor-pointer' />
 					</button>
 					{isOpen && <div className="col-span-2 bg-grayLight h-[1px]"></div>}
@@ -70,16 +70,16 @@ export default function CertificateCard(props: { certificate: Certificate, num: 
 							{/** Export certificate */}
 							<p className="text-xl translate-y-2 text-grayDark">Exportar certificado: </p>
 							<div className="gap-20 flex flex-row-reverse ">
-								<ActionButton icon={mdiDownload} onClick={download}>
+								<ActionButton id={'download-button-' + props.num} icon={mdiDownload} onClick={download}>
 									<p>Baixar</p> {/** Download */}
 								</ActionButton>
-								<ActionButton icon={mdiFileEye} onClick={toggleModal}>
+								<ActionButton id={'preview-button-' + props.num} icon={mdiFileEye} onClick={toggleModal}>
 									<p> Previa </p> {/** Preview */}
 								</ActionButton>
 							</div>
 							{
 								previewVisible &&
-								<object className="rounded-xl justify-self-center col-span-2 mt-4" data={CERT_URL + pdfPath} type="application/pdf" width='600' height='482'/>
+								<object id={'preview-window-' + props.num} className="rounded-xl justify-self-center col-span-2 mt-4" data={CERT_URL + pdfPath} type="application/pdf" width='600' height='482'/>
 							}
 						</div>
 					}
