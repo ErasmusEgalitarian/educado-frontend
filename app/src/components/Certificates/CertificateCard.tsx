@@ -6,7 +6,8 @@ import categories from "../../helpers/courseCategories";
 import CertificateField from "./CertificateField";
 import { useEffect, useState } from "react";
 import ActionButton from "./ActionButton";
-
+import axios from "axios";
+import { CERT_URL } from "../../helpers/environment";
 
 
 export default function CertificateCard(props: { certificate: Certificate, num: number }) {
@@ -15,12 +16,28 @@ export default function CertificateCard(props: { certificate: Certificate, num: 
 	const maxTitleLength = 20;
 
 	const [isOpen, setIsOpen] = useState(false);
+	const [previewVisible, setPreviewVisible] = useState(false);
+	const [pdfPath, setPdfPath] = useState('');
+
+	function toggleModal() {
+		setPreviewVisible(!previewVisible);
+	}
 
 	function toggleDropdown() {
 		setIsOpen(!isOpen);
 	}
 
-	
+	useEffect(() => {
+		axios.post(CERT_URL + '/api/student-certificates/download?courseId=' + certificate.course._id + '&studentId=' + certificate.creator._id)
+			.then(res => {
+				setPdfPath(res.data);
+			});
+	}, [])
+
+	function download() {
+		console.log('download');
+		window.open(CERT_URL + pdfPath, '_blank');
+	}
 
 	return (
 		<div className="overflow-hidden w-full m-auto duration-200 shadow-md rounded-xl hover:shadow-lg group">
@@ -53,13 +70,17 @@ export default function CertificateCard(props: { certificate: Certificate, num: 
 							{/** Export certificate */}
 							<p className="text-xl translate-y-2 text-grayDark">Exportar certificado: </p>
 							<div className="gap-20 flex flex-row-reverse ">
-								<ActionButton icon={mdiDownload}>
+								<ActionButton icon={mdiDownload} onClick={download}>
 									<p>Baixar</p> {/** Download */}
 								</ActionButton>
-								<ActionButton icon={mdiFileEye}>
+								<ActionButton icon={mdiFileEye} onClick={toggleModal}>
 									<p> Previa </p> {/** Preview */}
 								</ActionButton>
 							</div>
+							{
+								previewVisible &&
+								<object className="rounded-xl justify-self-center col-span-2 mt-4" data={CERT_URL + pdfPath} type="application/pdf" width='600' height='482'/>
+							}
 						</div>
 					}
 
