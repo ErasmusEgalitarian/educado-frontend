@@ -167,7 +167,7 @@ exports[`Login Component can render login page without errors 1`] = `
           className=""
         >
           <h1
-            className="mb-10 flex text-lg text-[#383838] font-normal font-['Montserrat'] underline"
+            className="mb-10 flex text-base text-[#383838] font-normal font-['Montserrat'] underline"
           >
             <a
               href="/welcome"
@@ -194,7 +194,7 @@ exports[`Login Component can render login page without errors 1`] = `
               </svg>
             </a>
             <a
-              className="text-lg text-[#383838] font-normal font-['Montserrat']"
+              className="text-base text-[#383838] font-normal font-['Montserrat']"
               href="/welcome"
               onClick={[Function]}
             >
@@ -203,7 +203,7 @@ exports[`Login Component can render login page without errors 1`] = `
           </h1>
         </div>
         <h1
-          className="text-[#383838] text-3xl font-bold font-['Lato'] leading-normal self-stretch mb-10 "
+          className="text-[#383838] text-3xl font-bold font-['Lato'] leading-normal self-stretch "
         >
           Bem-vindo de volta ao Educado! 
         </h1>
@@ -211,75 +211,81 @@ exports[`Login Component can render login page without errors 1`] = `
           className="stretch flex flex-col space-y-2"
           onSubmit={[Function]}
         >
-          <div>
-            <div
-              className="relative"
+          <div
+            className="relative"
+          >
+            <label
+              className=" text-[#383838] text-xs font-normal font-['Montserrat'] mt-6"
+              htmlFor="emailField"
             >
-              <label
-                className="after:content-['*'] after:ml-0.5 after:text-red-500 text-[#383838] text-sm font-normal font-['Montserrat'] mt-6"
-                htmlFor="emailField"
+              Email
+              <span
+                className="text-[#FF4949] text-xs font-normal font-['Montserrat']"
               >
-                Email
-              </label>
-              <input
-                className="flex border-gray-300 w-[100%] py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
-                id="emailField"
-                name="email"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onInput={[Function]}
-                placeholder="usuario@gmail.com"
-                type="email"
-              />
-            </div>
+                *
+              </span>
+            </label>
+            <input
+              className="flex border-gray-300 w-[100%] py-3 px-4 bg-white placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+              id="email-field"
+              name="email"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onInput={[Function]}
+              placeholder="user@email.com"
+              type="email"
+            />
           </div>
-          <div>
-            <div
-              className="relative"
+          <div
+            className="relative"
+          >
+            <label
+              className=" text-[#383838] text-xs font-normal font-['Montserrat'] mt-6"
+              htmlFor="passwordField"
             >
-              <label
-                className="after:content-['*'] after:ml-0.5 after:text-red-500 text-[#383838] text-sm font-normal font-['Montserrat'] mt-6"
-                htmlFor="passwordField"
+              Senha 
+              <span
+                className="text-[#FF4949] text-xs font-normal font-['Montserrat']"
               >
-                Senha 
-              </label>
-              <input
-                className="w-[100%] flex border-gray-300 gap-2.5 py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
-                id="passwordField"
-                name="password"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onInput={[Function]}
-                placeholder="**********"
-                type="password"
-              />
-              <button
-                className="absolute right-3 bottom-3"
-                id="hidePasswordIcon"
-                onClick={[Function]}
-                type="button"
+                *
+              </span>
+            </label>
+            <input
+              className="w-[100%] flex border-gray-300 gap-2.5 py-3 px-4 bg-white placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+              id="password-field"
+              name="password"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onInput={[Function]}
+              placeholder="**********"
+              type="password"
+            />
+            <button
+              className="absolute right-3 bottom-3"
+              id="hidePasswordIcon"
+              onClick={[Function]}
+              type="button"
+            >
+              <svg
+                role="presentation"
+                style={
+                  {
+                    "height": "1.5rem",
+                    "width": "1.5rem",
+                  }
+                }
+                viewBox="0 0 24 24"
               >
-                <svg
-                  role="presentation"
+                <path
+                  d="M2,5.27L3.28,4L20,20.72L18.73,22L15.65,18.92C14.5,19.3 13.28,19.5 12,19.5C7,19.5 2.73,16.39 1,12C1.69,10.24 2.79,8.69 4.19,7.46L2,5.27M12,9A3,3 0 0,1 15,12C15,12.35 14.94,12.69 14.83,13L11,9.17C11.31,9.06 11.65,9 12,9M12,4.5C17,4.5 21.27,7.61 23,12C22.18,14.08 20.79,15.88 19,17.19L17.58,15.76C18.94,14.82 20.06,13.54 20.82,12C19.17,8.64 15.76,6.5 12,6.5C10.91,6.5 9.84,6.68 8.84,7L7.3,5.47C8.74,4.85 10.33,4.5 12,4.5M3.18,12C4.83,15.36 8.24,17.5 12,17.5C12.69,17.5 13.37,17.43 14,17.29L11.72,15C10.29,14.85 9.15,13.71 9,12.28L5.6,8.87C4.61,9.72 3.78,10.78 3.18,12Z"
                   style={
                     {
-                      "height": "1.5rem",
-                      "width": "1.5rem",
+                      "fill": "#A1ACB2",
                     }
                   }
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M2,5.27L3.28,4L20,20.72L18.73,22L15.65,18.92C14.5,19.3 13.28,19.5 12,19.5C7,19.5 2.73,16.39 1,12C1.69,10.24 2.79,8.69 4.19,7.46L2,5.27M12,9A3,3 0 0,1 15,12C15,12.35 14.94,12.69 14.83,13L11,9.17C11.31,9.06 11.65,9 12,9M12,4.5C17,4.5 21.27,7.61 23,12C22.18,14.08 20.79,15.88 19,17.19L17.58,15.76C18.94,14.82 20.06,13.54 20.82,12C19.17,8.64 15.76,6.5 12,6.5C10.91,6.5 9.84,6.68 8.84,7L7.3,5.47C8.74,4.85 10.33,4.5 12,4.5M3.18,12C4.83,15.36 8.24,17.5 12,17.5C12.69,17.5 13.37,17.43 14,17.29L11.72,15C10.29,14.85 9.15,13.71 9,12.28L5.6,8.87C4.61,9.72 3.78,10.78 3.18,12Z"
-                    style={
-                      {
-                        "fill": "#A1ACB2",
-                      }
-                    }
-                  />
-                </svg>
-              </button>
-            </div>
+                />
+              </svg>
+            </button>
           </div>
           <div
             className=" flex flex-col items-end gap-3"

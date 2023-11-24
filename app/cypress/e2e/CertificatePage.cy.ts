@@ -3,8 +3,6 @@ import "cypress-localstorage-commands";
 const BACKEND_URL = Cypress.env('BACKEND_URL')
 const CERT_URL = Cypress.env('CERT_URL')
 
-
-
 describe('Certificate overview page', () => {
 	before(() => {
 		cy.intercept('POST', `${BACKEND_URL}/api/auth/login`, {
@@ -27,8 +25,8 @@ describe('Certificate overview page', () => {
 			},
 		})
 		cy.visit('http://localhost:3000/login')
-		cy.get('#emailField').type('test@email.com')
-		cy.get('#passwordField').type('password')
+		cy.get('#email-field').type('test@email.com')
+		cy.get('#password-field').type('password')
 		cy.get('#submitLoginButton').click()
     cy.url().should('include', '/courses')
 		cy.saveLocalStorage();

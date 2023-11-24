@@ -2,8 +2,7 @@ export declare module CCApp {
 
   export interface Datum {
     approved: boolean;
-    rejected: boolean;
-    _id: string;
+    id: string;
     firstName: string;
     lastName: string;
     email: string;

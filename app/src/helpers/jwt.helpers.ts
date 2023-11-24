@@ -1,4 +1,4 @@
-import decode from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 
 type Token = {
     user: string,
@@ -8,7 +8,7 @@ type Token = {
 
 export const isExpired = (token: string | null | undefined): boolean => {
     try {
-        const { exp } = decode<Token>(token!);
+        const { exp } = jwt_decode<Token>(token!);
         const expirationDatetimeInSeconds = exp * 1000;
         return Date.now() >= expirationDatetimeInSeconds;
     } catch {
