@@ -19,6 +19,9 @@ import EducadoAdmin from "./pages/EducadoAdmin";
 import SingleApplicantView from "./pages/SingleApplicantView";
 import Certificates from "./pages/Certificates";
 
+// Delete user request for app
+import DataDeletionRequest from "./pages/DataDeletionRequest";
+
 function App() {
   // router
   const router = createBrowserRouter([
@@ -36,10 +39,10 @@ function App() {
       path: "/courses/edit/:id",
       element: <ProtectedRoute><CourseEdit /></ProtectedRoute>
     },
-		{
-			path: "/certificates",
-			element: <ProtectedRoute><Certificates /></ProtectedRoute>,
-		},
+    {
+      path: "/certificates",
+      element: <ProtectedRoute><Certificates /></ProtectedRoute>,
+    },
     {
       path: "/sections/:sid",
       element: <ProtectedRoute><SectionEdit /></ProtectedRoute>
@@ -51,7 +54,7 @@ function App() {
     {
       path: "/profile",
       element: <ProtectedRoute><Profile /></ProtectedRoute>
-      
+
     },
     {
       path: "/login",
@@ -78,9 +81,13 @@ function App() {
     {
       path: "/welcome",
       element: <NonProtectedRoute><Welcome /></NonProtectedRoute>,
+    },
+    {
+      path: "/data_deletion_request",
+      element: <NonProtectedRoute><DataDeletionRequest /></NonProtectedRoute>,
     }
   ]
-)
+  )
   return <RouterProvider router={router} />;
 }
 
