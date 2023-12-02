@@ -104,6 +104,10 @@ function App() {
     {
       path: "/privacy_policy",
       element: <NonProtectedRoute><PrivacyPolicy /></NonProtectedRoute>,
+    },
+    {
+      path: "*",
+      element: <NotFound />
     }
   ]
 )
