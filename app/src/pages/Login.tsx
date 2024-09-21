@@ -70,8 +70,8 @@ const Login = () => {
           email: data.email,
           password: data.password,})
           .then((res) => {
-              if(res.status == 403){
-              const id = res.data.contentCreatorProfile.baseUser;
+              if(res.status == 200){
+              const id = res.data.baseUser;
               navigate(`/application/${id}`);         
               }
               if(res.status == 202){
