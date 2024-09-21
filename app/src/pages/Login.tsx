@@ -70,6 +70,10 @@ const Login = () => {
           email: data.email,
           password: data.password,})
           .then((res) => {
+              if(res.status == 403){
+              const id = res.data.contentCreatorProfile.baseUser;
+              navigate(`/application/${id}`);         
+              }
               if(res.status == 202){
                 localStorage.setItem("token", res.data.accessToken);
                 localStorage.setItem("id", res.data.userInfo.id);
