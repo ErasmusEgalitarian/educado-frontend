@@ -76,7 +76,7 @@ return (
                 <h3 className=" leading-6 text-2xl font-bold font-['Montserrat'] text-gray-900 ">
                 Candidato: <span className="text-blue-500">{data.data.applicator.email}</span> {/* Applicant's mail*/}
                 </h3>
-                <p className="mt-3 max-w-3xl text-base font-['Montserrat'] text-gray-500">
+                <p className="mt-3 max-w-3xl text-lg font-['Montserrat'] text-gray-500">
                 Detalhes e informações sobre o candidato. {/**  Details and informations about the applicant*/}
                 </p>
             </div>

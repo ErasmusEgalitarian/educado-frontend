@@ -65,7 +65,7 @@ return (
         <h1 className="text-center text-cyan-800 text-[32px] font-bold font-['Montserrat']">
           Que bom que você quer fazer parte do Educado! {/* Glad you want to be part of Educado! */}
         </h1>
-        <p className="text-center text-neutral-700 text-base font-normal font-['Montserrat']">
+        <p className="text-center text-neutral-700 text-lg font-normal font-['Montserrat']">
           {/* We need some information to approve your content creator access. We'll get back to you with an answer via e-mail. */}
           Precisamos de algumas informações para aprovar seu acesso de criador de conteúdo. Retornaremos com uma resposta via e-mail
         </p>
@@ -80,7 +80,7 @@ return (
       
 
       <div className="w-[65%] flex justify-end">
-        <button type="submit" className="w-[238px] h-[52px] px-10 py-4 bg-cyan-800 hover:bg-cyan-900 rounded-lg justify-center items-start gap-2.5 inline-flex text-center text-white text-base font-bold font-['Montserrat']">
+        <button type="submit" className="w-[238px] h-[52px] px-10 py-4 bg-cyan-800 hover:bg-cyan-900 rounded-lg justify-center items-start gap-2.5 inline-flex text-center text-white text-lg font-bold font-['Montserrat']">
             Enviar para análise {/* Send for analysis */}
         </button>
       </div>

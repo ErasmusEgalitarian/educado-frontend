@@ -132,17 +132,17 @@ export const SectionCreation = ({ id, token, setTickChange}: Inputs ) => {
           {/*Create and cancel buttons*/}
           <div className='className="flex w-full float-right space-y-4 "'>
             <div className="flex items-center justify-between gap-4 w-full mt-8">
-              <label onClick={()=>changeTick(0)}   className=" w-full cursor-pointer underline py-2 px-4 bg-transparent hover:bg-warning-100 text-primary w-full transition ease-in duration-200 text-center text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded">
+              <label onClick={()=>changeTick(0)}   className=" w-full cursor-pointer underline py-2 px-4 bg-transparent hover:bg-warning-100 text-primary w-full transition ease-in duration-200 text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded">
                   Voltar para Informações {/** GO BACK TO COURSE CREATION PAGE 1/3 IN THE CHECKLIST */}
               </label>
 
-              <label  className="pl-56  underline py-2 bg-transparent hover:bg-primary-100 text-primary w-full transition ease-in duration-200 text-center text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded">
+              <label  className="pl-56  underline py-2 bg-transparent hover:bg-primary-100 text-primary w-full transition ease-in duration-200 text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded">
                 <label onClick={()=>{setIsLeaving(true); onSubmit()}} className='hover:cursor-pointer underline' >
                 Salvar como Rascunho {/** Save as draft */}
                 </label>
               </label>
 
-              <label  className="h-12 p-2 bg-primary hover:bg-primary focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
+              <label  className="h-12 p-2 bg-primary hover:bg-primary focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-lg font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
                 <label onClick={onSubmit} className='py-2 px-4 h-full w-full cursor-pointer' >
                     Revisar Curso {/** Go to the Revisar curso page which is not yet implemented therefore it is just a save  */}
                 </label>

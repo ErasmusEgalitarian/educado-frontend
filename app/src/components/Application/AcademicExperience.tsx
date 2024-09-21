@@ -29,7 +29,7 @@ return (
             <p>Status</p> {/* Status */}
         </div>
         <div className="relative flex gap-10">
-            <select className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+            <select className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
             id="academicLevel"
             {...register("academicLevel", {required: true})}>
             
@@ -38,7 +38,7 @@ return (
             <option value="Superior">Superior</option> {/* Superior */}
             </select>
         
-            <select className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+            <select className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
             id="academicStatus"
             {...register("academicStatus", { required: true })}>
             <option value="Em andamento">Em andamento</option> {/* In progress*/}
@@ -53,14 +53,14 @@ return (
         <div className="relative flex gap-10">
             <input
             type="text" id="major"
-            className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+            className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
             placeholder="Curso"
             {...register("major", { required: true })}
             />
         
             <input
             type="text" id="institution"
-            className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+            className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
             placeholder="Instituição"
             {...register("institution", { required: true })}
             />
@@ -72,14 +72,14 @@ return (
         <div className="relative flex gap-10">
             <input
             type="text" id="educationStartDate"
-            className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+            className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
             placeholder="Mês / Ano"
             {...register("educationStartDate", { required: true })}
             />
         
             <input
             type="text" id="educationEndDate"
-            className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+            className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
             placeholder="Mês / Ano"
             {...register("educationEndDate", { required: true })}
             />

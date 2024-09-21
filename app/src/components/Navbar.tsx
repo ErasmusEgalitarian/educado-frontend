@@ -66,7 +66,7 @@ return (
 
 
             <div className="flex flex-col items-start">
-                <span className="hidden sm:block container overflow-hidden text-grayMedium text-base font-bold font-['Montserrat']">{firstName+" "+lastName}</span>
+                <span className="hidden sm:block container overflow-hidden text-grayMedium text-lg font-bold font-['Montserrat']">{firstName+" "+lastName}</span>
                 <span className="hidden sm:block container overflow-hidden text-grayMedium text-sm font-normal font-['Montserrat']">{email}</span>
             </div>
 

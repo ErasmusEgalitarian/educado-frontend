@@ -47,7 +47,7 @@ const PopUpDelete: React.FC<PopUpDeleteProps> = ({ popupOpen, onTogglePopup }) =
                     </svg>
                   </div>
                   <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                    <h3 className="text-base font-semibold leading-6 text-gray-900" id="modal-title">Deletar conta</h3>
+                    <h3 className="text-lg font-semibold leading-6 text-gray-900" id="modal-title">Deletar conta</h3>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">Você tem certeza que quer deletar sua conta? Todos os seus dados serão deletados permanentemente. Essa ação não pode ser desfeita.</p>
                     </div>

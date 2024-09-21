@@ -93,7 +93,7 @@ exports[`Login Component can render login page without errors 1`] = `
                 >
                   Bem-vindo ao nosso portal de aprendizado Educado
                   <div
-                    className="self-stretch text-center text-sky-50 text-base font-bold font-['Montserrat']"
+                    className="self-stretch text-center text-sky-50 text-lg font-bold font-['Montserrat']"
                   >
                     Junte-se a nós para transformar vidas. Oferecemos acesso a conteúdo personalizado para pessoas que precisam, melhorando condições de vida e oportunidades de emprego.
                   </div>
@@ -288,11 +288,11 @@ exports[`Login Component can render login page without errors 1`] = `
             className=" flex flex-col items-end gap-3"
           >
             <span
-              className="text-neutral-700 text-right text-base font-normal font-['Montserrat']"
+              className="text-neutral-700 text-right text-lg font-normal font-['Montserrat']"
             />
              
             <label
-              className="text-[#383838] text-base font-normal font-['Montserrat'] underline hover:text-blue-500"
+              className="text-[#383838] text-lg font-normal font-['Montserrat'] underline hover:text-blue-500"
               id="modalToggle"
               onClick={[Function]}
             >

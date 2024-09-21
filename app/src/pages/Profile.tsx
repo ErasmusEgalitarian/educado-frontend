@@ -357,7 +357,7 @@ const Profile = () => {
             <div className="w-[1000px] h-[52px] justify-between items-center inline-flex gap-4 mt-16">
               <button
                 type="button"
-                className="text-center text-red-500 text-base font-bold font-['Montserrat'] underline"
+                className="text-center text-red-500 text-lg font-bold font-['Montserrat'] underline"
               >
                 Deletar conta
               </button>
@@ -374,7 +374,7 @@ const Profile = () => {
                   disabled={isDisabled}
                   onClick={SubmitValidation}
                   type="submit"
-                  className="text-center text-white text-base font-bold font-['Montserrat'] text-right"
+                  className="text-center text-white text-lg font-bold font-['Montserrat'] text-right"
                 >
                   Salvar edições
                 </button>

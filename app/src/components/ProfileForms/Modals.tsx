@@ -103,7 +103,7 @@ export default function PersonalInformationForm({
                     <button
                       type="button"
                       className="space-x-44 disabled:opacity-20 disabled:bg-cyan-500 rounded-lg bg-[#166276] 
-                          transition duration-100 ease-in hover:bg-cyan-500 hover:text-gray-50 text-white text-base font-bold font-['Montserrat'] mt-7 w-40 p-3"
+                          transition duration-100 ease-in hover:bg-cyan-500 hover:text-gray-50 text-white text-lg font-bold font-['Montserrat'] mt-7 w-40 p-3"
                       onClick={() => {
                         if (!intError) {
                           handleModalButton();
@@ -136,11 +136,11 @@ export default function PersonalInformationForm({
                 {/*Password Field*/}
                 <div className="relative">
                   <label
-                    className=" flex flex-start text-[#383838] text-xs font-normal gap-1 font-['Montserrat'] mt-5"
+                    className=" flex flex-start text-[#383838] text-sm font-normal gap-1 font-['Montserrat'] mt-5"
                     htmlFor="passwordField"
                   >
                     Senha {/*Password*/}
-                    <span className=" text-[#FF4949] text-xs font-normal font-['Montserrat']">
+                    <span className=" text-[#FF4949] text-sm font-normal font-['Montserrat']">
                       *
                     </span>
                   </label>
@@ -150,7 +150,7 @@ export default function PersonalInformationForm({
                     data-cy="password-field"
                     type={passwordVisible ? "text" : "password"}
                     id="passwordField"
-                    className="w-[100%] hflex border-gray-300  py-3 px-4 bg-white placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+                    className="w-[100%] hflex border-gray-300  py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
                     placeholder="**********"
                   />
 
@@ -171,7 +171,7 @@ export default function PersonalInformationForm({
 
                 {/*Password Checks*/}
                 <div className="px-3">
-                  <div className="items-stretch text-[#A1ACB2] text-xs font-normal font-['Montserrat'] mt-2 text-left">
+                  <div className="items-stretch text-[#A1ACB2] text-sm font-normal font-['Montserrat'] mt-2 text-left">
                     {passwordCheck1 ? (
                       <Icon
                         className=" left-20 float-left"
@@ -183,7 +183,7 @@ export default function PersonalInformationForm({
                     &bull; Mínimo 8 caracteres {/*Minimum 8 characters*/}
                   </div>
 
-                  <div className="text-[#A1ACB2] text-xs font-normal font-['Montserrat'] items-stretch text-left">
+                  <div className="text-[#A1ACB2] text-sm font-normal font-['Montserrat'] items-stretch text-left">
                     {passwordCheck2 ? (
                       <Icon
                         className="left-20 float-left"
@@ -200,11 +200,11 @@ export default function PersonalInformationForm({
                 {/*Confirm Password Fields */}
                 <div className="relative">
                   <label
-                    className=" flex flex-start text-[#383838] text-xs font-normal gap-1 font-['Montserrat'] mt-6"
+                    className=" flex flex-start text-[#383838] text-sm font-normal gap-1 font-['Montserrat'] mt-6"
                     htmlFor="passwordFieldRepeat"
                   >
                     Confirmar novo senha
-                    <span className="text-[#FF4949] text-xs font-normal font-['Montserrat']">
+                    <span className="text-[#FF4949] text-sm font-normal font-['Montserrat']">
                       *
                     </span>
                   </label>
@@ -213,7 +213,7 @@ export default function PersonalInformationForm({
                     type={passwordVisibleRepeat ? "text" : "password"}
                     id="passwordFieldRepeat"
                     placeholder="********** "
-                    className="w-[100%] flex border-gray-300 gap-2.5 py-3 px-4 bg-white placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+                    className="w-[100%] flex border-gray-300 gap-2.5 py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
                   />
                   <button
                     type="button"
@@ -247,7 +247,7 @@ export default function PersonalInformationForm({
                     <button
                       type="button"
                       className="space-x-44 disabled:opacity-20 disabled:bg-cyan-500 rounded-lg bg-[#166276] 
-                          transition duration-100 ease-in hover:bg-cyan-500 hover:text-gray-50 text-white text-base font-bold font-['Montserrat'] mt-7 w-56 p-3"
+                          transition duration-100 ease-in hover:bg-cyan-500 hover:text-gray-50 text-white text-lg font-bold font-['Montserrat'] mt-7 w-56 p-3"
                     >
                       Salvar novo senha
                     </button>

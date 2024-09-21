@@ -2,36 +2,36 @@ const WorkExperience = ({ data } : {data: any}) => {
 console.log(data)
 return (
 <div className="bg-white px-4 py-3 grid sm:grid-cols-2 sm:gap-4 sm:px-6 space-x-8">
-    <dt className="text-base font-bold font-['Montserrat']  text-gray-900">
+    <dt className="text-lg font-bold font-['Montserrat']  text-gray-900">
     Experiência profissional: {/** Professional Experience*/}
     </dt>
     <div/> {/* spacing */}
-    <dd id="company" className="mt-1 text-base font-['Montserrat'] text-gray-900 sm:mt-0">
-        <span className="text-base font-bold font-['Montserrat'] text-gray-900 m-2">
+    <dd id="company" className="mt-1 text-lg font-['Montserrat'] text-gray-900 sm:mt-0">
+        <span className="text-lg font-bold font-['Montserrat'] text-gray-900 m-2">
             Empresa: {/* company */}
         </span>
         {data.data.application.company}
     </dd>
-    <dd id="position" className="mt-1 text-base font-['Montserrat'] text-gray-900 sm:mt-0">
-        <span className="text-base font-bold font-['Montserrat'] text-gray-900 m-2">
+    <dd id="position" className="mt-1 text-lg font-['Montserrat'] text-gray-900 sm:mt-0">
+        <span className="text-lg font-bold font-['Montserrat'] text-gray-900 m-2">
             Cargo: {/* position */}
         </span>
         {data.data.application.position}
     </dd>
-    <dd id="workStartDate" className="mt-1 text-base font-['Montserrat'] text-gray-900 sm:mt-0">
-        <span className="text-base font-bold font-['Montserrat'] text-gray-900 m-2">
+    <dd id="workStartDate" className="mt-1 text-lg font-['Montserrat'] text-gray-900 sm:mt-0">
+        <span className="text-lg font-bold font-['Montserrat'] text-gray-900 m-2">
             Início: {/* work Start Date */}
         </span>
         {data.data.application.workStartDate}
     </dd>
-    <dd id="workEndDate" className="mt-1 text-base font-['Montserrat'] text-gray-900 sm:mt-0">
-        <span className="text-base font-bold font-['Montserrat'] text-gray-900 m-2">
+    <dd id="workEndDate" className="mt-1 text-lg font-['Montserrat'] text-gray-900 sm:mt-0">
+        <span className="text-lg font-bold font-['Montserrat'] text-gray-900 m-2">
             Fim: {/* work end Date */}
         </span>
         {data.data.application.workEndDate}
     </dd>
-    <dd id="workActivities" className="mt-1 text-base font-['Montserrat'] text-gray-900 sm:mt-0">
-        <span className="text-base font-bold font-['Montserrat'] text-gray-900 m-2">
+    <dd id="workActivities" className="mt-1 text-lg font-['Montserrat'] text-gray-900 sm:mt-0">
+        <span className="text-lg font-bold font-['Montserrat'] text-gray-900 m-2">
             Atividades: {/* work Activities */}
         </span>
         {data.data.application.workActivities}
