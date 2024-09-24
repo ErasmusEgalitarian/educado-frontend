@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import Loading from './general/Loading'
 import Layout from './Layout'
 import { toast } from 'react-toastify';
+import { set } from 'cypress/types/lodash';
 
 interface Inputs {
     id: string,
@@ -31,6 +32,7 @@ export const SectionCreation = ({ id: propId, token, setTickChange}: Inputs ) =>
   const [onSubmitSubscribers, setOnSubmitSubscribers] = useState<Function[]>([]);
   const [sections, setSections] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [status, setStatus] = useState<string>("draft");
 
   const navigate = useNavigate();
   function addOnSubmitSubscriber(callback: Function) {
@@ -56,20 +58,31 @@ export const SectionCreation = ({ id: propId, token, setTickChange}: Inputs ) =>
     onSubmitSubscribers.forEach((cb) => cb());
   }
 
-
-  async function onSubmit() {
-    await CourseServices.updateCourseSectionOrder(sections, id, token);
-    notifyOnSubmitSubscriber();
-
-    toast.success("Seções salvas com sucesso!");
-
-    if(confirm("Tem certeza que deseja sair? Você perderá todas as alterações feitas.")){
-      setIsLeaving(true);
+  // Function to call when publish button is clicked, if publish succueds user will be send to courses after toast has been send
+  async function onPublish() {
+    try{
+      if(confirm("Tem certeza de que deseja publicar o curso? Isso o disponibilizará para os usuários do aplicativo")) {
+      await CourseServices.updateCourseStatus(id, "published", token);
+      setStatus("published");
+      console.log("Course published");
+      toast.success("Curso publicado com sucesso!")}
+      navigate("/courses");
+    }
+    catch(err){
+      console.error(err);
     }
     
-    if(isLeaving){
-      window.location.href = '/courses';
+    
+  }
+  async function onSubmit() {
+    notifyOnSubmitSubscriber();
+
+    if(confirm("Tem certeza que deseja sair? Você perderá todas as alterações feitas.")){
+      await CourseServices.updateCourseSectionOrder(sections, id, token);
+      toast.success("Seções salvas com sucesso!");
+      navigate("/courses");
     }
+    
     
     //setTickChange(2)(); //TODO: add in when next page is implemented
   }
@@ -92,11 +105,18 @@ export const SectionCreation = ({ id: propId, token, setTickChange}: Inputs ) =>
       return res;
     }
 
+   // Redirect to courses page when setLeaving is set to true
+    useEffect(() => {
+      if (isLeaving) {
+        navigate("/courses");
+    }}, [isLeaving])
+
     // Fetch Course Details
     useEffect(() => {
       if (id !== "0") {
         getData(`${BACKEND_URL}/api/courses/${id}`)
           .then(data => {
+            setStatus(data.status);
             setSections(data.sections); // Array of section ID's 
             setLoading(false);
           })
@@ -146,8 +166,8 @@ export const SectionCreation = ({ id: propId, token, setTickChange}: Inputs ) =>
               </label>
 
               <label  className="h-12 p-2 bg-primary hover:bg-primary focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-lg font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
-                <label onClick={onSubmit} className='py-2 px-4 h-full w-full cursor-pointer' >
-                    Revisar Curso {/** Go to the Revisar curso page which is not yet implemented therefore it is just a save  */}
+                <label onClick={onPublish} className='py-2 px-4 h-full w-full cursor-pointer' >
+                 Publicar Curso {/** Publish course, this should be replaced with a move to preview button when preview page is implemented */}
                 </label>
               </label>
             </div>
