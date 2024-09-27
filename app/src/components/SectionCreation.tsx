@@ -166,18 +166,18 @@ export const SectionCreation = ({ id: propId, token, setTickChange}: Inputs ) =>
           {/*Create and cancel buttons*/}
           <div className='className="flex w-full float-right space-y-4 "'>
             <div className="flex items-center justify-between gap-4 w-full mt-8">
-              <label onClick={()=>changeTick(0)}   className=" w-full cursor-pointer underline py-2 px-4 bg-transparent hover:bg-warning-100 text-primary w-full transition ease-in duration-200 text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded">
+              <label onClick={()=>changeTick(0)}   className="whitespace-nowrap cursor-pointer underline py-2 pr-4 bg-transparent hover:bg-warning-100 text-primary w-full transition ease-in duration-200 text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded">
                   Voltar para Informações {/** GO BACK TO COURSE CREATION PAGE 1/3 IN THE CHECKLIST */}
               </label>
 
-              <label  className={` ${status === "published" ? "invisible pointer-events-none" : ""} pl-56  underline py-2 bg-transparent hover:bg-primary-100 text-primary w-full transition ease-in duration-200 text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded `}>
-                <label onClick={()=>{setIsLeaving(true); onSubmit()}} className='hover:cursor-pointer underline' >
+              <label  className={` ${status === "published" ? "invisible pointer-events-none" : ""} pl-32  underline py-2 bg-transparent hover:bg-primary-100 text-primary w-full transition ease-in duration-200 text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded `}>
+                <label onClick={()=>{setIsLeaving(true); onSubmit()}} className='whitespace-nowrap hover:cursor-pointer underline' >
                 Salvar como Rascunho {/** Save as draft */}
                 </label>
               </label>
 
               <label  className="h-12 p-2 bg-primary hover:bg-primary focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-lg font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
-                <label onClick={()=> {setIsLeaving(true); onPublish()}} className='py-2 px-4 h-full w-full cursor-pointer' >
+                <label onClick={()=> {setIsLeaving(true); onPublish()}} className='whitespace-nowrap py-4 px-8 h-full w-full cursor-pointer' >
                  {status === 'published' ? 'Publicar Edições' : 'Publicar Curso'} {/** Publish course, this should be replaced with a move to preview button when preview page is implemented */}
                 </label>
               </label>
