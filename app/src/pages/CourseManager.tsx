@@ -24,42 +24,50 @@ const CourseManager = () => {
     };
 
     const { data, error } = useSWR(
-        token ? [`${BACKEND_URL}/api/courses/${id}`, token] : null,
+        token && id !== "0" ? [`${BACKEND_URL}/api/courses/${id}`, token] : null,
         getData
     );
 
     useEffect(() => {
-        if (data) {
+        if (id === "0") {
+            setCourseData({ title: "", description: "", category: "", difficulty: "", status: "draft", sections: [] });
+        } else if (data) {
             setCourseData(data);
-            // Determine highestTick based on courseData
             let maxTick = 0;
-            if (data.sections && data.sections.length > 0) {
-                maxTick = 1; // Sections exist
+            if (data.title && data.description && data.category && data.difficulty && data.status) {
+                maxTick = 1;
             }
             if (data.sections && data.sections.length > 0 && data.isReviewed) {
-                maxTick = 2; // Course has been reviewed
+                maxTick = 2;
             }
             setHighestTick(maxTick);
         }
-    }, [data]);
+    }, [data, id]);
 
     function handleTickChange(newTick: number) {
         setTickChange(newTick);
+        if(newTick > highestTick) {
+            setHighestTick(newTick);
+        }
     }
 
     function setId(idInput: string) {
         id = idInput;
     }
 
-    if (!data && id !== "0") return <Layout meta='course overview'><Loading /></Layout>; // Loading course details
-    if (error) return <NotFound />; // Course not found
+    function updateHighestTick(newHighestTick: number) {
+        setHighestTick(newHighestTick);
+    }
+
+    if (!data && id !== "0") return <Layout meta='course overview'><Loading /></Layout>;
+    if (error) return <NotFound />;
 
     return (
         <Layout meta="Course Manager">
             <div className="flex flex-row">
                 <Checklist tickChange={tickChange} highestTick={highestTick} id={id ?? ""} setTickChange={handleTickChange} />
                 <div className='flex-none w-2/3 mr-20'>
-                    {tickChange === 0 && <CourseComponent token={token} id={id} setTickChange={handleTickChange} setId={setId} courseData={courseData} />}
+                    {tickChange === 0 && <CourseComponent token={token} id={id} setTickChange={handleTickChange} setId={setId} courseData={courseData} updateHighestTick={updateHighestTick} />}
                     {tickChange === 1 && <SectionCreation id={id ?? ""} token={token} setTickChange={handleTickChange} />}
                 </div>
             </div>
