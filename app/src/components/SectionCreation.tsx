@@ -161,11 +161,11 @@ export const SectionCreation = ({ id: propId, token, setTickChange}: Inputs ) =>
                 <label onClick={()=>{setIsLeaving(true); onSubmit()}} className='hover:cursor-pointer underline' >
                 Salvar como Rascunho {/** Save as draft */}
                 </label>
-              </label>
+              </label>}
 
               <label  className="h-12 p-2 bg-primary hover:bg-primary focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-lg font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
                 <label onClick={()=> {setIsLeaving(true); onPublish()}} className='py-2 px-4 h-full w-full cursor-pointer' >
-                 Publicar Curso {/** Publish course, this should be replaced with a move to preview button when preview page is implemented */}
+                 {status === 'published' ? 'Publicar Edições' : 'Publicar Curso'} {/** Publish course, this should be replaced with a move to preview button when preview page is implemented */}
                 </label>
               </label>
             </div>
