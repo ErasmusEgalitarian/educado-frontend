@@ -49,6 +49,7 @@ export const CourseComponent = ({token, id, setTickChange, setId}: CourseCompone
   const [charCount, setCharCount] = useState<number>(0);
   const [isLeaving, setIsLeaving] = useState<boolean>(false);
   const {register, handleSubmit, formState: { errors } } = useForm<Course>();
+  const existingCourse = id != "0";
 
 
   const navigate = useNavigate()
@@ -68,7 +69,7 @@ export const CourseComponent = ({token, id, setTickChange, setId}: CourseCompone
   }
 
   // Fetch Course Details
-  if(id != "0"){
+  if(existingCourse){
     var { data, error } = useSWR(
       token ? [`${BACKEND_URL}/api/courses/${id}`, token] : null,
       getData
@@ -84,11 +85,9 @@ export const CourseComponent = ({token, id, setTickChange, setId}: CourseCompone
       )));
   }, []);
 
-
   const onSubmit: SubmitHandler<Course> = (data) => {
     
     let newStatus = statusSTR;
-  
     if(statusChange){
       if(statusSTR === "draft"){
           newStatus = "published";
@@ -118,7 +117,7 @@ export const CourseComponent = ({token, id, setTickChange, setId}: CourseCompone
       // Update course details
       // When the user press the button to the right, the tick changes and it goes to the next component
       // When the user press the draft button, it saves as a draft and goes back to the course list
-      if(id != "0"){
+      if(existingCourse){
         CourseServices.updateCourseDetail(changes, id, token )
         .then(() => {
           toast.success('Curso atualizado');
@@ -157,7 +156,7 @@ export const CourseComponent = ({token, id, setTickChange, setId}: CourseCompone
     setIsLeaving(false);
   }
 
-  if(!data && id != "0") return <Layout meta='course overview'><Loading /></Layout> // Loading course details
+  if(!data && existingCourse) return <Layout meta='course overview'><Loading /></Layout> // Loading course details
   if(error) return <NotFound/> // Course not found
 
   
