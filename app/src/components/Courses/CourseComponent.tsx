@@ -258,9 +258,10 @@ export const CourseComponent = ({token, id, setTickChange, setId}: CourseCompone
               
               <label htmlFor='course-create' className="ml-56 underline py-2 px-4 bg-transparent hover:bg-primary-100 text-primary w-full transition ease-in duration-200 text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded">
                 <button id="SaveAsDraft" onClick={()=>setIsLeaving(true)} type="submit" className='underline'>
-                  Salvar como Rascunho {/** Save as draft */}
+                  {statusSTR === 'published' ? 'Publicar Edições' : 'Salvar como Rascunho'} {/** Save as draft */}
                 </button>
               </label>
+
               <label htmlFor='course-create' className="h-12 p-2 bg-primary hover:bg-primary focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-lg font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
                 <button type="submit" id="addCourse" className='py-2 px-4 h-full w-full cursor-pointer'>
                   Adicionar seções {/** Add sections */}
