@@ -61,10 +61,23 @@ export const SectionCreation = ({ id: propId, token, setTickChange}: Inputs ) =>
   // Function to call when publish button is clicked, if publish succueds user will be send to courses after toast has been send
   async function onPublish() {
     try{
-      if(confirm("Tem certeza de que deseja publicar o curso? Isso o disponibilizará para os usuários do aplicativo")) {
-        await CourseServices.updateCourseStatus(id, "published", token);
-        console.log("Course published");
-        toast.success("Curso publicado com sucesso!");
+      notifyOnSubmitSubscriber();
+      const confirmMSG = status === "published" 
+      ? 
+      "Tem certeza de que deseja publicar o curso? Isso o disponibilizará para os usuários do aplicativo"
+      :
+      "Tem certeza de que deseja publicar as alterações feitas no curso"
+
+      if(confirm(confirmMSG)) {
+        if (status !== "published") {
+          await CourseServices.updateCourseStatus(id, "published", token);
+          console.log("Course published");
+          toast.success("Curso publicado com sucesso!");
+        }
+        else {
+          await CourseServices.updateCourseSectionOrder(sections, id, token);
+          toast.success("Seções salvas com sucesso!");
+        }
       }
     }
     catch(err){
@@ -161,7 +174,7 @@ export const SectionCreation = ({ id: propId, token, setTickChange}: Inputs ) =>
                 <label onClick={()=>{setIsLeaving(true); onSubmit()}} className='hover:cursor-pointer underline' >
                 Salvar como Rascunho {/** Save as draft */}
                 </label>
-              </label>}
+              </label>
 
               <label  className="h-12 p-2 bg-primary hover:bg-primary focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-lg font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
                 <label onClick={()=> {setIsLeaving(true); onPublish()}} className='py-2 px-4 h-full w-full cursor-pointer' >
