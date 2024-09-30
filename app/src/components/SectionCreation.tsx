@@ -38,6 +38,9 @@ export const SectionCreation = ({
   );
   const [sections, setSections] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("");
+  const [dialogConfirm, setDialogConfirm] = useState<Function>(() => {});
   const [status, setStatus] = useState<string>("draft");
 
   const navigate = useNavigate();
@@ -58,6 +61,37 @@ export const SectionCreation = ({
   function notifyOnSubmitSubscriber() {
     onSubmitSubscribers.forEach((cb) => cb());
   }
+
+  const handleDialogEvent = (dialogText: string, onConfirm: Function) => {
+    setDialogMessage(dialogText);
+    setDialogConfirm(() => onConfirm);
+    setShowDialog(true);
+  };
+
+  const handlePublishConfirm = async () => {
+    try {
+      updateCourseSections();
+      if (status !== "published") {
+        await CourseServices.updateCourseStatus(id, "published", token);
+        toast.success("Curso publicado com sucesso!");
+      } else {
+        toast.success("Seções salvas com sucesso!");
+      }
+      setIsLeaving(true);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleDraftConfirm = async () => {
+    try {
+      await updateCourseSections();
+      toast.success("Seções salvas com sucesso!");
+      setIsLeaving(true);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   // Function to call when publish button is clicked, if publish succueds user will be send to courses after toast has been send
   async function onPublish() {
@@ -94,6 +128,7 @@ export const SectionCreation = ({
   }
 
   async function updateCourseSections(): Promise<void> {
+    console.log("updateCourseSections");
     notifyOnSubmitSubscriber();
     await CourseServices.updateCourseSectionOrder(sections, id, token);
   }
@@ -149,11 +184,16 @@ export const SectionCreation = ({
 
   return (
     <div>
-      <Popup
-        dialogText="Tem certeza que deseja sair? Você perderá todas as alterações feitas."
-        onConfirm={() => setIsLeaving(true)}
-        onClose={() => {}} // Do nothing
-      />
+      {showDialog && (
+        <Popup
+          dialogText={dialogMessage}
+          onConfirm={() => dialogConfirm}
+          onClose={() => {
+            setShowDialog(false);
+          }} // Do nothing
+        />
+      )}
+
       <div className="">
         <div className="flex w-full float-right items-center justify-left space-y-4 my-4">
           <h1 className="text-2xl text-left font-bold justify-between space-y-4">
@@ -195,8 +235,10 @@ export const SectionCreation = ({
             >
               <label
                 onClick={() => {
-                  setIsLeaving(true);
-                  onSubmit();
+                  handleDialogEvent(
+                    "Tem certeza que deseja sair? Você perderá todas as alterações feitas.",
+                    handleDraftConfirm
+                  );
                 }}
                 className="whitespace-nowrap hover:cursor-pointer underline"
               >
@@ -207,8 +249,12 @@ export const SectionCreation = ({
             <label className="h-12 p-2 bg-primary hover:bg-primary focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-lg font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
               <label
                 onClick={() => {
-                  setIsLeaving(true);
-                  onPublish();
+                  handleDialogEvent(
+                    status === "published"
+                      ? "Tem certeza de que deseja publicar o curso? Isso o disponibilizará para os usuários do aplicativo"
+                      : "Tem certeza de que deseja publicar as alterações feitas no curso",
+                    handlePublishConfirm
+                  );
                 }}
                 className="whitespace-nowrap py-4 px-8 h-full w-full cursor-pointer"
               >
