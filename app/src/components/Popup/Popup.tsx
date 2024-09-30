@@ -8,15 +8,8 @@ const Popup: React.FC<PopupProps> = ({ onConfirm, onClose, dialogText }) => {
       <div className="popup-content">
         <p>{dialogText}</p>
         <div className="popup-actions">
-          <button
-            onClick={() => {
-              console.log("confirm pls");
-              onConfirm;
-            }}
-          >
-            Confirmar
-          </button>
-          <button onClick={() => onClose()}>Cancelar</button>
+          <button className="cancel-button" onClick={onClose}>Cancelar</button>
+          <button className="confirm-button" onClick={onConfirm}>Confirmar</button>
         </div>
       </div>
     </div>
