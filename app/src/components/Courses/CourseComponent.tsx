@@ -49,6 +49,7 @@ export const CourseComponent = ({token, id, setTickChange, setId}: CourseCompone
   const [charCount, setCharCount] = useState<number>(0);
   const [isLeaving, setIsLeaving] = useState<boolean>(false);
   const {register, handleSubmit, formState: { errors } } = useForm<Course>();
+  const existingCourse = id != "0";
 
 
   const navigate = useNavigate()
@@ -68,7 +69,7 @@ export const CourseComponent = ({token, id, setTickChange, setId}: CourseCompone
   }
 
   // Fetch Course Details
-  if(id != "0"){
+  if(existingCourse){
     var { data, error } = useSWR(
       token ? [`${BACKEND_URL}/api/courses/${id}`, token] : null,
       getData
@@ -84,11 +85,9 @@ export const CourseComponent = ({token, id, setTickChange, setId}: CourseCompone
       )));
   }, []);
 
-
   const onSubmit: SubmitHandler<Course> = (data) => {
     
     let newStatus = statusSTR;
-  
     if(statusChange){
       if(statusSTR === "draft"){
           newStatus = "published";
@@ -118,7 +117,7 @@ export const CourseComponent = ({token, id, setTickChange, setId}: CourseCompone
       // Update course details
       // When the user press the button to the right, the tick changes and it goes to the next component
       // When the user press the draft button, it saves as a draft and goes back to the course list
-      if(id != "0"){
+      if(existingCourse){
         CourseServices.updateCourseDetail(changes, id, token )
         .then(() => {
           toast.success('Curso atualizado');
@@ -157,7 +156,7 @@ export const CourseComponent = ({token, id, setTickChange, setId}: CourseCompone
     setIsLeaving(false);
   }
 
-  if(!data && id != "0") return <Layout meta='course overview'><Loading /></Layout> // Loading course details
+  if(!data && existingCourse) return <Layout meta='course overview'><Loading /></Layout> // Loading course details
   if(error) return <NotFound/> // Course not found
 
   
@@ -169,11 +168,10 @@ export const CourseComponent = ({token, id, setTickChange, setId}: CourseCompone
         <ToolTipIcon index={0} toolTipIndex={toolTipIndex} text={"👩🏻‍🏫Nossos cursos são separados em seções e você pode adicionar quantas quiser!"} tooltipAmount={2} callBack={setToolTipIndex}/>
       </div>
 
+    {/*Field to input the title of the new course*/}
+    <form className="flex h-full flex-col justify-between space-y-4" onSubmit={handleSubmit(onSubmit)}>
       {/*White bagground*/}
-      <div className="w-full float-right bg-white rounded-lg shadow-lg justify-between space-y-4 p-10">
-
-        {/*Field to input the title of the new course*/}
-        <form className="flex h-full flex-col justify-between space-y-4" onSubmit={handleSubmit(onSubmit)}>
+        <div className="w-full float-right bg-white rounded-lg shadow-lg justify-between space-y-4 p-10">
           <div className="flex flex-col space-y-2 text-left">
             <label htmlFor='title'>Nome do curso</label> {/*Title*/}
             <input id="title-field" type="text" defaultValue={data ? data.title : ""} placeholder={data ? data.title : ""}
@@ -248,28 +246,28 @@ export const CourseComponent = ({token, id, setTickChange, setId}: CourseCompone
           <div className='text-right' >
             <label htmlFor="">o arquivo deve conter no máximo 10Mb</label>
           </div>
-
-          {/*Create and cancel buttons*/}
-          <div className='modal-action'>
-            <div className="flex items-center justify-between gap-4 w-full mt-8">
-              <label onClick={() => { navigate("/courses") }} htmlFor='course-create' className="cursor-pointer underline py-2 px-4 bg-transparent hover:bg-warning-100 text-warning w-full transition ease-in duration-200 text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded">
+        </div>
+        {/*Create and cancel buttons*/}
+        <div className='modal-action pb-10'>
+            <div className="whitespace-nowrap flex items-center justify-between w-full mt-8">
+              <label onClick={() => { navigate("/courses") }} htmlFor='course-create' className="cursor-pointer underline py-2 pr-4 bg-transparent hover:bg-warning-100 text-warning w-full transition ease-in duration-200 text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded">
                 Cancelar e Voltar {/** Cancel */}
               </label>
               
-              <label htmlFor='course-create' className="ml-56 underline py-2 px-4 bg-transparent hover:bg-primary-100 text-primary w-full transition ease-in duration-200 text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded">
+              <label htmlFor='course-create' className={` ${statusSTR === "published" ? "invisible pointer-events-none" : ""} whitespace-nowrap ml-42 underline py-2 px-4 bg-transparent hover:bg-primary-100 text-primary w-full transition ease-in duration-200 text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded`}>
                 <button id="SaveAsDraft" onClick={()=>setIsLeaving(true)} type="submit" className='underline'>
                   Salvar como Rascunho {/** Save as draft */}
                 </button>
               </label>
-              <label htmlFor='course-create' className="h-12 p-2 bg-primary hover:bg-primary focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-lg font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
-                <button type="submit" id="addCourse" className='py-2 px-4 h-full w-full cursor-pointer'>
+
+              <label htmlFor='course-create' className="whitespace-nowrap h-12 p-2 bg-primary hover:bg-primary focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-lg font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
+                <button type="submit" id="addCourse" className='flex items-center justify-center py-4 px-8 h-full w-full cursor-pointer'>
                   Adicionar seções {/** Add sections */}
                 </button>
               </label>
             </div>
           </div>
-        </form>
-      </div>
+      </form>
     </div>
   );
 }
