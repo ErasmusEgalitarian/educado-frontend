@@ -1,6 +1,6 @@
-import React from 'react';
-import { PopupProps } from '../interfaces/Popup';
-
+import React from "react";
+import { PopupProps } from "../../interfaces/Popup";
+import "./index.css";
 //Figure out the classNames later or whatever
 const Popup: React.FC<PopupProps> = ({ onConfirm, onClose, dialogText }) => {
   return (
