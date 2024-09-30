@@ -72,8 +72,7 @@ export const SectionCreation = ({
   const handleDraftConfirm = async () => {
     try {
       await updateCourseSections();
-      toast.success("Seções salvas com sucesso!");
-      setIsLeaving(true);
+      navigate("/courses?toast=saved draft");
     } catch (err) {
       console.error(err);
     }
@@ -84,11 +83,10 @@ export const SectionCreation = ({
       updateCourseSections();
       if (status !== "published") {
         await CourseServices.updateCourseStatus(id, "published", token);
-        toast.success("Curso publicado com sucesso!");
+        navigate("/courses?toast=published");
       } else {
-        toast.success("Seções salvas com sucesso!");
+        navigate("/courses?toast=saved published");
       }
-      setIsLeaving(true);
     } catch (err) {
       console.error(err);
     }
@@ -151,12 +149,7 @@ export const SectionCreation = ({
     return res;
   };
 
-  // Redirect to courses page when setLeaving is set to true
-  useEffect(() => {
-    if (isLeaving) {
-      navigate("/courses");
-    }
-  }, [isLeaving]);
+  // Redirect to courses page when setLeaving is s
 
   // Fetch Course Details
   useEffect(() => {
