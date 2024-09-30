@@ -1,5 +1,5 @@
 export interface PopupProps {
-    onConfirm: () => void;
+    onConfirm: () => void | Promise<void>;
     onClose: () => void;
     dialogText: string;
   }

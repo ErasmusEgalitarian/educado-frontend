@@ -40,6 +40,7 @@ export const SectionCreation = ({
   const [loading, setLoading] = useState(true);
   const [showDialog, setShowDialog] = useState(false);
   const [dialogMessage, setDialogMessage] = useState("");
+
   const [dialogConfirm, setDialogConfirm] = useState<Function>(() => {});
   const [status, setStatus] = useState<string>("draft");
 
@@ -62,10 +63,20 @@ export const SectionCreation = ({
     onSubmitSubscribers.forEach((cb) => cb());
   }
 
-  const handleDialogEvent = (dialogText: string, onConfirm: Function) => {
+  const handleDialogEvent = (dialogText: string, onConfirm: () => void) => {
     setDialogMessage(dialogText);
     setDialogConfirm(() => onConfirm);
     setShowDialog(true);
+  };
+
+  const handleDraftConfirm = async () => {
+    try {
+      await updateCourseSections();
+      toast.success("Seções salvas com sucesso!");
+      setIsLeaving(true);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handlePublishConfirm = async () => {
@@ -77,16 +88,6 @@ export const SectionCreation = ({
       } else {
         toast.success("Seções salvas com sucesso!");
       }
-      setIsLeaving(true);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const handleDraftConfirm = async () => {
-    try {
-      await updateCourseSections();
-      toast.success("Seções salvas com sucesso!");
       setIsLeaving(true);
     } catch (err) {
       console.error(err);
@@ -187,7 +188,9 @@ export const SectionCreation = ({
       {showDialog && (
         <Popup
           dialogText={dialogMessage}
-          onConfirm={() => dialogConfirm}
+          onConfirm={async () => {
+            await dialogConfirm();
+          }}
           onClose={() => {
             setShowDialog(false);
           }} // Do nothing

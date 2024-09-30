@@ -9,9 +9,8 @@ const Popup: React.FC<PopupProps> = ({ onConfirm, onClose, dialogText }) => {
         <p>{dialogText}</p>
         <div className="popup-actions">
           <button
-            onClick={() => {
-              console.log("confirm pls");
-              onConfirm;
+            onClick={async () => {
+              await onConfirm();
             }}
           >
             Confirmar
