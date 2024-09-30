@@ -11,6 +11,7 @@ import { BACKEND_URL } from "../helpers/environment";
 import CourseServices from "../services/course.services";
 import { YellowWarning } from "./Courses/YellowWarning";
 import { useNavigate } from "react-router-dom";
+import Popup from "./Popup/Popup";
 
 import Loading from "./general/Loading";
 import Layout from "./Layout";
@@ -148,6 +149,11 @@ export const SectionCreation = ({
 
   return (
     <div>
+      <Popup
+        dialogText="Tem certeza que deseja sair? Você perderá todas as alterações feitas."
+        onConfirm={() => setIsLeaving(true)}
+        onClose={() => {}} // Do nothing
+      />
       <div className="">
         <div className="flex w-full float-right items-center justify-left space-y-4 my-4">
           <h1 className="text-2xl text-left font-bold justify-between space-y-4">
