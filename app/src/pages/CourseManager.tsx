@@ -11,12 +11,33 @@ import useSWR from 'swr';
 import Loading from '../components/general/Loading';
 import NotFound from '../pages/NotFound';
 
+import { Course } from '../interfaces/Course';
+import { getUserInfo } from '../helpers/userInfo';
+
+
+/**
+ * This component is responsible for creating and editing courses.
+ * 
+ * @param token The user token
+ * @param id The course id
+ * @returns HTML Element
+ */
+
 const CourseManager = () => {
     const token = getUserToken();
     let { id, tick } = useParams();
     const [tickChange, setTickChange] = useState<number>(parseInt(tick ?? "0"));
     const [highestTick, setHighestTick] = useState<number>(0);
-    const [courseData, setCourseData] = useState<any>(null);
+    const [localData, setLocalData] = useState<any>(null);
+
+    
+   /**
+     * Extra function to handle the response from the course service before it is passed to the useSWR hook
+     * 
+     * @param url The url to fetch the course details from backend
+     * @param token The user token
+     * @returns The course details
+     */
 
     const getData = async (url: string, token: string) => {
         const res: any = await CourseServices.getCourseDetail(url, token);
@@ -28,21 +49,42 @@ const CourseManager = () => {
         getData
     );
 
+    const updateLocalData = (newData: Course) => {
+        const changes: Course = {
+            ...localData,
+            ...newData,
+            creator: id,
+        };
+    
+        setLocalData(changes);
+    };
+
     useEffect(() => {
-        if (id === "0") {
-            setCourseData({ title: "", description: "", category: "", difficulty: "", status: "draft", sections: [] });
-        } else if (data) {
-            setCourseData(data);
-            let maxTick = 0;
+        if (data) {
+            setLocalData(data);
+        }
+    }, [data]);    
+
+    useEffect(() => {
+        const calculateMaxTick = (data: any) => {
             if (data.title && data.description && data.category && data.difficulty && data.status) {
-                maxTick = 1;
+                return 1;
             }
             if (data.sections && data.sections.length > 0 && data.isReviewed) {
-                maxTick = 2;
+                return 2;
             }
+            return 0;
+        };
+    
+        if (id === "0") {
+            return;
+        }
+    
+        if (localData) {
+            const maxTick = calculateMaxTick(localData);
             setHighestTick(maxTick);
         }
-    }, [data, id]);
+    }, [localData, id]);
 
     function handleTickChange(newTick: number) {
         setTickChange(newTick);
@@ -67,7 +109,7 @@ const CourseManager = () => {
             <div className="flex flex-row">
                 <Checklist tickChange={tickChange} highestTick={highestTick} id={id ?? ""} setTickChange={handleTickChange} />
                 <div className='flex-none w-2/3 mr-20'>
-                    {tickChange === 0 && <CourseComponent token={token} id={id} setTickChange={handleTickChange} setId={setId} courseData={courseData} updateHighestTick={updateHighestTick} />}
+                    {tickChange === 0 && <CourseComponent token={token} id={id} setTickChange={handleTickChange} setId={setId} courseData={localData} updateHighestTick={updateHighestTick} updateLocalData={updateLocalData}/>}
                     {tickChange === 1 && <SectionCreation id={id ?? ""} token={token} setTickChange={handleTickChange} />}
                 </div>
             </div>
