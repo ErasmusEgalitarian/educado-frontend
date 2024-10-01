@@ -167,7 +167,7 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
       {/*White bagground*/}
         <div className="w-full float-right bg-white rounded-lg shadow-lg justify-between space-y-4 p-10">
           <div className="flex flex-col space-y-2 text-left">
-            <label htmlFor='title'>Nome do curso</label> {/*Title*/}
+            <label htmlFor='title'>Nome do curso <span className="text-red-500">*</span></label> {/*Title*/}
             <input id="title-field" type="text" defaultValue={data ? data.title : ""} placeholder={data ? data.title : ""}
               className="form-field  bg-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
               {...register("title", { required: true })}
@@ -180,44 +180,44 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
 
             {/*Field to select a level from a list of options*/}
             <div className="flex flex-col w-1/2 space-y-2 text-left  ">
-              <label htmlFor='level'>Nível</label> {/** Level */}
+            <label htmlFor='level'> Nível <span className="text-red-500">*</span></label> {/*asteric should not be hard coded*/}
               <select id="difficulty-field" 
-              defaultValue={data ? data.difficulty : "Selecione o nível"}
+              defaultValue={data ? data.difficulty : ""}
               className="bg-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
               {...register("difficulty", { required: true })}
               onChange={(e) => handleFieldChange('difficulty', parseInt(e.target.value))}
               >
                 {/*Hard coded options by PO, should be changed to get from db*/}
-                <option disabled> Selecione o nível</option>
+                <option value=""disabled> Selecione o nível</option>
                 <option value={1}>Iniciante</option> {/** Beginner */}
                 <option value={2}>Intermediário</option> {/** Intermediate */}
                 <option value={3}>Avançado</option> {/** Advanced */}
               </select>
-              {errors.difficulty && <span className='text-warning'>Este campo é obrigatório</span>} {/** This field is required */}
+              <span className='text-warning min-h-[24px]'>{errors.difficulty ? 'Este campo é obrigatório': ''}</span>
             </div>
 
             {/*Field to choose a category from a list of options*/}
             <div className="flex flex-col w-1/2 space-y-2 text-left  ">
-              <label htmlFor='category'>Categoria</label> 
-              <select id="category-field"
-                defaultValue={data ? data.category : "Selecione a categoria"}
+              <label htmlFor='category'>Categoria <span className="text-red-500">*</span></label> 
+              <select id="cqategory-field"
+                defaultValue={data ? data.category : ""}
                 className="bg-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 {...register("category", { required: true })}
                 onChange={(e) => handleFieldChange('category', e.target.value)}
               >
                 {/*Hard coded options by PO, should be changed to get from db*/}
-                <option value={"Selecione a categoria"} disabled> Selecione a categoria</option>,
+                <option value="" disabled> Selecione a categoria</option>,
                 {categoriesOptions}
 
               </select>
-              {errors.description && <span className='text-warning'>Este campo é obrigatório</span>} {/** This field is required */}
+              <span className='text-warning min-h-[24px]'>{errors.category ? 'Este campo é obrigatório': "               "}</span>
             </div>
           </div>
 
           {/*Field to input the description of the course*/}
           <div className="flex flex-col space-y-2 ">
             <div className="flex items-center space-x-2"> {/* Container for label and icon */}
-              <label className='text-left' htmlFor='description'>Descrição </label> {/** Description */} 
+              <label className='text-left' htmlFor='description'>Descrição <span className="text-red-500">*</span> </label> {/** Description */} 
               <ToolTipIcon index={1} toolTipIndex={toolTipIndex} text={"😉 Dica: insira uma descrição que desperte a curiosidade e o interesse dos alunos"} tooltipAmount={2} callBack={setToolTipIndex}/>
             </div>
             <textarea id="description-field" maxLength={400} rows={4}
@@ -240,7 +240,7 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
           <div>
             {/*Cover image field is made but does not interact with the db*/}
             <div className="flex flex-col space-y-2 text-left">
-              <label htmlFor='cover-image'>Imagem de capa</label> {/** Cover image */} 
+              <label htmlFor='cover-image'>Imagem de capa <span className="text-red-500">*</span></label> {/** Cover image */} 
             </div>
             <Dropzone inputType='image' callBack={(file) => {
               setCoverImg(file);
