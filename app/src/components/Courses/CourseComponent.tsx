@@ -242,7 +242,7 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
             <div className="flex flex-col space-y-2 text-left">
               <label htmlFor='cover-image'>Imagem de capa <span className="text-red-500">*</span></label> {/** Cover image */} 
             </div>
-            <Dropzone inputType='image' callBack={(file) => {
+            <Dropzone inputType='image' callBack={(file: File) => {
               setCoverImg(file);
               handleFieldChange('coverImg', file ? file.name : '');
             }}/> {/** FIX: Doesn't have the functionality to upload coverimage to Buckets yet!*/}

@@ -30,28 +30,49 @@ const Checklist: React.FC<ChecklistProps> = ({ tickChange, highestTick, id, setT
             <div className="border-y py-8 w-5/6 border-grayMedium flex flex-col space-y-4">
                 <label
                     htmlFor="check1"
-                    className={getLabelClass(0)}
+                    className={`${getLabelClass(0)} ${highestTick >= 0 ? "cursor-pointer" : ""}`}
                     onClick={() => handleCheckboxClick(0)}
                 >
-                    <input className="mr-2 text-primary rounded" type="checkbox" id="check1" disabled checked={highestTick >= 0} />
+                    <input
+                        className={`mr-2 text-primary rounded ${highestTick >= 0 ? "cursor-pointer" : ""}`}
+                        type="checkbox"
+                        id="check1"
+                        disabled={highestTick < 0}
+                        checked={highestTick >= 0}
+                        style={{ outline: 'none', boxShadow: 'none' }}
+                    />
                     Informações gerais
                 </label>
 
                 <label
                     htmlFor="check2"
-                    className={getLabelClass(1)}
+                    className={`${getLabelClass(1)} ${highestTick >= 1 ? "cursor-pointer" : ""}`}
                     onClick={() => handleCheckboxClick(1)}
                 >
-                    <input className="mr-2 text-primary rounded" type="checkbox" id="check2" disabled={highestTick < 1} checked={highestTick >= 1} />
+                    <input
+                        className={`mr-2 text-primary rounded ${highestTick >= 1 ? "cursor-pointer" : ""}`}
+                        type="checkbox"
+                        id="check2"
+                        disabled={highestTick < 1}
+                        checked={highestTick >= 1}
+                        style={{ outline: 'none', boxShadow: 'none' }}
+                    />
                     Seções do curso
                 </label>
 
                 <label
                     htmlFor="check3"
-                    className={getLabelClass(2)}
+                    className={`${getLabelClass(2)} ${highestTick >= 2 ? "cursor-pointer" : ""}`}
                     onClick={() => handleCheckboxClick(2)}
                 >
-                    <input className="mr-2 text-primary rounded" type="checkbox" id="check3" disabled={highestTick < 2} checked={highestTick >= 2} />
+                    <input
+                        className={`mr-2 text-primary rounded ${highestTick >= 2 ? "cursor-pointer" : ""}`}
+                        type="checkbox"
+                        id="check3"
+                        disabled={highestTick < 2}
+                        checked={highestTick >= 2}
+                        style={{ outline: 'none', boxShadow: 'none' }}
+                    />
                     Revisar curso
                 </label>
             </div>
