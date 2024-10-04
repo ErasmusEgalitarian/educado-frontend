@@ -39,10 +39,16 @@ interface ApplicationInputs {
   token: null;
 }
 
-// Yup schema for fields
+// Yup schema for fields (new user registration form)
 const SignupSchema = Yup.object().shape({
-  firstName: Yup.string().required("Seu primeiro nome é obrigatório!"),
-  lastName: Yup.string().required("Seu sobrenome é obrigatório!"),
+  // Registers user first name and removes leading/trailing whitespaces
+  firstName: Yup.string().trim()
+    .required("Seu primeiro nome é obrigatório!"), /*Your first name is Required*/
+
+  // Registers user last name and removes leading/trailing whitespaces
+  lastName: Yup.string().trim()
+    .required("Seu sobrenome é obrigatório!"), /*Your last name is Required*/ 
+
   password: Yup.string()
     .min(8, "Muito curto!")
     .required("A senha não é longa o suficiente"),
@@ -87,7 +93,7 @@ const Signup = () => {
    */
   const onSubmit = async (data: any) => {
     setFormData(data); // Store the form data in state
-    console.log(FormData);
+
     // Show the email verification modal
     await AuthServices.postUserSignup({
       firstName: data.firstName,

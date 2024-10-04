@@ -24,3 +24,4 @@ app/.env
 app/config/*.json
 app/cypress/screenshots
 certificate_service
+/.idea

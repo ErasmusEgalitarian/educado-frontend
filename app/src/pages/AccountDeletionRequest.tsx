@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const AccountDeletionRequest: React.FC = () => {
   const containerStyle: React.CSSProperties = {
@@ -12,6 +13,25 @@ const AccountDeletionRequest: React.FC = () => {
     backgroundColor: '#f9f9f9',
   };
 
+// Return button style
+const returnBtnStyle: React.CSSProperties = {
+  textAlign: 'center',
+  marginTop: '50px',
+  padding: '20px',
+  border: '1px solid #ccc',
+  borderRadius: '5px',
+  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+  backgroundColor: '#166276',
+  color: 'white',
+  fontWeight: 'bold'
+};
+
+// Return button div style
+const returnBtnDiv: React.CSSProperties = {
+    marginTop: '30px',
+    marginBottom: '15px',
+};
+
   const headingStyle: React.CSSProperties = {
     textAlign: 'center',
     fontSize: '1.5rem',
@@ -24,7 +44,7 @@ const AccountDeletionRequest: React.FC = () => {
   };
 
   return (
-    <div style={containerStyle}>
+      <div style={containerStyle}>
       <h2 style={headingStyle}>Account Deletion Request</h2>
       <p>
         To delete your entire account and associated data on Educado, please contact us at{' '}
@@ -42,7 +62,15 @@ const AccountDeletionRequest: React.FC = () => {
           app.educado@gmail.com
         </a>.
       </p>
+
+      {/*Return button to default page*/}
+      <div style={returnBtnDiv}>
+        <Link to={"/"} style={returnBtnStyle}>
+          Return
+        </Link>
+      </div>
     </div>
+
   );
 };
 

@@ -18,6 +18,10 @@ import AuthServices from '../services/auth.services';
 import { setUserInfo } from '../helpers/userInfo';
 import PasswordRecoveryModal from '../components/passwordRecovery/PasswordRecoveryModal';
 
+// Account application success modal
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import GenericModalComponent from '../components/GenericModalComponent';
 
 // Contexts
 export const ToggleModalContext = createContext(() => { });
@@ -54,6 +58,10 @@ const Login = () => {
   
     const [passwordError, setPasswordError] = useState(null);
     const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+
+    // Location hook and modal state for account application success modal
+    const location = useLocation();
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     /**
     * OnSubmit function for Login.
@@ -152,8 +160,20 @@ const Login = () => {
     // failure on submit handler FIXME: find out what this does (OLD CODE)
     //const onError: SubmitHandler<Inputs> = error => console.log(error);
 
+    // Account application success modal visibility effect
+    useEffect(() => {
+        if (location.state?.applicationSubmitted) {
+            setIsModalVisible(true);
+        }
+    }, [location.state]);
+
+    // Function to close the account application success modal
+    const closeModal = () => {
+        setIsModalVisible(false);
+    };
+
   return (
-    <main className="bg-gradient-to-br from-[#C9E5EC] 0% to-[#FFF] 100%" >
+    <main className="flex bg-gradient-to-br from-[#C9E5EC] 0% to-[#FFF] 100%" >
 
       { /*Navbar*/}
       <nav className="flex fixed w-full items-center justify-between bg-secondary box-shadow-md bg-fixed top-0 left-0 right-0 z-10" style={{ background: 'var(--secondary, #F1F9FB)', boxShadow: '0px 4px 4px 0px rgba(35, 100, 130, 0.25)' }}>
@@ -289,11 +309,23 @@ const Login = () => {
       </div>
     </div>
   </div>
-  {showModal &&
-    <ToggleModalContext.Provider value={() => setShowModal(!showModal)}>
-      <PasswordRecoveryModal toggleModal={() => {setShowModal(!showModal)}} setErrorMessage={setErrorMessage} />
-    </ToggleModalContext.Provider>}
-</main>
+      {showModal &&
+        <ToggleModalContext.Provider value={() => setShowModal(!showModal)}>
+          <PasswordRecoveryModal toggleModal={() => {setShowModal(!showModal)}} setErrorMessage={setErrorMessage} />
+        </ToggleModalContext.Provider>
+      }
+
+      {/* Account application success modal */}
+      <GenericModalComponent
+        title="Aguarde aprovação"
+        contentText={"Seu cadastro está em análise e você terá retorno em até x dias."}
+        cancelBtnText={"Fechar"}      // Close (functions as the 'ok' button in this particular modal)
+        onConfirm={() => {}}    // Empty function passed in due to confirm button not being present in this particular modal
+        isVisible={isModalVisible}
+        onClose={closeModal}
+      />
+
+    </main>
 )};
 
 export default Login
