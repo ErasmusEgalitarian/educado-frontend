@@ -96,60 +96,73 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
   };
 
   const onSubmit: SubmitHandler<Course> = (data) => {
-    let newStatus = statusSTR;
-
-    if (statusChange) {
-      newStatus = statusSTR === "draft" ? "published" : "draft";
-      setStatusChange(false);
-    }
-
-    if (!isLeaving || confirm("Você tem certeza?") === true) {
-      StorageService.uploadFile({ id: id, file: coverImg, parentType: "c" });
-
-      const changes: Course = {
-        title: data.title,
-        description: data.description,
-        category: data.category,
-        difficulty: data.difficulty,
-        status: newStatus,
-        creator: getUserInfo().id,
-        estimatedHours: data.estimatedHours,
-        coverImg: id + "_" + "c"
-      };
-
-      if (id !== "0") {
-        CourseServices.updateCourseDetail(changes, id, token)
-          .then(() => {
-            toast.success('Curso atualizado');
-            setStatusSTR(changes.status);
-
-            if (isLeaving) {
-              window.location.href = "/courses";
-            } else {
-              setTickChange(1);
-              navigate(`/courses/manager/${id}/1`);
-            }
-          }) // Course updated
-          .catch(err => toast.error(err));// Error updating course
+    let newStatus = getStatus();
+    if (!isLeaving || confirm("Você tem certeza?")) {
+      handleFileUpload();
+      const changes = prepareCourseChanges(data, newStatus);
+      if (existingCourse) {
+        updateCourse(changes);
       } else {
-        CourseServices.createCourse(changes, token)
-          .then(res => {
-            toast.success('Curso criado');
-            setId(res.data._id);
-            updateHighestTick(1); // Update highest tick
-
-            if (isLeaving) {
-              window.location.href = "/courses";
-            } else {
-              setTickChange(1);
-              navigate(`/courses/manager/${res.data._id}/1`);
-            }
-          }) // Course created
-          .catch(err => toast.error(err)); // Error creating course
+        createCourse(changes);
       }
       updateLocalData(changes);
     }
     setIsLeaving(false);
+  };
+  
+  const getStatus = () => {
+    if (statusChange) {
+      setStatusChange(false);
+      return statusSTR === "draft" ? "published" : "draft";
+    }
+    return statusSTR;
+  };
+  
+  const handleFileUpload = () => {
+    StorageService.uploadFile({ id: id, file: coverImg, parentType: "c" });
+  };
+  
+  const prepareCourseChanges = (data: Course, status: string): Course => {
+    return {
+      title: data.title,
+      description: data.description,
+      category: data.category,
+      difficulty: data.difficulty,
+      status: status,
+      creator: getUserInfo().id,
+      estimatedHours: data.estimatedHours,
+      coverImg: id + "_" + "c"
+    };
+  };
+  
+  const updateCourse = (changes: Course) => {
+    CourseServices.updateCourseDetail(changes, id, token)
+      .then(() => {
+        toast.success('Curso atualizado');
+        setStatusSTR(changes.status);
+        handleNavigation();
+      })
+      .catch(err => toast.error(err));
+  };
+  
+  const createCourse = (changes: Course) => {
+    CourseServices.createCourse(changes, token)
+      .then(res => {
+        toast.success('Curso criado');
+        setId(res.data._id);
+        updateHighestTick(1);
+        handleNavigation(res.data._id);
+      })
+      .catch(err => toast.error(err));
+  };
+  
+  const handleNavigation = (newId?: string) => {
+    if (isLeaving) {
+      window.location.href = "/courses";
+    } else {
+      setTickChange(1);
+      navigate(`/courses/manager/${newId || id}/1`);
+    }
   };
 
   if(!data && existingCourse) return <Layout meta='course overview'><Loading /></Layout> // Loading course details
