@@ -65,12 +65,20 @@ const CourseManager = () => {
         }
     }, [data]);    
 
+    const isCourseBasicInformation = (data: any) =>{
+        return data.title && data.description && data.category && data.difficulty && data.status;
+    }
+
+    const isCourseReviewed = (data: any) => {
+        return data.sections && data.sections.length > 0
+    }
+
     useEffect(() => {
         const calculateMaxTick = (data: any) => {
-            if (data.title && data.description && data.category && data.difficulty && data.status) {
+            if (isCourseBasicInformation(data)) {
                 return 1;
             }
-            if (data.sections && data.sections.length > 0 && data.isReviewed) {
+            if (isCourseReviewed(data)) {
                 return 2;
             }
             return 0;
