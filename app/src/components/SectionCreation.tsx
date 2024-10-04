@@ -67,7 +67,8 @@ export const SectionCreation = ({
     onSubmitSubscribers.forEach((cb) => cb());
   }
 
-  const handleDialogEvent = (dialogText: string, onConfirm: () => void) => {
+  const handleDialogEvent = (dialogText: string, onConfirm: () => void, dialogTitle: string) => {
+    setDialogTitle(dialogTitle);
     setDialogMessage(dialogText);
     setDialogConfirm(() => onConfirm);
     setShowDialog(true);
@@ -95,40 +96,6 @@ export const SectionCreation = ({
       console.error(err);
     }
   };
-
-  // Function to call when publish button is clicked, if publish succueds user will be send to courses after toast has been send
-  async function onPublish() {
-    try {
-      const confirmMSG =
-        status === "published"
-          ? "Tem certeza de que deseja publicar o curso? Isso o disponibilizará para os usuários do aplicativo"
-          : "Tem certeza de que deseja publicar as alterações feitas no curso";
-
-      if (confirm(confirmMSG)) {
-        updateCourseSections();
-        if (status !== "published") {
-          await CourseServices.updateCourseStatus(id, "published", token);
-          toast.success("Curso publicado com sucesso!");
-        } else {
-          toast.success("Seções salvas com sucesso!");
-        }
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }
-  async function onSubmit() {
-    if (
-      confirm(
-        "Tem certeza que deseja sair? Você perderá todas as alterações feitas."
-      )
-    ) {
-      updateCourseSections();
-      toast.success("Seções salvas com sucesso!");
-    }
-
-    //setTickChange(2)(); //TODO: add in when next page is implemented
-  }
 
   async function updateCourseSections(): Promise<void> {
     console.log("updateCourseSections");
@@ -240,8 +207,8 @@ export const SectionCreation = ({
               <label
                 onClick={() => {
                   handleDialogEvent(
-                    "Tem certeza que deseja sair? Você perderá todas as alterações feitas.",
-                    handleDraftConfirm
+                    "Você tem certeza de que quer salvar como rascunho as alterações feitas?",
+                    handleDraftConfirm, "Salvar como rascunho"
                   );
                 }}
                 className="whitespace-nowrap hover:cursor-pointer underline"
@@ -257,7 +224,8 @@ export const SectionCreation = ({
                     status === "published"
                       ? "Tem certeza de que deseja publicar o curso? Isso o disponibilizará para os usuários do aplicativo"
                       : "Tem certeza de que deseja publicar as alterações feitas no curso",
-                    handlePublishConfirm
+                    handlePublishConfirm,
+                    "Publicar curso"
                   );
                 }}
                 className="whitespace-nowrap py-4 px-8 h-full w-full cursor-pointer"

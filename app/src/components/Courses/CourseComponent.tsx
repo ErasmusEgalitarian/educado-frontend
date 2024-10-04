@@ -23,6 +23,7 @@ import GenericModalComponent from "../GenericModalComponent";
 
 // Interface
 import { Course } from "../../interfaces/Course";
+import { set } from "cypress/types/lodash";
 
 interface CourseComponentProps {
   token: string;
@@ -105,7 +106,8 @@ export const CourseComponent = ({
     );
   }, []);
 
-  const handleDialogEvent = (message: string, onConfirm: () => void) => {
+  const handleDialogEvent = (message: string, onConfirm: () => void, dialogTitle: string) => {
+    setDialogTitle(dialogTitle);
     setDialogMessage(message);
     setDialogConfirm(() => onConfirm);
     setShowDialog(true);
@@ -177,13 +179,13 @@ export const CourseComponent = ({
       // When the user press the draft button, it saves as a draft and goes back to the course list
       if (existingCourse && statusSTR === "draft") {
         handleDialogEvent(
-          "Você deseja salvar as alterações feitas no curso?",
-          handleSaveExistingDraft.bind(this, changes)
+          "Você tem certeza de que quer salvar como rascunho as alterações feitas?",
+          handleSaveExistingDraft.bind(this, changes), "Salvar como rascunho "
         );
       } else if (!existingCourse && statusSTR === "draft") {
         handleDialogEvent(
-          "Você deseja salvar as alterações feitas no curso?",
-          handleCreateNewDraft.bind(this, changes)
+          "Você tem certeza de que quer salvar como rascunho as alterações feitas?",
+          handleCreateNewDraft.bind(this, changes), "Salvar como rascunho "
         );
       }
     } else {
