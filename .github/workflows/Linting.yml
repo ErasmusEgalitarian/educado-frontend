@@ -22,7 +22,9 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: Install dependencies and build
+     
+      - name: npm install, build
+
         run: |
           cd app
           npm install
