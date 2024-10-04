@@ -61,7 +61,6 @@ export function SortableItem({
     try {
       if (token) {
         SectionServices.getSectionDetail(sid, token).then((res) => {
-          console.log(res);
           setSectionData(res);
           setComponentData(res.components);
         });
@@ -72,7 +71,6 @@ export function SortableItem({
   }, []);
 
   useEffect(() => {
-    console.log("components", componentData);
   }, [componentData]);
 
   const { attributes, listeners, setNodeRef, transform, transition } =

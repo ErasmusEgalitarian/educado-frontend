@@ -19,7 +19,7 @@ import { ToolTipIcon } from "../ToolTip/ToolTipIcon";
 import NotFound from "../../pages/NotFound";
 import Loading from "../general/Loading";
 import Layout from "../Layout";
-import Popup from "../Popup/Popup";
+import GenericModalComponent from "../GenericModalComponent";
 
 // Interface
 import { Course } from "../../interfaces/Course";
@@ -51,6 +51,9 @@ export const CourseComponent = ({
   const [showDialog, setShowDialog] = useState<boolean>(false);
   const [dialogMessage, setDialogMessage] = useState<string>("");
   const [dialogConfirm, setDialogConfirm] = useState<Function>(() => {});
+  const [cancelBtnText, setCancelBtnText] = useState("Cancelar");
+  const [confirmBtnText, setConfirmBtnText] = useState("Confirmar");
+  const [dialogTitle, setDialogTitle] = useState("Cancelar alterações");
 
   const [charCount, setCharCount] = useState<number>(0);
   const [isLeaving, setIsLeaving] = useState<boolean>(false);
@@ -208,9 +211,12 @@ export const CourseComponent = ({
 
   return (
     <div>
-      {showDialog && (
-        <Popup
-          dialogText={dialogMessage}
+      <GenericModalComponent
+          title={dialogTitle}
+          contentText={dialogMessage}
+          cancelBtnText={cancelBtnText}
+          confirmBtnText={confirmBtnText}
+          isVisible={showDialog}
           onConfirm={async () => {
             await dialogConfirm();
           }}
@@ -218,7 +224,6 @@ export const CourseComponent = ({
             setShowDialog(false);
           }} // Do nothing
         />
-      )}
       <div className="w-full flex flex-row py-5">
         <h1 className="text-2xl text-left font-bold justify-between space-y-4">
           {" "}

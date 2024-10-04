@@ -11,7 +11,8 @@ import { BACKEND_URL } from "../helpers/environment";
 import CourseServices from "../services/course.services";
 import { YellowWarning } from "./Courses/YellowWarning";
 import { useNavigate } from "react-router-dom";
-import Popup from "./Popup/Popup";
+/* import Popup from "./Popup/Popup"; */
+import GenericModalComponent from "./GenericModalComponent";
 
 import Loading from "./general/Loading";
 import Layout from "./Layout";
@@ -40,6 +41,9 @@ export const SectionCreation = ({
   const [loading, setLoading] = useState(true);
   const [showDialog, setShowDialog] = useState(false);
   const [dialogMessage, setDialogMessage] = useState("");
+  const [cancelBtnText, setCancelBtnText] = useState("Cancelar");
+  const [confirmBtnText, setConfirmBtnText] = useState("Confirmar");
+  const [dialogTitle, setDialogTitle] = useState("Cancelar alterações");
 
   const [dialogConfirm, setDialogConfirm] = useState<Function>(() => {});
   const [status, setStatus] = useState<string>("draft");
@@ -178,9 +182,13 @@ export const SectionCreation = ({
 
   return (
     <div>
-      {showDialog && (
-        <Popup
-          dialogText={dialogMessage}
+      
+        <GenericModalComponent
+          title={dialogTitle}
+          contentText={dialogMessage}
+          cancelBtnText={cancelBtnText}
+          confirmBtnText={confirmBtnText}
+          isVisible={showDialog}
           onConfirm={async () => {
             await dialogConfirm();
           }}
@@ -188,7 +196,7 @@ export const SectionCreation = ({
             setShowDialog(false);
           }} // Do nothing
         />
-      )}
+      
 
       <div className="">
         <div className="flex w-full float-right items-center justify-left space-y-4 my-4">
