@@ -8,7 +8,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-#Run npm run linting
 jobs:
   lint:
     name: 🧹 Lint
@@ -23,7 +22,7 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: npm install, build
+      - name: Install dependencies and build
         run: |
           cd app
           npm install
@@ -34,3 +33,5 @@ jobs:
         with:
           eslint: true
           prettier: true
+        env:
+          GITHUB_WORKSPACE: ${{ github.workspace }}/app
