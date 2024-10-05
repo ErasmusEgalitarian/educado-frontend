@@ -4,6 +4,7 @@ import CertificateCard from "./CertificateCard";
 import { useEffect, useState } from "react";
 import CertificateService from "../../services/certificate.services";
 import EmptyImg from "../../assets/no-courses.png";
+import EmptyState from "./CertificateEmpty";
 
 export default function CertificateList() {
 
@@ -15,7 +16,7 @@ export default function CertificateList() {
 		})
 	}, []);
 
-	if (!certificates) return <Loading />;
+	if (!certificates) return <EmptyState />;
 	return (
 		<div className="overflow-scroll min-h-full pb-4" id="certificate-list">
 			{(certificates.length > 0) ?
