@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import CourseManager from '../../pages/CourseManager';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import noCertificatesImage from '../../assets/no-certificates.png';
 
 const emptyState = () => {
     const navigate = useNavigate();
@@ -12,6 +12,8 @@ const emptyState = () => {
     return (
         <div className="flex items-center justify-center w-full h-full">
             <div className='text-center' id="no-certificates-message">
+                <img src={noCertificatesImage} className='w-1/3 h-auto mx-auto' />
+                
                 <h1 className='text-xl font-bold my-4'>Você ainda não tem nenhum certificado.</h1>
                 <p className='text-darkGray'>Clique no botão abaixo e siga o passo a passo para desenolver o seu primeiro curso.</p>
                 <label htmlFor="course-create" onClick={CourseManager} className="std-button flex modal-button  space-x-">
