@@ -98,7 +98,6 @@ export const SectionCreation = ({
   };
 
   async function updateCourseSections(): Promise<void> {
-    console.log("updateCourseSections");
     notifyOnSubmitSubscriber();
     await CourseServices.updateCourseSectionOrder(sections, id, token);
   }
