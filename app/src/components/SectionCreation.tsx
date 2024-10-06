@@ -16,8 +16,10 @@ import GenericModalComponent from "./GenericModalComponent";
 
 import Loading from "./general/Loading";
 import Layout from "./Layout";
-import { toast } from "react-toastify";
-import { set } from "cypress/types/lodash";
+
+// Notification
+import { useNotifications } from './notification/NotificationContext';
+
 
 interface Inputs {
   id: string;
@@ -63,6 +65,9 @@ export const SectionCreation = ({
   //   );
   // }
 
+  // Notification 
+  const { addNotification } = useNotifications();
+
   function notifyOnSubmitSubscriber() {
     onSubmitSubscribers.forEach((cb) => cb());
   }
@@ -77,7 +82,8 @@ export const SectionCreation = ({
   const handleDraftConfirm = async () => {
     try {
       await updateCourseSections();
-      navigate("/courses?toast=saved draft");
+      navigate("/courses");
+      addNotification("Seções salvas com sucesso!")
     } catch (err) {
       console.error(err);
     }
@@ -88,9 +94,11 @@ export const SectionCreation = ({
       updateCourseSections();
       if (status !== "published") {
         await CourseServices.updateCourseStatus(id, "published", token);
-        navigate("/courses?toast=published");
+        navigate("/courses");
+        addNotification("Curso publicado com sucesso!")
       } else {
-        navigate("/courses?toast=saved published");
+        navigate("/courses");
+        addNotification("Seções salvas com sucesso!")
       }
     } catch (err) {
       console.error(err);

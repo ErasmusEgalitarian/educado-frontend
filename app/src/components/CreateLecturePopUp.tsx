@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 // import useAuthStore from '../../contexts/useAuthStore';
 // Hooks
 import { getUserToken } from "../helpers/userInfo";
+import { useNotifications } from "./notification/NotificationContext";
 
 // Services
 import StorageServices from "../services/storage.services";
@@ -55,6 +56,7 @@ export const CreateLecture = ({ savedSID, handleLectureCreation }: Props) => {
 
   const [contentType, setContentType] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const { addNotification } = useNotifications();
 
   const toggler = (value: string) => {
     setContentType(value);
@@ -89,14 +91,20 @@ export const CreateLecture = ({ savedSID, handleLectureCreation }: Props) => {
         console.log("lecture created:", res);
         handleLectureCreation(res.data);
         setIsSubmitting(false);
-        toast.success("Aula criado com sucesso");
-        reset();
+        clearLectureModalContent();
+        addNotification("Aula criada com sucesso");
       })
       .catch((err) => {
         toast.error("Fracassado: " + err);
         setIsSubmitting(false);
       });
   };
+
+  function clearLectureModalContent() {
+    reset();
+      setContentType("");
+  }
+
 
   function returnFunction(lectureContent: any) {
     setLectureContent(lectureContent);

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import useSWR from "swr";
 import { toast } from "react-toastify";
-
+import { useNotifications } from "../notification/NotificationContext";
 // Services
 import CourseServices from "../../services/course.services";
 import StorageService from "../../services/storage.services";
@@ -23,7 +23,9 @@ import GenericModalComponent from "../GenericModalComponent";
 
 // Interface
 import { Course } from "../../interfaces/Course";
-import { set } from "cypress/types/lodash";
+import { add } from "cypress/types/lodash";
+
+
 
 interface CourseComponentProps {
   token: string;
@@ -63,6 +65,11 @@ export const CourseComponent = ({
     handleSubmit,
     formState: { errors },
   } = useForm<Course>();
+
+  // Notification 
+  const { addNotification } = useNotifications();
+
+
   const existingCourse = id != "0";
 
   const navigate = useNavigate();
@@ -117,9 +124,9 @@ export const CourseComponent = ({
   const handleSaveExistingDraft = async (changes: Course) => {
     try {
       await CourseServices.updateCourseDetail(changes, id, token);
-      console.log("saving existing draft changes", changes);
       setStatusSTR(changes.status);
-      navigate("/courses?toast=saved draft");
+      navigate("/courses");
+      addNotification("Seções salvas com sucesso!");
     } catch (err) {
       toast.error(err as string);
     }
@@ -130,7 +137,8 @@ export const CourseComponent = ({
     try {
       await CourseServices.createCourse(data, token);
       console.log("creating new draft", data);
-      navigate("/courses?toast=created draft");
+      navigate("/courses");
+      addNotification("Seção deletada com sucesso!");
     } catch (err) {
       toast.error(err as string);
     }
@@ -140,7 +148,7 @@ export const CourseComponent = ({
   const handleCreateNewCourse = async (data: Course) => {
     try {
       const newCourse = await CourseServices.createCourse(data, token);
-      toast.success("Curso criado");
+      addNotification("Curso criado com sucesso!");
       setId(newCourse.data._id);
       setTickChange(1);
       navigate(`/courses/manager/${newCourse.data._id}/1`);

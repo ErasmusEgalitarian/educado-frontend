@@ -34,27 +34,9 @@ const Courses = () => {
 
   // TODO: Implement proper backend call once backend is ready
 
-  const toastDisplay = () => {
-    const query = new URLSearchParams(window.location.search);
-    const myParam = query.get("toast");
-    if (myParam === "published") {
-      toast.success("Curso publicado com sucesso!");
-    } else if (myParam === "saved published") {
-      toast.success("Seções salvas com sucesso!");
-    } else if (myParam === "saved draft") {
-      toast.success("Seções salvas com sucesso!");
-    } else if (myParam === "created draft") {
-      toast.success("Seção deletada com sucesso!");
-    }
-  };
-
-  const CourseManager = () => {
+  const CourseManager = () => { 
     navigate("/courses/manager/0/0");
   };
-
-  useEffect(() => {
-    toastDisplay();
-  }, []);
 
   const { data, error } = useSWR(
     token ? [token] : null,

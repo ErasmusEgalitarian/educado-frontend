@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 
 // Hooks
 import { getUserToken } from "../helpers/userInfo";
+import { useNotifications } from "./notification/NotificationContext";
 
 export interface LecturePartial {
     title: string,
@@ -28,6 +29,7 @@ export const LectureDetail = ({ lecture, lid }: { lecture: Lecture, lid: string 
 
     /** Token doesnt work, reimplement when it token is implemented */
     const token = getUserToken();
+    const { addNotification } = useNotifications();
     
     const updateLecture = (data: any) => {
 
@@ -39,7 +41,7 @@ export const LectureDetail = ({ lecture, lid }: { lecture: Lecture, lid: string 
         
 
      LectureService.updateLecture(lectureToSave, token, lid)
-         .then(() => toast.success(`Aula salva com sucesso`)) /**  Successfully saved lecture*/
+         .then(() => addNotification("Aula salva com sucesso")) /**  Successfully saved lecture*/
          .catch((e) => toast.error("Falha ao salvar o exercício devido a um erro: " + e)); /**Failed to save lecture due to error: */
 
     }
@@ -60,7 +62,7 @@ const deleteLecture = async () => {
 
         if (status >= 200 && status <= 299) {
             window.location.reload();
-            toast.success("Lecture deleted")
+            addNotification("Aula excluída")
         } else if (status >= 400 && status <= 599) {
             toast.error(`(${status}, ${response.statusText}) while attempting to delete lecture`)
         }

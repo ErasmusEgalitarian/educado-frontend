@@ -28,6 +28,7 @@ import DataDeletionRequest from "./pages/DataDeletionRequest";
 import AccountDeletionRequest from "./pages/AccountDeletionRequest";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 
+
 function App() {
   // router
   const router = createBrowserRouter([
@@ -109,9 +110,10 @@ function App() {
       path: "*",
       element: <NotFound />
     }
-  ]
-)
-  return <RouterProvider router={router} />;
+  ]);
+  return (
+      <RouterProvider router={router} />
+  );
 }
 
 export default App

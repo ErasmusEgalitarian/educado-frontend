@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { getUserToken } from "../../helpers/userInfo";
-
+import { useNotifications } from "../notification/NotificationContext";
 // Components
 import AnswerCards from "../../components/Exercise/AnswerCards";
 import { ModalButtonCompont } from "../ModalButtonCompont";
@@ -42,6 +42,7 @@ export const CreateExercise = ({ savedSID, handleExerciseCreation }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const { register, handleSubmit, reset } = useForm<Inputs>();
+  const { addNotification } = useNotifications();
 
   /** Token doesnt work, reimplement when it token is implemented */
   const token = getUserToken();
@@ -58,7 +59,7 @@ export const CreateExercise = ({ savedSID, handleExerciseCreation }: Props) => {
       savedSID
     )
       .then((res) => {
-        toast.success(`Exercício criado com sucesso`);
+        addNotification("Exercício criado com sucesso");
         handleExerciseCreation(res.data);
         reset();
         setIsSubmitting(false);

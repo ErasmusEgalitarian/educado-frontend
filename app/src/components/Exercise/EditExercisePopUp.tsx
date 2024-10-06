@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { getUserToken } from "../../helpers/userInfo";
+import { useNotifications } from "../notification/NotificationContext";
 
 // Components
 import AnswerCards from "./AnswerCards";
@@ -40,6 +41,7 @@ export const EditExercise = ({ data, handleEdit }: Props) => {
 
   const [answers, setAnswers] = useState<Answer[]>(data.answers);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const { addNotification } = useNotifications();
 
   const { register, handleSubmit } = useForm<Inputs>();
 
@@ -60,7 +62,7 @@ export const EditExercise = ({ data, handleEdit }: Props) => {
     )
 
       .then(() => {
-        toast.success("Exercício atualizada com sucesso");
+        addNotification("Exercício atualizado com sucesso");
         handleEdit(newData.title);
       })
       .catch((err) => {

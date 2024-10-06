@@ -14,6 +14,7 @@ import {
 import { getUserToken } from "../../helpers/userInfo";
 import SectionServices from "../../services/section.services";
 import { toast } from "react-toastify";
+import { useNotifications } from "../notification/NotificationContext";
 
 import {
   arrayMove,
@@ -43,6 +44,8 @@ export const SectionList = ({
   const [activeId, setActiveId] = useState<string | null>(null);
   const [savedSID, setSavedSID] = useState<string>("");
 
+  const { addNotification } = useNotifications();
+
   // Setup of pointer and keyboard sensor
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -56,7 +59,7 @@ export const SectionList = ({
     if (confirm("Tem certeza que deseja excluir?") == true) {
       SectionServices.deleteSection(sId, token)
         .then(() => {
-          toast.success("Seção excluída");
+          addNotification("Seção excluída");
           setSections((prevSections) =>
             prevSections.filter((section) => section !== sId)
           );
