@@ -318,7 +318,7 @@ const Login = () => {
       {/* Account application success modal */}
       <GenericModalComponent
         title="Aguarde aprovação"
-        contentText={"Seu cadastro está em análise e você terá retorno em até x dias."}
+        contentText={"Seu cadastro está em análise e você terá retorno em até 7 dias."}
         cancelBtnText={"Fechar"}      // Close (functions as the 'ok' button in this particular modal)
         onConfirm={() => {}}    // Empty function passed in due to confirm button not being present in this particular modal
         isVisible={isModalVisible}

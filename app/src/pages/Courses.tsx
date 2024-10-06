@@ -20,6 +20,7 @@ import { toast } from "react-toastify";
 import noCoursesImage from "../assets/no-courses.png";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 
+
 /**
  * @returns HTML Element
  *
