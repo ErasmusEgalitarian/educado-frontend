@@ -69,7 +69,7 @@ const CourseManager = () => {
         return data.title && data.description && data.category && data.difficulty && data.status;
     }
 
-    const isCourseReviewed = (data: any) => {
+    const doesCourseSectionsExist = (data: any) => {
         return data.sections && data.sections.length > 0
     }
 
@@ -78,7 +78,7 @@ const CourseManager = () => {
             if (isCourseBasicInformation(data)) {
                 return 1;
             }
-            if (isCourseReviewed(data)) {
+            if (doesCourseSectionsExist(data)) {
                 return 2;
             }
             return 0;
