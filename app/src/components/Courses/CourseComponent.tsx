@@ -48,7 +48,7 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
   const [charCount, setCharCount] = useState<number>(0);
   const [isLeaving, setIsLeaving] = useState<boolean>(false);
   const [data, setData] = useState<Course>();
-  const { register, handleSubmit, formState: { errors } } = useForm<Course>();
+  const {register, handleSubmit, formState: { errors } } = useForm<Course>();
   const existingCourse = id != "0";
 
   const navigate = useNavigate();

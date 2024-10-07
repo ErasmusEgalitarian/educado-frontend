@@ -59,14 +59,22 @@ return (
 
         {/* Notification bell and User information */}
         <div className="relative w-133px h-10 flex items-center gap-6 pr-12">
-            <span className='hidden sm:block container overflow-hidden'>
-                <Icon
-                path={mdiBellOutline} size={1} color={'grayMedium'} />
-            </span>
 
+            {/* Notification Bell */}
+            <div className="dropdown dropdown-end">
+                <label tabIndex={0} className="btn btn-ghost hover:bg-transparent">
+                    <Icon path={mdiBellOutline} size={1} color={'grayMedium'}/>
+                </label>
+                <ul tabIndex={0} className="menu dropdown-content p-2 shadow bg-white rounded-box w-52">
+                    {/*Placeholders for notifications*/}
+                    <li><Link to="/notifications">Notification 1</Link></li>
+                    <li><Link to="/notifications">Notification 2</Link></li>
+                    <li><Link to="/notifications">Notification 3</Link></li>
+                </ul>
+            </div>
 
             <div className="flex flex-col items-start">
-                <span className="hidden sm:block container overflow-hidden text-grayMedium text-lg font-bold font-['Montserrat']">{firstName+" "+lastName}</span>
+                <span className="hidden sm:block container overflow-hidden text-grayMedium text-lg font-bold font-['Montserrat']">{firstName + " " + lastName}</span>
                 <span className="hidden sm:block container overflow-hidden text-grayMedium text-sm font-normal font-['Montserrat']">{email}</span>
             </div>
 
@@ -77,38 +85,42 @@ return (
                         <div className="avatar placeholder">
                             <div className="bg-[#166276] text-white rounded-full hover:rounded w-11">
                                 <span className="text-md">
-                                    {firstName.charAt(0)+lastName.charAt(0)}
+                                    {firstName.charAt(0) + lastName.charAt(0)}
                                 </span>
                             </div>
                         </div>
                     </label>
 
                     {/* Dropdown Content */}
-                    <ul tabIndex={0} className="menu dropdown-content flex flex-col items-start p-2 absolute w-[245px] mt-2 bg-white rounded-lg shadow-md">
+                    <ul tabIndex={0}
+                        className="menu dropdown-content flex flex-col items-start p-2 absolute w-[245px] mt-2 bg-white rounded-lg shadow-md">
 
                         {/* Edit Profile/settings */}
                         <li className="w-full"> {/*class to make the list item fill the width */}
-                            <Link to={"/profile"} className="text-grayDark text-lg font-normal font-['Montserrat'] hover:bg-grayLight">
-                                <span><Icon path={mdiAccountCog} size={1} color="grayMedium" /></span>
+                            <Link to={"/profile"}
+                                  className="text-grayDark text-lg font-normal font-['Montserrat'] hover:bg-grayLight">
+                                <span><Icon path={mdiAccountCog} size={1} color="grayMedium"/></span>
                                 <span>Editar perfil</span>
                             </Link>
                         </li>
-                        <hr className="relative w-full h-[1px] border-grayLight mt-3 mb-3" />
+                        <hr className="relative w-full h-[1px] border-grayLight mt-3 mb-3"/>
 
                         {/* My Certificates */}
                         <li className="w-full"> {/*class to make the list item fill the width */}
-                            <Link to={"/certificates"} className="text-grayDark text-lg font-normal font-['Montserrat'] hover:bg-grayLight">
-                                <span><Icon path={mdiCertificate} size={1} color="grayMedium" /></span>
+                            <Link to={"/certificates"}
+                                  className="text-grayDark text-lg font-normal font-['Montserrat'] hover:bg-grayLight">
+                                <span><Icon path={mdiCertificate} size={1} color="grayMedium"/></span>
                                 <span>Meus certificados</span>
                             </Link>
                         </li>
 
-                        <hr className="relative w-full h-[1px] border-grayLight mt-3 mb-3" />
+                        <hr className="relative w-full h-[1px] border-grayLight mt-3 mb-3"/>
 
                         {/* Logout */}
                         <li className="w-full"> {/* class to make the list item fill the width */}
-                            <Link to={"/welcome"} onClick={logout} className=" text-warning text-lg font-bold font-['Montserrat'] hover:bg-grayLight">
-                                <span><Icon path={mdiLogoutVariant} size={1} color="warning" /></span>
+                            <Link to={"/welcome"} onClick={logout}
+                                  className=" text-warning text-lg font-bold font-['Montserrat'] hover:bg-grayLight">
+                                <span><Icon path={mdiLogoutVariant} size={1} color="warning"/></span>
                                 <span>Sair</span>
                             </Link>
                         </li>
@@ -117,8 +129,8 @@ return (
             </button>
         </div>
     </nav>
-{/* gap between navbar and other pages */}    
-<div className="h-20"/>
+    {/* gap between navbar and other pages */}
+    <div className="h-20"/>
 </main>
-    );
+);
 };

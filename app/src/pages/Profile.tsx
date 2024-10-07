@@ -25,8 +25,12 @@ import ProfessionalExperienceForm from "../components/ProfileForms/ProfessionalE
 import dynamicForms from "../utilities/dynamicForms";
 import staticForm from "../utilities/staticForm";
 
+// Import account deletion pop-up
+import PopUpDelete from "../components/profile/PopUpDelete";
+
 //import helpers
 import { tempObjects } from "../helpers/formStates";
+import { Link } from "react-router-dom";
 
 //Yup Schema
 const profileSchema = Yup.object().shape({
@@ -92,6 +96,10 @@ const Profile = () => {
   });
 
   const [hasSubmitted, setHasSubmitted] = useState(false);
+
+  // Account deletion popup state
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
   //Form submit, sends data to backend, upon user interaction
   const handleUpdateSubmit = async (index: any, data: any) => {
     //if fields are filled & errors do not occour submit form
@@ -188,7 +196,7 @@ const Profile = () => {
       <main className="flex-grow overflow-x-hidden bg-[#E4F2F5] h-screen">
         <form
           onSubmit={handleSubmit(handleUpdateSubmit)}
-          className="text-center relative py-8 px-10 w-full"
+          className="text-center py-8 px-10 w-full"
         >
           <div className="inline-block ">
             <div className="text-left mt-16 mb-20 text-neutral-700 text-[32px] font-bold font-['Montserrat']">
@@ -199,7 +207,7 @@ const Profile = () => {
               <div className="Menu-1-personal-information">
                 <button
                   type="button"
-                  className={`second_form_open w-[1000px] h-[72px] p-6 shadow-xl flex-col justify-start items-start gap-20 inline-flex font-bold font-montserrat pl-6 relative ${
+                  className={`second_form_open w-[1000px] h-[72px] p-6 shadow-xl flex-col justify-start items-start gap-20 inline-flex font-bold font-montserrat pl-6 ${
                     toggleMenu1
                       ? "rounded-tl-lg rounded-tr-lg bg-[#166276] text-[#FFFFFF]"
                       : "rounded-lg bg-white text-neutral-700 text-[#383838]"
@@ -235,7 +243,7 @@ const Profile = () => {
               <div className="Menu-2-academic-experience ">
                 <button
                   type="button"
-                  className={`second_form_open w-[1000px] h-[72px] p-6 shadow-xl flex-col justify-start items-start gap-20 inline-flex font-bold font-montserrat pl-6 relative ${
+                  className={`second_form_open w-[1000px] h-[72px] p-6 shadow-xl flex-col justify-start items-start gap-20 inline-flex font-bold font-montserrat pl-6 ${
                     toggleMenu2
                       ? "rounded-tl-lg rounded-tr-lg bg-[#166276] text-[#FFFFFF]"
                       : "rounded-lg bg-white text-neutral-700 text-[#383838]"
@@ -293,7 +301,7 @@ const Profile = () => {
               <div className="Menu-3-professional-experience ">
                 <button
                   type="button"
-                  className={`third_form_open w-[1000px] h-[72px] p-6 shadow-xl flex-col justify-start items-start gap-20 inline-flex font-bold font-montserrat pl-6 relative ${
+                  className={`third_form_open w-[1000px] h-[72px] p-6 shadow-xl flex-col justify-start items-start gap-20 inline-flex font-bold font-montserrat pl-6 ${
                     toggleMenu3
                       ? "rounded-tl-lg rounded-tr-lg bg-[#166276] text-[#FFFFFF]"
                       : "rounded-lg bg-white text-neutral-700 text-[#383838]"
@@ -355,26 +363,30 @@ const Profile = () => {
 
             {/* Page buttons */}
             <div className="w-[1000px] h-[52px] justify-between items-center inline-flex gap-4 mt-16">
+
+              {/* Account deletion link */}
+              {/* TODO: make "Confirmar" button within confirmation pop-up functional */}
               <button
-                type="button"
-                className="text-center text-red-500 text-lg font-bold font-['Montserrat'] underline"
+                  type="button"
+                  onClick={() => setIsPopupOpen(true)}
+                  className="text-center text-red-500 text-lg font-bold font-['Montserrat'] underline"
               >
                 Deletar conta
               </button>
+
               <div className="flex-grow text-right ml-auto">
-                <button
-                  type="button"
-                  className=" text-cyan-800 font-bold font-['Montserrat'] underline"
-                >
+
+                {/* Takes user back to /courses when "Cancelar edições" is pressed */}
+                <Link to="/courses" className="text-cyan-800 font-bold font-['Montserrat'] underline">
                   Cancelar edições
-                </button>
+                </Link>
               </div>
               <div className="px-10 py-4 bg-cyan-800 rounded-lg justify-center items-start gap-2.5 flex">
                 <button
-                  disabled={isDisabled}
-                  onClick={SubmitValidation}
-                  type="submit"
-                  className="text-center text-white text-lg font-bold font-['Montserrat'] text-right"
+                    disabled={isDisabled}
+                    onClick={SubmitValidation}
+                    type="submit"
+                    className="text-center text-white text-lg font-bold font-['Montserrat'] text-right"
                 >
                   Salvar edições
                 </button>
@@ -382,6 +394,14 @@ const Profile = () => {
             </div>
           </div>
         </form>
+
+        {/* Conditionally render the account deletion pop-up if isPopupOpen is true */}
+        {isPopupOpen && (
+          <PopUpDelete
+            popupOpen={isPopupOpen}
+            onTogglePopup={() => setIsPopupOpen(false)}
+          />
+        )}
       </main>
     </Layout>
   );

@@ -99,7 +99,7 @@ function App() {
     },
     {
       path: "/account_deletion_request",
-      element: <NonProtectedRoute><AccountDeletionRequest /></NonProtectedRoute>,
+      element: <ProtectedRoute><AccountDeletionRequest /></ProtectedRoute>,
     },
     {
       path: "/privacy_policy",
