@@ -39,7 +39,7 @@ export default function AcademicExperienceForm({
           <div className="flex flex-col ">
             <label htmlFor="Formacao" className="font-['Montserrat']">
               Formação:
-              <span className="p-2 text-[#FF4949] text-xs font-normal font-['Montserrat']">
+              <span className="p-2 text-[#FF4949] text-sm font-normal font-['Montserrat']">
                 *
               </span>
             </label>
@@ -61,7 +61,7 @@ export default function AcademicExperienceForm({
           <div className="flex flex-col ">
             <label htmlFor="status" className="font-['Montserrat']">
               Status
-              <span className="p-2 text-[#FF4949] text-xs font-normal font-['Montserrat']">
+              <span className="p-2 text-[#FF4949] text-sm font-normal font-['Montserrat']">
                 *
               </span>
             </label>
@@ -83,7 +83,7 @@ export default function AcademicExperienceForm({
           <div className="flex flex-col ">
             <label htmlFor="firstName" className="font-['Montserrat']">
               Curso:
-              <span className="p-2 text-[#FF4949] text-xs font-normal font-['Montserrat']">
+              <span className="p-2 text-[#FF4949] text-sm font-normal font-['Montserrat']">
                 *
               </span>
             </label>
@@ -101,7 +101,7 @@ export default function AcademicExperienceForm({
           <div className="flex flex-col ">
             <label htmlFor="email" className="font-['Montserrat']">
               instituição
-              <span className="p-2 text-[#FF4949] text-xs font-normal font-['Montserrat']">
+              <span className="p-2 text-[#FF4949] text-sm font-normal font-['Montserrat']">
                 *
               </span>
             </label>
@@ -121,7 +121,7 @@ export default function AcademicExperienceForm({
           <div className="flex flex-col ">
             <label htmlFor="firstName" className="font-['Montserrat']">
               início:
-              <span className="p-2 text-[#FF4949] text-xs font-normal font-['Montserrat']">
+              <span className="p-2 text-[#FF4949] text-sm font-normal font-['Montserrat']">
                 *
               </span>
             </label>
@@ -146,7 +146,7 @@ export default function AcademicExperienceForm({
           <div className="flex flex-col ">
             <label htmlFor="endDate" className="font-['Montserrat']">
               Fim
-              <span className="p-2 text-[#FF4949] text-xs font-normal font-['Montserrat']">
+              <span className="p-2 text-[#FF4949] text-sm font-normal font-['Montserrat']">
                 *
               </span>
             </label>

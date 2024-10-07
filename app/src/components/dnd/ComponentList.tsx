@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 // DND-KIT
 import {
@@ -9,38 +9,40 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
-} from '@dnd-kit/core';
+} from "@dnd-kit/core";
 
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
+} from "@dnd-kit/sortable";
 
-import {
-  restrictToVerticalAxis,
-} from "@dnd-kit/modifiers";
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 
 // Components
-import { SortableComponentItem } from './@dnd/SortableComponentItem';
-import { Item } from './@dnd/Item';
+import { SortableComponentItem } from "./@dnd/SortableComponentItem";
+import { Item } from "./@dnd/Item";
 
 // Intefaces
-import ComponentService from '../../services/component.service';
+import ComponentService from "../../services/component.service";
+import { Component } from "../../interfaces/SectionInfo";
 
 interface Props {
-  sid: string
-  componentIds: Array<string>
-  componentTypesMap:  Map<string, string>
-  idMap: Map<string, string>
-  addOnSubmitSubscriber: Function
+  sid: string;
+  components: Component[];
+  setComponents: Function;
+  addOnSubmitSubscriber: Function;
 }
 
-export const ComponentList = ({sid, componentIds, componentTypesMap, idMap, addOnSubmitSubscriber }: Props) => {
+export const ComponentList = ({
+  sid,
+  components,
+  setComponents,
+  addOnSubmitSubscriber,
+}: Props) => {
   // States
   const [activeId, setActiveId] = useState(null);
-  const [items, setItems] = useState(componentIds);
 
   // Setup of pointer and keyboard sensor
   const sensors = useSensors(
@@ -54,61 +56,62 @@ export const ComponentList = ({sid, componentIds, componentTypesMap, idMap, addO
   const handleDragStart = (event: any) => {
     const { active } = event;
     setActiveId(active.id);
-  }
+  };
 
   // handle end of dragging
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
     if (active.id !== over.id) {
-      setItems((items) => {
-        const oldIndex = items.indexOf(active.id);
-        const newIndex = items.indexOf(over.id);
-        
-        
-        return arrayMove(items, oldIndex, newIndex);
+      setComponents((components: Component[]) => {
+        const oldIndex = components.findIndex(
+          (component) => component.compId === active.id
+        );
+        const newIndex = components.findIndex(
+          (component) => component.compId === over.id
+        );
+        console.log("oldIndex", oldIndex);
+        console.log("newIndex", newIndex);
+        console.log("components", components);
+
+        return arrayMove(components, oldIndex, newIndex);
       });
     }
-  }
-
+  };
 
   useEffect(() => {
-    addOnSubmitSubscriber(()=>onSubmit());
-  }, [])
+    addOnSubmitSubscriber(() => onSubmit());
+  }, []);
 
-  function onSubmit(){
-    const componentArray:any[] = [];
-    setItems((items) => {
-      for (let i = 0; i < items.length; i++) {
-        componentArray.push({_id: idMap.get(items[i]), compId: items[i], compType: componentTypesMap.get(items[i])})
-      }
-      console.log(componentArray);
-      console.log(items);
-      return(items)
-  });
-   ComponentService.setComponents(sid, componentArray);
+  function onSubmit() {
+    ComponentService.setComponents(sid, components);
   }
 
   return (
-    <div className='w-full'>
+    <div className="w-full">
       <DndContext
         modifiers={[restrictToVerticalAxis]}
         sensors={sensors}
         collisionDetection={closestCenter}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
-      
       >
-        <SortableContext items={items.map(item => item)} strategy={verticalListSortingStrategy}>
-          {items.map((item, key: React.Key) => <SortableComponentItem key={key} cid={item} map={componentTypesMap} />)}
+        <SortableContext
+          items={components.map((comp) => comp.compId)}
+          strategy={verticalListSortingStrategy}
+        >
+          {components.map((comp, key: React.Key) => (
+            <SortableComponentItem
+              key={key}
+              component={comp}
+              setComponents={setComponents}
+            />
+          ))}
         </SortableContext>
 
-       
-        <DragOverlay className='w-full' >
+        <DragOverlay className="w-full">
           {activeId ? <Item id={activeId} /> : null}
         </DragOverlay>
-        
       </DndContext>
     </div>
   );
-}
-
+};

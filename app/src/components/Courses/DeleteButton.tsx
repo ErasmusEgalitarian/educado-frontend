@@ -1,6 +1,7 @@
 import { toast } from 'react-toastify'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useNotifications } from '../notification/NotificationContext'
 
 // Services
 import CourseServices from '../../services/course.services'
@@ -24,6 +25,7 @@ export const DeleteButton = ({id, token, deleteType}: DeleteButtonProps) => {
   const [res, setRes] = useState<any>()
   
   const navigate = useNavigate();
+  const { addNotification } = useNotifications();
 
   /**
      * Delete courses and redirect to courses page
@@ -98,7 +100,7 @@ export const DeleteButton = ({id, token, deleteType}: DeleteButtonProps) => {
    */
   const statusFeedback = () => {
     if (res.status >= 200 && res.status <= 299) {
-      toast.success("Excluído"); {/* Course deleted */}
+      addNotification("Excluído"); {/* Course deleted */}
       return true;
 
     } else if (res.status >= 400 && res.status <= 599) {

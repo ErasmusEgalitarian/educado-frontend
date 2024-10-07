@@ -8,21 +8,21 @@ const Carousel: React.FC = () => {
   const texts = [
     <div className="p-4 px-8 sm:px-0 self-stretch text-center text-sky-50 text-[32px] font-bold font-['Montserrat']">
       Bem-vindo ao nosso portal de aprendizado Educado
-      <div className="self-stretch text-center text-sky-50 text-base font-bold font-['Montserrat']">
+      <div className="self-stretch text-center text-sky-50 text-lg font-bold font-['Montserrat']">
         Junte-se a nós para transformar vidas. Oferecemos acesso a conteúdo personalizado para pessoas que precisam, melhorando condições de vida e oportunidades de emprego.
       </div>
     </div>,
 
     <div className="p-4 px-8 sm:px-0 self-stretch text-center text-sky-50 text-[32px] font-bold font-['Montserrat']">
       Seja um criador de conteúdo
-      <div className="self-stretch text-center text-sky-50 text-base font-bold font-['Montserrat']">
+      <div className="self-stretch text-center text-sky-50 text-lg font-bold font-['Montserrat']">
         Ajude a promover seu trabalho e alcance um público mais amplo. Conecte-se a estudantes voluntários e instituições que desejam disseminar informações.
       </div>
     </div>,
 
     <div className="p-4 px-8 sm:px-0 self-stretch text-center text-sky-50 text-[32px] font-bold font-['Montserrat']">
       Registre-se agora e faça a diferença!
-      <div className="self-stretch text-center text-sky-50 text-base font-bold font-['Montserrat']">
+      <div className="self-stretch text-center text-sky-50 text-lg font-bold font-['Montserrat']">
         Seja parte de nossa comunidade que facilita o acesso a conteúdo direcionado e formas práticas de compartilhar conhecimento.
       </div>
     </div>];

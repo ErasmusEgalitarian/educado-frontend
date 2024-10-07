@@ -44,7 +44,7 @@ export default function ProfessionalExperienceForm({
             <div className="flex flex-col ">
               <label htmlFor="firstName" className="font-['Montserrat']">
                 Empresa:
-                <span className="p-2 text-[#FF4949] text-xs font-normal font-['Montserrat']">
+                <span className="p-2 text-[#FF4949] text-sm font-normal font-['Montserrat']">
                   *
                 </span>
               </label>
@@ -62,7 +62,7 @@ export default function ProfessionalExperienceForm({
             <div className="flex flex-col ">
               <label htmlFor="status" className="font-['Montserrat']">
                 Cargo
-                <span className="p-2 text-[#FF4949] text-xs font-normal font-['Montserrat']">
+                <span className="p-2 text-[#FF4949] text-sm font-normal font-['Montserrat']">
                   *
                 </span>
               </label>
@@ -82,7 +82,7 @@ export default function ProfessionalExperienceForm({
             <div className="flex flex-col ">
               <label htmlFor="firstName" className="font-['Montserrat']">
                 início:
-                <span className="p-2 text-[#FF4949] text-xs font-normal font-['Montserrat']">
+                <span className="p-2 text-[#FF4949] text-sm font-normal font-['Montserrat']">
                   *
                 </span>
               </label>
@@ -106,7 +106,7 @@ export default function ProfessionalExperienceForm({
             <div className="flex flex-col ">
               <label htmlFor="email" className="font-['Montserrat']">
                 Fim
-                <span className="p-2 text-[#FF4949] text-xs font-normal font-['Montserrat']">
+                <span className="p-2 text-[#FF4949] text-sm font-normal font-['Montserrat']">
                   *
                 </span>
               </label>
@@ -145,12 +145,12 @@ export default function ProfessionalExperienceForm({
               className="font-['Montserrat']"
             >
               Descrição de atividades:
-              <span className="p-2 text-[#FF4949] text-xs font-normal font-['Montserrat']">
+              <span className="p-2 text-[#FF4949] text-sm font-normal font-['Montserrat']">
                 *
               </span>
             </label>
             <textarea
-              className="h-[120px] bg-[#E4F2F5] rounded-lg border-none resize-none text-base font-normal font-['Montserrat']"
+              className="h-[120px] bg-[#E4F2F5] rounded-lg border-none resize-none text-lg font-normal font-['Montserrat']"
               placeholder="Escreva aqui as suas responsabilidadees"
               maxLength={400}
               name="description"
@@ -159,7 +159,7 @@ export default function ProfessionalExperienceForm({
                 handleExperienceInputChange(value, index);
               }}
             />{" "}
-            <div className="text-right text-xs text-gray-400">
+            <div className="text-right text-sm text-gray-400">
               {handleCountExperience(index)}/400 caracteres
             </div>
           </div>

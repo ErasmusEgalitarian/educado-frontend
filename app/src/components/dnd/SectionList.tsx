@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 // DND-KIT
 import {
@@ -9,34 +9,42 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
-} from '@dnd-kit/core';
+} from "@dnd-kit/core";
+
+import { getUserToken } from "../../helpers/userInfo";
+import SectionServices from "../../services/section.services";
+import { toast } from "react-toastify";
+import { useNotifications } from "../notification/NotificationContext";
 
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
+} from "@dnd-kit/sortable";
 
-import {
-  restrictToVerticalAxis,
-} from "@dnd-kit/modifiers";
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 
 // Components
-import { SortableItem } from './@dnd/SortableItem';
-import { Item } from './@dnd/Item';
+import { SortableItem } from "./@dnd/SortableItem";
+import { Item } from "./@dnd/Item";
 
 interface Props {
-  sections: Array<string>
-  addOnSubmitSubscriber: Function
+  sections: Array<string>;
+  setSections: (updateFn: (prevSections: any[]) => any[]) => void;
+  addOnSubmitSubscriber: Function;
 }
 
-
-export const SectionList = ({ sections, addOnSubmitSubscriber }: Props) => {
+export const SectionList = ({
+  sections,
+  setSections,
+  addOnSubmitSubscriber,
+}: Props) => {
   // States
-  const [activeId, setActiveId] = useState(null);
-  const [items, setItems] = useState(sections);
+  const [activeId, setActiveId] = useState<string | null>(null);
   const [savedSID, setSavedSID] = useState<string>("");
+
+  const { addNotification } = useNotifications();
 
   // Setup of pointer and keyboard sensor
   const sensors = useSensors(
@@ -46,47 +54,68 @@ export const SectionList = ({ sections, addOnSubmitSubscriber }: Props) => {
     })
   );
 
+  const handleSectionDeletion = (sId: string) => {
+    const token = getUserToken();
+    if (confirm("Tem certeza que deseja excluir?") == true) {
+      SectionServices.deleteSection(sId, token)
+        .then(() => {
+          addNotification("Seção excluída");
+          setSections((prevSections) =>
+            prevSections.filter((section) => section !== sId)
+          );
+        })
+        .catch((err) => toast.error(err));
+    }
+  };
+
   // handle start of dragging
   const handleDragStart = (event: any) => {
     const { active } = event;
     setActiveId(active.id);
-  }
+  };
 
   // handle end of dragging
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
     if (active.id !== over.id) {
-      setItems((items) => {
-        const oldIndex = items.indexOf(active.id);
-        const newIndex = items.indexOf(over.id);
-        
-        
+      setSections((items) => {
+        const oldIndex = items.findIndex((item) => item === active.id);
+        const newIndex = items.findIndex((item) => item === over.id);
         return arrayMove(items, oldIndex, newIndex);
       });
     }
-  }
+    setActiveId(null);
+  };
 
   return (
-    <div className='w-full'>
+    <div className="w-full">
       <DndContext
         modifiers={[restrictToVerticalAxis]}
         sensors={sensors}
         collisionDetection={closestCenter}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
-      
       >
-        <SortableContext items={items.map(item => item)} strategy={verticalListSortingStrategy}>
-          {items.map((item, key: React.Key) => <SortableItem key={key} sid={item} addOnSubmitSubscriber={addOnSubmitSubscriber} savedSID={savedSID} setSavedSID={setSavedSID} />)}
+        <SortableContext
+          items={sections}
+          strategy={verticalListSortingStrategy}
+        >
+          {sections.map((section, index) => (
+            <SortableItem
+              key={section}
+              sid={section}
+              addOnSubmitSubscriber={addOnSubmitSubscriber}
+              savedSID={savedSID}
+              setSavedSID={setSavedSID}
+              handleSectionDeletion={handleSectionDeletion}
+            />
+          ))}
         </SortableContext>
 
-       
-        <DragOverlay className='w-full' >
+        <DragOverlay className="w-full">
           {activeId ? <Item id={activeId} /> : null}
         </DragOverlay>
-        
       </DndContext>
     </div>
   );
-}
-
+};

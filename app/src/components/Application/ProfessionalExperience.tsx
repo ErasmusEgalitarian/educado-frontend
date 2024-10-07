@@ -32,14 +32,14 @@ return (
         <div className="relative flex gap-10">
             <input
             type="text" id="company"
-            className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+            className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
             placeholder="Mobile Education"
             {...register("company", { required: true })}
             />
     
             <input
             type="text" id="position"
-            className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+            className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
             placeholder="Product Designer"
             {...register("position", { required: true })}
             />
@@ -51,14 +51,14 @@ return (
         <div className="relative flex gap-10">
             <input
             type="text" id="workStartDate"
-            className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+            className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
             placeholder="Mês / Ano"
             {...register("workStartDate", { required: true })}
             />
     
             <input
             type="text" id="workEndDate"
-            className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+            className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
             placeholder="Mês / Ano"
             {...register("workEndDate", { required: true })}
             />
@@ -69,7 +69,7 @@ return (
         <div className="relative flex">
             <input
             type="text" id="workActivities"
-            className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+            className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
             placeholder="Escreva aqui as suas responsabilidades"
             {...register("workActivities", { required: true })}
             />

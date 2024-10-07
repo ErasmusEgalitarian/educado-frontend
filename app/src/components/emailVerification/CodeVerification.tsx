@@ -2,10 +2,6 @@ import PinField from "react-pin-field";
 import TextInput from "../general/TextInput";
 
 type propsType = {
-  email: string;
-  setEmail: (email: string) => void;
-  emailError: string;
-  emailSent: boolean;
   codeError: string;
   setCode: (code: string) => void;
   setCodeEntered: React.Dispatch<React.SetStateAction<boolean>>;
@@ -25,22 +21,7 @@ type propsType = {
  */
 export default function CodeVerification(props: propsType) : JSX.Element {
   return (
-    <div className="flex h-full flex-col justify-between space-y-4">
-      <div className="-mb-1">
-        <TextInput 
-          id='reset-password-email-field' 
-          className='' 
-          placeholder="Insira sua Email" // Enter your email
-          label="Email"
-          value={props.email} 
-          onChange={props.setEmail} />
-        <p id="email-error" className="text-warning h-5">{props.emailError}</p>
-      </div>
-      {props.emailSent &&
-        <div className="flex-row w-full justify-items-center">
-          {/** We sent a code to your email to reset your password, please insert it below */}
-          <p className="py-4">Enviamos para o seu email um código de redefinição de senha. Insira o código abaixo. luka</p> 
-          <div className="grid grid-cols-1 gap-2 place-items-center">
+    <div className="flex h-full flex-col justify-between space-y-4">   
             <div>
               <PinField
                 id="pin-field"
@@ -54,11 +35,9 @@ export default function CodeVerification(props: propsType) : JSX.Element {
                 }}
               />
               <p id="pin-error" className="text-warning h-5">{props.codeError}</p>
-            </div>
+            </div>     
 
           </div>
-        </div>}
-    </div>
-
+      
   )
 }

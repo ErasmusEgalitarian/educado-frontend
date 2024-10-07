@@ -84,7 +84,7 @@ export default function PersonalInformationForm({
 
           {/* On button click change image*/}
           <button
-            className=" p-7 text-center text-cyan-800 text-base font-bold font-['Montserrat'] underline"
+            className=" p-7 text-center text-cyan-800 text-lg font-bold font-['Montserrat'] underline"
             onChange={handleFileChange}
           >
             Alterar foto de perfil
@@ -94,7 +94,7 @@ export default function PersonalInformationForm({
             <div className="flex flex-col ">
               <label htmlFor="firstName" className="font-['Montserrat']">
                 Nome
-                <span className="p-1 text-[#FF4949] text-xs font-normal font-['Montserrat']">
+                <span className="p-1 text-[#FF4949] text-sm font-normal font-['Montserrat']">
                   *
                 </span>
               </label>
@@ -119,7 +119,7 @@ export default function PersonalInformationForm({
             <div className="flex flex-col ">
               <label htmlFor="email" className="font-['Montserrat']">
                 Email
-                <span className="p-1 text-[#FF4949] text-xs font-normal font-['Montserrat']">
+                <span className="p-1 text-[#FF4949] text-sm font-normal font-['Montserrat']">
                   *
                 </span>
               </label>
@@ -145,7 +145,7 @@ export default function PersonalInformationForm({
           <div className="flex flex-col">
             <label htmlFor="password" className="font-['Montserrat']">
               Senha:
-              <span className="p-2 text-[#FF4949] text-xs font-normal font-['Montserrat']">
+              <span className="p-2 text-[#FF4949] text-sm font-normal font-['Montserrat']">
                 *
               </span>
             </label>
@@ -170,7 +170,7 @@ export default function PersonalInformationForm({
             <div className="flex flex-col">
               <label htmlFor="linkedin" className="font-['Montserrat']">
                 LinkedIn Link:
-                <span className="p-2 text-[#FF4949] text-xs font-normal font-['Montserrat']">
+                <span className="p-2 text-[#FF4949] text-sm font-normal font-['Montserrat']">
                   *
                 </span>
               </label>
@@ -195,19 +195,19 @@ export default function PersonalInformationForm({
           <div className="flex flex-col">
             <label htmlFor="bio" className="font-['Montserrat']">
               Biografia e motivações:
-              <span className="p-2 text-[#FF4949] text-xs font-normal font-['Montserrat']">
+              <span className="p-2 text-[#FF4949] text-sm font-normal font-['Montserrat']">
                 *
               </span>
             </label>
             <textarea
-              className="h-[120px] bg-[#E4F2F5] rounded-lg border-none resize-none text-base font-normal font-['Montserrat']"
+              className="h-[120px] bg-[#E4F2F5] rounded-lg border-none resize-none text-lg font-normal font-['Montserrat']"
               placeholder="Contente mais sobre você"
               maxLength={400}
               name="bio"
               value={formData.bio || ""}
               onChange={handleInputChange}
             />
-            <div className="text-right text-xs text-gray-400">
+            <div className="text-right text-sm text-gray-400">
               {handleCharCountBio()}/400 caracteres
             </div>
           </div>

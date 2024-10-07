@@ -3,12 +3,14 @@ import { Link } from "react-router-dom"
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from 'react-toastify';
+import { useNotifications } from "../components/notification/NotificationContext";
 
 // Services
 import AuthServices from '../services/auth.services';
 
 // Components
 import Layout from "../components/Layout";
+import { add } from "cypress/types/lodash";
 
 
 // Interface
@@ -21,6 +23,7 @@ export type NewInstitution = {
 const NewInstitution = () => {
 
   const navigate = useNavigate();
+  const { addNotification } = useNotifications();
 
   // Use-form setup
   const { register, handleSubmit } = useForm<NewInstitution>();
@@ -36,8 +39,9 @@ const NewInstitution = () => {
       .then((res) => { console.log(res)
             navigate("/educado-admin/applications"); 
               setTimeout(() => {
-            toast.success("Adicionado "+res.data.institution.institutionName+" como nova instituição", { hideProgressBar: true, 
-            }); //CHANGE TO PORTUGUESE
+                addNotification("Adicionado "+res.data.institution.institutionName+" como nova instituição"); //CHANGE TO PORTUGUESE
+             /* toast.success("Adicionado "+res.data.institution.institutionName+" como nova instituição", { hideProgressBar: true, 
+            }); */ // the notis system doesn't support the progressbar thingy?
             }, 1);
       })
       .catch((res) => { console.log(res)
@@ -70,7 +74,7 @@ return (
                    {/*main heading and description text*/}
                   <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                     <h3 className=" leading-6 text-3xl font-bold font-['Montserrat'] text-gray-900 mt-4">Integração Institucional</h3> {/* Institutional Integration */}
-                      <p className="mt-6 max-w-4xl text-base font-['Montserrat'] text-gray-500">Aqui você pode adicionar instituições ao Educado.</p> {/* Here you can add institutions to Educado. */}
+                      <p className="mt-6 max-w-4xl text-lg font-['Montserrat'] text-gray-500">Aqui você pode adicionar instituições ao Educado.</p> {/* Here you can add institutions to Educado. */}
                   </div>
                 </div>
             <div>
@@ -79,12 +83,12 @@ return (
                           
             {/*field to add institution*/}
             <div className="relative gap-10 mt-8">
-            <label className="after:content-['*'] after:ml-0.5 after:text-red-500 text-[#383838] text-base font-normal font-['Montserrat'] mt-6">
+            <label className="after:content-['*'] after:ml-0.5 after:text-red-500 text-[#383838] text-lg font-normal font-['Montserrat'] mt-6">
             Instituição
             </label>
             <input
               type="text" id="institution-name"
-              className="flex border-sky-50 w-[100%] py-3 px-4  placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent bg-sky-50 focus:ring-sky-200 rounded-lg font-['Montserrat']"
+              className="flex border-sky-50 w-[100%] py-3 px-4  placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent bg-sky-50 focus:ring-sky-200 rounded-lg font-['Montserrat']"
               placeholder="Empresa"
               {...register("institutionName", { required: true })}
             />
@@ -92,12 +96,12 @@ return (
 
              {/*field to add email domain*/}
             <div className="relative gap-10 mt-10">
-            <label className="after:content-['*'] after:ml-0.5 after:text-red-500 text-[#383838] text-base font-normal font-['Montserrat'] mt-6">
+            <label className="after:content-['*'] after:ml-0.5 after:text-red-500 text-[#383838] text-lg font-normal font-['Montserrat'] mt-6">
               Domínio de e-mail {/* Email Domain */}
             </label>
             <input
               type="text" id="domain"
-              className="flex w-[100%] border-sky-50 py-3 px-4  placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent bg-sky-50 focus:ring-sky-200 rounded-lg font-['Montserrat']"
+              className="flex w-[100%] border-sky-50 py-3 px-4  placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent bg-sky-50 focus:ring-sky-200 rounded-lg font-['Montserrat']"
               placeholder="@Empresa.com"
               {...register("domain", { required: true })}
               
@@ -105,12 +109,12 @@ return (
 
             {/*field to add institution*/}
             <div className="relative gap-10 mt-10">
-            <label className=" after:ml-0.5 after:text-red-500 text-[#383838] text-base font-normal font-['Montserrat'] mt-6">
+            <label className=" after:ml-0.5 after:text-red-500 text-[#383838] text-lg font-normal font-['Montserrat'] mt-6">
               Domínio de e-mail secundário {/* Secondary Email Domain */}
             </label>
             <input
               type="text" id="secondary-domain"
-              className="flex border-sky-50 w-[100%] py-3 px-4  placeholder-gray-400 text-base focus:outline-none focus:ring-2  focus:border-transparent bg-sky-50 focus:ring-sky-200 rounded-lg font-['Montserrat']"
+              className="flex border-sky-50 w-[100%] py-3 px-4  placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent bg-sky-50 focus:ring-sky-200 rounded-lg font-['Montserrat']"
               placeholder="@Empresa.secundário.com"
               {...register("secondaryDomain", { required: false })}
             />

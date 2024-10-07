@@ -9,6 +9,7 @@ export interface ContentCreatorApplication {
   lastName: string;
   email: string;
   password: string;
+  token: string | null;
 }
 
 
@@ -18,6 +19,10 @@ const postUserLogin = async (credentials: any) => {
 
 const postUserSignup = async(formData: ContentCreatorApplication) => {
   return await axios.post(`${BACKEND_URL}/api/auth/signup`, formData)
+}
+
+const postUserVerification = async(formData: ContentCreatorApplication) => {
+  return await axios.post(`${BACKEND_URL}/api/auth/verify-email`, formData)
 }
 
 const GetCCApplications = async () => {
@@ -32,8 +37,8 @@ const AcceptApplication = async (id: string): Promise<unknown> => {
   return await axios.put(`${BACKEND_URL}/api/applications/${id}approve`);
 };
 
-const RejectApplication = async (id: string): Promise<unknown> => {
-  return await axios.put(`${BACKEND_URL}/api/applications/${id}reject`);
+const RejectApplication = async (id: string, reason: string): Promise<unknown> => {
+  return await axios.put(`${BACKEND_URL}/api/applications/${id}/reject`, { reason });
 };
 
 const postNewApplication = async (data: NewApplication) => {
@@ -53,6 +58,7 @@ const AuthServices = Object.freeze({
   RejectApplication,
   postNewApplication,
   addInstitution,
+  postUserVerification
 });
 
 export default AuthServices;

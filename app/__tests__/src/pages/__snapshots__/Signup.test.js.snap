@@ -93,7 +93,7 @@ exports[`Signup Component can render signup page without errors 1`] = `
                 >
                   Bem-vindo ao nosso portal de aprendizado Educado
                   <div
-                    className="self-stretch text-center text-sky-50 text-base font-bold font-['Montserrat']"
+                    className="self-stretch text-center text-sky-50 text-lg font-bold font-['Montserrat']"
                   >
                     Junte-se a nós para transformar vidas. Oferecemos acesso a conteúdo personalizado para pessoas que precisam, melhorando condições de vida e oportunidades de emprego.
                   </div>
@@ -151,7 +151,6 @@ exports[`Signup Component can render signup page without errors 1`] = `
             </div>
           </div>
         </div>
-         
       </div>
     </div>
     <div
@@ -198,14 +197,14 @@ exports[`Signup Component can render signup page without errors 1`] = `
               href="/welcome"
               onClick={[Function]}
             >
-              Voltar 
+              Voltar
             </a>
           </h1>
         </div>
         <h1
           className="text-[#383838] text-3xl font-bold font-['Lato'] leading-normal self-stretch "
         >
-          Crie a sua conta gratuitamente! 
+          Crie a sua conta gratuitamente!
         </h1>
         <form
           className="stretch flex flex-col"
@@ -221,10 +220,10 @@ exports[`Signup Component can render signup page without errors 1`] = `
                 className="flex flex-start text-[#383838] text-sm font-normal gap-1 font-['Montserrat'] mt-5 after:content-['*'] after:ml-0.5 after:text-red-500 "
                 htmlFor="firstNameField"
               >
-                Nome 
+                Nome
               </label>
               <input
-                className="w-[95%] flex border-gray-300  py-3 px-4 bg-white placeholder-gray-400 text-lg text-[#383838]  focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+                className="w-[95%] flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-lg text-[#383838] focus:outline-none focus:ring-2 focus:border-transparent focus:ring-sky-200 rounded-lg"
                 id="firstNameField"
                 name="firstName"
                 onBlur={[Function]}
@@ -233,7 +232,6 @@ exports[`Signup Component can render signup page without errors 1`] = `
                 placeholder="Nome"
                 type="text"
               />
-               
             </div>
             <div
               className="relative flex-1 ml-2"
@@ -242,10 +240,10 @@ exports[`Signup Component can render signup page without errors 1`] = `
                 className="flex flex-start text-[#383838] text-sm font-normal gap-1 font-['Montserrat'] mt-5 after:content-['*'] after:ml-0.5 after:text-red-500 "
                 htmlFor="lastNameField"
               >
-                Sobrenome 
+                Sobrenome
               </label>
               <input
-                className="w-[100%] flex border-gray-300  py-3 px-4 bg-white placeholder-gray-400 text-lg text-[#383838] focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+                className="w-[100%] flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-lg text-[#383838] focus:outline-none focus:ring-2 focus:border-transparent focus:ring-sky-200 rounded-lg"
                 id="lastNameField"
                 name="lastName"
                 onBlur={[Function]}
@@ -254,20 +252,19 @@ exports[`Signup Component can render signup page without errors 1`] = `
                 placeholder="Sobrenome"
                 type="text"
               />
-               
             </div>
           </div>
           <div
             className="relative"
           >
             <label
-              className=" flex flex-start text-[#383838] text-sm font-normal gap-1 font-['Montserrat'] mt-5 after:content-['*'] after:ml-0.5 after:text-red-500 "
-              htmlFor="usernameField"
+              className="flex flex-start text-[#383838] text-sm font-normal gap-1 font-['Montserrat'] mt-5 after:content-['*'] after:ml-0.5 after:text-red-500 "
+              htmlFor="email-field"
             >
               Email
             </label>
             <input
-              className="w-[100%]  flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+              className="w-[100%] flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2 focus:border-transparent focus:ring-sky-200 rounded-lg"
               id="email-field"
               name="email"
               onBlur={[Function]}
@@ -281,13 +278,13 @@ exports[`Signup Component can render signup page without errors 1`] = `
             className="relative"
           >
             <label
-              className=" flex flex-start text-[#383838] text-sm font-normal gap-1 font-['Montserrat'] mt-5 after:content-['*'] after:ml-0.5 after:text-red-500 "
+              className="flex flex-start text-[#383838] text-sm font-normal gap-1 font-['Montserrat'] mt-5 after:content-['*'] after:ml-0.5 after:text-red-500 "
               htmlFor="password-field"
             >
-              Senha 
+              Senha
             </label>
             <input
-              className="w-[100%] hflex border-gray-300  py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+              className="w-[100%] flex border-gray-300 py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2 focus:border-transparent focus:ring-sky-200 rounded-lg"
               id="password-field"
               name="password"
               onBlur={[Function]}
@@ -329,31 +326,31 @@ exports[`Signup Component can render signup page without errors 1`] = `
             <div
               className="items-stretch text-[#A1ACB2] text-sm font-normal font-['Montserrat'] mt-2"
             >
-              • Mínimo 8 caracteres 
+              • Mínimo 8 caracteres
             </div>
             <div
               className="text-[#A1ACB2] text-sm font-normal font-['Montserrat'] items-stretch"
             >
-              • Conter pelo menos uma letra 
+              • Conter pelo menos uma letra
             </div>
           </div>
           <div
             className="relative"
           >
             <label
-              className=" flex flex-start text-[#383838] text-sm font-normal gap-1 font-['Montserrat'] mt-6 after:content-['*'] after:ml-0.5 after:text-red-500 "
-              htmlFor="password-field.repeat"
+              className="flex flex-start text-[#383838] text-sm font-normal gap-1 font-['Montserrat'] mt-6 after:content-['*'] after:ml-0.5 after:text-red-500 "
+              htmlFor="password-field-repeat"
             >
-              Confirmar Senha 
+              Confirmar Senha
             </label>
             <input
-              className="w-[100%] flex border-gray-300 gap-2.5 py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2  focus:border-transparent focus:ring-sky-200 rounded-lg"
+              className="w-[100%] flex border-gray-300 gap-2.5 py-3 px-4 bg-white placeholder-gray-400 text-lg focus:outline-none focus:ring-2 focus:border-transparent focus:ring-sky-200 rounded-lg"
               id="password-field-repeat"
               name="confirmPassword"
               onBlur={[Function]}
               onChange={[Function]}
               onInput={[Function]}
-              placeholder="********** "
+              placeholder="**********"
               type="password"
             />
             <button
@@ -385,35 +382,31 @@ exports[`Signup Component can render signup page without errors 1`] = `
           <span
             className="h-10"
           />
-           
           <button
             className="disabled:opacity-20 disabled:bg-slate-600 flex-auto w-[100%] h-[3.3rem] rounded-lg bg-[#166276] text-[#FFF] transition duration-100 ease-in hover:bg-cyan-900 hover:text-gray-50 text-lg font-bold font-['Montserrat']"
             disabled={true}
             id="submit-signup-button"
             type="submit"
           >
-            Cadastrar 
+            Cadastrar
           </button>
           <span
             className="h-2"
           />
-           
           <div
             className="flex justify-center space-x-1"
           >
             <span
               className="text-[#A1ACB2] text-lg font-normal font-['Montserrat']"
             >
-              Já possui conta? 
-                
+              Já possui conta?
             </span>
             <a
               className="text-[#383838] text-lg font-normal font-['Montserrat'] underline hover:text-blue-500 gap-6"
               href="/login"
               onClick={[Function]}
             >
-              Entre agora 
-               
+              Entre agora
             </a>
           </div>
         </form>

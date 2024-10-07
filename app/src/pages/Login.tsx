@@ -18,6 +18,10 @@ import AuthServices from '../services/auth.services';
 import { setUserInfo } from '../helpers/userInfo';
 import PasswordRecoveryModal from '../components/passwordRecovery/PasswordRecoveryModal';
 
+// Account application success modal
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import GenericModalComponent from '../components/GenericModalComponent';
 
 // Contexts
 export const ToggleModalContext = createContext(() => { });
@@ -55,6 +59,10 @@ const Login = () => {
     const [passwordError, setPasswordError] = useState(null);
     const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
 
+    // Location hook and modal state for account application success modal
+    const location = useLocation();
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
     /**
     * OnSubmit function for Login.
     * Takes the submitted data from the form and sends it to the backend through a service.
@@ -70,6 +78,10 @@ const Login = () => {
           email: data.email,
           password: data.password,})
           .then((res) => {
+              if(res.status == 200){
+              const id = res.data.baseUser;
+              navigate(`/application/${id}`);         
+              }
               if(res.status == 202){
                 localStorage.setItem("token", res.data.accessToken);
                 localStorage.setItem("id", res.data.userInfo.id);
@@ -83,7 +95,7 @@ const Login = () => {
             switch (err.response.data.error.code){
               case "E0004": //Invalid Email 
                 setEmailError(err);
-                setEmailErrorMessage("Email inválido. Por favor, verifique se você digitou o endereço de email corretamente.");
+                setEmailErrorMessage("Insira um email válido.");
                 setPasswordError(null);
                 setPasswordErrorMessage('');
                 setError('');
@@ -109,7 +121,7 @@ const Login = () => {
               setEmailError(null);
               setEmailErrorMessage('');
               setPasswordError(err);
-              setPasswordErrorMessage("Senha Incorreta.");
+              setPasswordErrorMessage("Senha Incorreta. Por favor, tente novamente.");
               setError('');
               break;
               
@@ -148,8 +160,20 @@ const Login = () => {
     // failure on submit handler FIXME: find out what this does (OLD CODE)
     //const onError: SubmitHandler<Inputs> = error => console.log(error);
 
+    // Account application success modal visibility effect
+    useEffect(() => {
+        if (location.state?.applicationSubmitted) {
+            setIsModalVisible(true);
+        }
+    }, [location.state]);
+
+    // Function to close the account application success modal
+    const closeModal = () => {
+        setIsModalVisible(false);
+    };
+
   return (
-    <main className="bg-gradient-to-br from-[#C9E5EC] 0% to-[#FFF] 100%" >
+    <main className="flex bg-gradient-to-br from-[#C9E5EC] 0% to-[#FFF] 100%" >
 
       { /*Navbar*/}
       <nav className="flex fixed w-full items-center justify-between bg-secondary box-shadow-md bg-fixed top-0 left-0 right-0 z-10" style={{ background: 'var(--secondary, #F1F9FB)', boxShadow: '0px 4px 4px 0px rgba(35, 100, 130, 0.25)' }}>
@@ -181,7 +205,7 @@ const Login = () => {
             {error && (
               <div className="bg-white shadow border-t-4 p-4 w-52 rounded text-center animate-bounce-short" role="alert">
                 <p className="font-bold text-lg">{error.toString()}</p>
-                <p id='error-message' className='text-base'>{errorMessage}</p>
+                <p id='error-message' className='text-lg'>{errorMessage}</p>
               </div>
             )}
           </div>
@@ -223,8 +247,7 @@ const Login = () => {
 
             {emailError && (
             <div className="flex items-center font-normal font-['Montserrat']" role="alert">
-              <Icon path={mdiAlertCircleOutline} size={0.6} color="red"/> 
-            <p className='mt-1 ml-1 text-red-500 text-sm'>{emailErrorMessage}</p>
+              <p className='mt-1 ml-4 text-red-500 text-sm'>{emailErrorMessage}</p>
             </div>
           )}
           </div>
@@ -253,8 +276,7 @@ const Login = () => {
 
       {passwordError && (
         <div className="flex items-center font-normal font-['Montserrat']" role="alert">
-          <Icon path={mdiAlertCircleOutline} size={0.6} color="red"/> 
-          <p className='mt-1 ml-1 text-red-500 text-sm'>{passwordErrorMessage}</p>
+          <p className='mt-1 ml-4 text-red-500 text-sm'>{passwordErrorMessage}</p>
         </div>
        )}
       </div>
@@ -262,8 +284,8 @@ const Login = () => {
             
       { /*Forgot password button*/}
               <div className=" flex flex-col items-end gap-3">
-                <span className="text-neutral-700 text-right text-base font-normal font-['Montserrat']"></span>{" "}
-                <label id='modalToggle' onClick={() => setShowModal(true)} className="text-[#383838] text-base font-normal font-['Montserrat'] underline hover:text-blue-500">Esqueceu sua senha? {/**/}</label>
+                <span className="text-neutral-700 text-right text-lg font-normal font-['Montserrat']"></span>{" "}
+                <label id='modalToggle' onClick={() => setShowModal(true)} className="text-[#383838] text-lg font-normal font-['Montserrat'] underline hover:text-blue-500">Esqueceu sua senha? {/**/}</label>
               </div>
           
         <span className="h-12" /> {/* spacing */}  
@@ -285,11 +307,23 @@ const Login = () => {
       </div>
     </div>
   </div>
-  {showModal &&
-    <ToggleModalContext.Provider value={() => setShowModal(!showModal)}>
-      <PasswordRecoveryModal toggleModal={() => {setShowModal(!showModal)}} setErrorMessage={setErrorMessage} />
-    </ToggleModalContext.Provider>}
-</main>
+      {showModal &&
+        <ToggleModalContext.Provider value={() => setShowModal(!showModal)}>
+          <PasswordRecoveryModal toggleModal={() => {setShowModal(!showModal)}} setErrorMessage={setErrorMessage} />
+        </ToggleModalContext.Provider>
+      }
+
+      {/* Account application success modal */}
+      <GenericModalComponent
+        title="Aguarde aprovação"
+        contentText={"Seu cadastro está em análise e você terá retorno em até 7 dias."}
+        cancelBtnText={"Fechar"}      // Close (functions as the 'ok' button in this particular modal)
+        onConfirm={() => {}}    // Empty function passed in due to confirm button not being present in this particular modal
+        isVisible={isModalVisible}
+        onClose={closeModal}
+      />
+
+    </main>
 )};
 
 export default Login

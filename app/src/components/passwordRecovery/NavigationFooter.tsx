@@ -24,7 +24,7 @@ export default function NavigationFooter(props: propsType) : JSX.Element {
           Cancelar {/** Cancel */}
         </label>
         <label>
-          <button id="continue" onClick={handleContinue} className="py-2 px-7 bg-primary hover:bg-gray-100 border border-primary hover:text-primary text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:ring-offset-2  rounded">
+          <button id="continue" onClick={handleContinue} className="py-2 px-7 bg-primary hover:bg-gray-100 border border-primary hover:text-primary text-white w-full transition ease-in duration-200 text-center text-lg font-semibold shadow-md focus:ring-offset-2  rounded">
             {!props.codeVerified ? 'Continuar' : 'Redefinir senha'} {/* Continue if code is not verified, else reset password */}
           </button>
         </label>

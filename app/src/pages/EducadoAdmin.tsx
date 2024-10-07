@@ -41,7 +41,7 @@ return (
     {/* Component Header bar */}
     <div className="navbar justify-end md:w-full bg-none p-6">
         <div className="flex-none">
-        <Link className="flex-shrink-0 px-12 py-3 text-base font-semiboldborder font-['Montserrat'] hover:bg-cyan-900 hover:text-gray-50 border-[#166276] bg-[#166276] rounded font-semibold text-white shadow-md  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-blue-200"
+        <Link className="flex-shrink-0 px-12 py-3 text-lg font-semiboldborder font-['Montserrat'] hover:bg-cyan-900 hover:text-gray-50 border-[#166276] bg-[#166276] rounded font-semibold text-white shadow-md  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-blue-200"
             to="/educado-admin/new-institution"> 
             <button 
                 type="submit"
@@ -68,7 +68,7 @@ return (
             <table className="min-w-full leading-normal">
                 {/* Table Header */}
                 <thead>
-                    <tr className="bg-white border-b border-gray-200 text-gray-800  text-left text-base uppercase font-base font-['Lato']">
+                    <tr className="bg-white border-b border-gray-200 text-gray-800  text-left text-lg uppercase font-base font-['Lato']">
                         <th scope="col" className="p-5"> 
                             Nome {/* name */}
                         </th>
@@ -102,7 +102,7 @@ return (
                     }).map((application: any, key: number) => {
                         const date = new Date(application.joinedAt); 
                         return (
-                            <tr key={key} className="px-5 py-5 border-b border-gray-200 bg-white text-base font-['Montserrat']">
+                            <tr key={key} className="px-5 py-5 border-b border-gray-200 bg-white text-lg font-['Montserrat']">
                                 <td>
                                     <div className="flex items-center">
                                         <div className="ml-3">
@@ -123,7 +123,7 @@ return (
                                     </p>
                                 </td>
                                 <td className="flex items-center p-4">
-                                    <Link to={`${location.pathname}/${application._id}`} id="viewDetails" className="flex items-center justify-center p-2 w-full bg-[#166276] rounded font-semibold text-base text-white">
+                                    <Link to={`${location.pathname}/${application._id}`} id="viewDetails" className="flex items-center justify-center p-2 w-full bg-[#166276] rounded font-semibold text-lg text-white">
                                     Ver detalhes {/** see details */}
                                     </Link>
                                 </td>
@@ -138,7 +138,7 @@ return (
                 <div className="flex items-center">
                     <button
                         type="button"
-                        className="w-full p-4 border text-base rounded-l-xl text-gray-600 bg-white hover:bg-gray-100"
+                        className="w-full p-4 border text-lg rounded-l-xl text-gray-600 bg-white hover:bg-gray-100"
                     >
                         <svg
                             width="9"
@@ -153,31 +153,31 @@ return (
                     </button>
                     <button
                         type="button"
-                        className="w-full px-4 py-2 border-t border-b text-base text-indigo-500 bg-white hover:bg-gray-100 "
+                        className="w-full px-4 py-2 border-t border-b text-lg text-indigo-500 bg-white hover:bg-gray-100 "
                     >
                         1
                     </button>
                     <button
                         type="button"
-                        className="w-full px-4 py-2 border text-base text-gray-600 bg-white hover:bg-gray-100"
+                        className="w-full px-4 py-2 border text-lg text-gray-600 bg-white hover:bg-gray-100"
                     >
                         2
                     </button>
                     <button
                         type="button"
-                        className="w-full px-4 py-2 border-t border-b text-base text-gray-600 bg-white hover:bg-gray-100"
+                        className="w-full px-4 py-2 border-t border-b text-lg text-gray-600 bg-white hover:bg-gray-100"
                     >
                         3
                     </button>
                     <button
                         type="button"
-                        className="w-full px-4 py-2 border text-base text-gray-600 bg-white hover:bg-gray-100"
+                        className="w-full px-4 py-2 border text-lg text-gray-600 bg-white hover:bg-gray-100"
                     >
                         4
                     </button>
                     <button
                         type="button"
-                        className="w-full p-4 border-t border-b border-r text-base  rounded-r-xl text-gray-600 bg-white hover:bg-gray-100"
+                        className="w-full p-4 border-t border-b border-r text-lg  rounded-r-xl text-gray-600 bg-white hover:bg-gray-100"
                     >
                         <svg
                             width="9"

@@ -21,6 +21,7 @@ const emptyState = () => {
                         <p className='font-normal'>Criar novo curso</p> {/** Create new course */}
                     </label>
                 </div>
+
             </div>
         </div>
     )
