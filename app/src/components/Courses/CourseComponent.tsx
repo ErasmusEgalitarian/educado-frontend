@@ -77,6 +77,7 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
     }
   }, [courseData]);
 
+  //Used to format PARTIAL course data, meaning that it can be used to update the course data gradually
   const formatCourse = (data: Partial<Course>): Course => {
     return {
       title: data.title || '',
@@ -121,7 +122,7 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
   const handleFileUpload = () => {
     StorageService.uploadFile({ id: id, file: coverImg, parentType: "c" });
   };
-  
+  //Used to prepare the course changes before sending it to the backend
   const prepareCourseChanges = (data: Course, status: string): Course => {
     return {
       title: data.title,
