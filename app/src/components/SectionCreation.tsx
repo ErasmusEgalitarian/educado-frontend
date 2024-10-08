@@ -11,11 +11,15 @@ import { BACKEND_URL } from "../helpers/environment";
 import CourseServices from "../services/course.services";
 import { YellowWarning } from "./Courses/YellowWarning";
 import { useNavigate } from "react-router-dom";
+/* import Popup from "./Popup/Popup"; */
+import GenericModalComponent from "./GenericModalComponent";
 
 import Loading from "./general/Loading";
 import Layout from "./Layout";
-import { toast } from "react-toastify";
-import { set } from "cypress/types/lodash";
+
+// Notification
+import { useNotifications } from './notification/NotificationContext';
+
 
 interface Inputs {
   id: string;
@@ -37,6 +41,13 @@ export const SectionCreation = ({
   );
   const [sections, setSections] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("");
+  const [cancelBtnText, setCancelBtnText] = useState("Cancelar");
+  const [confirmBtnText, setConfirmBtnText] = useState("Confirmar");
+  const [dialogTitle, setDialogTitle] = useState("Cancelar alterações");
+
+  const [dialogConfirm, setDialogConfirm] = useState<Function>(() => {});
   const [status, setStatus] = useState<string>("draft");
 
   const navigate = useNavigate();
@@ -54,43 +65,45 @@ export const SectionCreation = ({
   //   );
   // }
 
+  // Notification 
+  const { addNotification } = useNotifications();
+
   function notifyOnSubmitSubscriber() {
     onSubmitSubscribers.forEach((cb) => cb());
   }
 
-  // Function to call when publish button is clicked, if publish succueds user will be send to courses after toast has been send
-  async function onPublish() {
-    try {
-      const confirmMSG =
-        status === "published"
-          ? "Tem certeza de que deseja publicar o curso? Isso o disponibilizará para os usuários do aplicativo"
-          : "Tem certeza de que deseja publicar as alterações feitas no curso";
+  const handleDialogEvent = (dialogText: string, onConfirm: () => void, dialogTitle: string) => {
+    setDialogTitle(dialogTitle);
+    setDialogMessage(dialogText);
+    setDialogConfirm(() => onConfirm);
+    setShowDialog(true);
+  };
 
-      if (confirm(confirmMSG)) {
-        updateCourseSections();
-        if (status !== "published") {
-          await CourseServices.updateCourseStatus(id, "published", token);
-          toast.success("Curso publicado com sucesso!");
-        } else {
-          toast.success("Seções salvas com sucesso!");
-        }
+  const handleDraftConfirm = async () => {
+    try {
+      await updateCourseSections();
+      navigate("/courses");
+      addNotification("Seções salvas com sucesso!")
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handlePublishConfirm = async () => {
+    try {
+      updateCourseSections();
+      if (status !== "published") {
+        await CourseServices.updateCourseStatus(id, "published", token);
+        navigate("/courses");
+        addNotification("Curso publicado com sucesso!")
+      } else {
+        navigate("/courses");
+        addNotification("Seções salvas com sucesso!")
       }
     } catch (err) {
       console.error(err);
     }
-  }
-  async function onSubmit() {
-    if (
-      confirm(
-        "Tem certeza que deseja sair? Você perderá todas as alterações feitas."
-      )
-    ) {
-      updateCourseSections();
-      toast.success("Seções salvas com sucesso!");
-    }
-
-    //setTickChange(2)(); //TODO: add in when next page is implemented
-  }
+  };
 
   async function updateCourseSections(): Promise<void> {
     notifyOnSubmitSubscriber();
@@ -114,12 +127,7 @@ export const SectionCreation = ({
     return res;
   };
 
-  // Redirect to courses page when setLeaving is set to true
-  useEffect(() => {
-    if (isLeaving) {
-      navigate("/courses");
-    }
-  }, [isLeaving]);
+  // Redirect to courses page when setLeaving is s
 
   // Fetch Course Details
   useEffect(() => {
@@ -148,6 +156,22 @@ export const SectionCreation = ({
 
   return (
     <div>
+      
+        <GenericModalComponent
+          title={dialogTitle}
+          contentText={dialogMessage}
+          cancelBtnText={cancelBtnText}
+          confirmBtnText={confirmBtnText}
+          isVisible={showDialog}
+          onConfirm={async () => {
+            await dialogConfirm();
+          }}
+          onClose={() => {
+            setShowDialog(false);
+          }} // Do nothing
+        />
+      
+
       <div className="">
         <div className="flex w-full float-right items-center justify-left space-y-4 my-4">
           <h1 className="text-2xl text-left font-bold justify-between space-y-4">
@@ -189,8 +213,10 @@ export const SectionCreation = ({
             >
               <label
                 onClick={() => {
-                  setIsLeaving(true);
-                  onSubmit();
+                  handleDialogEvent(
+                    "Você tem certeza de que quer salvar como rascunho as alterações feitas?",
+                    handleDraftConfirm, "Salvar como rascunho"
+                  );
                 }}
                 className="whitespace-nowrap hover:cursor-pointer underline"
               >
@@ -201,8 +227,13 @@ export const SectionCreation = ({
             <label className="h-12 p-2 bg-primary hover:bg-primary focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-lg font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
               <label
                 onClick={() => {
-                  setIsLeaving(true);
-                  onPublish();
+                  handleDialogEvent(
+                    status === "published"
+                      ? "Tem certeza de que deseja publicar o curso? Isso o disponibilizará para os usuários do aplicativo"
+                      : "Tem certeza de que deseja publicar as alterações feitas no curso",
+                    handlePublishConfirm,
+                    "Publicar curso"
+                  );
                 }}
                 className="whitespace-nowrap py-4 px-8 h-full w-full cursor-pointer"
               >

@@ -50,6 +50,7 @@ const CourseManager = () => {
     );
 
     const updateLocalData = (newData: Course) => {
+        console.log("new status", newData.status)
         const changes: Course = {
             ...localData,
             ...newData,
@@ -79,7 +80,7 @@ const CourseManager = () => {
                 return 1;
             }
             if (doesCourseSectionsExist(data)) {
-                return 2;
+                return 1;
             }
             return 0;
         };

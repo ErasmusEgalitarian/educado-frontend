@@ -12,6 +12,7 @@ import { Exercise } from "../interfaces/Exercise"
 import ExerciseServices from "../services/exercise.services";
 
 // Pop-up messages
+import { useNotifications } from "../components/notification/NotificationContext";
 import { toast } from "react-toastify";
 
 // Hooks
@@ -31,6 +32,8 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
     const { register, handleSubmit: handleExerciseSave } = useForm();
     const onExerciseSave: SubmitHandler<any> = data => updateExercise(data);
 
+    const {addNotification} = useNotifications();
+
 /** Token doesnt work, reimplement when it token is implemented */
     const token = getUserToken();
     
@@ -43,7 +46,7 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
         }
 
         ExerciseServices.updateExercise(exerciseToSave, token, eid)
-            .then(() => toast.success(`Exercício salvo com sucesso`)) /** Successfully saved exercise */
+            .then(() => addNotification("Exercício salvo com sucesso")) /** Successfully saved exercise */
             .catch((e) => toast.error("Falha ao salvar o exercício devido a um erro: " + e));  /** Failed to save exercise due to an error: */
 
     }
@@ -62,7 +65,7 @@ const deleteExercise = async () => {
 
         if (status >= 200 && status <= 299) {
             window.location.reload();
-            toast.success("Exercício excluído") /** Exercise deleted */
+            addNotification("Exercício excluído") /** Exercise deleted */
         } else if (status >= 400 && status <= 599) {
             toast.error(`(${status}, ${response.statusText}) while attempting to delete exercise`)
         }

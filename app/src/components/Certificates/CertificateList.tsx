@@ -4,6 +4,7 @@ import CertificateCard from "./CertificateCard";
 import { useEffect, useState } from "react";
 import CertificateService from "../../services/certificate.services";
 import EmptyImg from "../../assets/no-courses.png";
+import EmptyState from "./CertificateEmpty";
 
 export default function CertificateList() {
 
@@ -15,14 +16,15 @@ export default function CertificateList() {
 		})
 	}, []);
 
-	if (!certificates) return <Loading />;
+	if (!certificates) return <EmptyState />;
+
 	return (
 		<div className="overflow-scroll min-h-full pb-4" id="certificate-list">
 			{(certificates.length > 0) ?
 				<>
 					<div className="w-full">
-						<h1 className="text-3xl font-semibold">Certificates</h1>
-						<p className="text-grayMedium">You have {certificates.length} certificates</p>
+						<h1 className="text-3xl font-semibold">Certificados</h1>
+						<p className="text-grayMedium">Você tem {certificates.length} certificados.</p>
 					</div>
 					{certificates.map((certificate: Certificate, key: number) => (
 						<CertificateCard certificate={certificate} key={key} num={key} />

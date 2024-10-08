@@ -4,10 +4,15 @@ import App from './App'
 
 // styles
 import './index.css'
+import { NotificationProvider } from './components/notification/NotificationContext'
+import { ToastContainer } from 'react-toastify'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App/>
+    <NotificationProvider>
+      <ToastContainer />
+        <App/>
+    </NotificationProvider>
   </React.StrictMode>
   
 )

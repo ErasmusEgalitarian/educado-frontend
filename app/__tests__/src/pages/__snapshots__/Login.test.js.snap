@@ -2,7 +2,7 @@
 
 exports[`Login Component can render login page without errors 1`] = `
 <main
-  className="bg-gradient-to-br from-[#C9E5EC] 0% to-[#FFF] 100%"
+  className="flex bg-gradient-to-br from-[#C9E5EC] 0% to-[#FFF] 100%"
 >
   <nav
     className="flex fixed w-full items-center justify-between bg-secondary box-shadow-md bg-fixed top-0 left-0 right-0 z-10"

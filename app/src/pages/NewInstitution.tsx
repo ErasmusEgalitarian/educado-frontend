@@ -3,12 +3,14 @@ import { Link } from "react-router-dom"
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from 'react-toastify';
+import { useNotifications } from "../components/notification/NotificationContext";
 
 // Services
 import AuthServices from '../services/auth.services';
 
 // Components
 import Layout from "../components/Layout";
+import { add } from "cypress/types/lodash";
 
 
 // Interface
@@ -21,6 +23,7 @@ export type NewInstitution = {
 const NewInstitution = () => {
 
   const navigate = useNavigate();
+  const { addNotification } = useNotifications();
 
   // Use-form setup
   const { register, handleSubmit } = useForm<NewInstitution>();
@@ -36,8 +39,9 @@ const NewInstitution = () => {
       .then((res) => { console.log(res)
             navigate("/educado-admin/applications"); 
               setTimeout(() => {
-            toast.success("Adicionado "+res.data.institution.institutionName+" como nova instituição", { hideProgressBar: true, 
-            }); //CHANGE TO PORTUGUESE
+                addNotification("Adicionado "+res.data.institution.institutionName+" como nova instituição"); //CHANGE TO PORTUGUESE
+             /* toast.success("Adicionado "+res.data.institution.institutionName+" como nova instituição", { hideProgressBar: true, 
+            }); */ // the notis system doesn't support the progressbar thingy?
             }, 1);
       })
       .catch((res) => { console.log(res)

@@ -93,7 +93,7 @@ const Signup = () => {
    */
   const onSubmit = async (data: any) => {
     setFormData(data); // Store the form data in state
-    console.log(FormData);
+
     // Show the email verification modal
     await AuthServices.postUserSignup({
       firstName: data.firstName,
