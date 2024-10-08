@@ -314,7 +314,7 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
             {/*Field to choose a category from a list of options*/}
             <div className="flex flex-col w-1/2 space-y-2 text-left  ">
               <label htmlFor='category'>Categoria <span className="text-red-500">*</span></label> 
-              <select id="cqategory-field"
+              <select id="category-field"
                 defaultValue={data ? data.category : ""}
                 className="bg-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 {...register("category", { required: true })}
