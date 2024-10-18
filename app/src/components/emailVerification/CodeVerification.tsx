@@ -21,23 +21,31 @@ type propsType = {
  */
 export default function CodeVerification(props: propsType) : JSX.Element {
   return (
-    <div className="flex h-full flex-col justify-between space-y-4">   
-            <div>
-              <PinField
-                id="pin-field"
-                length={4}
-                className="flex-4 flex-row mx-3 w-10 rounded-md text-center pin-field"
-                validate='0123456789'
-                inputMode="numeric"
-                onChange={props.setCode}
-                onComplete={() => {
-                  props.setCodeEntered(true);
-                }}
-              />
-              <p id="pin-error" className="text-warning h-5">{props.codeError}</p>
-            </div>     
-
-          </div>
-      
-  )
+    <div className="flex h-full flex-col justify-center items-center">
+      <div className="flex flex-row justify-center items-center w-[420px] h-[38px] space-x-2.5">
+        <PinField
+          id="pin-field"
+          length={4}
+          className="flex flex-row justify-center items-center"
+          validate="0123456789"
+          inputMode="numeric"
+          onChange={props.setCode}
+          onComplete={() => {
+            props.setCodeEntered(true);
+          }}
+          style={{
+            width: '99px', // Width
+            height: '38px', // Height
+            padding: '8px 16px', // Padding: Top 8px, Right 16px, Bottom 8px, Left 16px
+            marginRight: '0px', // Gap
+            borderRadius: '8px', // Border radius
+            borderColor: '#e8effa',
+            opacity: '1', // Opacity
+            textAlign: 'center', // Center text
+          }}
+        />
+      </div>
+      <p id="pin-error" className="text-warning h-0">{props.codeError}</p>
+    </div>
+  );
 }

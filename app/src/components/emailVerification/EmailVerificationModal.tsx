@@ -7,6 +7,7 @@ import { validateEmail } from "../../utilities/validation";
 type propTypes = {
   toggleModal: () => void;
   setErrorMessage: (message: string, error?: string) => void;
+  uemail: string;
 }
 
 export const HandleContinueContext = createContext<() => void>(() => { });
@@ -19,6 +20,12 @@ export const HandleContinueContext = createContext<() => void>(() => { });
  * @returns {JSX.Element} the modal component
  */
 const EmailVerificationModal = (props: propTypes) : JSX.Element => {
+  const { uemail, toggleModal, setErrorMessage } = props;
+
+  
+  const onSubmit = async () => {
+    console.log('onSubmit')
+  }
 
   // States that control the flow of the modal
   const [emailSent, setEmailSent] = useState(false);
@@ -61,20 +68,29 @@ const EmailVerificationModal = (props: propTypes) : JSX.Element => {
   }, [email, code]);
 
   return (
-    <div id="password-reset-modal" className='absolute grid place-items-center bg-darkBG inset-0'>
-        <div className="bg-gradient-to-b p-10 rounded-xl w-11/12 xl:max-w-[35%] overflow-scroll lg:max-w-[40%] md:max-w-[50%] sm:max-w-[60%] max-w-[80%] max-h-[100%]">
-          <h3 className="font-bold text-xl mb-4">Verificar e-mail</h3> {/** Reset password */}
-
-          {!codeVerified ?
-            <CodeVerification
-              setCode={setCode}
-              codeError={codeError}
-              setCodeEntered={setCodeEntered}
-            /> : null}
-          <NavigationFooter codeVerified={codeVerified} token={code} />
-        </div>
+    <div id="password-reset-modal" className='absolute inset-0 grid place-items-center'>
+      
+      <div className="absolute inset-0 bg-[#383838] opacity-60 z-10" onClick={toggleModal}></div>
+      
+      <div className="relative bg-[#F1F9FB] p-10 rounded-xl max-h-[100%] z-20" style={{ width: '500px' }}>
+        <h3 className="font-bold text-xl mb-4">Confirmar email</h3> 
+        <h1 className="mb-4">Enviamos um código para o <b>{uemail}</b>, por favor, insira o mesmo abaixo</h1>
+        
+        {!codeVerified ?
+          <CodeVerification
+            setCode={setCode}
+            codeError={codeError}
+            setCodeEntered={setCodeEntered}
+          /> : null}
+        <NavigationFooter codeVerified={codeVerified} token={code} />
+      </div>
     </div>
-  )
+  );
 }
+
+
+/*<label id="cancel-button" onClick={toggleModal} className="underline hover:cursor-pointer">
+          Cancelar
+        </label> */
 
 export default EmailVerificationModal;
