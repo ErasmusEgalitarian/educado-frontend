@@ -39,6 +39,7 @@ const Checklist: React.FC<ChecklistProps> = ({ tickChange, highestTick, id, setT
                         id="check1"
                         disabled={highestTick < 0}
                         checked={highestTick >= 0}
+                        onChange={() => {}}
                         style={{ outline: 'none', boxShadow: 'none' }}
                     />
                     Informações gerais
@@ -55,6 +56,7 @@ const Checklist: React.FC<ChecklistProps> = ({ tickChange, highestTick, id, setT
                         id="check2"
                         disabled={highestTick < 1}
                         checked={highestTick >= 1}
+                        onChange={() => {}}
                         style={{ outline: 'none', boxShadow: 'none' }}
                     />
                     Seções do curso
@@ -71,6 +73,7 @@ const Checklist: React.FC<ChecklistProps> = ({ tickChange, highestTick, id, setT
                         id="check3"
                         disabled={highestTick < 2}
                         checked={highestTick >= 2}
+                        onChange={() => {}}
                         style={{ outline: 'none', boxShadow: 'none' }}
                     />
                     Revisar curso
