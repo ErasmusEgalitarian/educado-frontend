@@ -134,18 +134,23 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
   const handleSaveExistingDraft = async (changes: Course) => {
     try {
       await CourseServices.updateCourseDetail(changes, id, token);
+      //Upload image with the new id
+      StorageService.uploadFile({ id: id, file: coverImg, parentType: "c" });
       navigate("/courses");
       addNotification("Seções salvas com sucesso!");
     } catch (err) {
       toast.error(err as string);
+
     }
   };
 
   // Creates new draft course and navigates to course list
   const handleCreateNewDraft = async (data: Course) => {
     try {
-      await CourseServices.createCourse(data, token);
+      const newCourse = await CourseServices.createCourse(data, token);
       console.log("creating new draft", data);
+      //Upload image with the new id
+      StorageService.uploadFile({ id: newCourse.data._id, file: coverImg, parentType: "c" });
       navigate("/courses");
       addNotification("Seção deletada com sucesso!");
     } catch (err) {
@@ -158,6 +163,8 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
     try {
       const newCourse = await CourseServices.createCourse(data, token);
       addNotification("Curso criado com sucesso!");
+      //Upload image with the new id
+      StorageService.uploadFile({ id: newCourse.data._id, file: coverImg, parentType: "c" });
       setId(newCourse.data._id);
       setTickChange(1);
       updateHighestTick(1);
@@ -356,14 +363,14 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
           </div> 
           
           <div>
-            {/*Cover image field is made but does not interact with the db*/}
+            {/*Cover image field*/}
             <div className="flex flex-col space-y-2 text-left">
               <label htmlFor='cover-image'>Imagem de capa <span className="text-red-500">*</span></label> {/** Cover image */} 
             </div>
             <Dropzone inputType='image' callBack={(file: File) => {
               setCoverImg(file);
               handleFieldChange('coverImg', file ? file.name : '');
-            }}/> {/** FIX: Doesn't have the functionality to upload coverimage to Buckets yet!*/}
+            }}/>
             {errors.description && <span className='text-warning'>Este campo é obrigatório</span>} {/** This field is required */}
           </div>
           <div className="text-right">
