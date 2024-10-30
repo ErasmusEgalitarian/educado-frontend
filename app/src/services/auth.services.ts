@@ -9,7 +9,6 @@ export interface ContentCreatorApplication {
   lastName: string;
   email: string;
   password: string;
-  role: string;
   token: string | null;
 }
 
@@ -38,8 +37,8 @@ const AcceptApplication = async (id: string): Promise<unknown> => {
   return await axios.put(`${BACKEND_URL}/api/applications/${id}approve`);
 };
 
-const RejectApplication = async (id: string, rejectionReason: string): Promise<unknown> => {
-  return await axios.put(`${BACKEND_URL}/api/applications/${id}reject`, { rejectionReason });
+const RejectApplication = async (id: string, reason: string): Promise<unknown> => {
+  return await axios.put(`${BACKEND_URL}/api/applications/${id}/reject`, { reason });
 };
 
 const postNewApplication = async (data: NewApplication) => {

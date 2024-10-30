@@ -3,7 +3,7 @@ import useSWR from "swr";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { getUserToken } from "../helpers/userInfo";
-
+import CourseGuideButton from "../components/Courses/GuideToCreatingCourse";
 // Services
 import CourseServices from "../services/course.services";
 
@@ -18,8 +18,12 @@ import { toast } from "react-toastify";
 
 // Images
 import noCoursesImage from "../assets/no-courses.png";
-import { PencilSquareIcon } from "@heroicons/react/24/outline";
-
+import {
+  InformationCircleIcon,
+  PencilSquareIcon,
+  QuestionMarkCircleIcon,
+} from "@heroicons/react/24/outline";
+import { useState } from "react";
 
 /**
  * @returns HTML Element
@@ -35,8 +39,18 @@ const Courses = () => {
 
   // TODO: Implement proper backend call once backend is ready
 
-  const CourseManager = () => { 
+  const CourseManager = () => {
     navigate("/courses/manager/0/0");
+  };
+
+  const [showTutorial, setShowTutorial] = useState(false);
+
+  const handleShowTutorial = () => {
+    setShowTutorial(true);
+  };
+
+  const handleCloseTutorial = () => {
+    setShowTutorial(false);
   };
 
   const { data, error } = useSWR(
@@ -70,15 +84,19 @@ const Courses = () => {
                 <h1 className="text-3xl font-bold flex-1">
                   Confira seus cursos
                 </h1>
-                <label
-                  htmlFor="course-create"
-                  onClick={CourseManager}
-                  className="std-button flex modal-button  space-x-2"
-                >
-                  <PencilSquareIcon className="w-5 h-5" />
-                  <p className="font-normal ">Criar novo curso</p>{" "}
-                  {/** Create new course */}
-                </label>
+                <div className="flex flex-row gap-5">
+                  <label
+                    htmlFor="course-create"
+                    onClick={CourseManager}
+                    className="std-button flex modal-button space-x-2 cursor-pointer"
+                  >
+                    <PencilSquareIcon className="w-8 h-8" />
+                    <p className="font-normal ">Criar novo curso</p>{" "}
+                    {/** Create new course */}
+                  </label>
+                  {/* Course guide button shows a tutorial*/}
+                  <CourseGuideButton />
+                </div>
               </div>
               {/* Card/compact view toggle and filters */}
               <div className="h-10 my-8 bg-grayLight">

@@ -24,8 +24,7 @@ import GenericModalComponent from "../GenericModalComponent";
 // Interface
 import { Course } from "../../interfaces/Course";
 import { add } from "cypress/types/lodash";
-
-
+import CourseGuideButton from "./GuideToCreatingCourse";
 
 interface CourseComponentProps {
   token: string;
@@ -66,9 +65,8 @@ export const CourseComponent = ({
     formState: { errors },
   } = useForm<Course>();
 
-  // Notification 
+  // Notification
   const { addNotification } = useNotifications();
-
 
   const existingCourse = id != "0";
 
@@ -113,7 +111,11 @@ export const CourseComponent = ({
     );
   }, []);
 
-  const handleDialogEvent = (message: string, onConfirm: () => void, dialogTitle: string) => {
+  const handleDialogEvent = (
+    message: string,
+    onConfirm: () => void,
+    dialogTitle: string
+  ) => {
     setDialogTitle(dialogTitle);
     setDialogMessage(message);
     setDialogConfirm(() => onConfirm);
@@ -188,12 +190,14 @@ export const CourseComponent = ({
       if (existingCourse && statusSTR === "draft") {
         handleDialogEvent(
           "Você tem certeza de que quer salvar como rascunho as alterações feitas?",
-          handleSaveExistingDraft.bind(this, changes), "Salvar como rascunho "
+          handleSaveExistingDraft.bind(this, changes),
+          "Salvar como rascunho "
         );
       } else if (!existingCourse && statusSTR === "draft") {
         handleDialogEvent(
           "Você tem certeza de que quer salvar como rascunho as alterações feitas?",
-          handleCreateNewDraft.bind(this, changes), "Salvar como rascunho "
+          handleCreateNewDraft.bind(this, changes),
+          "Salvar como rascunho "
         );
       }
     } else {
@@ -222,33 +226,32 @@ export const CourseComponent = ({
   return (
     <div>
       <GenericModalComponent
-          title={dialogTitle}
-          contentText={dialogMessage}
-          cancelBtnText={cancelBtnText}
-          confirmBtnText={confirmBtnText}
-          isVisible={showDialog}
-          onConfirm={async () => {
-            await dialogConfirm();
-          }}
-          onClose={() => {
-            setShowDialog(false);
-          }} // Do nothing
-        />
-      <div className="w-full flex flex-row py-5">
-        <h1 className="text-2xl text-left font-bold justify-between space-y-4">
-          {" "}
-          Informações gerais{" "}
-        </h1>
-        {/** Tooltip for course header*/}
-        <ToolTipIcon
-          index={0}
-          toolTipIndex={toolTipIndex}
-          text={
-            "👩🏻‍🏫Nossos cursos são separados em seções e você pode adicionar quantas quiser!"
-          }
-          tooltipAmount={2}
-          callBack={setToolTipIndex}
-        />
+        title={dialogTitle}
+        contentText={dialogMessage}
+        cancelBtnText={cancelBtnText}
+        confirmBtnText={confirmBtnText}
+        isVisible={showDialog}
+        onConfirm={async () => {
+          await dialogConfirm();
+        }}
+        onClose={() => {
+          setShowDialog(false);
+        }} // Do nothing
+      />
+      <div className="w-full flex flex-row items-center justify-between py-5">
+        <div className="flex items-center gap-2">
+          <h1 className="text-2xl font-bold"> Informações gerais </h1>
+          <ToolTipIcon
+            index={0}
+            toolTipIndex={toolTipIndex}
+            text={
+              "👩🏻‍🏫Nossos cursos são separados em seções e você pode adicionar quantas quiser!"
+            }
+            tooltipAmount={2}
+            callBack={setToolTipIndex}
+          />
+        </div>
+        <CourseGuideButton />
       </div>
 
       {/*Field to input the title of the new course*/}
@@ -355,9 +358,8 @@ export const CourseComponent = ({
             <div className="text-right">
               <label htmlFor="">{charCount}/400</label>
             </div>
+          </div>
 
-          </div> 
-          
           <div>
             {/*Cover image field is made but does not interact with the db*/}
             <div className="flex flex-col space-y-2 text-left">
