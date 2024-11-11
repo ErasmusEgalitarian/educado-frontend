@@ -29,8 +29,8 @@ jobs:
           npm install
           npm run build --if-present
 
-      - name: Change Directory
-        run: cd app
+      # - name: Change Directory
+      #   run: cd app
 
       # - name: Linting
       #   uses: wearerequired/lint-action@v2
