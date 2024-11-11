@@ -32,8 +32,10 @@ jobs:
       - name: Change Directory
         run: cd app
 
-      - name: Linting
-        uses: wearerequired/lint-action@v2
-        with:
-          eslint: true
-          prettier: true
+      # - name: Linting
+      #   uses: wearerequired/lint-action@v2
+      #   with:
+      #     eslint: true
+      #     prettier: true
+      - name: Run ESLint
+        run: npm run linting
