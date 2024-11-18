@@ -3,18 +3,26 @@ import Layout from "../components/Layout";
 
 import { InstitutionsTableAdmin } from "../components/Admin/Institutions/InstitutionsTableAdmin";
 import { UsersTableAdmin } from "../components/Admin/Users/UsersTableAdmin";
+import { CoursesTableAdmin } from "@components/Admin/Courses/CoursesTableAdmin";
 
 const EducadoAdmin = () => {
-  const [selectedTable, setSelectedTable] = useState<"users" | "institutions">(
-    "users"
-  );
+  type TableOptions = "users" | "institutions" | "courses";
+  const [selectedTable, setSelectedTable] = useState<TableOptions>("users");
 
-  const activeTable =
-    selectedTable === "users" ? (
-      <UsersTableAdmin />
-    ) : (
-      <InstitutionsTableAdmin />
-    );
+  let activeTable;
+  switch (selectedTable) {
+    case "users":
+      activeTable = <UsersTableAdmin />;
+      break;
+    case "institutions":
+      activeTable = <InstitutionsTableAdmin />;
+      break;
+    case "courses":
+      activeTable = <CoursesTableAdmin />;
+      break;
+    default:
+      break;
+  }
 
   return (
     <Layout meta="Educado Admin">
@@ -40,6 +48,17 @@ const EducadoAdmin = () => {
             onClick={() => setSelectedTable("institutions")}
           >
             <span>Institutions</span>
+          </button>
+          <button
+            id="courses-button"
+            className={`flex-1 py-3 ${
+              selectedTable === "courses"
+                ? ""
+                : "bg-white text-normal font-normal text-[#166276]"
+            }`}
+            onClick={() => setSelectedTable("courses")}
+          >
+            <span>Curso</span>
           </button>
         </div>
         {activeTable}

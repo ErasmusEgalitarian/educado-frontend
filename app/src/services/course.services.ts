@@ -39,10 +39,10 @@ const createCourse = async (data: Course, token: string) => {
 const getAllCourses = async ( token: string) => {
   const { id } = getUserInfo();
 
-  const res = await axios.get(`${BACKEND_URL}/api/courses/creator/${id}`, { headers: { Authorization: `Bearer ${token}`, token: token } });
+  const res = await axios.get<Course[]>(`${BACKEND_URL}/api/courses/creator/${id}`, { headers: { Authorization: `Bearer ${token}`, token: token } });
 
   // Convert dates in course data to Date objects
-  res.data.forEach((course: any) => {
+  res.data.forEach((course) => {
     course.dateCreated = new Date(course.dateCreated);
     course.dateUpdated = new Date(course.dateUpdated);
   });
