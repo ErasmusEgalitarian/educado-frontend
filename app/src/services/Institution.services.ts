@@ -3,9 +3,13 @@ import { BACKEND_URL } from "../helpers/environment";
 import { Institution } from "../interfaces/Institution";
 
 const getInstitutions = async (token: string) => {
-  return await axios.get<Institution[]>(`${BACKEND_URL}/api/institutions`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const res = await axios.get<Institution[]>(
+    `${BACKEND_URL}/api/institutions`,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+  return res.data;
 };
 
 const getSingleInstitution = async (id: string, token: string) => {
@@ -29,19 +33,24 @@ const updateInstitution = async (
   token: string,
   data: Institution
 ) => {
-  return await axios.patch(
+  const res = await axios.patch<{ message: string; institution: Institution }>(
     `${BACKEND_URL}/api/institutions/${id}`,
     { ...data },
     {
       headers: { Authorization: `Bearer ${token}` },
     }
   );
+  return res.data;
 };
 
 const deleteInstitution = async (id: string, token: string) => {
-  return await axios.delete(`${BACKEND_URL}/api/institutions/${id}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const res = await axios.delete<Institution>(
+    `${BACKEND_URL}/api/institutions/${id}`,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+  return res.data;
 };
 
 export const institutionService = {

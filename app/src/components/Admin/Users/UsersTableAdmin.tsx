@@ -1,18 +1,21 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { useState } from "react";
-import useSWR from "swr";
-import Loading from "../general/Loading";
-import DeleteUserButton from "./DeleteUserButton";
-import ViewUserButton from "../../pages/ViewUserButton";
-import AdminToggleButton from "./AdminToggle";
-import AdminServices from "../../services/admin.services";
-import { getUserToken } from "../../helpers/userInfo";
+import Loading from "@components/general/Loading";
+import ViewUserButton from "@components/Admin/Users/Actions/ViewUserButton";
+import AdminToggleButton from "@components/Admin/Users/Actions/AdminToggle";
+import DeleteUserButton from "@components/Admin/Users/Actions/DeleteUserButton";
 import {
   GoArrowLeft,
   GoArrowRight,
   GoChevronLeft,
   GoChevronRight,
 } from "react-icons/go";
+
+import AdminServices from "@services/admin.services";
+import { getUserToken } from "@helpers/userInfo";
+import useSWR from "swr";
+import { ContentCreator } from "@interfaces/ContentCreator";
+import { User } from "@interfaces/User";
 
 export const UsersTableAdmin = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -48,17 +51,9 @@ export const UsersTableAdmin = () => {
     return formattedDate;
   };
 
-  interface Application {
-    approved: boolean;
-    rejected: boolean;
-    firstName: string;
-    lastName: string;
-    email: string;
-    joinedAt: string;
-    _id: string;
-  }
+  type UserRecord = User & ContentCreator;
 
-  const getStatusColor = (application: Application) => {
+  const getStatusColor = (application: UserRecord) => {
     if (application.approved) return "green";
     if (application.rejected) return "red";
     return "black";
@@ -85,14 +80,14 @@ export const UsersTableAdmin = () => {
     setCurrentPage(totalPages);
   };
 
-  const filteredData = data?.data.data.filter((application: Application) => {
-    if (searchTerm === "") return application;
-    if (application.firstName.toLowerCase().includes(searchTerm.toLowerCase()))
-      return application;
-    if (application.lastName.toLowerCase().includes(searchTerm.toLowerCase()))
-      return application;
-    if (application.email.toLowerCase().includes(searchTerm.toLowerCase()))
-      return application;
+  const filteredData = data.filter((userRecord) => {
+    if (searchTerm === "") return userRecord;
+    if (userRecord.firstName.toLowerCase().includes(searchTerm.toLowerCase()))
+      return userRecord;
+    if (userRecord.lastName.toLowerCase().includes(searchTerm.toLowerCase()))
+      return userRecord;
+    if (userRecord.email.toLowerCase().includes(searchTerm.toLowerCase()))
+      return userRecord;
   });
 
   const paginatedData = filteredData.slice(
@@ -157,7 +152,7 @@ export const UsersTableAdmin = () => {
           </tr>
         </thead>
         <tbody>
-          {paginatedData.map((application: Application, key: number) => {
+          {paginatedData.map((userRecord, key) => {
             return (
               <tr
                 key={key}
@@ -165,8 +160,8 @@ export const UsersTableAdmin = () => {
               >
                 <td>
                   <AdminToggleButton
-                    applicationId={application._id}
-                    applicationApproved={application.approved}
+                    applicationId={userRecord._id}
+                    applicationApproved={userRecord.approved}
                   />
                 </td>
                 <td>
@@ -177,45 +172,45 @@ export const UsersTableAdmin = () => {
                         id="name"
                         style={{ wordBreak: "break-word" }}
                       >
-                        {application.firstName} {application.lastName}
+                        {userRecord.firstName} {userRecord.lastName}
                       </p>
                     </div>
                   </div>
                 </td>
                 <td style={{ wordBreak: "break-word" }}>
                   <p className="text-gray-900 whitespace-no-wrap" id="email">
-                    {application.email}
+                    {userRecord.email}
                   </p>
                 </td>
                 <td>
                   <p
                     className="text-gray-900 whitespace-no-wrap"
                     id="status"
-                    style={{ color: getStatusColor(application) }}
+                    style={{ color: getStatusColor(userRecord) }}
                   >
-                    {application.approved
+                    {userRecord.approved
                       ? "Aprovado"
-                      : application.rejected
+                      : userRecord.rejected
                       ? "Recusado"
                       : "Aguardando análise"}
                   </p>
                 </td>
                 <td>
                   <p className="text-gray-900" id="date">
-                    {formatDate(application.joinedAt)}
+                    {formatDate(userRecord.joinedAt)}
                   </p>
                 </td>
                 <td>
                   <div className="flex items-center p-4">
-                    {application.approved || application.rejected ? (
+                    {userRecord.approved || userRecord.rejected ? (
                       <>
                         <ViewUserButton
-                          applicationId={application._id}
+                          applicationId={userRecord._id}
                           onHandleStatus={refreshUsers}
                         />
                         <div className="mx-2.5"></div>
                         <DeleteUserButton
-                          applicationId={application._id}
+                          applicationId={userRecord._id}
                           onDelete={refreshUsers}
                         />
                         <div className="-ml-8"></div>
@@ -223,7 +218,7 @@ export const UsersTableAdmin = () => {
                     ) : (
                       <div className="ml-auto -mr-2">
                         <ViewUserButton
-                          applicationId={application._id}
+                          applicationId={userRecord._id}
                           onHandleStatus={refreshUsers}
                         />
                       </div>

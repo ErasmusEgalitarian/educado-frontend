@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Layout from "../components/Layout";
 
-import { InstitutionsTableAdmin } from "../components/Admin/InstitutionsTableAdmin";
-import { UsersTableAdmin } from "../components/Admin/UsersTableAdmin";
+import { InstitutionsTableAdmin } from "../components/Admin/Institutions/InstitutionsTableAdmin";
+import { UsersTableAdmin } from "../components/Admin/Users/UsersTableAdmin";
 
 const EducadoAdmin = () => {
   const [selectedTable, setSelectedTable] = useState<"users" | "institutions">(
@@ -39,7 +39,7 @@ const EducadoAdmin = () => {
             }`}
             onClick={() => setSelectedTable("institutions")}
           >
-            <span >Institutions</span>
+            <span>Institutions</span>
           </button>
         </div>
         {activeTable}
