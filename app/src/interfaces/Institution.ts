@@ -3,5 +3,4 @@ export interface Institution {
   institutionName: string;
   domain: string;
   secondaryDomain: string;
-  [key: string]: any;
 }

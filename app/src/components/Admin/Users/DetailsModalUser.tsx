@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from "react";
-import GenericModalComponentUser from "./UserGenericContainerComponent";
-import GenericModalComponent from "../../GenericModalComponent";
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+import React, { useState } from "react";
+import GenericModalComponentUser from "@components/Admin/Users/UserGenericContainerComponent";
+import GenericModalComponent from "@components/GenericModalComponent";
+import { Application } from "@interfaces/Application";
+import { User } from "@interfaces/User";
+import { ContentCreator } from "@interfaces/ContentCreator";
 /*
 
 This component is used to display the user details modal in the admin dashboard.
@@ -13,22 +17,19 @@ The Informations are being parsed to the UserGenericContainerComponent and Gener
 */
 interface UserDetailsModalProps {
   isOpen: boolean;
-  onClose: () => void;
-  userDetails: any;
   token: string;
-  applicationId: string;
+  onClose: () => void;
   onHandleStatus: () => void;
-  userApplication: any;
-  contentCreator: any;
+  userApplication: { application: Application; applicator: User };
+  userDetails: User;
+  contentCreator: ContentCreator;
   loading: boolean;
 }
-
 const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
   isOpen,
   onClose,
   userDetails,
   token,
-  applicationId,
   onHandleStatus,
   userApplication,
   contentCreator,
@@ -37,10 +38,6 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState([true, false, false]);
   const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
   const [isApproveModalOpen, setIsApproveModalOpen] = useState(false);
-
-  useEffect(() => {
-    console.log("userApplication:", userApplication);
-  }, [userApplication]);
 
   if (!isOpen) return null;
 
@@ -76,12 +73,12 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
         : "",
       confirmBtnText: isRejectModalOpen ? "Rejeitar" : "Aprovar",
       onConfirm: closeModal,
-      userId: applicationId,
-      token: token,
+      userId: userApplication.applicator._id,
+      token,
       onHandleStatus: onHandleStatus,
-      userDetails: userDetails,
+      userDetails,
       isReject: isRejectModalOpen,
-      loading: loading,
+      loading,
     };
 
     if (isRejectModalOpen || isApproveModalOpen) {
@@ -102,7 +99,8 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
         onConfirm={() => {}}
         isConfirmDisabled={false}
         loading={loading}
-        width="900px">
+        width="900px"
+      >
         <div className="overflow-y-auto max-h-[600px]">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="flex flex-col items-center bg-white p-2 md:p-4 rounded-l-lg mt-4 relative">
@@ -111,7 +109,8 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
               </dt>
               <dd
                 id="name"
-                className="text-base font-['Montserrat'] text-gray-900 break-all">
+                className="text-base font-['Montserrat'] text-gray-900 break-all"
+              >
                 {userDetails.firstName} {userDetails.lastName}
               </dd>
             </div>
@@ -121,7 +120,8 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
               </dt>
               <dd
                 id="email"
-                className="text-base font-['Montserrat'] text-gray-900 break-all">
+                className="text-base font-['Montserrat'] text-gray-900 break-all"
+              >
                 {userDetails.email}
               </dd>
             </div>
@@ -131,8 +131,9 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
               </dt>
               <dd
                 id="status"
-                className="text-base font-['Montserrat'] text-gray-900 break-all">
-                {contentCreator
+                className="text-base font-['Montserrat'] text-gray-900 break-all"
+              >
+                {contentCreator !== null
                   ? contentCreator.approved
                     ? "Aprovado"
                     : contentCreator.rejected
@@ -148,7 +149,8 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
               isDropdownOpen[0]
                 ? "rounded-tl-lg rounded-tr-lg bg-primary text-white"
                 : "rounded-lg bg-white text-neutral-700 text-grayDark"
-            }`}>
+            }`}
+          >
             <svg
               className={`w-4 h-4 ml-2 transform transition-transform ${
                 isDropdownOpen[0] ? "rotate-180" : "rotate-0"
@@ -156,23 +158,26 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg">
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M19 9l-7 7-7-7"></path>
+                d="M19 9l-7 7-7-7"
+              ></path>
             </svg>
             <span className="ml-2">Motivações</span>
           </button>
           <div
             className={`overflow-hidden transition-max-height duration-500 ease-in-out ${
               isDropdownOpen[0] ? "max-h-screen" : "max-h-0"
-            }`}>
+            }`}
+          >
             <div className="p-4 bg-white rounded-b-lg shadow break-all">
               <p className="text-base font-['Montserrat'] text-gray-900">
-                {userApplication?.application?.motivation !== undefined
-                  ? userApplication.application.motivation
+                {userApplication.application?.motivation !== undefined
+                  ? userApplication.application?.motivation
                   : "No motivation provided"}
               </p>
             </div>
@@ -183,7 +188,8 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
               isDropdownOpen[1]
                 ? "rounded-tl-lg rounded-tr-lg bg-primary text-white"
                 : "rounded-lg bg-white text-neutral-700 text-grayDark"
-            }`}>
+            }`}
+          >
             <svg
               className={`w-4 h-4 ml-2 transform transition-transform ${
                 isDropdownOpen[1] ? "rotate-180" : "rotate-0"
@@ -191,53 +197,54 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg">
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M19 9l-7 7-7-7"></path>
+                d="M19 9l-7 7-7-7"
+              ></path>
             </svg>
             <span className="ml-2">Experiências acadêmicas</span>
           </button>
           <div
             className={`overflow-hidden transition-max-height duration-500 ease-in-out ${
               isDropdownOpen[1] ? "max-h-screen" : "max-h-0"
-            }`}>
+            }`}
+          >
             {userApplication?.application?.academicLevel?.length > 0 ? (
-              userApplication.application.academicLevel.map(
-                (_: any, index: any) => (
-                  <div
-                    key={index}
-                    className="p-4 bg-white rounded-b-lg shadow break-all mt-2">
-                    <p className="text-base font-['Montserrat'] text-gray-900">
-                      Academic level:{" "}
-                      {userApplication.application.academicLevel[index] ||
-                        "Not provided"}
-                      <br />
-                      Academic status:{" "}
-                      {userApplication.application.academicStatus[index] ||
-                        "Not provided"}
-                      <br />
-                      Major:{" "}
-                      {userApplication.application.major[index] ||
-                        "Not provided"}
-                      <br />
-                      Institution:{" "}
-                      {userApplication.application.institution[index] ||
-                        "Not provided"}
-                      <br />
-                      Education start date:{" "}
-                      {userApplication.application.educationStartDate[index] ||
-                        "Not provided"}
-                      <br />
-                      Education end date:{" "}
-                      {userApplication.application.educationEndDate[index] ||
-                        "Not provided"}
-                    </p>
-                  </div>
-                )
-              )
+              userApplication.application.academicLevel.map((_, index) => (
+                <div
+                  key={index}
+                  className="p-4 bg-white rounded-b-lg shadow break-all mt-2"
+                >
+                  <p className="text-base font-['Montserrat'] text-gray-900">
+                    Academic level:{" "}
+                    {userApplication.application.academicLevel[index] ||
+                      "Not provided"}
+                    <br />
+                    Academic status:{" "}
+                    {userApplication.application.academicStatus[index] ||
+                      "Not provided"}
+                    <br />
+                    Major:{" "}
+                    {userApplication.application.major[index] || "Not provided"}
+                    <br />
+                    Institution:{" "}
+                    {userApplication.application.institution[index] ||
+                      "Not provided"}
+                    <br />
+                    Education start date:{" "}
+                    {userApplication.application.educationStartDate[index] ||
+                      "Not provided"}
+                    <br />
+                    Education end date:{" "}
+                    {userApplication.application.educationEndDate[index] ||
+                      "Not provided"}
+                  </p>
+                </div>
+              ))
             ) : (
               <p className="p-4 bg-white rounded-b-lg shadow break-all mt-2 text-base font-['Montserrat'] text-gray-900">
                 No academic experiences provided
@@ -250,7 +257,8 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
               isDropdownOpen[2]
                 ? "rounded-tl-lg rounded-tr-lg bg-primary text-white"
                 : "rounded-lg bg-white text-neutral-700 text-grayDark"
-            }`}>
+            }`}
+          >
             <svg
               className={`w-4 h-4 ml-2 transform transition-transform ${
                 isDropdownOpen[2] ? "rotate-180" : "rotate-0"
@@ -258,24 +266,30 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg">
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M19 9l-7 7-7-7"></path>
+                d="M19 9l-7 7-7-7"
+              ></path>
             </svg>
             <span className="ml-2">Experiências profissionais</span>
           </button>
           <div
             className={`overflow-hidden transition-max-height duration-500 ease-in-out ${
               isDropdownOpen[2] ? "max-h-screen" : "max-h-0"
-            }`}>
+            }`}
+          >
+            {/* The structure of the application object should probably be changed
+            on the backend because it is bad to work with a more nested style would be better */}
             {userApplication?.application?.company?.length > 0 ? (
-              userApplication.application.company.map((_: any, index: any) => (
+              userApplication.application.company.map((_, index) => (
                 <div
                   key={index}
-                  className="p-4 bg-white rounded-b-lg shadow break-all mt-2">
+                  className="p-4 bg-white rounded-b-lg shadow break-all mt-2"
+                >
                   <p className="text-base font-['Montserrat'] text-gray-900">
                     Company:{" "}
                     {userApplication.application.company[index] ||
@@ -309,7 +323,8 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
         <div className="flex justify-between mt-4">
           <button
             onClick={onClose}
-            className="text-[#166276] rounded text-base font-base font-['Lato'] underline underline-offset-4">
+            className="text-[#166276] rounded text-base font-base font-['Lato'] underline underline-offset-4"
+          >
             Fechar
           </button>
           <div className="flex space-x-4">
@@ -320,7 +335,8 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-[#FE4949] hover:bg-[#E44040] text-white"
               }`}
-              disabled={contentCreator?.rejected}>
+              disabled={contentCreator?.rejected}
+            >
               Recusar
             </button>
             <button
@@ -330,7 +346,8 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-[#49A04A] hover:bg-[#418A42] text-white"
               }`}
-              disabled={contentCreator?.approved}>
+              disabled={contentCreator?.approved}
+            >
               Aprovar
             </button>
           </div>
