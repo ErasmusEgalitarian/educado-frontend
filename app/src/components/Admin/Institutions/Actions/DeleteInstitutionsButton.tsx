@@ -49,7 +49,7 @@ export const DeleteInstitutionButton = ({
           isVisible={showModal}
           confirmBtnText="Deletar"
           loading={isLoading}
-          title="Deletando usuário"
+          title="Deletando Instituições"
           contentText="Você tem certeza de que deseja excluir este Instituições?"
           width="w-[600px]"
         />

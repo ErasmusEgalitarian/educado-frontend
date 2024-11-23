@@ -36,7 +36,7 @@ const EducadoAdmin = () => {
             }`}
             onClick={() => setSelectedTable("users")}
           >
-            <span>Users</span>
+            <span>Usuários</span>
           </button>
           <button
             id="InstitutionsButton"
@@ -47,7 +47,7 @@ const EducadoAdmin = () => {
             }`}
             onClick={() => setSelectedTable("institutions")}
           >
-            <span>Institutions</span>
+            <span>Instituições</span>
           </button>
           <button
             id="courses-button"
@@ -58,7 +58,7 @@ const EducadoAdmin = () => {
             }`}
             onClick={() => setSelectedTable("courses")}
           >
-            <span>Curso</span>
+            <span>Cursos</span>
           </button>
         </div>
         {activeTable}

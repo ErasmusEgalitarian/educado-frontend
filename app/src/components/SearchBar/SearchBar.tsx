@@ -3,10 +3,15 @@ import { MdSearch } from "react-icons/md";
 
 export const SearchBar = ({
   sortingOptions,
+  placeholderText,
   searchFn,
-}: {
+} // sortingFn,
+: {
   sortingOptions: { displayName: string; htmlValue: string }[];
-  searchFn: (searchString: string) => unknown; //should return filtered data
+  placeholderText?: string;
+  searchFn: (searchString: string) => void;
+  // add function for sorting
+  // sortingFn
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -27,7 +32,7 @@ export const SearchBar = ({
         <input
           className="input input-bordered"
           type="text"
-          placeholder="Buscar usuário"
+          placeholder={placeholderText}
           onChange={(event) => setSearchTerm(event.target.value)}
         />
         <div className="flex flex-col justify-center">

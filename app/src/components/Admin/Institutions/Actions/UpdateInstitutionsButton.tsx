@@ -83,7 +83,7 @@ export const UpdateInstitutionButton = ({
           onConfirm={(e) => handleSumbit(e)}
           onClose={handleClose}
           isVisible={showModal}
-          title="Update Instituições"
+          title="Atualizar Instituições"
           confirmBtnText="Atualizar"
           loading={isLoading}
           children={

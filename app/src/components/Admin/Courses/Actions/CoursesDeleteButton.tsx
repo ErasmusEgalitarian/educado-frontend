@@ -1,12 +1,12 @@
-// import { useState } from "react";
-// import GenericModalComponent from "@components/GenericModalComponent";
+import { useState } from "react";
+import GenericModalComponent from "@components/GenericModalComponent";
 import { MdDelete } from "react-icons/md";
 
-// import { useNotifications } from "@components/notification/NotificationContext";
-// import { getUserToken } from "@helpers/userInfo";
-// import { useApi } from "@hooks/useAPI";
-// import { toast } from "react-toastify";
-// import { institutionService } from "@services/Institution.services";
+import { useNotifications } from "@components/notification/NotificationContext";
+import { getUserToken } from "@helpers/userInfo";
+import { useApi } from "@hooks/useAPI";
+import { toast } from "react-toastify";
+import courseService from "@services/course.services";
 
 import { Course } from "@interfaces/Course";
 import { KeyedMutator } from "swr";
@@ -18,49 +18,44 @@ export const CoursesDeleteButton = ({
   courseId: string;
   refreshFn: KeyedMutator<Course[]>;
 }) => {
-  // const [showModal, setShowModal] = useState(false);
-  // const {
-  //   call: deleteInstitution,
-  //   isLoading,
-  //   error,
-  // } = useApi(institutionService.deleteInstitution);
+  const [showModal, setShowModal] = useState(false);
+  const { call: deleteCourse, isLoading } = useApi(courseService.deleteCourse);
 
-  // const { addNotification } = useNotifications();
+  const { addNotification } = useNotifications();
 
-  // const handleConfirm = async () => {
-  //   try {
-  //     await deleteInstitution(institutionId, getUserToken());
-  //     refreshFn();
-  //     addNotification("Instituição deletada com sucesso !");
-  //   } catch (err) {
-  //     toast.error(err as string);
-  //     console.error(err);
-  //   }
-  // };
+  const handleConfirm = async () => {
+    try {
+      await deleteCourse(courseId, getUserToken());
 
-  if (courseId === undefined) return null;
-  if (refreshFn === undefined) return null;
+      refreshFn();
+      addNotification("Curso deletada com sucesso !");
+      setShowModal(false);
+    } catch (err) {
+      toast.error(err as string);
+      console.error(err);
+    }
+  };
 
   return (
     <>
       <button
         className="btn btn-circle bg-primary hover:bg-cyan-900 border-transparent"
-        // onClick={() => setShowModal(true)}
+        onClick={() => setShowModal(true)}
       >
         <MdDelete />
       </button>
-      {/* {showModal && (
+      {showModal && (
         <GenericModalComponent
           onConfirm={handleConfirm}
           onClose={() => setShowModal(false)}
           isVisible={showModal}
           confirmBtnText="Deletar"
           loading={isLoading}
-          title="Deletando usuário"
-          contentText="Você tem certeza de que deseja excluir este Instituições?"
+          title="Deletando curso"
+          contentText="Você tem certeza de que deseja excluir este Curso?"
           width="w-[600px]"
         />
-      )} */}
+      )}
     </>
   );
 };
