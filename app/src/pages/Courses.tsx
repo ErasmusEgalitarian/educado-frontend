@@ -68,7 +68,7 @@ const Courses = () => {
     filterAndSortCourses(data, searchTerm, selectedFilter, setFilteredCourses);
   }, [searchTerm, data, selectedFilter]);
 
-  function filterAndSortCourses(data: any, searchTerm: string, selectedFilter: string, setFilteredCourses) {
+  function filterAndSortCourses(data: any, searchTerm: string, selectedFilter: string, setFilteredCourses: any) {
     if (data && Array.isArray(data)) {
       const lowerCaseSearchTerm = searchTerm.toLowerCase();
       const filtered = data.filter(
@@ -79,10 +79,10 @@ const Courses = () => {
       // Apply sorting based on selected filter
       switch (selectedFilter) {
         case "newest":
-          filtered.sort((a: any, b: any) => new Date(b.dateCreated) - new Date(a.dateCreated));
+          filtered.sort((a: any, b: any) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime());
           break;
         case "oldest":
-          filtered.sort((a: any, b: any) => new Date(a.dateCreated) - new Date(b.dateCreated));
+          filtered.sort((a: any, b: any) => new Date(a.dateCreated).getTime() - new Date(b.dateCreated).getTime());
           break;
         case "popular":
           filtered.sort((a: any, b: any) => b.numOfSubscriptions - a.numOfSubscriptions);
@@ -112,7 +112,7 @@ const Courses = () => {
     );
 
 
-    const handleGridOrList = (view) => {
+    const handleGridOrList = (view: any) => {
       setIsGridView(view === 'grid');
     };
 
