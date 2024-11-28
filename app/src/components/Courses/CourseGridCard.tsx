@@ -4,13 +4,10 @@ import { Course } from "../../interfaces/Course"
 // Components
 import StarRating from "../general/StarRating";
 import { Icon } from '@mdi/react';
-import { mdiPencil, mdiAccount } from '@mdi/js';
-import { LastEdited } from "./LastEdited";
 import { BsClockFill } from "react-icons/bs";
 
 // Helpers
 import categories from "../../helpers/courseCategories";
-import statuses from "../../helpers/courseStatuses";
 
 /**
  * Displays a course in a card format
