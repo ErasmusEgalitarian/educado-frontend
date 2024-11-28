@@ -31,17 +31,20 @@ export const InstitutionsTableAdmin = () => {
 
   const filteredData = institutionsResponse.filter((institution) => {
     if (searchTerm === "") return institution;
+
+    // this will be typed in a better way when a hook is made
     const fieldsToCheck = [
       "institutionName",
       "domain",
       "secondaryDomain",
-    ] as Array<Partial<keyof typeof institution>>;
+    ] as const;
 
     return fieldsToCheck.some((field) => {
       const valueToCheck = institution[field];
 
-      valueToCheck !== undefined &&
-        valueToCheck.toLowerCase().includes(searchTerm.toLowerCase());
+      if (valueToCheck === null || valueToCheck === undefined) return false;
+
+      return valueToCheck.toLowerCase().includes(searchTerm.toLowerCase());
     });
   });
 

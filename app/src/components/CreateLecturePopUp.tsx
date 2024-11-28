@@ -96,7 +96,6 @@ export const CreateLecture = ({ savedSID, handleLectureCreation }: Props) => {
           });
         }
         LectureService.updateLecture(res.data, token, res.data._id);
-        console.log("lecture created:", res);
         handleLectureCreation(res.data);
         setIsSubmitting(false);
         clearLectureModalContent();

@@ -93,7 +93,7 @@ describe('Certificate overview page', () => {
 							title: 'Test Course',
 							description: 'Test Description',
 							dateCreated: new Date(),
-							creator: 1,
+							creator: '1',
 							sections: [],
 							thumbnail: '',
 							coverImage: '',

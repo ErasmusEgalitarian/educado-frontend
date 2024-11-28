@@ -81,13 +81,15 @@ export const UsersTableAdmin = () => {
   };
 
   const filteredData = data.filter((userRecord) => {
-    if (searchTerm === "") return userRecord;
-    if (userRecord.firstName.toLowerCase().includes(searchTerm.toLowerCase()))
-      return userRecord;
-    if (userRecord.lastName.toLowerCase().includes(searchTerm.toLowerCase()))
-      return userRecord;
-    if (userRecord.email.toLowerCase().includes(searchTerm.toLowerCase()))
-      return userRecord;
+    // this will be typed in a better way when a hook is made
+    const fieldsToCheck = ["firstName", "lastName", "email"] as const;
+
+    return fieldsToCheck.some((field) => {
+      const valueToCheck = userRecord[field];
+      if (valueToCheck === null || valueToCheck === undefined) return false;
+
+      return valueToCheck.toLowerCase().includes(searchTerm.toLowerCase());
+    });
   });
 
   const paginatedData = filteredData.slice(

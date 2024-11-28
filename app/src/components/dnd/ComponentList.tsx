@@ -69,10 +69,6 @@ export const ComponentList = ({
         const newIndex = components.findIndex(
           (component) => component.compId === over.id
         );
-        console.log("oldIndex", oldIndex);
-        console.log("newIndex", newIndex);
-        console.log("components", components);
-
         return arrayMove(components, oldIndex, newIndex);
       });
     }

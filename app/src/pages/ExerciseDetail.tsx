@@ -85,7 +85,6 @@ const deleteExercise = async () => {
                     <input
                         type="text"
                         defaultValue={exercise.title}
-                        onClick={()=>console.log("answers",answers)}
                         placeholder="Exercise title goes here"
                         className="input input-bordered w-full max-w-xs"
                         {...register("title", { required: true })}

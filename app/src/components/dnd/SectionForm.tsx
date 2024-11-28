@@ -31,10 +31,9 @@ export const SectionForm = ({ setSections }: Props) => {
         data.title = "Nova seção";
         SectionServices.createSection(data, id, token)
             .then(res => {
-                console.log(res.data._id);
                 setSections(prevSections => [...prevSections, res.data._id]); // Add new section to the list and cause a rerender
             })
-            .catch(err => console.log(err));
+            .catch(err => console.error(err));
     }
 
     return (

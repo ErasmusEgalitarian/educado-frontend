@@ -17,7 +17,7 @@ export const AddInstitutionButton = () => {
   const {
     call: addInstitution,
     isLoading,
-    error,
+    error: apiError,
   } = useApi(AuthServices.addInstitution);
 
   // Use-form setup
@@ -29,15 +29,15 @@ export const AddInstitutionButton = () => {
       const res = await addInstitution({
         ...institutionData,
       });
-      console.log(res);
       setShowModal(false);
       navigate("/educado-admin/applications");
       addNotification(
         "Adicionado " + res.institutionName + " como nova instituição"
       );
-    } catch {
-      if (error) {
-        const errorCause = error.response?.data?.error?.code;
+    } catch (err) {
+      //apiError from useApi hook
+      if (apiError !== null) {
+        const errorCause = apiError?.response?.data?.error?.code;
         switch (errorCause) {
           case "E1201":
             toast.error(" Não foi possível carregar a Instituição", {
@@ -64,6 +64,8 @@ export const AddInstitutionButton = () => {
               hideProgressBar: true,
             });
         }
+      } else {
+        console.error(err);
       }
     }
   };

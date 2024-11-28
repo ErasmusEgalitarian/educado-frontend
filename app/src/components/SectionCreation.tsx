@@ -58,7 +58,6 @@ export const SectionCreation = ({
 
   const navigate = useNavigate();
   function addOnSubmitSubscriber(callback: Function) {
-    //console.log("add subscriber");
     setOnSubmitSubscribers((prevSubscribers) => [...prevSubscribers, callback]);
   }
 

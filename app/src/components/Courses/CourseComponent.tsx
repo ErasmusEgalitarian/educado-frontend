@@ -18,7 +18,7 @@ import Loading from "../general/Loading";
 import Layout from "../Layout";
 import GenericModalComponent from "../GenericModalComponent";
 // Interface
-import { Course } from "../../interfaces/Course";
+import { Course, NewCourse } from "../../interfaces/Course";
 import CourseGuideButton from "./GuideToCreatingCourse";
 
 interface CourseComponentProps {
@@ -44,7 +44,7 @@ interface CourseComponentProps {
 
 export const CourseComponent = ({ token, id, setTickChange, setId, courseData, updateHighestTick, updateLocalData }: CourseComponentProps) => {
   const [categoriesOptions, setCategoriesOptions] = useState<JSX.Element[]>([]);
-  const [statusSTR, setStatusSTR] = useState<string>("draft");
+  const [statusSTR, setStatusSTR] = useState<Course["status"]>("draft");
   const [toolTipIndex, setToolTipIndex] = useState<number>(4);
   const [showDialog, setShowDialog] = useState<boolean>(false);
   const [dialogMessage, setDialogMessage] = useState<string>("");
@@ -113,12 +113,11 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
   }, [courseData]);
 
   //Used to format PARTIAL course data, meaning that it can be used to update the course data gradually
-  const formatCourse = (data: Partial<Course>): Course => {
-    console.log(data.status)
+  const formatCourse = (data: Partial<NewCourse>): NewCourse => {
     return {
       title: data.title || '',
       description: data.description || '',
-      category: data.category || '',
+      category: data.category || "health and workplace safety",
       difficulty: data.difficulty || 0,
       status: statusSTR,
       creator: getUserInfo().id,
@@ -167,7 +166,7 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
     StorageServices.uploadFile({ id: id, file: file, parentType: "c" });
   };
   // Updates existing draft of course and navigates to course list
-  const handleSaveExistingDraft = async (changes: Course) => {
+  const handleSaveExistingDraft = async (changes: NewCourse) => {
     try {
       await CourseServices.updateCourseDetail(changes, id, token);
       //Upload image with the old id
@@ -181,11 +180,10 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
   };
 
   // Creates new draft course and navigates to course list
-  const handleCreateNewDraft = async (data: Course) => {
+  const handleCreateNewDraft = async (data: NewCourse) => {
     try {
       const newCourse = await createCourse(data, token);
 
-      console.log("creating new draft", data);
       //Upload image with the new id
       handleFileUpload(newCourse.data._id);
 
@@ -197,7 +195,7 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
   }
 
   // Creates new course and navigates to section creation for it
-  const handleCreateNewCourse = async (data: Course) => {
+  const handleCreateNewCourse = async (data: NewCourse) => {
     try {
       const newCourse = await createCourse(data, token);
       addNotification("Curso criado com sucesso!");
@@ -216,7 +214,7 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
 
 
   //Used to prepare the course changes before sending it to the backend
-  const prepareCourseChanges = (data: Course): Course => {
+  const prepareCourseChanges = (data: NewCourse): NewCourse => {
     return {
       title: data.title,
       description: data.description,

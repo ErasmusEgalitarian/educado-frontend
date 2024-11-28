@@ -1,33 +1,35 @@
+import { useState } from "react";
 import GenericModalComponent from "@components/GenericModalComponent";
+import { MdDelete } from "react-icons/md";
+
 import { useNotifications } from "@components/notification/NotificationContext";
 import { getUserToken } from "@helpers/userInfo";
 import { useApi } from "@hooks/useAPI";
-import { Institution } from "@interfaces/Institution";
-import { institutionService } from "@services/Institution.services";
-import { useState } from "react";
-import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
+import courseService from "@services/course.services";
+
+import { CreatorPopulatedCourse } from "@interfaces/Course";
 import { KeyedMutator } from "swr";
 
-export const DeleteInstitutionButton = ({
-  institutionId,
+export const CoursesDeleteButton = ({
+  courseId,
   refreshFn,
 }: {
-  institutionId: string;
-  refreshFn: KeyedMutator<Institution[]>;
+  courseId: string;
+  refreshFn: KeyedMutator<CreatorPopulatedCourse[]>;
 }) => {
   const [showModal, setShowModal] = useState(false);
-  const { call: deleteInstitution, isLoading } = useApi(
-    institutionService.deleteInstitution
-  );
+  const { call: deleteCourse, isLoading } = useApi(courseService.deleteCourse);
 
   const { addNotification } = useNotifications();
 
   const handleConfirm = async () => {
     try {
-      await deleteInstitution(institutionId, getUserToken());
+      await deleteCourse(courseId, getUserToken());
+
       refreshFn();
-      addNotification("Instituição deletada com sucesso !");
+      addNotification("Curso deletada com sucesso !");
+      setShowModal(false);
     } catch (err) {
       toast.error(err as string);
       console.error(err);
@@ -49,8 +51,8 @@ export const DeleteInstitutionButton = ({
           isVisible={showModal}
           confirmBtnText="Deletar"
           loading={isLoading}
-          title="Deletando Instituições"
-          contentText="Você tem certeza de que deseja excluir este Instituições?"
+          title="Deletando curso"
+          contentText="Você tem certeza de que deseja excluir este Curso?"
           width="w-[600px]"
         />
       )}

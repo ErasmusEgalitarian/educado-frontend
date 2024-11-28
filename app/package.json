@@ -5,6 +5,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
+        "prebuild": "npm install esbuild-linux-64",
         "build": "tsc && vite build",
         "preview": "vite preview",
         "test": "jest --verbose --runInBand --detectOpenHandles",

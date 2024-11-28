@@ -50,7 +50,6 @@ export const EditExercise = ({ data, handleEdit }: Props) => {
 
   const onSubmit: SubmitHandler<Inputs> = async (newData) => {
     //update
-    console.log("answers", answers);
     ExerciseServices.updateExercise(
       {
         title: newData.title,
