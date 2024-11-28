@@ -10,6 +10,7 @@ import CourseServices from  "@services/course.services";
 // Components
 import Layout from "../components/Layout";
 import Loading from "../components/general/Loading";
+import { CourseGridCard } from "../components/Courses/CourseGridCard";
 import { CourseListCard } from "../components/Courses/CourseListCard";
 import PersonalInsights from "../components/Courses/PersonalInsights";
 
@@ -70,7 +71,7 @@ const Courses = () => {
   function filterAndSortCourses(data: any, searchTerm: string, selectedFilter: string, setFilteredCourses) {
     if (data && Array.isArray(data)) {
       const lowerCaseSearchTerm = searchTerm.toLowerCase();
-      let filtered = data.filter(
+      const filtered = data.filter(
         (item: any) => item.title.toLowerCase().includes(lowerCaseSearchTerm) ||
           item.category.toLowerCase().includes(lowerCaseSearchTerm)
       );
@@ -197,14 +198,48 @@ const Courses = () => {
                   </select>
                 </form>
                 
-                {/* TODO: Implement filters */}
               </div>
               <div className="overflow-y-scroll no-scrollbar">
+                
+                {isGridView ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 gap-6 pb-4">
-                {filteredCourses.map((course: any, key: number) => (
-                    <CourseListCard course={course} key={key} />
+                {filteredCourses.map((course: any, key: number,) => (
+                    <CourseGridCard course={course} key={key}/>
                   ))}
                 </div>
+                ): (
+                  <table className="w-[100%] leading-normal mx-auto">
+                    <thead>
+                      <tr className="bg-white border-b-4 border-[#166276] text-[#166276] text-left text-base font-base font-['Lato']]">
+                        <th scope="col" className="p-7" style={{ width: "20%" }}>
+                          Nome
+                        </th>
+                        <th scope="col" className="p-5" style={{ width: "20%" }}>
+                          Categoria
+                        </th>
+                        <th scope="col" className="p-5" style={{ width: "25%" }}>
+                          Carga Horária
+                        </th>
+                        <th scope="col" className="p-5" style={{ width: "20%" }}>
+                          Inscritos
+                        </th>
+                        <th scope="col" className="p-5" style={{ width: "30%" }}>
+                          Nota
+                        </th>
+                        <th scope="col" className="p-5" style={{ width: "5%" }}></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                    {filteredCourses.map((course: any, key: number,) => (
+                      <CourseListCard course={course} key={key}/>
+                    ))}
+                  </tbody>
+                  </table>
+
+              )}
+
+
               </div>
             </>
           ) : (

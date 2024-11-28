@@ -2,15 +2,14 @@
 import { Course } from "../../interfaces/Course"
 
 // Components
-import StarRating from "../general/StarRating";
-import { Icon } from '@mdi/react';
-import { mdiPencil, mdiAccount } from '@mdi/js';
-import { LastEdited } from "./LastEdited";
-import { BsClockFill } from "react-icons/bs";
 
+import { Icon } from '@mdi/react';
+
+
+
+import { mdiStar } from "@mdi/js";
 // Helpers
-import categories from "../../helpers/courseCategories";
-import statuses from "../../helpers/courseStatuses";
+
 
 /**
  * Displays a course in a card format
@@ -18,60 +17,50 @@ import statuses from "../../helpers/courseStatuses";
  * @param {Course} course The course to be displayed
  * @returns HTML Element
  */
-export const CourseListCard = ({ course }: { course: Course }) => {
-  const maxTitleLength = 20;
-  //Only load the picture, when the picture is loaded
- 
+export const CourseListCard = ({ course}: { course: Course },) => {
   return (
-    <div className="shadow-courseCard border rounded-lg h-full w-full cursor-pointer m-auto ">
-      <label
-        onClick={()=>window.location.href = `/courses/manager/${course._id}/0`}
-        className="w-full block h-full relative group"
+    <tr
+    key={course._id}
+    className="border-b border-gray-300 bg-white text-base font-['Montserrat']"
+  >
+    <td>
+      <div className="flex items-center px-5 py-5">
+          <p
+            className="text-gray-900 whitespace-no-wrap"
+            id="name"
+            style={{ wordBreak: "break-word" }}
+          >
+            {course.title}
+          </p>
+      </div>
+    </td>
+    <td style={{ wordBreak: "break-word" }}>
+      <p className="text-gray-900 whitespace-no-wrap px-5 py-5">
+        {course.category}
+      </p>
+    </td>
+    <td>
+      <p
+        className="text-gray-900 whitespace-no-wrap px-5 py-5"
       >
-        {/* Card content */}
-        <div className="bg-white w-full">
-          <div className='p-4'>
-            {/* Card title */}
-            <div className="flex items-center gap-5 border-b border-lightgray pb-2 my-5">
-
-            <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 18H0V0H2V16H4V14H8V16H10V13H14V16H16V14H20V18ZM16 11H20V13H16V11ZM10 3H14V6H10V3ZM14 12H10V7H14V12ZM4 7H8V9H4V7ZM8 13H4V10H8V13Z" fill="#383838"/>
-            </svg>
-
-              <h2 className="text-gray-800 text-xl font-medium">
-                {course.title.slice(0, maxTitleLength) + (course.title.length > maxTitleLength ? '...' : '')}
-              </h2>
-            </div>
-
-
-            {/* Card info */}
-            <div className='flex flex-col justify-between mt-8 text-grayMedium'>
-              {/* Course category */}
-              <div className='flex flex-row gap-5'>
-                <div className="flex flex-row">
-                  <Icon
-                    path={categories[course.category]?.icon ?? categories.default.icon}
-                    className='w-4 mr-1'
-                    />
-                  <p>{categories[course.category]?.br ?? course.category}</p>
-                </div>
-                <div className="flex flex-row items-center gap-1">
-                  <BsClockFill />
-                  <p>{(course.estimatedHours != null) ? course.estimatedHours : "?"} horas</p>
-                </div>
-              </div>
-            
-              {/* Course rating */}
-              <div className='w-[8rem]'>
-                <StarRating rating={course.rating ?? 0} />
-              </div>
-              
-
-             
-            </div>
-          </div>
+        {course.estimatedHours != null ? course.estimatedHours : "?"} horas
+      </p>
+    </td>
+    <td>
+      <p className="text-gray-900 px-5 py-5">
+        {course.numOfSubscriptions} alunos
+      </p>
+    </td>
+    <td>
+        <div className='flex items-center gap-2 text-star px-5 py-5'>
+                <Icon path={mdiStar} className="text-star h-4" /> {course.rating}
         </div>
-      </label>
-    </div>
+    </td>
+    <td>
+        <button  onClick={()=>window.location.href = `/courses/manager/${course._id}/0`} className="cursor-pointer">
+            <svg stroke="currentColor" fill="#166276" stroke-width="0" viewBox="0 0 24 24" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0z"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path></svg>
+        </button>
+    </td>
+  </tr>
   )
 }
