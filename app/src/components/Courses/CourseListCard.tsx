@@ -1,14 +1,8 @@
 // interfaces
 import { Course } from "../../interfaces/Course"
-
 // Components
-
 import { Icon } from '@mdi/react';
-
-
-
 import { mdiStar } from "@mdi/js";
-// Helpers
 
 
 /**
@@ -18,42 +12,11 @@ import { mdiStar } from "@mdi/js";
  * @returns HTML Element
  */
 export const CourseListCard = ({ course }: { course: Course }) => {
-  const [imageSrc, setImageSrc] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const maxTitleLength = 20;
   //only load coursecard if ti exists
   if(!course || !course.title) {
     return null;
   }
 
-  //Only load the picture, when the picture is loaded
-  useEffect(() => {
-    const fetchImage = async () => {
-      try {
-        if(course.coverImg == "" || course.coverImg == undefined) {
-          throw new Error("coverImg is empty or undefined");
-        }
-        const fileSrc = await StorageServices.getMedia(course.coverImg);
-
-        setImageSrc(fileSrc);
-
-      } catch (error) {
-        setImageSrc(imageNotFoundImage);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    const fetchRating = async () => {
-      try {
-        const rating = await getAverageRatingOfCourse(course._id);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchRating();
-    fetchImage();
-  }, [course.coverImg, course.title]);
   return (
     <tr
     key={course._id}

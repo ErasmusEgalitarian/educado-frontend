@@ -62,9 +62,7 @@ export const CourseGridCard = ({ course}: { course: Course },) => {
             <div className="flex gap-3 justify-end mt-5">
                 <button  onClick={()=>window.location.href = `/courses/manager/${course._id}/0`} className="text-primary text-xs font-bold"><span className="border-b border-primary">Editar</span></button>
                 <button className="bg-primary rounded-lg py-3 px-4 font-bold text-white">Visualizar</button>
-
             </div>
-             
             </div>
           </div>
         </div>

@@ -121,7 +121,7 @@ const Courses = () => {
       <div className="grid lg:grid-cols-[3fr_1fr] h-full font-personalInsights">
         {/* Left side displaying courses, filtering for these and create new button */}
         <div className="m-8 p-8 pb-0 bg-white rounded-xl overflow-hidden flex flex-col">
-          {data.length ? (
+          {(data.length > 0) ? (
             <>
               {/* Header and create course button */}
               <div className="flex flex-row no-wrap items-center">
