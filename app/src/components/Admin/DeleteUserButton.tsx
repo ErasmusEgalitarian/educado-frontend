@@ -18,9 +18,8 @@ const DeleteUserButton: React.FC<DeleteUserButtonProps> = ({
 }) => {
   const { addNotification } = useNotifications();
   const [showModal, setShowModal] = useState(false);
-
   const { call: deleteUser, isLoading, error } = useApi(AdminServices.deleteUser);
-
+  
   const handleDelete = async () => {
     try {
       const token = getUserToken();
@@ -29,7 +28,7 @@ const DeleteUserButton: React.FC<DeleteUserButtonProps> = ({
         return;
       }
       await deleteUser(applicationId, token);
-      addNotification('Usuário deletado com sucesso');
+      addNotification("Usuário deletado com sucesso");
       onDelete();
       setShowModal(false); // Close the modal after deletion
     } catch (error) {
