@@ -1,21 +1,22 @@
+import { use } from "chai";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { toast } from "react-toastify";
+
 import { getUserToken } from "../../helpers/userInfo";
+import { Answer } from "../../interfaces/Answer";
+import ExerciseServices from "../../services/exercise.services";
+import { ModalButtonCompont } from "../ModalButtonCompont";
 import { useNotifications } from "../notification/NotificationContext";
 
 // Components
 import AnswerCards from "./AnswerCards";
-import { ModalButtonCompont } from "../ModalButtonCompont";
 
 // Interfaces
-import { Answer } from "../../interfaces/Answer";
 
 // Helpers
-import ExerciseServices from "../../services/exercise.services";
 
 // Pop-up messages
-import { toast } from "react-toastify";
-import { use } from "chai";
 
 export interface ExercisePartial {
   title: string;
@@ -28,10 +29,10 @@ interface Props {
   handleEdit: Function;
 }
 
-type Inputs = {
+interface Inputs {
   title: string;
   question: string;
-};
+}
 
 export const EditExercise = ({ data, handleEdit }: Props) => {
   const TempAnswers = [
@@ -58,7 +59,7 @@ export const EditExercise = ({ data, handleEdit }: Props) => {
         answers: answers,
       },
       token,
-      data._id
+      data._id,
     )
 
       .then(() => {
@@ -104,13 +105,13 @@ export const EditExercise = ({ data, handleEdit }: Props) => {
                     defaultValue={data ? data.question : ""}
                     placeholder="Adicione uma pergunta a este exercício" /*Add a question to this exercise*/
                     {...register("question", { required: true })}
-                  ></textarea>
+                  />
                 </div>
               </div>
 
               {/* divider */}
               <div className="flex flex-col w-full">
-                <div className="divider"></div>
+                <div className="divider" />
               </div>
 
               {/* Answers. Answers sometimes doesn't get loaded hence the conditional rendering ... */}
@@ -119,12 +120,10 @@ export const EditExercise = ({ data, handleEdit }: Props) => {
                   <div className="rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border ">
                     <h1 className="text-md font-medium">Resposta</h1>{" "}
                     {/** Answer */}
-                    {
-                      <AnswerCards
-                        update={setAnswers}
-                        initialAnswers={data ? data.answers : answers}
-                      />
-                    }
+                    <AnswerCards
+                      update={setAnswers}
+                      initialAnswers={data ? data.answers : answers}
+                    />
                   </div>
                 ) : (
                   <p>Carregando ...</p>

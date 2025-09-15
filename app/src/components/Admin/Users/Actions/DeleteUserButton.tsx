@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+
 import GenericModalComponent from "@components/GenericModalComponent";
 import { useNotifications } from "@components/notification/NotificationContext";
 import { getUserToken } from "@helpers/userInfo";
 import { useApi } from "@hooks/useAPI";
 import AdminServices from "@services/admin.services";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 interface DeleteUserButtonProps {
   applicationId: string;

@@ -1,35 +1,40 @@
-import useSWR from "swr";
-import { BACKEND_URL } from "../../../helpers/environment";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import {
+  mdiDeleteCircle,
+  mdiDotsVerticalCircle,
+  mdiDraw,
+  mdiPencilCircle,
+  mdiTextBox,
+  mdiVideo,
+} from "@mdi/js";
+import { Icon } from "@mdi/react";
+import { set } from "cypress/types/lodash";
 import { useState, useEffect } from "react";
+import useSWR from "swr";
+
+import { BACKEND_URL } from "../../../helpers/environment";
 
 // Hooks
 import { getUserToken } from "../../../helpers/userInfo";
 
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-
 // icons
-import { mdiDeleteCircle, mdiDotsVerticalCircle } from "@mdi/js";
-import { Icon } from "@mdi/react";
-import { mdiDraw, mdiPencilCircle, mdiTextBox, mdiVideo } from "@mdi/js";
 
-import LectureService from "../../../services/lecture.services";
+import { Component } from "../../../interfaces/SectionInfo";
 import ExerciseServices from "../../../services/exercise.services";
+import LectureService from "../../../services/lecture.services";
 
 //pop-ups
 
 import { EditLecture } from "../../EditLecturePopUp";
 import { EditExercise } from "../../Exercise/EditExercisePopUp";
 
-import { Component } from "../../../interfaces/SectionInfo";
-import { set } from "cypress/types/lodash";
-
 interface Props {
   component: Component;
   setComponents: Function;
 }
 
-export function SortableComponentItem({ component, setComponents }: Props) {
+export const SortableComponentItem = ({ component, setComponents }: Props) => {
   const token = getUserToken();
   const [data, setData] = useState<any>();
   const [newTitle, setNewTitle] = useState("");
@@ -88,7 +93,7 @@ export function SortableComponentItem({ component, setComponents }: Props) {
         await ExerciseServices.deleteExercise(component.compId, token);
       }
       setComponents((prevComponents: Component[]) =>
-        prevComponents.filter((comp) => comp.compId !== component.compId)
+        prevComponents.filter((comp) => comp.compId !== component.compId),
       );
     }
   }
@@ -120,7 +125,7 @@ export function SortableComponentItem({ component, setComponents }: Props) {
               htmlFor={component.compType + "-edit-" + data._id}
               className="btn btn-ghost hover:bg-transparent hover:text-primaryHover"
             >
-              <Icon path={mdiPencilCircle} size={1.2}></Icon>
+              <Icon path={mdiPencilCircle} size={1.2} />
             </label>
 
             <input
@@ -139,7 +144,7 @@ export function SortableComponentItem({ component, setComponents }: Props) {
               className="btn btn-ghost hover:bg-transparent hover:text-primaryHover"
               onClick={() => handleDelete()}
             >
-              <Icon path={mdiDeleteCircle} size={1.2}></Icon>
+              <Icon path={mdiDeleteCircle} size={1.2} />
             </div>
 
             <div
@@ -151,7 +156,7 @@ export function SortableComponentItem({ component, setComponents }: Props) {
             >
               {/**Move a lecture or exercise and "move" icon*/}
               <div className="btn btn-ghost hover:bg-transparent hover:text-primaryHover">
-                <Icon path={mdiDotsVerticalCircle} size={1.2}></Icon>
+                <Icon path={mdiDotsVerticalCircle} size={1.2} />
               </div>
             </div>
           </div>
@@ -159,4 +164,4 @@ export function SortableComponentItem({ component, setComponents }: Props) {
       </div>
     </div>
   );
-}
+};

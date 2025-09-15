@@ -11,7 +11,7 @@ export const ModalButtonCompont = ({
 }: CancelButtonProps) => {
   const handleCloseModal = () => {
     const modalCheckbox = document.getElementById(
-      typeButtons
+      typeButtons,
     ) as HTMLInputElement;
 
     if (modalCheckbox) {
@@ -32,7 +32,7 @@ export const ModalButtonCompont = ({
           htmlFor={typeButtons}
           className=" bg-primary cursor-pointer hover:bg-primaryHover border border-primary focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded"
         >
-          {isSubmitting === false ? (
+          {!isSubmitting ? (
             <button
               type="submit"
               className="py-2 px-4 h-full w-full"
@@ -46,7 +46,6 @@ export const ModalButtonCompont = ({
             </button>
           )}
         </label>
-        
       </div>
     </div>
   );

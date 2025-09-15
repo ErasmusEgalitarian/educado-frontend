@@ -1,24 +1,26 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useNotifications } from "../notification/NotificationContext";
-// Services
-import CourseServices from "../../services/course.services";
-import StorageServices from "../../services/storage.services";
-import {useApi} from "../../hooks/useAPI";
-// Helpers
-import { getUserInfo } from "../../helpers/userInfo";
+
 import categories from "../../helpers/courseCategories";
+import { getUserInfo } from "../../helpers/userInfo";
+import { useApi } from "../../hooks/useAPI";
+import { Course, NewCourse } from "../../interfaces/Course";
+import CourseServices from "../../services/course.services";
+// Services
+import StorageServices from "../../services/storage.services";
+// Helpers
 
 // Components
 import { Dropzone } from "../Dropzone/Dropzone";
-import { ToolTipIcon } from "../ToolTip/ToolTipIcon";
 import Loading from "../general/Loading";
-import Layout from "../Layout";
 import GenericModalComponent from "../GenericModalComponent";
+import Layout from "../Layout";
+import { useNotifications } from "../notification/NotificationContext";
+import { ToolTipIcon } from "../ToolTip/ToolTipIcon";
 // Interface
-import { Course, NewCourse } from "../../interfaces/Course";
+
 import CourseGuideButton from "./GuideToCreatingCourse";
 
 interface CourseComponentProps {
@@ -31,9 +33,6 @@ interface CourseComponentProps {
   updateLocalData: Function;
 }
 
-
-
-
 /**
  * This component is responsible for creating and editing courses.
  *
@@ -42,7 +41,15 @@ interface CourseComponentProps {
  * @returns HTML Element
  */
 
-export const CourseComponent = ({ token, id, setTickChange, setId, courseData, updateHighestTick, updateLocalData }: CourseComponentProps) => {
+export const CourseComponent = ({
+  token,
+  id,
+  setTickChange,
+  setId,
+  courseData,
+  updateHighestTick,
+  updateLocalData,
+}: CourseComponentProps) => {
   const [categoriesOptions, setCategoriesOptions] = useState<JSX.Element[]>([]);
   const [statusSTR, setStatusSTR] = useState<Course["status"]>("draft");
   const [toolTipIndex, setToolTipIndex] = useState<number>(4);
@@ -61,10 +68,11 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
   const [data, setData] = useState<Course>();
 
   // Callbacks
-  const { call: createCourse, isLoading: submitLoading, error } = useApi(CourseServices.createCourse);
-
-
-
+  const {
+    call: createCourse,
+    isLoading: submitLoading,
+    error,
+  } = useApi(CourseServices.createCourse);
 
   const {
     register,
@@ -79,13 +87,13 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
 
   const navigate = useNavigate();
 
-     /**
-     * Extra function to handle the response from the course service before it is passed to the useSWR hook
-     * 
-     * @param url The url to fetch the course details from backend
-     * @param token The user token
-     * @returns The course details
-     */
+  /**
+   * Extra function to handle the response from the course service before it is passed to the useSWR hook
+   *
+   * @param url The url to fetch the course details from backend
+   * @param token The user token
+   * @returns The course details
+   */
 
   useEffect(() => {
     //TODO: get categories from db
@@ -100,7 +108,7 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
         <option value={categoryENG} key={key}>
           {categories[inputArray[key]]?.br}
         </option>
-      ))
+      )),
     );
   }, []);
 
@@ -115,14 +123,14 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
   //Used to format PARTIAL course data, meaning that it can be used to update the course data gradually
   const formatCourse = (data: Partial<NewCourse>): NewCourse => {
     return {
-      title: data.title || '',
-      description: data.description || '',
+      title: data.title || "",
+      description: data.description || "",
       category: data.category || "health and workplace safety",
       difficulty: data.difficulty || 0,
       status: statusSTR,
       creator: getUserInfo().id,
       estimatedHours: data.estimatedHours || 0,
-      coverImg: data.coverImg || ''
+      coverImg: data.coverImg || "",
     };
   };
 
@@ -134,7 +142,7 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
   const handleDialogEvent = (
     message: string,
     onConfirm: () => void,
-    dialogTitle: string
+    dialogTitle: string,
   ) => {
     setDialogTitle(dialogTitle);
     setDialogMessage(message);
@@ -161,7 +169,7 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
     return null;
   };
 
-  const handleFileUpload = (id : string | undefined) => {
+  const handleFileUpload = (id: string | undefined) => {
     const file = courseImg;
     StorageServices.uploadFile({ id: id, file: file, parentType: "c" });
   };
@@ -175,7 +183,6 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
       addNotification("Seções salvas com sucesso!");
     } catch (err) {
       toast.error(err as string);
-
     }
   };
 
@@ -193,7 +200,7 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
     } catch (err) {
       toast.error(err as string);
     }
-  }
+  };
 
   // Creates new course and navigates to section creation for it
   const handleCreateNewCourse = async (data: NewCourse) => {
@@ -212,8 +219,6 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
     }
   };
 
-
-
   //Used to prepare the course changes before sending it to the backend
   const prepareCourseChanges = (data: NewCourse): NewCourse => {
     return {
@@ -226,16 +231,14 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
       estimatedHours: data.estimatedHours,
       coverImg: id + "_" + "c",
     };
-  }
-
+  };
 
   const onSubmit: SubmitHandler<Course> = (data) => {
     const changes = prepareCourseChanges(data);
     if (isLeaving) {
-      
       // left button pressed
       // StorageService.deleteFile(id, token);
-  
+
       // Update course details
       // When the user press the button to the right, the tick changes and it goes to the next component
       // When the user press the draft button, it saves as a draft and goes back to the course list
@@ -243,13 +246,13 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
         handleDialogEvent(
           "Você tem certeza de que quer salvar como rascunho as alterações feitas?",
           handleSaveExistingDraft.bind(this, changes),
-          "Salvar como rascunho "
+          "Salvar como rascunho ",
         );
       } else if (!existingCourse && statusSTR === "draft") {
         handleDialogEvent(
           "Você tem certeza de que quer salvar como rascunho as alterações feitas?",
           handleCreateNewDraft.bind(this, changes),
-          "Salvar como rascunho "
+          "Salvar como rascunho ",
         );
       }
       setIsLeaving(false);
@@ -267,17 +270,12 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
     }
   };
 
-  
-
-  
-
   if (!data && existingCourse)
     return (
       <Layout meta="course overview">
         <Loading />
       </Layout>
     ); // Loading course details
-
 
   return (
     <div>
@@ -299,12 +297,10 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
         <div className="flex items-center gap-2">
           <h1 className="text-2xl font-bold"> Informações gerais </h1>
           <ToolTipIcon
-          alignLeftTop={false}
-          index={0}
+            alignLeftTop={false}
+            index={0}
             toolTipIndex={toolTipIndex}
-            text={
-              "👩🏻‍🏫Nossos cursos são separados em seções e você pode adicionar quantas quiser!"
-            }
+            text="👩🏻‍🏫Nossos cursos são separados em seções e você pode adicionar quantas quiser!"
             tooltipAmount={2}
             callBack={setToolTipIndex}
           />
@@ -320,7 +316,10 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
         {/*White bagground*/}
         <div className="w-full float-right bg-white rounded-lg shadow-lg justify-between space-y-4 p-10">
           <div className="flex flex-col space-y-2 text-left">
-            <label htmlFor="title">Nome do curso <span className="text-red-500">*</span></label> {/*Title*/}
+            <label htmlFor="title">
+              Nome do curso <span className="text-red-500">*</span>
+            </label>{" "}
+            {/*Title*/}
             <input
               id="title-field"
               type="text"
@@ -328,7 +327,9 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
               placeholder={data ? data.title : ""}
               className="form-field  bg-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
               {...register("title", { required: true })}
-              onChange={(e) => handleFieldChange('title', e.target.value)}
+              onChange={(e) => {
+                handleFieldChange("title", e.target.value);
+              }}
             />
             {errors.title && (
               <span className="text-warning">Este campo é obrigatório</span>
@@ -339,55 +340,93 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
           <div className="flex items-center gap-8 w-full mt-8">
             {/*Field to select a level from a list of options*/}
             <div className="flex flex-col w-1/2 space-y-2 text-left  ">
-            <label htmlFor='level'> Nível <span className="text-red-500">*</span></label> {/*asteric should not be hard coded*/}
-              <select id="difficulty-field" 
-              defaultValue={data ? data.difficulty : ""}
-              className="bg-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-              {...register("difficulty", { required: true })}
-              onChange={(e) => handleFieldChange('difficulty', parseInt(e.target.value))}
+              <label htmlFor="level">
+                {" "}
+                Nível <span className="text-red-500">*</span>
+              </label>{" "}
+              {/*asteric should not be hard coded*/}
+              <select
+                id="difficulty-field"
+                defaultValue={data ? data.difficulty : ""}
+                className="bg-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                {...register("difficulty", { required: true })}
+                onChange={(e) => {
+                  handleFieldChange("difficulty", parseInt(e.target.value));
+                }}
               >
                 {/*Hard coded options by PO, should be changed to get from db*/}
-                <option value=""disabled> Selecione o nível</option>
+                <option value="" disabled>
+                  {" "}
+                  Selecione o nível
+                </option>
                 <option value={1}>Iniciante</option> {/** Beginner */}
                 <option value={2}>Intermediário</option> {/** Intermediate */}
                 <option value={3}>Avançado</option> {/** Advanced */}
               </select>
-              <span className='text-warning min-h-[24px]'>{errors.difficulty ? 'Este campo é obrigatório': ''}</span>
+              <span className="text-warning min-h-[24px]">
+                {errors.difficulty ? "Este campo é obrigatório" : ""}
+              </span>
             </div>
 
             {/*Field to choose a category from a list of options*/}
             <div className="flex flex-col w-1/2 space-y-2 text-left  ">
-              <label htmlFor='category'>Categoria <span className="text-red-500">*</span></label> 
-              <select id="category-field"
+              <label htmlFor="category">
+                Categoria <span className="text-red-500">*</span>
+              </label>
+              <select
+                id="category-field"
                 defaultValue={data ? data.category : ""}
                 className="bg-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 {...register("category", { required: true })}
-                onChange={(e) => handleFieldChange('category', e.target.value)}
+                onChange={(e) => {
+                  handleFieldChange("category", e.target.value);
+                }}
               >
                 {/*Hard coded options by PO, should be changed to get from db*/}
-                <option value="" disabled> Selecione a categoria</option>,
-                {categoriesOptions}
-
+                <option value="" disabled>
+                  {" "}
+                  Selecione a categoria
+                </option>
+                ,{categoriesOptions}
               </select>
-              <span className='text-warning min-h-[24px]'>{errors.category ? 'Este campo é obrigatório': "               "}</span>
+              <span className="text-warning min-h-[24px]">
+                {errors.category
+                  ? "Este campo é obrigatório"
+                  : "               "}
+              </span>
             </div>
           </div>
 
           {/*Field to input the description of the course*/}
           <div className="flex flex-col space-y-2 ">
-            <div className="flex items-center space-x-2"> {/* Container for label and icon */}
-              <label className='text-left' htmlFor='description'>Descrição <span className="text-red-500">*</span> </label> {/** Description */} 
-              <ToolTipIcon alignLeftTop={false} index={1} toolTipIndex={toolTipIndex} text={"😉 Dica: insira uma descrição que desperte a curiosidade e o interesse dos alunos"} tooltipAmount={2} callBack={setToolTipIndex}/>
+            <div className="flex items-center space-x-2">
+              {" "}
+              {/* Container for label and icon */}
+              <label className="text-left" htmlFor="description">
+                Descrição <span className="text-red-500">*</span>{" "}
+              </label>{" "}
+              {/** Description */}
+              <ToolTipIcon
+                alignLeftTop={false}
+                index={1}
+                toolTipIndex={toolTipIndex}
+                text="😉 Dica: insira uma descrição que desperte a curiosidade e o interesse dos alunos"
+                tooltipAmount={2}
+                callBack={setToolTipIndex}
+              />
             </div>
-            <textarea id="description-field" maxLength={400} rows={4}
-            defaultValue={data ? data.description : ""}
-            placeholder={data ? data.description : ""}
-            className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-secondary"
-            {...register("description", { required: true })}
-            onChange={(e) => {
-              setCharCount(e.target.value.length);
-              handleFieldChange('description', e.target.value);
-            }}
+            <textarea
+              id="description-field"
+              maxLength={400}
+              rows={4}
+              defaultValue={data ? data.description : ""}
+              placeholder={data ? data.description : ""}
+              className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-secondary"
+              {...register("description", { required: true })}
+              onChange={(e) => {
+                setCharCount(e.target.value.length);
+                handleFieldChange("description", e.target.value);
+              }}
             />
             {errors.description && (
               <span className="text-warning">Este campo é obrigatório</span>
@@ -401,10 +440,21 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
           <div>
             {/*Cover image field*/}
             <div className="flex flex-col space-y-2 text-left">
-              <label htmlFor='cover-image'>Imagem de capa <span className="text-red-500">*</span></label> {/** Cover image */} 
+              <label htmlFor="cover-image">
+                Imagem de capa <span className="text-red-500">*</span>
+              </label>{" "}
+              {/** Cover image */}
             </div>
-            <Dropzone inputType='image' id={id ? id : "0"} previewFile={previewCourseImg} onFileChange={setCourseImg} />
-            {errors.description && <span className='text-warning'>Este campo é obrigatório</span>} {/** This field is required */}
+            <Dropzone
+              inputType="image"
+              id={id ? id : "0"}
+              previewFile={previewCourseImg}
+              onFileChange={setCourseImg}
+            />
+            {errors.description && (
+              <span className="text-warning">Este campo é obrigatório</span>
+            )}{" "}
+            {/** This field is required */}
           </div>
         </div>
         {/*Create and cancel buttons*/}
@@ -428,7 +478,9 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
             >
               <button
                 id="SaveAsDraft"
-                onClick={() => setIsLeaving(true)}
+                onClick={() => {
+                  setIsLeaving(true);
+                }}
                 type="submit"
                 className="underline"
               >
@@ -437,21 +489,21 @@ export const CourseComponent = ({ token, id, setTickChange, setId, courseData, u
             </label>
 
             <label
-          htmlFor="course-create"
-          className="whitespace-nowrap h-12 p-2 bg-primary hover:bg-primary focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-lg font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
-        >
-          <button
-            type="submit"
-            id="addCourse"
-            disabled={submitLoading}
-            className="flex items-center justify-center py-4 px-8 h-full w-full cursor-pointer"
-          >
-            {submitLoading ? (
-              <span className="spinner-border animate-spin inline-block w-4 h-4 border-2 border-t-transparent rounded-full mr-2"></span>
-            ) : null}
-            Adicionar seções
-          </button>
-        </label>
+              htmlFor="course-create"
+              className="whitespace-nowrap h-12 p-2 bg-primary hover:bg-primary focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-lg font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
+            >
+              <button
+                type="submit"
+                id="addCourse"
+                disabled={submitLoading}
+                className="flex items-center justify-center py-4 px-8 h-full w-full cursor-pointer"
+              >
+                {submitLoading ? (
+                  <span className="spinner-border animate-spin inline-block w-4 h-4 border-2 border-t-transparent rounded-full mr-2" />
+                ) : null}
+                Adicionar seções
+              </button>
+            </label>
           </div>
         </div>
       </form>

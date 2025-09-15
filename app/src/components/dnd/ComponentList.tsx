@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 // DND-KIT
 import {
   DndContext,
@@ -10,23 +8,24 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-
-import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
+import { useState, useEffect } from "react";
 
 // Components
-import { SortableComponentItem } from "./@dnd/SortableComponentItem";
+import { Component } from "../../interfaces/SectionInfo";
+import ComponentService from "../../services/component.service";
+
 import { Item } from "./@dnd/Item";
 
 // Intefaces
-import ComponentService from "../../services/component.service";
-import { Component } from "../../interfaces/SectionInfo";
+
+import { SortableComponentItem } from "./@dnd/SortableComponentItem";
 
 interface Props {
   sid: string;
@@ -49,7 +48,7 @@ export const ComponentList = ({
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
 
   // handle start of dragging
@@ -64,10 +63,10 @@ export const ComponentList = ({
     if (active.id !== over.id) {
       setComponents((components: Component[]) => {
         const oldIndex = components.findIndex(
-          (component) => component.compId === active.id
+          (component) => component.compId === active.id,
         );
         const newIndex = components.findIndex(
-          (component) => component.compId === over.id
+          (component) => component.compId === over.id,
         );
         console.log("oldIndex", oldIndex);
         console.log("newIndex", newIndex);
@@ -79,7 +78,9 @@ export const ComponentList = ({
   };
 
   useEffect(() => {
-    addOnSubmitSubscriber(() => onSubmit());
+    addOnSubmitSubscriber(() => {
+      onSubmit();
+    });
   }, []);
 
   function onSubmit() {

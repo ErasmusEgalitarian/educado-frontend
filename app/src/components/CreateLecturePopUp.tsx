@@ -1,6 +1,7 @@
+import { mdiInformationSlabCircleOutline } from "@mdi/js";
+import { Icon } from "@mdi/react";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Dropzone } from "./Dropzone/Dropzone";
 import { toast } from "react-toastify";
 
 // Contexts
@@ -8,26 +9,26 @@ import { toast } from "react-toastify";
 // Hooks
 import { getUserToken } from "../helpers/userInfo";
 
-import { useNotifications } from "./notification/NotificationContext";
 // Services
-import StorageServices from "../services/storage.services";
 import LectureService from "../services/lecture.services";
+import StorageServices from "../services/storage.services";
+
+import { Dropzone } from "./Dropzone/Dropzone";
 
 //components
 import { ModalButtonCompont } from "./ModalButtonCompont";
+import { useNotifications } from "./notification/NotificationContext";
 import RichTextEditor from "./RichTextEditor";
 // Icons
-import { Icon } from "@mdi/react";
-import { mdiInformationSlabCircleOutline } from "@mdi/js";
 
 <Icon path={mdiInformationSlabCircleOutline} size={1} />;
 
-type Inputs = {
+interface Inputs {
   title: string;
   description: string;
   contentType: string;
   content: string;
-};
+}
 
 interface Props {
   savedSID: string;
@@ -56,10 +57,9 @@ export const CreateLecture = ({ savedSID, handleLectureCreation }: Props) => {
 
   const [contentType, setContentType] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [editorValue, setEditorValue] = useState<string>('');
+  const [editorValue, setEditorValue] = useState<string>("");
   const [previewFile, setPreviewFile] = useState<string | null>(null);
   const [lectureVideo, setLectureVideo] = useState<File | null>(null);
-
 
   const { addNotification } = useNotifications();
 
@@ -73,19 +73,16 @@ export const CreateLecture = ({ savedSID, handleLectureCreation }: Props) => {
    * @param {Inputs} data The data from each field in the form put into an object
    */
   const onSubmit: SubmitHandler<Inputs> = async (newData) => {
-    
-    
     setIsSubmitting(true);
     LectureService.addLecture(
       {
-        
         title: newData.title,
         description: newData.description,
         contentType: newData.contentType,
         content: newData.content,
       },
       token,
-      savedSID
+      savedSID,
     )
       .then((res) => {
         if (lectureVideo !== null) {
@@ -110,20 +107,13 @@ export const CreateLecture = ({ savedSID, handleLectureCreation }: Props) => {
 
   function clearLectureModalContent() {
     reset();
-      setContentType("");
+    setContentType("");
   }
-
-  
-  
-
-
 
   const handleEditorChange = (value: string) => {
     setEditorValue(value); // Update local state
     setValue("content", value); // Manually set form value
   };
-  
-
 
   return (
     <>
@@ -145,8 +135,8 @@ export const CreateLecture = ({ savedSID, handleLectureCreation }: Props) => {
               <label htmlFor="title">Título</label> {/*Title*/}
               <input
                 type="text"
-                placeholder={"Insira o título da aula"}
-                defaultValue={""}
+                placeholder="Insira o título da aula"
+                defaultValue=""
                 className="form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 {...register("title", { required: true })}
               />
@@ -159,8 +149,8 @@ export const CreateLecture = ({ savedSID, handleLectureCreation }: Props) => {
               <label htmlFor="description">Descrição</label> {/*Description*/}
               <textarea
                 rows={4}
-                placeholder={"Insira o conteúdo escrito dessa aula"}
-                defaultValue={""}
+                placeholder="Insira o conteúdo escrito dessa aula"
+                defaultValue=""
                 className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 {...register("description", { required: true })}
               />
@@ -169,7 +159,6 @@ export const CreateLecture = ({ savedSID, handleLectureCreation }: Props) => {
                 <span className="text-warning">Este campo é obrigatório</span>
               )}
             </div>
-            
             <label htmlFor="content-type">Tipo de conteúdo</label>{" "}
             {/*Content type*/}
             <div className="flex flex-row space-x-8">
@@ -211,7 +200,6 @@ export const CreateLecture = ({ savedSID, handleLectureCreation }: Props) => {
                 <span className="text-warning">Este campo é obrigatório</span>
               )}
             </div>
-            
             {/*One day this will be file*/}
             <div className="flex flex-col space-y-2 text-left">
               {contentType === "video" ? (
@@ -220,18 +208,22 @@ export const CreateLecture = ({ savedSID, handleLectureCreation }: Props) => {
                     Arquivo de entrada: vídeo ou imagem
                   </label>{" "}
                   {/*Input file*/}
-                  
-                  
-                  <Dropzone inputType="video" id="0" onFileChange={setLectureVideo}/>
+                  <Dropzone
+                    inputType="video"
+                    id="0"
+                    onFileChange={setLectureVideo}
+                  />
                 </>
               ) : contentType === "text" ? (
                 <>
                   <label htmlFor="content">Formate o seu texto abaixo</label>
-                  <RichTextEditor value={editorValue} onChange={handleEditorChange}
+                  <RichTextEditor
+                    value={editorValue}
+                    onChange={handleEditorChange}
                   />
                 </>
               ) : (
-                <p></p>
+                <p />
               )}
               {/* {errors.description && <span className='text-warning'>Este campo é obrigatório</span>}*/}
             </div>
@@ -239,7 +231,7 @@ export const CreateLecture = ({ savedSID, handleLectureCreation }: Props) => {
             <ModalButtonCompont
               isSubmitting={isSubmitting}
               typeButtons={`lecture-create-${savedSID}`}
-              type={"create"}
+              type="create"
             />
           </form>
         </div>

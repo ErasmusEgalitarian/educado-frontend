@@ -105,7 +105,16 @@ export default defineConfig([
       "import/order": [
         "error",
         {
-          groups: ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
+          groups: [
+            "builtin",
+            "external",
+            "internal",
+            "parent",
+            "sibling",
+            "index",
+            "object",
+            "type",
+          ],
           pathGroups: [{ pattern: "@**/**", group: "internal" }],
           "newlines-between": "always",
           alphabetize: { order: "asc", caseInsensitive: true },
@@ -125,7 +134,11 @@ export default defineConfig([
   {
     files: ["src/**/*.{jsx,tsx}"],
     ...jsxA11y.flatConfigs.recommended,
-    plugins: { react: react, "react-refresh": reactRefresh, "react-hooks": reactHooks },
+    plugins: {
+      react: react,
+      "react-refresh": reactRefresh,
+      "react-hooks": reactHooks,
+    },
     languageOptions: {
       // Adds global variables for browser environments (like `window` or `document`).
       globals: { ...globals.browser, React: "readonly" },
@@ -146,9 +159,18 @@ export default defineConfig([
       // Enforces self-closing tags for components with no children, e.g. `<div />`.
       "react/self-closing-comp": ["error", { component: true, html: true }],
       // Removes unnecessary curly braces in JSX, e.g. `name={"John"}` -> `name="John"`.
-      "react/jsx-curly-brace-presence": ["error", { props: "never", children: "never" }],
+      "react/jsx-curly-brace-presence": [
+        "error",
+        { props: "never", children: "never" },
+      ],
       // Enforces that all React components are written as arrow functions.
-      "react/function-component-definition": ["error", { namedComponents: "arrow-function", unnamedComponents: "arrow-function" }],
+      "react/function-component-definition": [
+        "error",
+        {
+          namedComponents: "arrow-function",
+          unnamedComponents: "arrow-function",
+        },
+      ],
     },
   },
 

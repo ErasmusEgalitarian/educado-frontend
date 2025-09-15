@@ -1,19 +1,9 @@
-import useSWR from "swr";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { toast } from "react-toastify";
-
 // Hooks
-import { getUserToken } from "../../../helpers/userInfo";
 
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
 // components
-import { SectionArrowIcon } from "../../SectionArrowIcon";
-import { ComponentList } from "../ComponentList";
-import { ToolTipIcon } from "../../ToolTip/ToolTipIcon";
-
-import { Component } from "../../../interfaces/SectionInfo";
 
 // icons
 import {
@@ -24,13 +14,22 @@ import {
   mdiPlus,
 } from "@mdi/js";
 import { Icon } from "@mdi/react";
-import { useState, useEffect, useRef } from "react";
-import SectionServices from "../../../services/section.services";
 
 //pop-ups
 import { CreateLecture } from "../../CreateLecturePopUp";
 import { CreateExercise } from "../../Exercise/CreateExercisePopUp";
 import { set } from "cypress/types/lodash";
+import { useState, useEffect, useRef } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { toast } from "react-toastify";
+import useSWR from "swr";
+
+import { getUserToken } from "../../../helpers/userInfo";
+import { Component } from "../../../interfaces/SectionInfo";
+import SectionServices from "../../../services/section.services";
+import { SectionArrowIcon } from "../../SectionArrowIcon";
+import { ToolTipIcon } from "../../ToolTip/ToolTipIcon";
+import { ComponentList } from "../ComponentList";
 
 interface Props {
   sid: string;
@@ -40,13 +39,13 @@ interface Props {
   handleSectionDeletion: Function;
 }
 
-export function SortableItem({
+export const SortableItem = ({
   sid,
   addOnSubmitSubscriber,
   savedSID,
   setSavedSID,
   handleSectionDeletion,
-}: Props) {
+}: Props) => {
   const [arrowDirection, setArrowDirection] = useState<any>(mdiChevronDown);
   const [title, setTitle] = useState<string>();
   const [toolTipIndex, setToolTipIndex] = useState<number>(4);
@@ -72,8 +71,7 @@ export function SortableItem({
     }
   }, []);
 
-  useEffect(() => {
-  }, [componentData]);
+  useEffect(() => {}, [componentData]);
 
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: sid });
@@ -92,10 +90,10 @@ export function SortableItem({
     }
   }
 
-  type SectionPartial = {
+  interface SectionPartial {
     title: string;
     description: string;
-  };
+  }
   // Create Form Hooks
   const {
     register: registerSection,
@@ -151,7 +149,9 @@ export function SortableItem({
           type="checkbox"
           className="peer w-4/5 h-full"
           defaultChecked={sectionData.title === "Nova seção"}
-          onChange={() => changeArrowDirection()}
+          onChange={() => {
+            changeArrowDirection();
+          }}
           ref={openRef}
         />
 
@@ -170,7 +170,7 @@ export function SortableItem({
               className="btn btn-ghost hover:bg-transparent hover:text-primary"
             >
               {/**delete and move buttons on the left side of the section headers */}
-              <Icon path={mdiDeleteCircle} size={1.2}></Icon>
+              <Icon path={mdiDeleteCircle} size={1.2} />
             </div>
             <div
               className="flex collapse"
@@ -181,7 +181,7 @@ export function SortableItem({
             >
               <div className="btn btn-ghost hover:bg-transparent hover:text-primary">
                 {/**delete and move buttons on the left side of the section headers */}
-                <Icon path={mdiDotsVerticalCircle} size={1.2}></Icon>
+                <Icon path={mdiDotsVerticalCircle} size={1.2} />
               </div>
             </div>
           </div>
@@ -197,31 +197,37 @@ export function SortableItem({
                 placeholder={sectionData.title ?? "Nome da seção"}
                 className="text-gray-500 flex form-field bg-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 {...registerSection("title", { required: true })}
-                onChange={(e) => setTitle(e.target.value)} //update the section title
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                }} //update the section title
               />
               {sectionErrors.title && <span>Este campo é obrigatório!</span>}
               {/** This field is required */}
             </div>
 
             <div className="pt-5">
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <label htmlFor="title" style={{ marginRight: '8px' }}>Descrição</label>
-              <ToolTipIcon
-                alignLeftTop={false}
-                index={0}
-                toolTipIndex={toolTipIndex}
-                text={"😊Lembre-se que precisamos manter os alunos engajados! Quanto mais simples, objetivo e lúdico, melhor!"}
-                tooltipAmount={2}
-                callBack={setToolTipIndex}
-              />
-            </div>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <label htmlFor="title" style={{ marginRight: "8px" }}>
+                  Descrição
+                </label>
+                <ToolTipIcon
+                  alignLeftTop={false}
+                  index={0}
+                  toolTipIndex={toolTipIndex}
+                  text="😊Lembre-se que precisamos manter os alunos engajados! Quanto mais simples, objetivo e lúdico, melhor!"
+                  tooltipAmount={2}
+                  callBack={setToolTipIndex}
+                />
+              </div>
               {/*description of section*/}
               <textarea
                 defaultValue={sectionData.description ?? ""}
                 placeholder={sectionData.description ?? "Descrição da seção"}
                 className="text-gray-500 form-field bg-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 {...registerSection("description", { required: true })}
-                onChange={(e) => setDescription(e.target.value)} //update the section title
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }} //update the section title
               />
               {sectionErrors.description && (
                 <span>Este campo é obrigatório!</span>
@@ -307,26 +313,23 @@ export function SortableItem({
           </div>
 
           {/** PLACEHOLDER FOR NUMBER OF ITEMS IN SECTION*/}
-         
-            <div className="flex flex-row-reverse">
-              <label htmlFor="description " className="text-black">
-                {componentData.length}/10 items
-              </label>
-              {/** PLACEHOLDER TEXT */}
-              <ToolTipIcon
-                alignLeftTop={true}
-                index={1}
-                toolTipIndex={toolTipIndex}
-                text={
-                  "📚 Em cada seção você pode adicionar até 10 itens, entre aulas e exercícios."
-                }
-                tooltipAmount={2}
-                callBack={setToolTipIndex}
-              />
-            </div>
-          
+
+          <div className="flex flex-row-reverse">
+            <label htmlFor="description " className="text-black">
+              {componentData.length}/10 items
+            </label>
+            {/** PLACEHOLDER TEXT */}
+            <ToolTipIcon
+              alignLeftTop={true}
+              index={1}
+              toolTipIndex={toolTipIndex}
+              text="📚 Em cada seção você pode adicionar até 10 itens, entre aulas e exercícios."
+              tooltipAmount={2}
+              callBack={setToolTipIndex}
+            />
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};

@@ -1,34 +1,35 @@
+import { mdiInformationSlabCircleOutline } from "@mdi/js";
+import { Icon } from "@mdi/react";
 import { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Dropzone } from "./Dropzone/Dropzone";
 import { toast } from "react-toastify";
-import RichTextEditor from "./RichTextEditor";
 
 // Contexts
 // import useAuthStore from '../../contexts/useAuthStore';
 // Hooks
 import { getUserToken } from "../helpers/userInfo";
-import { useNotifications } from "./notification/NotificationContext";
 
 // Services
-import StorageServices from "../services/storage.services";
 import LectureService from "../services/lecture.services";
+import StorageServices from "../services/storage.services";
+
+import { Dropzone } from "./Dropzone/Dropzone";
 
 //components
 import { ModalButtonCompont } from "./ModalButtonCompont";
+import { useNotifications } from "./notification/NotificationContext";
+import RichTextEditor from "./RichTextEditor";
 
 // Icons
-import { Icon } from "@mdi/react";
-import { mdiInformationSlabCircleOutline } from "@mdi/js";
 
 <Icon path={mdiInformationSlabCircleOutline} size={1} />;
 
-type Inputs = {
+interface Inputs {
   title: string;
   description: string;
   contentType: string;
   content: string;
-};
+}
 
 interface Props {
   data: any;
@@ -79,7 +80,7 @@ export const EditLecture = ({ data, handleEdit }: Props) => {
   const getPreviewVideo = async () => {
     const videoId = data._id + "_l"; // Assuming `data` is available here
     const fileSrc = await StorageServices.getMedia(videoId);
-    const videoSrc = `data:video/mp4;base64,${fileSrc.split(',')[1]}`; //Quickfix - backend has to be adjusted to do this correctly, lasse don't @ me
+    const videoSrc = `data:video/mp4;base64,${fileSrc.split(",")[1]}`; //Quickfix - backend has to be adjusted to do this correctly, lasse don't @ me
     return videoSrc;
   };
 
@@ -98,7 +99,7 @@ export const EditLecture = ({ data, handleEdit }: Props) => {
         content: newData.content,
       },
       token,
-      data._id
+      data._id,
     )
       .then((res) => {
         if (lectureVideo !== null) {
@@ -123,21 +124,21 @@ export const EditLecture = ({ data, handleEdit }: Props) => {
     setLectureContent(lectureContent);
   }
 
-  const [editorValue, setEditorValue] = useState<string>('');
+  const [editorValue, setEditorValue] = useState<string>("");
 
-// Initialize the editorValue with data.content if available (for editing)
-useEffect(() => {
-  if (data?.content) {
-    setEditorValue(data.content);
-    setValue('content', data.content);  // Initialize form value as well
-  }
-}, [data, setValue]);
+  // Initialize the editorValue with data.content if available (for editing)
+  useEffect(() => {
+    if (data?.content) {
+      setEditorValue(data.content);
+      setValue("content", data.content); // Initialize form value as well
+    }
+  }, [data, setValue]);
 
-const handleEditorChange = (value: string) => {
-  setEditorValue(value); // Update local state
-  setValue('content', value); // Manually set form value
-  data.content = value;
-};
+  const handleEditorChange = (value: string) => {
+    setEditorValue(value); // Update local state
+    setValue("content", value); // Manually set form value
+    data.content = value;
+  };
 
   return (
     <>
@@ -162,7 +163,7 @@ const handleEditorChange = (value: string) => {
               <label htmlFor="title">Título</label> {/*Title*/}
               <input
                 type="text"
-                placeholder={"Insira o título da aula"}
+                placeholder="Insira o título da aula"
                 defaultValue={data ? data.title : ""}
                 className="form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 {...register("title", { required: true })}
@@ -176,7 +177,7 @@ const handleEditorChange = (value: string) => {
               <label htmlFor="description">Descrição</label> {/*Description*/}
               <textarea
                 rows={4}
-                placeholder={"Insira o conteúdo escrito dessa aula"}
+                placeholder="Insira o conteúdo escrito dessa aula"
                 defaultValue={data ? data.description : ""}
                 className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 {...register("description", { required: true })}
@@ -246,20 +247,24 @@ const handleEditorChange = (value: string) => {
                     Arquivo de entrada: vídeo ou imagem
                   </label>{" "}
                   {/*Input file*/}
-                  <Dropzone inputType="video" id={data._id} previewFile={previewFile} onFileChange={setLectureVideo}></Dropzone>
+                  <Dropzone
+                    inputType="video"
+                    id={data._id}
+                    previewFile={previewFile}
+                    onFileChange={setLectureVideo}
+                  />
                 </>
               ) : (data?.contentType === "text" && contentType === "") ||
                 contentType === "text" ? (
                 <>
                   <label htmlFor="content">Formate o seu texto abaixo</label>
-                  <RichTextEditor 
-                    value={editorValue}  // Use the local editorValue for the content
-                    onChange={handleEditorChange} 
+                  <RichTextEditor
+                    value={editorValue} // Use the local editorValue for the content
+                    onChange={handleEditorChange}
                   />
-
                 </>
               ) : (
-                <p></p>
+                <p />
               )}
               {/* {errors.description && <span className='text-warning'>Este campo é obrigatório</span>}*/}
             </div>

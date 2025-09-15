@@ -1,29 +1,31 @@
 // Hooks
-import useSWR from "swr";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { getUserToken } from "../helpers/userInfo";
-import CourseGuideButton from "../components/Courses/GuideToCreatingCourse";
-// Services
-import CourseServices from "@services/course.services";
-
-// Components
-import Layout from "../components/Layout";
-import Loading from "../components/general/Loading";
-import { CourseListCard } from "../components/Courses/CourseListCard";
-import PersonalInsights from "../components/Courses/PersonalInsights";
-
-// toasts
-import { toast } from "react-toastify";
-
-// Images
-import noCoursesImage from "../assets/no-courses.png";
 import {
   InformationCircleIcon,
   PencilSquareIcon,
   QuestionMarkCircleIcon,
 } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import useSWR from "swr";
+
+import CourseServices from "@services/course.services";
+
+import noCoursesImage from "../assets/no-courses.png";
+import { CourseListCard } from "../components/Courses/CourseListCard";
+import CourseGuideButton from "../components/Courses/GuideToCreatingCourse";
+
+// Services
+
+// Components
+import PersonalInsights from "../components/Courses/PersonalInsights";
+import Loading from "../components/general/Loading";
+import Layout from "../components/Layout";
+
+// toasts
+
+// Images
+import { getUserToken } from "../helpers/userInfo";
 
 /**
  * @returns HTML Element
@@ -55,7 +57,7 @@ const Courses = () => {
 
   const { data, error } = useSWR(
     token ? [token] : null,
-    CourseServices.getAllCreatorCourses
+    CourseServices.getAllCreatorCourses,
   );
 
   if (error && error.response.status === 401) {

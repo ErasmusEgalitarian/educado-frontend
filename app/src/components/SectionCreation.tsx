@@ -2,27 +2,26 @@
 
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { useApi } from '../hooks/useAPI';
+import { useNavigate } from "react-router-dom";
 
+import { BACKEND_URL } from "../helpers/environment";
+import { useApi } from "../hooks/useAPI";
 import { Course } from "../interfaces/Course";
+import CourseServices from "../services/course.services";
+
+import CourseGuideButton from "./Courses/GuideToCreatingCourse";
+import { YellowWarning } from "./Courses/YellowWarning";
 import { SectionForm } from "./dnd/SectionForm";
 import { SectionList } from "./dnd/SectionList";
 
-import { BACKEND_URL } from "../helpers/environment";
-
-import CourseServices from "../services/course.services";
-import { YellowWarning } from "./Courses/YellowWarning";
-import { useNavigate } from "react-router-dom";
 /* import Popup from "./Popup/Popup"; */
-import GenericModalComponent from "./GenericModalComponent";
-
-import { ToolTipIcon } from "./ToolTip/ToolTipIcon";
 import Loading from "./general/Loading";
+import GenericModalComponent from "./GenericModalComponent";
 import Layout from "./Layout";
+import { useNotifications } from "./notification/NotificationContext";
+import { ToolTipIcon } from "./ToolTip/ToolTipIcon";
 
 // Notification
-import { useNotifications } from "./notification/NotificationContext";
-import CourseGuideButton from "./Courses/GuideToCreatingCourse";
 
 interface Inputs {
   id: string;
@@ -42,7 +41,7 @@ export const SectionCreation = ({
   const id = propId === "0" ? urlId : propId;
   const [isLeaving, setIsLeaving] = useState<boolean>(false);
   const [onSubmitSubscribers, setOnSubmitSubscribers] = useState<Function[]>(
-    []
+    [],
   );
   const [sections, setSections] = useState<any[]>([]);
   const [toolTipIndex, setToolTipIndex] = useState<number>(4);
@@ -74,9 +73,12 @@ export const SectionCreation = ({
   // Notification
   const { addNotification } = useNotifications();
 
-
   //Callbacks
-  const { call: updateCourseDetail, isLoading: submitLoading, error } = useApi(CourseServices.updateCourseDetail);
+  const {
+    call: updateCourseDetail,
+    isLoading: submitLoading,
+    error,
+  } = useApi(CourseServices.updateCourseDetail);
 
   function notifyOnSubmitSubscriber() {
     onSubmitSubscribers.forEach((cb) => cb());
@@ -85,14 +87,14 @@ export const SectionCreation = ({
   const handleDialogEvent = (
     dialogText: string,
     onConfirm: () => void,
-    dialogTitle: string
+    dialogTitle: string,
   ) => {
     setDialogTitle(dialogTitle);
     setDialogMessage(dialogText);
-    
+
     async function confirmFunction() {
       onConfirm();
-     await updateCourseDetail(courseData, id, token);
+      await updateCourseDetail(courseData, id, token);
     }
 
     setDialogConfirm(() => confirmFunction);
@@ -198,12 +200,10 @@ export const SectionCreation = ({
             <h1 className="text-2xl font-bold">Seções do curso </h1>
             {/** Tooltip for course sections header*/}
             <ToolTipIcon
-            alignLeftTop={false}
+              alignLeftTop={false}
               index={0}
               toolTipIndex={toolTipIndex}
-              text={
-                "👩🏻‍🏫Nossos cursos são separados em seções e você pode adicionar quantas quiser!"
-              }
+              text="👩🏻‍🏫Nossos cursos são separados em seções e você pode adicionar quantas quiser!"
               tooltipAmount={1}
               callBack={setToolTipIndex}
             />
@@ -231,7 +231,9 @@ export const SectionCreation = ({
         <div className='className="flex w-full float-right space-y-4 "'>
           <div className="flex items-center justify-between gap-4 w-full mt-8">
             <label
-              onClick={() => changeTick(0)}
+              onClick={() => {
+                changeTick(0);
+              }}
               className="whitespace-nowrap cursor-pointer underline py-2 pr-4 bg-transparent hover:bg-warning-100 text-primary w-full transition ease-in duration-200 text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded"
             >
               Voltar para Informações{" "}
@@ -248,7 +250,7 @@ export const SectionCreation = ({
                   handleDialogEvent(
                     "Você tem certeza de que quer salvar como rascunho as alterações feitas?",
                     handleDraftConfirm,
-                    "Salvar como rascunho"
+                    "Salvar como rascunho",
                   );
                 }}
                 className="whitespace-nowrap hover:cursor-pointer underline"
@@ -265,7 +267,7 @@ export const SectionCreation = ({
                       ? "Tem certeza de que deseja publicar o curso? Isso o disponibilizará para os usuários do aplicativo"
                       : "Tem certeza de que deseja publicar as alterações feitas no curso",
                     handlePublishConfirm,
-                    "Publicar curso"
+                    "Publicar curso",
                   );
                 }}
                 className="whitespace-nowrap py-4 px-8 h-full w-full cursor-pointer"

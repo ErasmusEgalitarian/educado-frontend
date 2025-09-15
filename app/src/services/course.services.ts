@@ -1,11 +1,12 @@
 import axios from "axios";
 
 // Backend URL from enviroment
+import { CreatorPopulatedCourse, Course, NewCourse } from "@interfaces/Course";
+
 import { BACKEND_URL } from "../helpers/environment";
 import { getUserInfo, getUserToken } from "../helpers/userInfo";
 
 //interfaces
-import { CreatorPopulatedCourse, Course, NewCourse } from "@interfaces/Course";
 
 /**
  * IN ALL METHODS THE TOKEN HAS BEEN COMMENTED OUT, SINCE WE DON'T HAVE A TOKEN YET
@@ -27,7 +28,7 @@ const createCourse = async (data: NewCourse, token: string) => {
         Authorization: `Bearer ${token}`,
         token: localStorage.getItem("token") || "",
       },
-    }
+    },
   );
 };
 
@@ -43,7 +44,7 @@ const getAllCreatorCourses = async (token: string) => {
     `${BACKEND_URL}/api/courses/creator/${id}`,
     {
       headers: { Authorization: `Bearer ${token}`, token: token },
-    }
+    },
   );
 
   // Convert dates in course data to Date objects
@@ -65,7 +66,7 @@ const getAllCourses = async () => {
     `${BACKEND_URL}/api/courses/`,
     {
       headers: { Authorization: `Bearer ${token}` },
-    }
+    },
   );
 
   // Convert dates in course data to Date objects
@@ -109,7 +110,7 @@ const getCourseCategories = async (url: string, token: string) => {
 const updateCourseDetail = async (
   data: Partial<Course>,
   id: string | undefined,
-  token: string
+  token: string,
 ) => {
   const res = await axios.patch(`${BACKEND_URL}/api/courses/${id}`, data, {
     headers: { Authorization: `Bearer ${token}` },
@@ -119,14 +120,14 @@ const updateCourseDetail = async (
 };
 
 const updateCourseSectionOrder = async (
-  sections: Array<string>,
+  sections: string[],
   id: string | undefined,
-  token: string
+  token: string,
 ) => {
   const res = await axios.patch(
     `${BACKEND_URL}/api/courses/${id}/sections`,
     { sections },
-    { headers: { Authorization: `Bearer ${token}` } }
+    { headers: { Authorization: `Bearer ${token}` } },
   );
   return res.data;
 };
@@ -134,12 +135,12 @@ const updateCourseSectionOrder = async (
 const updateCourseStatus = async (
   course_id: string | undefined,
   status: string,
-  token: string
+  token: string,
 ) => {
   const res = await axios.patch(
     `${BACKEND_URL}/api/courses/${course_id}/updateStatus`,
     { status },
-    { headers: { Authorization: `Bearer ${token}` } }
+    { headers: { Authorization: `Bearer ${token}` } },
   );
   return res.data;
 };
