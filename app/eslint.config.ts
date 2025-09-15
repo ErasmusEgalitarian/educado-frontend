@@ -96,6 +96,10 @@ export default defineConfig([
         { selector: "default", format: ["camelCase"] },
         { selector: "variable", format: ["camelCase", "UPPER_CASE", "PascalCase"] },
         { selector: "function", format: ["camelCase", "PascalCase"] },
+        {
+          selector: "import",
+          format: ["camelCase", "PascalCase", "UPPER_CASE"],
+        },
         { selector: "typeLike", format: ["PascalCase"] },
         { selector: "enumMember", format: ["snake_case"] },
       ],
