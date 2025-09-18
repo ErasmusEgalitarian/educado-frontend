@@ -1,0 +1,128 @@
+{
+  "welcome": {
+    "title": "Welcome to the learning platform!",
+    "subtitle": "Sign up now and help promote your work and reach a wider audience through content creation.",
+    "loginButton": "Login",
+    "signupButton": "Sign Up"
+  },
+  "navigation": {
+    "courses": "Courses",
+    "certificates": "Certificates",
+    "profile": "Profile",
+    "settings": "Settings",
+    "admin": "Admin",
+    "logout": "Logout"
+  },
+  "errors": {
+    "network": "Network error. Please try again later.",
+    "unauthorized": "You are not authorized to perform this action.",
+    "notFound": "Error 404! The requested resource was not found.",
+    "internal": "An internal server error occurred. Please try again later.",
+    "signup_error": "Error during signup. Please try again later."
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "update": "Update",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "back": "Back",
+    "back_to_home": "Back to Home"
+  },
+  "courses": {
+    "title": "Courses",
+    "category": "Category",
+    "rating": "Rating",
+    "students": "students",
+    "instructor": "Instructor",
+    "subscriptions": "Subscriptions"
+  },
+  "language": {
+    "portuguese": "Portuguese",
+    "english": "English",
+    "switchLanguage": "Switch Language"
+  },
+  "loginCarousel": {
+    "slide0": {
+      "title": "Welcome to our Educado learning portal",
+      "body": "Join us to transform lives. We provide access to tailored content for people in need, improving living conditions and job opportunities."
+    },
+    "slide1": {
+      "title": "Become a content creator",
+      "body": "Help promote your work and reach a wider audience. Connect with volunteer students and institutions that want to share information."
+    },
+    "slide2": {
+      "title": "Register now and make a difference!",
+      "body": "Be part of our community that enables access to targeted content and practical ways to share knowledge."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back to Educado!",
+      "email": {
+        "label": "Email",
+        "placeholder": "user@example.com"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "**********"
+      },
+      "actions": {
+        "submit": "Login",
+        "back": "Back"
+      },
+      "forgot_password": "Forgot your password?",
+      "errors": {
+        "generic": "Login failed. Please try again.",
+        "invalid_email": "Please enter a valid email.",
+        "invalid_password": "Incorrect password. Please try again.",
+        "not_approved": "The account associated with this email is not approved.",
+        "rejected": "The account associated with this email was rejected."
+      }
+    },
+    "signup": {
+      "title": "Create your free account!",
+      "firstName": {
+        "label": "First name",
+        "placeholder": "First name"
+      },
+      "lastName": {
+        "label": "Last name",
+        "placeholder": "Last name"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "user@example.com"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "**********"
+      },
+      "confirmPassword": {
+        "label": "Confirm password",
+        "placeholder": "**********"
+      },
+      "actions": {
+        "submit": "Sign Up",
+        "back": "Back"
+      },
+      "messages": {
+        "verification_sent": "Verification email sent. Please check your inbox."
+      },
+      "errors": {
+        "generic": "Error during signup. Please try again later.",
+        "email_exists": "There is already a user with the provided email.",
+        "password_mismatch": "Passwords do not match.",
+        "invalid_email": "Please enter a valid email."
+      }
+    }
+  }
+}

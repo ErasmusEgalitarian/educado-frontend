@@ -1,5 +1,6 @@
-import { BACKEND_URL } from "@common/constants/environment";
 import axios from "axios";
+
+import { BACKEND_URL } from "@common/constants/environment";
 
 /**
  * Update a section with new data

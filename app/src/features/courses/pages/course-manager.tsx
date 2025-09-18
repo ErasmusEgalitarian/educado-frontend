@@ -6,13 +6,13 @@ import { BACKEND_URL } from "@common/constants/environment";
 import Layout from "@common/layout/Layout";
 import Loading from "@common/layout/Loading";
 import NotFound from "@common/layout/not-found";
-import { Course } from "@courses/types/Course";
 import { getCourseDetail } from "@courses/api/course-queries";
 import { CourseComponent } from "@courses/components/course-component";
+import { Course } from "@courses/types/Course";
+import { getUserToken } from "@user/utilities/get-local-user";
 
 import Checklist from "../components/course-checklist";
 import { SectionCreation } from "../components/course-section-creation";
-import { getUserToken } from "@user/utilities/get-local-user";
 
 /**
  * This component is responsible for creating and editing courses.

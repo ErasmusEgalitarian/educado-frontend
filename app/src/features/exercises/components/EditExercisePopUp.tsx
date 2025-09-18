@@ -1,4 +1,3 @@
-import { use } from "chai";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -73,72 +72,65 @@ export const EditExercise = ({ data, handleEdit }: Props) => {
   };
 
   return (
-    <>
-      <div
-        className="modal"
-        id={`exercise-edit-${data ? data._id : "new"}-modal`}
-      >
-        <div className="bg-white bg-gradient-to-b rounded w-3/8 h-5/6">
-          <div className="p-5 bg-gradient-to-b from-primaryLight overflow-auto h-full">
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col space-y-6 divide py-2"
-            >
-              <div className="rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border">
-                <div className="flex flex-col form-control align-items justify-content w-full">
-                  <label className="label">
-                    <span className="label-text">Título</span> {/*Title*/}
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Adicione um título a este exercício" /*Add a title to this exercise*/
-                    defaultValue={data ? data.title : ""}
-                    className="input input-bordered w-full max-w-xs"
-                    {...register("title", { required: true })}
-                  />
+    <div
+      className="modal"
+      id={`exercise-edit-${data ? data._id : "new"}-modal`}
+    >
+      <div className="bg-white bg-gradient-to-b rounded w-3/8 h-5/6">
+        <div className="p-5 bg-gradient-to-b from-primaryLight overflow-auto h-full">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col space-y-6 divide py-2"
+          >
+            <div className="rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border">
+              <div className="flex flex-col form-control align-items justify-content w-full">
+                <label className="label">
+                  <span className="label-text">Título</span> {/*Title*/}
+                </label>
+                <input
+                  type="text"
+                  placeholder="Adicione um título a este exercício" /*Add a title to this exercise*/
+                  defaultValue={data ? data.title : ""}
+                  className="input input-bordered w-full max-w-xs"
+                  {...register("title", { required: true })}
+                />
 
-                  <label className="label">
-                    <span className="label-text">Pergunta</span> {/*Question*/}
-                  </label>
-                  <textarea
-                    className="textarea textarea-bordered h-24"
-                    defaultValue={data ? data.question : ""}
-                    placeholder="Adicione uma pergunta a este exercício" /*Add a question to this exercise*/
-                    {...register("question", { required: true })}
-                  />
-                </div>
+                <label className="label">
+                  <span className="label-text">Pergunta</span> {/*Question*/}
+                </label>
+                <textarea
+                  className="textarea textarea-bordered h-24"
+                  defaultValue={data ? data.question : ""}
+                  placeholder="Adicione uma pergunta a este exercício" /*Add a question to this exercise*/
+                  {...register("question", { required: true })}
+                />
               </div>
+            </div>
 
-              {/* divider */}
-              <div className="flex flex-col w-full">
-                <div className="divider" />
-              </div>
+            {/* divider */}
+            <div className="flex flex-col w-full">
+              <div className="divider" />
+            </div>
 
-              {/* Answers. Answers sometimes doesn't get loaded hence the conditional rendering ... */}
-              {
-                answers ? (
-                  <div className="rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border ">
-                    <h1 className="text-md font-medium">Resposta</h1>{" "}
-                    {/** Answer */}
-                    <AnswerCards
-                      update={setAnswers}
-                      initialAnswers={data ? data.answers : answers}
-                    />
-                  </div>
-                ) : (
-                  <p>Carregando ...</p>
-                ) /** Loading ... */
-              }
-              {/*Create and cancel buttons*/}
-              <ModalButtonCompont
-                type="edit"
-                isSubmitting={isSubmitting}
-                typeButtons={`exercise-edit-${data._id}`}
+            {/* Answers. Answers sometimes doesn't get loaded hence the conditional rendering ... */}
+
+            <div className="rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border ">
+              <h1 className="text-md font-medium">Resposta</h1> {/** Answer */}
+              <AnswerCards
+                update={setAnswers}
+                initialAnswers={data ? data.answers : answers}
               />
-            </form>
-          </div>
+            </div>
+
+            {/*Create and cancel buttons*/}
+            <ModalButtonCompont
+              type="edit"
+              isSubmitting={isSubmitting}
+              typeButtons={`exercise-edit-${data._id}`}
+            />
+          </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };

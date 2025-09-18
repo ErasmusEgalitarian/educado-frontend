@@ -3,6 +3,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 
+import {
+  AcceptApplication,
+  RejectApplication,
+} from "@common/api/auth-mutations";
+import { GetSingleCCApplication } from "@common/api/auth-queries";
+
 import { useNotifications } from "../../common/context/NotificationContext";
 import Layout from "../../common/layout/Layout";
 import Loading from "../../common/layout/Loading";
@@ -10,11 +16,6 @@ import Loading from "../../common/layout/Loading";
 import AcademicExperience from "./AcademicExperience";
 import ApplicantDetails from "./ApplicantDetails";
 import WorkExperience from "./WorkExperience";
-import { GetSingleCCApplication } from "@common/api/auth-queries";
-import {
-  AcceptApplication,
-  RejectApplication,
-} from "@common/api/auth-mutations";
 
 const SingleApplicantView = () => {
   // Get user id from URL

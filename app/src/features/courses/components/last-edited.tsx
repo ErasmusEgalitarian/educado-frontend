@@ -22,23 +22,23 @@ const getFormattedTimeDifference = (fromDate: Date, toDate: Date): string => {
 
   // Minutes
   if (minuteDifference < 60) {
-    return `${minuteDifference} minutos atrás`;
+    return `${String(minuteDifference)} minutos atrás`;
   }
   // Hours
   if (minuteDifference < 60 * 24) {
-    return `${Math.floor(minuteDifference / 60)} horas atrás`;
+    return `${String(Math.floor(minuteDifference / 60))} horas atrás`;
   }
   // Days
   if (minuteDifference < 60 * 24 * 7) {
-    return `${Math.floor(minuteDifference / 60 / 24)} dias atrás`;
+    return `${String(Math.floor(minuteDifference / 60 / 24))} dias atrás`;
   }
   // Weeks
   if (minuteDifference < 60 * 24 * 30) {
-    return `${Math.floor(minuteDifference / 60 / 24)} semanas atrás`;
+    return `${String(Math.floor(minuteDifference / 60 / 24))} semanas atrás`;
   }
   // Months
   if (minuteDifference < 60 * 24 * 365) {
-    return `${Math.floor(minuteDifference / 60 / 24 / 30)} meses atrás`;
+    return `${String(Math.floor(minuteDifference / 60 / 24 / 30))} meses atrás`;
   }
 
   // Show date if difference is > 1 year
@@ -53,16 +53,14 @@ const getFormattedTimeDifference = (fromDate: Date, toDate: Date): string => {
  */
 export const LastEdited = ({ course }: { course: Course }) => {
   return (
-    <>
-      <div className="flex flex-row">
-        <Icon path={mdiPencil} className="w-4 mr-1 inline-block mr-1" />
-        <p className="text-md italic">
-          {getFormattedTimeDifference(
-            new Date(course.dateUpdated ?? Date.now()),
-            new Date()
-          )}
-        </p>
-      </div>
-    </>
+    <div className="flex flex-row">
+      <Icon path={mdiPencil} className="w-4 mr-1 inline-block" />
+      <p className="text-md italic">
+        {getFormattedTimeDifference(
+          new Date(course.dateUpdated ?? Date.now()),
+          new Date()
+        )}
+      </p>
+    </div>
   );
 };

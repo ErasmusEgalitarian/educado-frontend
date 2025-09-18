@@ -3,11 +3,11 @@ import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
 import { KeyedMutator } from "swr";
 
+import { deleteInstitution as apiDeleteInstitution } from "@admin/api/institution-mutations";
+import { Institution } from "@admin/types/institution-types";
+import GenericModalComponent from "@common/components/generic-modal-component";
 import { useNotifications } from "@common/context/NotificationContext";
 import { useApi } from "@common/hooks/use-api";
-import { Institution } from "@admin/types/institution-types";
-import { deleteInstitution as apiDeleteInstitution } from "@admin/api/institution-mutations";
-import GenericModalComponent from "@common/components/generic-modal-component";
 import { getUserToken } from "@user/utilities/get-local-user";
 
 export const DeleteInstitutionButton = ({

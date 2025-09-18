@@ -3,12 +3,12 @@ import { MdCreate } from "react-icons/md";
 import { toast } from "react-toastify";
 import { KeyedMutator } from "swr";
 
+import { updateInstitution as apiUpdateInstitution } from "@admin/api/institution-mutations";
+import { Institution } from "@admin/types/institution-types";
+import GenericModalComponent from "@common/components/generic-modal-component";
 import { useNotifications } from "@common/context/NotificationContext";
 import { useApi } from "@common/hooks/use-api";
-import { Institution } from "@admin/types/institution-types";
-import { updateInstitution as apiUpdateInstitution } from "@admin/api/institution-mutations";
 import { getUserToken } from "@user/utilities/get-local-user";
-import GenericModalComponent from "@common/components/generic-modal-component";
 
 export const UpdateInstitutionButton = ({
   institution,

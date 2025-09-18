@@ -13,6 +13,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      "react": path.resolve(__dirname, "node_modules/react"),
+      "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
       "@assets": path.resolve(__dirname, "./src/assets"),
       "@common": path.resolve(__dirname, "./src/common"),
       "@user": path.resolve(__dirname, "./src/features/user"),
@@ -25,5 +27,6 @@ export default defineConfig({
       "@utilities": path.resolve(__dirname, "./src/utilities"),
       "@helpers": path.resolve(__dirname, "./src/helpers"),
     },
+    dedupe: ["react", "react-dom"],
   },
 });

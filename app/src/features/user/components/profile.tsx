@@ -10,6 +10,8 @@ import * as Yup from "yup";
 
 import GenericModalComponent from "@common/components/generic-modal-component";
 import useAuthStore from "@common/context/useAuthStore";
+import { useApi } from "@common/hooks/use-api";
+import Layout from "@common/layout/Layout";
 import { dynamicForms } from "@common/unknown/dynamicForms";
 import { tempObjects } from "@common/utilities/form-states";
 import {
@@ -22,9 +24,6 @@ import {
 import AcademicExperienceForm from "@user/components/academic-experience";
 import PersonalInformationForm from "@user/components/personal-information";
 import ProfessionalExperienceForm from "@user/components/professional-experience";
-
-import { useApi } from "@common/hooks/use-api";
-import Layout from "@common/layout/Layout";
 import staticForm from "@user/utilities/static-form";
 
 // Yup Schema

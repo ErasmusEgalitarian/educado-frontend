@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 
 import { BACKEND_URL } from "@common/constants/environment";
+
 import PersonalInformationModal from "./personal-information-form";
 
 //Exporting UI content&structure of

@@ -51,7 +51,7 @@ export default defineConfig([
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        project: false,
+        project: true,
       },
     },
     // Registers the plugins we want to use in this block.

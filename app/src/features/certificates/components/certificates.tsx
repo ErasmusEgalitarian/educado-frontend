@@ -1,10 +1,12 @@
-import { Certificate } from "@certificates/types/certificate-types";
-import CertificateCard from "./certificate-card";
-import EmptyState from "./certificate-empty";
 import { useEffect, useState } from "react";
+
 import EmptyImg from "@assets/no-courses.png";
 import { getUserCertificates } from "@certificates/api/certificate-queries";
+import { Certificate } from "@certificates/types/certificate-types";
 import Layout from "@common/layout/Layout";
+
+import CertificateCard from "./certificate-card";
+import EmptyState from "./certificate-empty";
 
 export default function Certificates() {
   const [certificates, setCertificates] = useState<Certificate[]>();

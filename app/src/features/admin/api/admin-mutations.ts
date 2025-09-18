@@ -1,5 +1,6 @@
-import { BACKEND_URL } from "@common/constants/environment";
 import axios from "axios";
+
+import { BACKEND_URL } from "@common/constants/environment";
 
 export const deleteUser = async (id: string, token: string) => {
     const res = await axios.delete(`${BACKEND_URL}/api/users/${id}`, {

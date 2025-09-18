@@ -1,11 +1,11 @@
+import AuthServices from "@common/api/auth.services.old";
+import GenericModalComponent from "@components/GenericModalComponent";
 import { User } from "@interfaces/User";
 import AdminServices from "@services/admin.services";
 import { AxiosError } from "axios";
 import { FC, useState } from "react";
 import { toast } from "react-toastify";
 
-import GenericModalComponent from "@components/GenericModalComponent";
-import AuthServices from "@common/api/auth.services.old";
 
 import "react-toastify/dist/ReactToastify.css";
 

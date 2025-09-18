@@ -2,6 +2,9 @@
 import { useState } from "react";
 
 // import service and utility
+import { deleteEducationForm, deleteExperienceForm } from "@user/api/profile-mutations";
+import { getUserFormThree, getUserFormTwo } from "@user/api/profile-queries";
+
 import useProfileValidation from "../../features/user/hooks/use-profile-validation";
 import { getUserInfo } from "../../features/user/utilities/get-local-user";
 import {
@@ -9,8 +12,6 @@ import {
   useEducationFormData,
   useExperienceFormData,
 } from "../utilities/form-states";
-import { getUserFormThree, getUserFormTwo } from "@user/api/profile-queries";
-import { deleteEducationForm, deleteExperienceForm } from "@user/api/profile-mutations";
 // import helpers
 const dynamicForms = () => {
   //validation

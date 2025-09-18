@@ -15,8 +15,8 @@ import useSWR from "swr";
 
 import { EditLecture } from "../../../../components/EditLecturePopUp";
 import { EditExercise } from "../../../../features/exercises/components/EditExercisePopUp";
-import LectureService from "../../../../services/lecture.services";
 import { getUserToken } from "../../../../features/user/utilities/get-local-user";
+import LectureService from "../../../../services/lecture.services";
 import { BACKEND_URL } from "../../../constants/environment";
 
 // Hooks

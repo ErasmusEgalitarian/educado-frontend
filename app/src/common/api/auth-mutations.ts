@@ -1,19 +1,19 @@
 import axios from "axios";
 
-import { BACKEND_URL } from "@common/constants/environment";
 import { Institution } from "@admin/types/institution-types";
-
-import { ContentCreatorApplication, UserCredentials } from "./auth.services.old";
+import { BACKEND_URL } from "@common/constants/environment";
+import { UserCredentials } from "@common/types/auth-types";
+import { CreateUserPayload } from "@login/types/login-types";
 
 export const postUserLogin = async (credentials: UserCredentials) => {
     return await axios.post(`${BACKEND_URL}/api/auth/login`, credentials);
 };
 
-export const postUserSignup = async (formData: ContentCreatorApplication) => {
+export const postUserSignup = async (formData: CreateUserPayload) => {
     return await axios.post(`${BACKEND_URL}/api/auth/signup`, formData);
 };
 
-export const postUserVerification = async (formData: ContentCreatorApplication) => {
+export const postUserVerification = async (formData: CreateUserPayload) => {
     return await axios.post(`${BACKEND_URL}/api/auth/verify-email`, formData);
 };
 

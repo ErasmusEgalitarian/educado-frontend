@@ -3,12 +3,12 @@ import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
 import { KeyedMutator } from "swr";
 
+import GenericModalComponent from "@common/components/generic-modal-component";
 import { useNotifications } from "@common/context/NotificationContext";
 import { useApi } from "@common/hooks/use-api";
-import { CreatorPopulatedCourse } from "@courses/types/Course";
 import { deleteCourse as apiDeleteCourse } from "@courses/api/course-mutations";
+import { CreatorPopulatedCourse } from "@courses/types/Course";
 import { getUserToken } from "@user/utilities/get-local-user";
-import GenericModalComponent from "@common/components/generic-modal-component";
 
 export const CoursesDeleteButton = ({
   courseId,

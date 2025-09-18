@@ -1,7 +1,8 @@
-import { REFRESH_TOKEN_URL } from "@common/constants/environment";
-import jwtHelpers from "@common/utilities/jwt-utilities";
 import axios from "axios";
 import create from "zustand";
+
+import { REFRESH_TOKEN_URL } from "@common/constants/environment";
+import jwtHelpers from "@common/utilities/jwt-utilities";
 
 interface AuthState {
   token: string | null | undefined;

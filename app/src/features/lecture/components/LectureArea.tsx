@@ -1,5 +1,6 @@
-import LectureDetail from "./LectureDetail";
 import { Lecture } from "../interfaces/Lecture";
+
+import LectureDetail from "./LectureDetail";
 
 /**
  * A component that displays a list of lectures

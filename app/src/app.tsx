@@ -4,11 +4,12 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import NotFound from "./common/layout/not-found";
 import EducadoAdmin from "@admin/pages/admin-page";
 import Application from "@application/application";
 import SingleApplicantView from "@application/SingleApplicantView";
 import Certificates from "@certificates/components/certificates";
+import DataDeletionRequest from "@common/components/data-deletion";
+import PrivacyPolicy from "@common/components/privacy-policy";
 import CourseManager from "@courses/pages/course-manager";
 import Courses from "@courses/pages/courses";
 import {
@@ -16,14 +17,13 @@ import {
   ProtectedRoute,
   NonProtectedRoute,
 } from "@login/auth.guard";
-import Signup from "@login/components/signup";
-import Login from "@login/pages/login-page";
-import Welcome from "@login/pages/welcome";
+import WelcomePage from "@login/pages/welcome-page";
 import AccountDeletionRequest from "@user/components/AccountDeletionRequest";
 import Profile from "@user/components/profile";
+
+import NotFound from "./common/layout/not-found";
 import Feedback from "./features/exercises/components/feedback";
-import DataDeletionRequest from "@common/components/data-deletion";
-import PrivacyPolicy from "@common/components/privacy-policy";
+
 
 const App = () => {
   // router
@@ -32,6 +32,24 @@ const App = () => {
       // Homepage is left unused
       path: "/",
       element: <Navigate to="/welcome" />,
+      errorElement: <NotFound />,
+    },
+    {
+      path: "/welcome",
+      element: (
+        <NonProtectedRoute>
+          <WelcomePage />
+        </NonProtectedRoute>
+      ),
+    },
+    {
+      path: "/login",
+      element: <Navigate to="/welcome?view=login" replace />,
+      errorElement: <NotFound />,
+    },
+    {
+      path: "/signup",
+      element: <Navigate to="/welcome?view=signup" replace />,
       errorElement: <NotFound />,
     },
     {
@@ -81,24 +99,6 @@ const App = () => {
       ),
     },
     {
-      path: "/login",
-      element: (
-        <NonProtectedRoute>
-          <Login />
-        </NonProtectedRoute>
-      ),
-      errorElement: <NotFound />,
-    },
-    {
-      path: "/signup",
-      element: (
-        <NonProtectedRoute>
-          <Signup />
-        </NonProtectedRoute>
-      ),
-      errorElement: <NotFound />,
-    },
-    {
       path: "/application/:id",
       element: (
         <NonProtectedRoute>
@@ -129,14 +129,6 @@ const App = () => {
         <ProtectedRoute>
           <SingleApplicantView />
         </ProtectedRoute>
-      ),
-    },
-    {
-      path: "/welcome",
-      element: (
-        <NonProtectedRoute>
-          <Welcome />
-        </NonProtectedRoute>
       ),
     },
     {

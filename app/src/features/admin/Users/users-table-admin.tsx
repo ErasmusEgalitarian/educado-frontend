@@ -7,14 +7,14 @@ import {
 } from "react-icons/go";
 import useSWR from "swr";
 
+import { getUserApplications } from "@admin/api/admin-queries";
 import AdminToggleButton from "@admin/Users/Actions/admin-toggle";
 import DeleteUserButton from "@admin/Users/Actions/delete-user-button";
 import ViewUserButton from "@admin/Users/Actions/view-user-button";
 import Loading from "@common/layout/Loading";
 import { ContentCreator } from "@common/unknown/interfaces/ContentCreator";
-import { getUserToken } from "@user/utilities/get-local-user";
-import { getUserApplications } from "@admin/api/admin-queries";
 import { User } from "@user/types/user-types";
+import { getUserToken } from "@user/utilities/get-local-user";
 
 export const UsersTableAdmin = () => {
   const [searchTerm, setSearchTerm] = useState("");

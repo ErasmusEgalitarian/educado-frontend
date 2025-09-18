@@ -3,11 +3,11 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { useNotifications } from "@common/context/NotificationContext";
-import { useApi } from "@common/hooks/use-api";
 import { Institution } from "@admin/types/institution-types";
 import { addInstitution as apiAddInstitution } from "@common/api/auth-mutations";
 import GenericModalComponent from "@common/components/generic-modal-component";
+import { useNotifications } from "@common/context/NotificationContext";
+import { useApi } from "@common/hooks/use-api";
 
 export const AddInstitutionButton = () => {
   const [showModal, setShowModal] = useState(false);

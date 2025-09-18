@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 
+import GenericModalComponent from "@common/components/generic-modal-component";
 import { ToolTipIcon } from "@common/components/ToolTip/ToolTipIcon";
 import { BACKEND_URL } from "@common/constants/environment";
 import { useNotifications } from "@common/context/NotificationContext";
@@ -11,7 +12,10 @@ import { useApi } from "@common/hooks/use-api";
 import Layout from "@common/layout/Layout";
 import Loading from "@common/layout/Loading";
 import { Course } from "@courses/types/Course";
-import GenericModalComponent from "@common/components/generic-modal-component";
+import { YellowWarning } from "./yellow-warning";
+import { SectionList } from "@common/components/dnd/SectionList";
+import { SectionForm } from "@common/components/dnd/SectionForm";
+import CourseGuideButton from "./course-guide";
 
 // Notification
 
@@ -31,7 +35,6 @@ export const SectionCreation = ({
 }: Inputs) => {
   const { id: urlId } = useParams<{ id: string }>();
   const id = propId === "0" ? urlId : propId;
-  const [isLeaving, setIsLeaving] = useState<boolean>(false);
   const [onSubmitSubscribers, setOnSubmitSubscribers] = useState<Function[]>(
     []
   );

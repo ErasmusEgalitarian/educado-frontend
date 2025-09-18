@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { getUserInfo } from "./get-local-user";
+
 import { useFormData } from "@common/utilities/form-states";
-import { getUserFormOne } from "@user/api/profile-queries";
 import { postImage } from "@user/api/profile-mutations";
+import { getUserFormOne } from "@user/api/profile-queries";
+
+import { getUserInfo } from "./get-local-user";
 
 export default () => {
   //Form States & localstorage

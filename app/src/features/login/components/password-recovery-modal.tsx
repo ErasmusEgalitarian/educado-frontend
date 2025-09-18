@@ -1,13 +1,14 @@
 import { createContext, useEffect, useState } from "react";
 
-import CodeVerification from "./CodeVerification";
-import NavigationFooter from "./navigation-footer";
-import NewPasswordScreen from "./NewPasswordScreen";
 import { useApi } from "@common/hooks/use-api";
 import {
   validateEmail,
   validatePasswords,
 } from "@common/utilities/validation-utilities";
+
+import CodeVerification from "./CodeVerification";
+import NavigationFooter from "./navigation-footer";
+import NewPasswordScreen from "./NewPasswordScreen";
 
 interface PasswordModalProps {
   toggleModal: () => void;
@@ -210,7 +211,7 @@ const PasswordRecoveryModal = (props: PasswordModalProps): JSX.Element => {
           <NavigationFooter
             codeVerified={codeVerified}
             isLoading={isSendingEmail || isVerifyingCode || isUpdatingPassword}
-            token={""}
+            token=""
           />
         </div>
       </HandleContinueContext.Provider>

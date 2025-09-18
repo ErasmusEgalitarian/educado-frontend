@@ -1,7 +1,8 @@
 import "react-toastify/dist/ReactToastify.css";
 import { ReactNode } from "react";
 import { ToastContainer } from "react-toastify";
-import { Navbar } from "./Navbar";
+
+import NavbarFull from "./navbar-full";
 
 /**
  * Layout component
@@ -15,7 +16,7 @@ const Layout = ({ children }: { children: ReactNode[] | ReactNode }) => {
       <div className="flex w-screen h-screen text-gray-700">
         <div className="flex flex-col flex-grow">
           {/** Top Nav bar */}
-          <Navbar />
+          <NavbarFull />
 
           {/** Content */}
           <main className="flex-grow overflow-x-hidden bg-gradient-to-br from-[#c8e5ec] to-[white]">

@@ -1,7 +1,8 @@
+import axios from "axios";
+
 import { CertificateIds } from "@certificates/types/certificate-types";
 import { CERT_URL } from "@common/constants/environment";
 import { getUserToken } from "@user/utilities/get-local-user";
-import axios from "axios";
 
 const client = axios.create({
     baseURL: CERT_URL,

@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 
 import imageNotFoundImage from "@assets/image-not-found.png";
 import StorageServices from "@common/api/storage.services";
-import { Course } from "@courses/types/Course";
-import categories from "../utilities/course-categories";
-import statuses from "../utilities/course-statuses";
-import { LastEdited } from "./last-edited";
 import StarRating from "@common/components/StarRating";
 import { getAverageRatingOfCourse } from "@courses/api/course-queries";
+import { Course } from "@courses/types/Course";
+
+import categories from "../utilities/course-categories";
+import statuses from "../utilities/course-statuses";
+
+import { LastEdited } from "./last-edited";
 
 const CourseListCardLoading = () => {
   return (
@@ -55,6 +57,7 @@ export const CourseListCard = ({ course }: { course: Course }) => {
         setImageSrc(fileSrc);
       } catch (error) {
         setImageSrc(imageNotFoundImage);
+        console.error("Error fetching image:", error);
       } finally {
         setIsLoading(false);
       }

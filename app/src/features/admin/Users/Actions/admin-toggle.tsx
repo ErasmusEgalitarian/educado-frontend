@@ -1,7 +1,8 @@
+import { FC, useEffect, useState } from "react";
+
 import { changeUserRole } from "@admin/api/admin-mutations";
 import { getSingleUserDetails } from "@admin/api/admin-queries";
 import { getUserToken } from "@user/utilities/get-local-user";
-import { FC, useEffect, useState } from "react";
 
 interface AdminToggleButtonProps {
   applicationId: string;

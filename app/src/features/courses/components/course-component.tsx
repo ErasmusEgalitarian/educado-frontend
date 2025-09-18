@@ -2,22 +2,25 @@ import { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
 import StorageServices from "@common/api/storage.services";
+import { Dropzone } from "@common/components/dropzone";
+import GenericModalComponent from "@common/components/generic-modal-component";
+import { ToolTipIcon } from "@common/components/ToolTip/ToolTipIcon";
+import { useNotifications } from "@common/context/NotificationContext";
 import { useApi } from "@common/hooks/use-api";
+import Layout from "@common/layout/Layout";
+import Loading from "@common/layout/Loading";
 import {
   createCourse as createNewCourse,
   updateCourseDetail,
 } from "@courses/api/course-mutations";
 import { Course, NewCourse } from "@courses/types/Course";
-import { useNotifications } from "@common/context/NotificationContext";
 import categories from "@courses/utilities/course-categories";
 import { getUserInfo } from "@user/utilities/get-local-user";
-import { Dropzone } from "@common/components/dropzone";
-import { ToolTipIcon } from "@common/components/ToolTip/ToolTipIcon";
+
 import CourseGuideButton from "./course-guide";
-import GenericModalComponent from "@common/components/generic-modal-component";
-import Layout from "@common/layout/Layout";
-import Loading from "@common/layout/Loading";
+
 interface CourseComponentProps {
   token: string;
   id: string | undefined;

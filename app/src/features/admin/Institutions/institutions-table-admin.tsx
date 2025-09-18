@@ -9,13 +9,13 @@ import { IconContext } from "react-icons/lib";
 import { MdSearch } from "react-icons/md";
 import useSWR from "swr";
 
+import { getInstitutions } from "@admin/api/institution-queries";
+import { AddInstitutionButton } from "@admin/Institutions/Actions/add-institutions-button";
 import { DeleteInstitutionButton } from "@admin/Institutions/Actions/delete-institutions-button";
 import { UpdateInstitutionButton } from "@admin/Institutions/Actions/update-institutions-button";
 import Loading from "@common/layout/Loading";
 import { getUserToken } from "@user/utilities/get-local-user";
 
-import { AddInstitutionButton } from "@admin/Institutions/Actions/add-institutions-button";
-import { getInstitutions } from "@admin/api/institution-queries";
 
 export const InstitutionsTableAdmin = () => {
   const [searchTerm, setSearchTerm] = useState("");

@@ -1,19 +1,21 @@
+import { ToggleModalContext } from "@login/pages/login-page";
 import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { useApi } from "@common/hooks/use-api";
-import { LoginResponseError } from "@common/unknown/interfaces/LoginResponseError";
-import { setUserInfo } from "../../user/utilities/get-local-user";
-
-import { HandleContinueContext } from "./EmailVerificationModal";
-import { ToggleModalContext } from "@login/pages/login-page";
-import { FormDataContext } from "./signup";
 import {
   postUserLogin,
   postUserSignup,
   postUserVerification,
 } from "@common/api/auth-mutations";
+import { useApi } from "@common/hooks/use-api";
+import { LoginResponseError } from "@common/unknown/interfaces/LoginResponseError";
+
+import { setUserInfo } from "../../user/utilities/get-local-user";
+
+import { HandleContinueContext } from "./EmailVerificationModal";
+import { FormDataContext } from "./signup";
+
 
 interface NavigationFooterProps {
   codeVerified: boolean;

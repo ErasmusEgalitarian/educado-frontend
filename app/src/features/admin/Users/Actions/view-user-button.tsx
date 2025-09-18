@@ -2,16 +2,17 @@ import { FC, useState } from "react";
 import { MdRemoveRedEye } from "react-icons/md";
 import { toast } from "react-toastify";
 
-import { useApi } from "@common/hooks/use-api";
-import { Application } from "@common/unknown/interfaces/Application";
-import { ContentCreator } from "@common/unknown/interfaces/ContentCreator";
-import { User } from "@user/types/user-types";
 import {
   getContentCreator,
   getSingleUserDetails,
 } from "@admin/api/admin-queries";
 import { GetSingleCCApplication } from "@common/api/auth-queries";
+import { useApi } from "@common/hooks/use-api";
+import { Application } from "@common/unknown/interfaces/Application";
+import { ContentCreator } from "@common/unknown/interfaces/ContentCreator";
+import { User } from "@user/types/user-types";
 import { getUserToken } from "@user/utilities/get-local-user";
+
 import UserDetailsModal from "../details-modal-user";
 
 interface ViewUserButtonProps {

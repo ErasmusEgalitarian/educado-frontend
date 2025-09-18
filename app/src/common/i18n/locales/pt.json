@@ -1,0 +1,128 @@
+{
+  "welcome": {
+    "title": "Boas vindas à plataforma de aprendizagem!",
+    "subtitle": "Cadastre-se agora e ajude a promover seu trabalho e atingir um público mais amplo por meio da criação de conteúdo.",
+    "loginButton": "Entrar",
+    "signupButton": "Cadastrar"
+  },
+  "navigation": {
+    "courses": "Cursos",
+    "certificates": "Certificados",
+    "profile": "Perfil",
+    "settings": "Configurações",
+    "admin": "Administração",
+    "logout": "Sair"
+  },
+  "errors": {
+    "network": "Erro de rede. Por favor, tente novamente mais tarde.",
+    "unauthorized": "Você não está autorizado a realizar esta ação.",
+    "notFound": "Erro 404! O recurso solicitado não foi encontrado.",
+    "internal": "Ocorreu um erro interno no servidor. Por favor, tente novamente mais tarde.",
+    "signup_error": "Erro ao cadastrar. Por favor, tente novamente mais tarde."
+  },
+  "common": {
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "create": "Criar",
+    "update": "Atualizar",
+    "submit": "Enviar",
+    "loading": "Carregando...",
+    "error": "Erro",
+    "success": "Sucesso",
+    "confirm": "Confirmar",
+    "yes": "Sim",
+    "no": "Não",
+    "back": "Voltar",
+    "back_to_home": "Voltar para a página inicial"
+  },
+  "courses": {
+    "title": "Cursos",
+    "category": "Categoria",
+    "rating": "Nota",
+    "students": "alunos",
+    "instructor": "Criador de Conteúdo",
+    "subscriptions": "Inscritos"
+  },
+  "language": {
+    "portuguese": "Português",
+    "english": "Inglês",
+    "switchLanguage": "Alterar Idioma"
+  },
+  "loginCarousel": {
+    "slide0": {
+      "title": "Bem-vindo ao nosso portal de aprendizado Educado",
+      "body": "Junte-se a nós para transformar vidas. Oferecemos acesso a conteúdo personalizado para pessoas que precisam, melhorando condições de vida e oportunidades de emprego."
+    },
+    "slide1": {
+      "title": "Seja um criador de conteúdo",
+      "body": "Ajude a promover seu trabalho e alcance um público mais amplo. Conecte-se a estudantes voluntários e instituições que desejam disseminar informações."
+    },
+    "slide2": {
+      "title": "Registre-se agora e faça a diferença!",
+      "body": "Seja parte de nossa comunidade que facilita o acesso a conteúdo direcionado e formas práticas de compartilhar conhecimento."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Bem-vindo de volta ao Educado!",
+      "email": {
+        "label": "Email",
+        "placeholder": "usuario@gmail.com"
+      },
+      "password": {
+        "label": "Senha",
+        "placeholder": "**********"
+      },
+      "actions": {
+        "submit": "Entrar",
+        "back": "Voltar"
+      },
+      "forgot_password": "Esqueceu sua senha?",
+      "errors": {
+        "generic": "Falha no login. Por favor, tente novamente.",
+        "invalid_email": "Insira um email válido.",
+        "invalid_password": "Senha incorreta. Por favor, tente novamente.",
+        "not_approved": "A conta associada a este e-mail não foi aprovada.",
+        "rejected": "A conta associada a este e-mail foi rejeitada."
+      }
+    },
+    "signup": {
+      "title": "Crie a sua conta gratuitamente!",
+      "firstName": {
+        "label": "Nome",
+        "placeholder": "Nome"
+      },
+      "lastName": {
+        "label": "Sobrenome",
+        "placeholder": "Sobrenome"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "usuario@gmail.com"
+      },
+      "password": {
+        "label": "Senha",
+        "placeholder": "**********"
+      },
+      "confirmPassword": {
+        "label": "Confirmar senha",
+        "placeholder": "**********"
+      },
+      "actions": {
+        "submit": "Cadastrar",
+        "back": "Voltar"
+      },
+      "messages": {
+        "verification_sent": "E-mail de verificação enviado. Por favor, verifique sua caixa de entrada."
+      },
+      "errors": {
+        "generic": "Erro ao cadastrar. Por favor, tente novamente mais tarde.",
+        "email_exists": "Já existe um usuário com o email fornecido.",
+        "password_mismatch": "As senhas não coincidem.",
+        "invalid_email": "Insira um email válido."
+      }
+    }
+  }
+}

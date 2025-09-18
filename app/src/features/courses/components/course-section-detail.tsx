@@ -8,7 +8,7 @@ import {
   mdiDotsVerticalCircle,
 } from "@mdi/js";
 import { Icon } from "@mdi/react";
-import { useState } from "react";
+import React, { useState } from "react";
 
 interface Inputs {
   selfDestroy: Function;
@@ -16,10 +16,13 @@ interface Inputs {
 }
 
 // Create section on the course creation page
-export const SectionDetail = ({ selfDestroy, index }: Inputs): JSX.Element => {
+export const SectionDetail = ({
+  selfDestroy,
+  index,
+}: Inputs): React.JSX.Element => {
   const [arrowDirction, setArrowDirection] = useState<any>(mdiChevronDown);
   const [sectionTitle, setSectionTitle] = useState<string>(
-    "Nome da seção " + index,
+    "Nome da seção " + index
   );
 
   //Toggles the arrow direction between up and down
@@ -43,7 +46,7 @@ export const SectionDetail = ({ selfDestroy, index }: Inputs): JSX.Element => {
   }
 
   return (
-    <div className="collapse w-full rounded border bg-white shadow-lg rounded-lg ">
+    <div className="collapse w-full border bg-white shadow-lg rounded-lg ">
       <input
         type="checkbox"
         className="peer w-3/4"
@@ -71,12 +74,12 @@ export const SectionDetail = ({ selfDestroy, index }: Inputs): JSX.Element => {
       </label>
 
       <div className="collapse-content w-full">
-        <div className="flex flex-col rounded-lg h-100  w-full rounded space-2  p-4 px-128 space-y-5">
+        <div className="flex flex-col rounded-lg h-100  w-full space-2  p-4 px-128 space-y-5">
           <div className=" ">
             <label htmlFor="title">Nome </label> {/*Title of section*/}
             <input
               type="text"
-              placeholder={"Nome da seção " + index}
+              placeholder={"Nome da seção " + String(index)}
               onChange={(e) => {
                 setSectionTitle(e.target.value);
               }}

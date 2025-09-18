@@ -1,5 +1,3 @@
-import { useNotifications } from "@common/context/NotificationContext";
-import useAuthStore from "@common/context/useAuthStore";
 import {
   mdiBellOutline,
   mdiAccount,
@@ -10,11 +8,14 @@ import {
   mdiChatQuestionOutline,
 } from "@mdi/js";
 import { Icon } from "@mdi/react";
-import { getUserInfo } from "@user/utilities/get-local-user";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export const Navbar = () => {
+import { useNotifications } from "@common/context/NotificationContext";
+import useAuthStore from "@common/context/useAuthStore";
+import { getUserInfo } from "@user/utilities/get-local-user";
+
+const NavbarFull = () => {
   const { clearToken } = useAuthStore((state) => state);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { addNotification, notifications, setNotifications } =
@@ -249,3 +250,5 @@ export const Navbar = () => {
     </main>
   );
 };
+
+export default NavbarFull;

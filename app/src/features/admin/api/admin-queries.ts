@@ -1,7 +1,8 @@
+import axios from "axios";
+
 import { BACKEND_URL } from "@common/constants/environment";
 import { ContentCreator } from "@common/unknown/interfaces/ContentCreator";
 import { User } from "@user/types/user-types";
-import axios from "axios";
 
 export const getSingleUserDetails = async (id: string, token: string) => {
     const res = await axios.get<User>(`${BACKEND_URL}/api/users/${id}`, {

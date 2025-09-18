@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { IconContext } from "react-icons";
 import { MdStar } from "react-icons/md";
 import useSWR from "swr";
@@ -16,10 +17,11 @@ import {
 } from "@common/components/Table";
 import { usePagination } from "@common/hooks/use-pagination";
 import { SearchBar } from "@common/layout/SearchBar";
-import { CreatorPopulatedCourse } from "@courses/types/Course";
 import { getAllCourses } from "@courses/api/course-queries";
+import { CreatorPopulatedCourse } from "@courses/types/Course";
 
 export const CoursesTableAdmin = () => {
+  const { t } = useTranslation();
   const [filteredCourses, setFilteredCourses] = useState<
     CreatorPopulatedCourse[]
   >([]);
@@ -111,7 +113,7 @@ export const CoursesTableAdmin = () => {
           </TableCell>,
           <TableCell key={`subscriptions-${course._id}`}>
             {course.numOfSubscriptions && (
-              <p className="whitespace-normal">{`${course.numOfSubscriptions} alunos`}</p>
+              <p className="whitespace-normal">{`${course.numOfSubscriptions} ${t("courses.students")}`}</p>
             )}
           </TableCell>,
           <TableCell key={`rating-${course._id}`}>
@@ -152,19 +154,19 @@ export const CoursesTableAdmin = () => {
             isHeaderRow
             cells={[
               <TableCell key="name">
-                <p>Nome</p>
+                <p>{t("courses.title")}</p>
               </TableCell>,
               <TableCell key="creator">
-                <p>Criador de Conteúdo</p>
+                <p>{t("courses.instructor")}</p>
               </TableCell>,
               <TableCell key="category">
-                <p>Categoria</p>
+                <p>{t("courses.category")}</p>
               </TableCell>,
               <TableCell key="subscribers">
-                <p>Inscritos</p>
+                <p>{t("courses.subscriptions")}</p>
               </TableCell>,
               <TableCell key="rating">
-                <p>Nota</p>
+                <p>{t("courses.rating")}</p>
               </TableCell>,
               <TableCell key="actions">
                 {/* Empty col for actions */}

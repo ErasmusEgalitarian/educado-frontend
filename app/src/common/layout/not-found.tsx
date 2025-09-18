@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import educado from "@assets/educado.png";
@@ -5,6 +6,7 @@ import logo from "@assets/logo.png";
 import FrontLogo from "@assets/WelEdnew.png";
 
 const NotFound = () => {
+  const { t } = useTranslation();
   return (
     <main className="relative min-h-screen bg-gradient-to-br from-[#c8e5ec] to-[white] overflow-hidden">
       <nav className="navbar bg-base-100 border-b shadow fixed top-0 z-10">
@@ -28,14 +30,14 @@ const NotFound = () => {
         />
         <div className="w-[762px] h-[952px] px-5 rounded-sm flex-col justify-center items-center gap-2 inline-flex">
           <h1 className="w-600px text-neutral-700 text-[55px] font-bold font-['Lato'] translate-x-[370px] translate-y-[-90px]">
-            Erro 404! algo deu errado.
+            {t("errors.notFound")}
           </h1>
           <Link to="/welcome">
             <button
               type="submit"
               className="absolute bottom-60 left-[50%] transform -translate-x-1/2 w-208px h-52px px-28 py-3 rounded-lg justify-center items-start gap-2 inline-flex bg-cyan-300 text-white hover:bg-cyan-500 hover:text-gray-50"
             >
-              Voltar à página inicial
+              {t("common.back_to_home")}
             </button>
           </Link>
         </div>

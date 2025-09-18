@@ -1,6 +1,7 @@
+import axios from "axios";
+
 import { Institution } from "@admin/types/institution-types";
 import { BACKEND_URL } from "@common/constants/environment";
-import axios from "axios";
 
 export const getInstitutions = async (token: string) => {
     const res = await axios.get<Institution[]>(

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
+import GenericModalComponent from "@common/components/generic-modal-component";
 import { Application } from "@common/unknown/interfaces/Application";
 import { ContentCreator } from "@common/unknown/interfaces/ContentCreator";
 import { User } from "@user/types/user-types";
-import GenericModalComponent from "@common/components/generic-modal-component";
 /*
 
 This component is used to display the user details modal in the admin dashboard.

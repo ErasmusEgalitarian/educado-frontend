@@ -1,10 +1,20 @@
 // Hooks
 import { mdiChevronDown, mdiChevronUp } from "@mdi/js";
 import { Icon } from "@mdi/react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate, Link, useParams } from "react-router-dom";
+
+import { postNewApplication } from "@common/api/auth-mutations";
+import GenericModalComponent from "@common/components/generic-modal-component";
+import Motivation from "@common/components/motivation";
+import { useApi } from "@common/hooks/use-api";
+import NavbarSimple from "@common/layout/navbar-simple";
 import { dynamicForms } from "@common/unknown/dynamicForms";
+import { NewApplication } from "@common/unknown/interfaces/Application";
+import { tempObjects } from "@common/utilities/form-states";
+import AcademicExperienceForm from "@user/components/academic-experience";
+import ProfessionalExperienceForm from "@user/components/professional-experience";
 
 // Interfaces
 
@@ -71,9 +81,8 @@ const Application = () => {
   ]);
 
   //callback
-  const { call: sendApplication, isLoading: submitLoading } = useApi(
-    AuthService.postNewApplication
-  );
+  const { call: sendApplication, isLoading: submitLoading } =
+    useApi(postNewApplication);
 
   // Functions to open and close the confirmation modal
   const openModal = () => {
@@ -127,7 +136,7 @@ const Application = () => {
   return (
     <main className="flex-grow overflow-x-hidden bg-secondary h-screen font-['Montserrat']">
       {/* Mini navbar */}
-      <MiniNavbar />
+      <NavbarSimple />
 
       {/* Header and paragraph text */}
       <div className="items-center text-center p-10 pt-20">
@@ -169,7 +178,7 @@ const Application = () => {
               className={`second_form_open w-[1000px] h-[72px] p-6 shadow-xl flex-col justify-start items-start gap-20 inline-flex font-bold pl-6 ${
                 isAcademicExperienceOpen
                   ? "rounded-tl-lg rounded-tr-lg bg-primary text-white" // When open: rounded top corners, primary background, white text
-                  : "rounded-lg bg-white text-neutral-700 text-grayDark" // When closed: rounded corners, white background, gray text
+                  : "rounded-lg bg-white text-grayDark" // When closed: rounded corners, white background, gray text
               }`}
               onClick={() => {
                 setIsAcademicExperienceOpen(!isAcademicExperienceOpen);
@@ -234,7 +243,7 @@ const Application = () => {
               className={`third_form_open w-[1000px] h-[72px] p-6 shadow-xl flex-col justify-start items-start gap-20 inline-flex font-bold pl-6 ${
                 isProfessionalExperienceOpen
                   ? "rounded-tl-lg rounded-tr-lg bg-primary text-white" // When open: rounded top corners, primary background, white text
-                  : "rounded-lg bg-white text-neutral-700 text-grayDark" // When closed: rounded corners, white background, gray text
+                  : "rounded-lg bg-white text-grayDark" // When closed: rounded corners, white background, gray text
               }`}
               onClick={() => {
                 setIsProfessionalExperienceOpen(!isProfessionalExperienceOpen);

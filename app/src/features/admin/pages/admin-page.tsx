@@ -1,8 +1,9 @@
+import { useState } from "react";
+
 import { CoursesTableAdmin } from "@admin/Courses/courses-table-admin";
 import { InstitutionsTableAdmin } from "@admin/Institutions/institutions-table-admin";
 import { UsersTableAdmin } from "@admin/Users/users-table-admin";
 import Layout from "@common/layout/Layout";
-import { useState } from "react";
 
 const AdminPage = () => {
   type TableOptions = "users" | "institutions" | "courses";

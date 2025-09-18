@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { getUserInfo } from "@user/utilities/get-local-user";
+
+import StarRating from "@common/components/StarRating";
+import { getAverageRatingOfCC } from "@courses/api/course-mutations";
+import { Course } from "@courses/types/Course";
 import {
   getNumberOfCourses,
   getTotalSubscriberCount,
 } from "@courses/utilities/course-utilities";
-import { Course } from "@courses/types/Course";
-import { getAverageRatingOfCC } from "@courses/api/course-mutations";
-import StarRating from "@common/components/StarRating";
+import { getUserInfo } from "@user/utilities/get-local-user";
 
 interface PersonalInsightsProps {
   courses: Course[];
@@ -22,8 +23,7 @@ const userInfo = getUserInfo();
  * This component displays personal insights about the user.
  * (Right side of the Courses page at the time of writing)
  */
-const PersonalInsights = (props: PersonalInsightsProps) => {
-  const courses = props.courses ?? [];
+const PersonalInsights = ({ courses }: PersonalInsightsProps) => {
   const [averageRating, setAverageRating] = useState<number>(0);
   const [selectedPeriod, setSelectedPeriod] = useState("all");
 
