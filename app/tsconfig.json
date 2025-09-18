@@ -10,33 +10,28 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": [
-      "jest",
-      "cypress"
-    ],
-    "baseUrl": "./", 
+    "types": ["jest", "cypress"],
+    "baseUrl": "./",
     "paths": {
-      "@assets/*": ["src/assets/*"],
-      "@components/*": ["src/components/*"],
-      "@contexts/*": ["src/contexts/*"],
-      "@helpers/*": ["src/helpers/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@interfaces/*": ["src/interfaces/*"],
-      "@pages/*": ["src/pages/*"],
-      "@services/*": ["src/services/*"],
-      "@utilities/*": ["src/utilities/*"]
+      "@assets/*": ["src/assets/*"], // OK
+      "@common/*": ["src/common/*"], // OK
+      "@user/*": ["src/features/user/*"], // OK
+      "@profile/*": ["src/features/profile/*"], // OK
+      "@login/*": ["src/features/login/*"], // OK
+      "@courses/*": ["src/features/courses/*"], // OK
+      "@certificates/*": ["src/features/certificates/*"], // OK
+      "@application/*": ["src/features/application/*"], // OK
+      "@admin/*": ["src/features/admin/*"], // OK
+      "@utilities/*": ["src/utilities/*"], // OK
+      "@helpers/*": ["src/helpers/*"]
     }
   },
-  "include": [
-    "src",
-    "__tests__",
-    "cypress"
-  ],
+  "include": ["src", "__tests__", "cypress"],
   "references": [{ "path": "./tsconfig.node.json" }],
-	"exclude": ["cypress.config.ts", "cypress", "node_modules"]
+  "exclude": ["cypress.config.ts", "cypress", "node_modules"]
 }

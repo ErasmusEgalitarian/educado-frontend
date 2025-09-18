@@ -99,7 +99,7 @@ export const EditLecture = ({ data, handleEdit }: Props) => {
         content: newData.content,
       },
       token,
-      data._id,
+      data._id
     )
       .then((res) => {
         if (lectureVideo !== null) {

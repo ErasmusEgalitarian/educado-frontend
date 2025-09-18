@@ -51,7 +51,7 @@ export default defineConfig([
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        project: true,
+        project: false,
       },
     },
     // Registers the plugins we want to use in this block.
@@ -130,6 +130,7 @@ export default defineConfig([
       "import/named": "error",
       // Prevents importing the same module multiple times.
       "import/no-duplicates": "error",
+      //"import/no-relative-parent-imports": "error",
     },
   },
 
