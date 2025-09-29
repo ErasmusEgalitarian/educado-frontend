@@ -1,3 +1,7 @@
+# Archive notice
+
+This project has been archived and moved into a new mono repo [educado-backend](https://github.com/ErasmusEgalitarian/educado-backend).
+
 ## Setting up and running the content creator web application (frontend)
 
 1. Clone **educado-frontend** repository from Github
