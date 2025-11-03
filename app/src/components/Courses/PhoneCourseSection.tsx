@@ -4,6 +4,7 @@ import {  Section} from '../../interfaces/Course';
 import { useState } from 'react';
 import { useCourse, useSections } from '@contexts/courseStore';
 import PhoneExercisesAndLectures from './PhoneExercisesAndLectures';
+import { useCourseManagingHelper } from '@hooks/useCourseManagingHelper';
 // The interface is currently empty and not used anywhere in the code, so it can be safely deleted.
 
 const PhoneCourseSession: React.FC = () => {
@@ -11,8 +12,11 @@ const PhoneCourseSession: React.FC = () => {
     const { course } = useCourse();
     const [showExercises, setShowExercises] = useState(false);
     const [selectedSection, setSelectedSection] = useState<{ id: string; title: string } | undefined>(undefined);
-    const uniqueSections = new Set<string>();
     const progress = 40;
+    const { filterUniqueItems } = useCourseManagingHelper();
+
+    const filteredSections = filterUniqueItems(sections) as Section[];
+
 
     if (showExercises) {
         return selectedSection ? <PhoneExercisesAndLectures course={course} selectedSection={selectedSection} /> : null;
@@ -49,9 +53,8 @@ const PhoneCourseSession: React.FC = () => {
                 </div>
             </button>
             
-            {sections?.map((section: Section, index: number) => {
-                if (index <= 3 && !uniqueSections.has(section._id)) {
-                    uniqueSections.add(section._id);
+            {filteredSections.map((section: Section, index: number) => {
+                if (index < 3) {
                     return (
                         <button
                         key={section._id}

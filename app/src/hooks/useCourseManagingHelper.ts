@@ -4,6 +4,7 @@ import { SubmitFunction } from "@interfaces/Course";
 import { useNotifications } from "@components/notification/NotificationContext";
 import { useNavigate } from "react-router-dom";
 import { prepareFormData } from "@utilities/formDataUtils";
+import { Exercise, Section, Lecture } from "@interfaces/Course";
 
 export const useCourseManagingHelper = () => {
     const { addNotification } = useNotifications();
@@ -98,6 +99,17 @@ export const useCourseManagingHelper = () => {
         return { errors, isMissingRequiredFields };
     }
 
+    const filterUniqueItems = (arr: Section[] | Exercise[] | Lecture[]) => {
+        const uniqueItems = new Set();
+        return arr.filter((item) => {
+            if (!uniqueItems.has(item._id)) {
+                uniqueItems.add(item._id);
+                return true;
+            }
+            return false;
+        });
+    }
+
 
     return {
         handleDialogEvent,
@@ -107,6 +119,7 @@ export const useCourseManagingHelper = () => {
         checkAllSectionsGotComponents,
         someSectionMissingRequiredFields,
         courseMissingRequiredFields,
+        filterUniqueItems,
     };
 };
 

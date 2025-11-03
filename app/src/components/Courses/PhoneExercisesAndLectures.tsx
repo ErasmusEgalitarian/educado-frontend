@@ -5,6 +5,7 @@ import { useSections } from '@contexts/courseStore';
 
 import { useState } from 'react';
 import PhoneCourseSection from './PhoneCourseSection';
+import { useCourseManagingHelper } from '@hooks/useCourseManagingHelper';
 
 
 interface PhoneExercisesAndLecturesProps {
@@ -14,14 +15,17 @@ interface PhoneExercisesAndLecturesProps {
 
 const PhoneExercisesAndLectures: React.FC<PhoneExercisesAndLecturesProps> = ({ course, selectedSection }) => {
     const { getAllSectionExercises, getAllSectionLectures } = useSections();
+    const { filterUniqueItems } = useCourseManagingHelper();
 
     const [ lectureData ] = useState<Lecture[]>(getAllSectionLectures(selectedSection.id));
     const [ exerciseData ] = useState<Exercise[]>(getAllSectionExercises(selectedSection.id));
 
     const [showCourseSection, setShowCourseSection] = useState(false);
+    const filteredLectures = filterUniqueItems(lectureData) as Lecture[];
+    const filteredExercises = filterUniqueItems(exerciseData) as Exercise[];
 
-    const uniqueLectures = new Set<string>();
-    const uniqueExercises = new Set<string>();
+
+    
 
     if (showCourseSection) {
         return <PhoneCourseSection/>;
@@ -49,49 +53,41 @@ const PhoneExercisesAndLectures: React.FC<PhoneExercisesAndLecturesProps> = ({ c
                 <hr className="w-5/6" />
             </div>
 
-            {lectureData.map((lecture: Lecture) => {
-                if (!uniqueLectures.has(lecture._id)) {
-                    uniqueLectures.add(lecture._id);
-                    return (
-                        <button 
-                            key={lecture._id}
-                            className="flex flex-row justify-between items-center ml-5 mr-5 mt-4 border-2 border-gray text-black h-14 rounded-lg text-xs cursor-default">
-                        <div className="flex flex-col items-start">
-                            <h2 className="ml-3 mt-1 font-bold">{lecture.title}</h2>
-                            <h2 className="ml-3 mt-1 text-gray-600 text-[9px]">Não iniciado</h2>
+            {filteredLectures.map((lecture: Lecture) => {
+                return (
+                    <button 
+                        key={lecture._id}
+                        className="flex flex-row justify-between items-center ml-5 mr-5 mt-4 border-2 border-gray text-black h-14 rounded-lg text-xs cursor-default">
+                    <div className="flex flex-col items-start">
+                        <h2 className="ml-3 mt-1 font-bold">{lecture.title}</h2>
+                        <h2 className="ml-3 mt-1 text-gray-600 text-[9px]">Não iniciado</h2>
+                    </div>
+                    <div className="flex mr-3 bg-[#166276] rounded-2xl w-7 h-7 justify-center items-center">
+                        <Icon 
+                            path={lecture.contentType === "video" ? mdiPlay : mdiNotebookEditOutline} 
+                            size={lecture.contentType === "video" ? 0.9 : 0.7} 
+                            className="text-white" 
+                        />
+                    </div>
+                </button>
+                )
+                }
+            )}
+
+            {filteredExercises.map((exercise: Exercise) => {
+                return (
+                    <button key={exercise._id}
+                    className="flex flex-row justify-between items-center ml-5 mr-5 mt-4 border-2 border-gray text-black h-14 rounded-lg text-xs cursor-default">
+                        <div className="flex flex-col items-start ml-3">
+                            <h2 className="mt-1 font-bold">{exercise.title}</h2>
+                            <h2 className="mt-1 text-gray-600 text-[9px]">Não iniciado</h2>
                         </div>
                         <div className="flex mr-3 bg-[#166276] rounded-2xl w-7 h-7 justify-center items-center">
-                            <Icon 
-                                path={lecture.contentType === "video" ? mdiPlay : mdiNotebookEditOutline} 
-                                size={lecture.contentType === "video" ? 0.9 : 0.7} 
-                                className="text-white" 
-                            />
+                            <Icon path={mdiBookOpenBlankVariantOutline} size={0.65} className="text-white" />
                         </div>
                     </button>
-                    )
-                }
-                return null;
-            }
-            )}
-                
-            {exerciseData.map((exercise: Exercise) => {
-                if (!uniqueExercises.has(exercise._id)) {
-                    uniqueExercises.add(exercise._id);
-                    return (
-                        <button key={exercise._id}
-                        className="flex flex-row justify-between items-center ml-5 mr-5 mt-4 border-2 border-gray text-black h-14 rounded-lg text-xs cursor-default">
-                            <div className="flex flex-col items-start ml-3">
-                                <h2 className="mt-1 font-bold">{exercise.title}</h2>
-                                <h2 className="mt-1 text-gray-600 text-[9px]">Não iniciado</h2>
-                            </div>
-                            <div className="flex mr-3 bg-[#166276] rounded-2xl w-7 h-7 justify-center items-center">
-                                <Icon path={mdiBookOpenBlankVariantOutline} size={0.65} className="text-white" />
-                            </div>
-                        </button>
-                    )
-                }
-                return null;
-            }
+                )
+             }
             )}
                 
             
